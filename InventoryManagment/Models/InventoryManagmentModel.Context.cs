@@ -32,7 +32,7 @@ namespace InventoryManagment.Models
         public virtual DbSet<Categories> Categories { get; set; }
         public virtual DbSet<Departments> Departments { get; set; }
         public virtual DbSet<Employees> Employees { get; set; }
-        public virtual DbSet<Equipment> Equipment { get; set; }
+        public virtual DbSet<Equipments> Equipments { get; set; }
         public virtual DbSet<EquipmentStatus> EquipmentStatus { get; set; }
         public virtual DbSet<InventoryMovements> InventoryMovements { get; set; }
         public virtual DbSet<Locations> Locations { get; set; }

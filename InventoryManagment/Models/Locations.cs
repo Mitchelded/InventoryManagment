@@ -17,7 +17,7 @@ namespace InventoryManagment.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Locations()
         {
-            this.Equipment = new HashSet<Equipment>();
+            this.Equipments = new HashSet<Equipments>();
             this.InventoryMovements = new HashSet<InventoryMovements>();
             this.InventoryMovements1 = new HashSet<InventoryMovements>();
         }
@@ -28,7 +28,7 @@ namespace InventoryManagment.Models
     
         public virtual Departments Departments { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Equipment> Equipment { get; set; }
+        public virtual ICollection<Equipments> Equipments { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<InventoryMovements> InventoryMovements { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

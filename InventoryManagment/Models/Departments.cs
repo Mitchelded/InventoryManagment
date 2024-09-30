@@ -19,7 +19,7 @@ namespace InventoryManagment.Models
         {
             this.BudgetAllocations = new HashSet<BudgetAllocations>();
             this.Employees = new HashSet<Employees>();
-            this.Equipment = new HashSet<Equipment>();
+            this.Equipments = new HashSet<Equipments>();
             this.Locations = new HashSet<Locations>();
             this.Students = new HashSet<Students>();
         }
@@ -33,7 +33,7 @@ namespace InventoryManagment.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Employees> Employees { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Equipment> Equipment { get; set; }
+        public virtual ICollection<Equipments> Equipments { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Locations> Locations { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

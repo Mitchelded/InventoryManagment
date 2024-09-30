@@ -21,6 +21,6 @@ namespace InventoryManagment.Models
         public string Status { get; set; }
         public Nullable<System.DateTime> ResolvedDate { get; set; }
     
-        public virtual Equipment Equipment { get; set; }
+        public virtual Equipments Equipments { get; set; }
     }
 }

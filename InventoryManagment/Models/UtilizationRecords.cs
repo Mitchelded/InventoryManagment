@@ -23,7 +23,7 @@ namespace InventoryManagment.Models
         public string Purpose { get; set; }
     
         public virtual Employees Employees { get; set; }
-        public virtual Equipment Equipment { get; set; }
+        public virtual Equipments Equipments { get; set; }
         public virtual Students Students { get; set; }
     }
 }

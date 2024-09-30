@@ -22,7 +22,7 @@ namespace InventoryManagment.Models
         public Nullable<decimal> Cost { get; set; }
     
         public virtual Employees Employees { get; set; }
-        public virtual Equipment Equipment { get; set; }
-        public virtual Equipment Equipment1 { get; set; }
+        public virtual Equipments Equipments { get; set; }
+        public virtual Equipments Equipments1 { get; set; }
     }
 }

@@ -83,21 +83,81 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Enums\Codes.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\InventoryManagment.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>InventoryManagment.Context.tt</DependentUpon>
+    <Compile Include="Models\Audits.cs">
+      <DependentUpon>InventoryManagmentModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\InventoryManagment.Designer.cs">
+    <Compile Include="Models\BudgetAllocations.cs">
+      <DependentUpon>InventoryManagmentModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Categories.cs">
+      <DependentUpon>InventoryManagmentModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Departments.cs">
+      <DependentUpon>InventoryManagmentModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Employees.cs">
+      <DependentUpon>InventoryManagmentModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Equipment.cs">
+      <DependentUpon>InventoryManagmentModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EquipmentStatus.cs">
+      <DependentUpon>InventoryManagmentModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\InventoryManagmentModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>InventoryManagment.edmx</DependentUpon>
+      <DependentUpon>InventoryManagmentModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\InventoryManagmentModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>InventoryManagmentModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\InventoryManagmentModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>InventoryManagmentModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\InventoryMovements.cs">
+      <DependentUpon>InventoryManagmentModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Locations.cs">
+      <DependentUpon>InventoryManagmentModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MaintenanceRecords.cs">
+      <DependentUpon>InventoryManagmentModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Orders.cs">
+      <DependentUpon>InventoryManagmentModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>InventoryManagmentModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_helpdiagrams_Result.cs">
+      <DependentUpon>InventoryManagmentModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Students.cs">
+      <DependentUpon>InventoryManagmentModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Suppliers.cs">
+      <DependentUpon>InventoryManagmentModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sysdiagrams.cs">
+      <DependentUpon>InventoryManagmentModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UtilizationRecords.cs">
+      <DependentUpon>InventoryManagmentModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\WarrantyClaims.cs">
+      <DependentUpon>InventoryManagmentModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -116,12 +176,12 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EntityDeploy Include="Models\InventoryManagment.edmx">
+    <EntityDeploy Include="Models\InventoryManagmentModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>InventoryManagment.Designer.cs</LastGenOutput>
+      <LastGenOutput>InventoryManagmentModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="Models\InventoryManagment.edmx.diagram">
-      <DependentUpon>InventoryManagment.edmx</DependentUpon>
+    <None Include="Models\InventoryManagmentModel.edmx.diagram">
+      <DependentUpon>InventoryManagmentModel.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -134,19 +194,26 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Commands\" />
+    <Folder Include="Exceptions\" />
     <Folder Include="Helpers\" />
     <Folder Include="Resources\" />
     <Folder Include="ViewModels\" />
     <Folder Include="Views\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Models\InventoryManagment.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>InventoryManagment.Context.cs</LastGenOutput>
-    </Content>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+    <Content Include="Models\InventoryManagmentModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>InventoryManagmentModel.edmx</DependentUpon>
+      <LastGenOutput>InventoryManagmentModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\InventoryManagmentModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>InventoryManagmentModel.edmx</DependentUpon>
+      <LastGenOutput>InventoryManagmentModel.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="packages\MaterialDesignThemes.5.1.0\build\MaterialDesignThemes.targets" Condition="Exists('packages\MaterialDesignThemes.5.1.0\build\MaterialDesignThemes.targets')" />

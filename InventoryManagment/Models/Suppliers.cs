@@ -17,7 +17,7 @@ namespace InventoryManagment.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Suppliers()
         {
-            this.Equipment = new HashSet<Equipment>();
+            this.Equipments = new HashSet<Equipments>();
             this.Orders = new HashSet<Orders>();
         }
     
@@ -28,7 +28,7 @@ namespace InventoryManagment.Models
         public string Email { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Equipment> Equipment { get; set; }
+        public virtual ICollection<Equipments> Equipments { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Orders> Orders { get; set; }
     }

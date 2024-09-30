@@ -24,7 +24,7 @@ namespace InventoryManagment.Models
     
         public virtual Employees Employees { get; set; }
         public virtual Employees Employees1 { get; set; }
-        public virtual Equipment Equipment { get; set; }
+        public virtual Equipments Equipments { get; set; }
         public virtual Locations Locations { get; set; }
         public virtual Locations Locations1 { get; set; }
     }

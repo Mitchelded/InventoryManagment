@@ -17,7 +17,7 @@ namespace InventoryManagment.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public EquipmentStatus()
         {
-            this.Equipment = new HashSet<Equipment>();
+            this.Equipments = new HashSet<Equipments>();
         }
     
         public int IdStatus { get; set; }
@@ -25,6 +25,6 @@ namespace InventoryManagment.Models
         public string Description { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Equipment> Equipment { get; set; }
+        public virtual ICollection<Equipments> Equipments { get; set; }
     }
 }

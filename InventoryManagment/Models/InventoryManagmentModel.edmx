@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="Хранилище InventoryManagmentModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="Хранилище InventoryManagmentModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Audits">
           <Key>
             <PropertyRef Name="IdAudit" />
@@ -52,7 +52,7 @@
           <Property Name="Position" Type="nchar" MaxLength="50" />
           <Property Name="DepartmentID" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="Equipment">
+        <EntityType Name="Equipments">
           <Key>
             <PropertyRef Name="IdEquipment" />
           </Key>
@@ -217,60 +217,60 @@
         </Association>
         <Association Name="FK_Equipment_Categories">
           <End Role="Categories" Type="Self.Categories" Multiplicity="1" />
-          <End Role="Equipment" Type="Self.Equipment" Multiplicity="*" />
+          <End Role="Equipments" Type="Self.Equipments" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Categories">
               <PropertyRef Name="IdCategories" />
             </Principal>
-            <Dependent Role="Equipment">
+            <Dependent Role="Equipments">
               <PropertyRef Name="CategoryID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Equipment_Departments">
           <End Role="Departments" Type="Self.Departments" Multiplicity="1" />
-          <End Role="Equipment" Type="Self.Equipment" Multiplicity="*" />
+          <End Role="Equipments" Type="Self.Equipments" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Departments">
               <PropertyRef Name="IdDepartments" />
             </Principal>
-            <Dependent Role="Equipment">
+            <Dependent Role="Equipments">
               <PropertyRef Name="DepartmentID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Equipment_EquipmentStatus">
           <End Role="EquipmentStatus" Type="Self.EquipmentStatus" Multiplicity="1" />
-          <End Role="Equipment" Type="Self.Equipment" Multiplicity="*" />
+          <End Role="Equipments" Type="Self.Equipments" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="EquipmentStatus">
               <PropertyRef Name="IdStatus" />
             </Principal>
-            <Dependent Role="Equipment">
+            <Dependent Role="Equipments">
               <PropertyRef Name="StatusID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Equipment_Locations">
           <End Role="Locations" Type="Self.Locations" Multiplicity="1" />
-          <End Role="Equipment" Type="Self.Equipment" Multiplicity="*" />
+          <End Role="Equipments" Type="Self.Equipments" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Locations">
               <PropertyRef Name="IdLocations" />
             </Principal>
-            <Dependent Role="Equipment">
+            <Dependent Role="Equipments">
               <PropertyRef Name="LocationID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Equipment_Suppliers">
           <End Role="Suppliers" Type="Self.Suppliers" Multiplicity="0..1" />
-          <End Role="Equipment" Type="Self.Equipment" Multiplicity="*" />
+          <End Role="Equipments" Type="Self.Equipments" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Suppliers">
               <PropertyRef Name="IdSuppliers" />
             </Principal>
-            <Dependent Role="Equipment">
+            <Dependent Role="Equipments">
               <PropertyRef Name="SupplierID" />
             </Dependent>
           </ReferentialConstraint>
@@ -300,10 +300,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_InventoryMovements_Equipment">
-          <End Role="Equipment" Type="Self.Equipment" Multiplicity="1" />
+          <End Role="Equipments" Type="Self.Equipments" Multiplicity="1" />
           <End Role="InventoryMovements" Type="Self.InventoryMovements" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Equipment">
+            <Principal Role="Equipments">
               <PropertyRef Name="IdEquipment" />
             </Principal>
             <Dependent Role="InventoryMovements">
@@ -364,10 +364,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_MaintenanceRecords_Equipment">
-          <End Role="Equipment" Type="Self.Equipment" Multiplicity="1" />
+          <End Role="Equipments" Type="Self.Equipments" Multiplicity="1" />
           <End Role="MaintenanceRecords" Type="Self.MaintenanceRecords" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Equipment">
+            <Principal Role="Equipments">
               <PropertyRef Name="IdEquipment" />
             </Principal>
             <Dependent Role="MaintenanceRecords">
@@ -376,10 +376,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_MaintenanceRecords_Equipment1">
-          <End Role="Equipment" Type="Self.Equipment" Multiplicity="1" />
+          <End Role="Equipments" Type="Self.Equipments" Multiplicity="1" />
           <End Role="MaintenanceRecords" Type="Self.MaintenanceRecords" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Equipment">
+            <Principal Role="Equipments">
               <PropertyRef Name="IdEquipment" />
             </Principal>
             <Dependent Role="MaintenanceRecords">
@@ -428,10 +428,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_UtilizationRecords_Equipment">
-          <End Role="Equipment" Type="Self.Equipment" Multiplicity="1" />
+          <End Role="Equipments" Type="Self.Equipments" Multiplicity="1" />
           <End Role="UtilizationRecords" Type="Self.UtilizationRecords" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Equipment">
+            <Principal Role="Equipments">
               <PropertyRef Name="IdEquipment" />
             </Principal>
             <Dependent Role="UtilizationRecords">
@@ -452,10 +452,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_WarrantyClaims_Equipment">
-          <End Role="Equipment" Type="Self.Equipment" Multiplicity="1" />
+          <End Role="Equipments" Type="Self.Equipments" Multiplicity="1" />
           <End Role="WarrantyClaims" Type="Self.WarrantyClaims" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Equipment">
+            <Principal Role="Equipments">
               <PropertyRef Name="IdEquipment" />
             </Principal>
             <Dependent Role="WarrantyClaims">
@@ -500,7 +500,7 @@
           <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Departments" EntityType="Self.Departments" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Employees" EntityType="Self.Employees" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Equipment" EntityType="Self.Equipment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Equipments" EntityType="Self.Equipments" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EquipmentStatus" EntityType="Self.EquipmentStatus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="InventoryMovements" EntityType="Self.InventoryMovements" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Locations" EntityType="Self.Locations" Schema="dbo" store:Type="Tables" />
@@ -525,23 +525,23 @@
           </AssociationSet>
           <AssociationSet Name="FK_Equipment_Categories" Association="Self.FK_Equipment_Categories">
             <End Role="Categories" EntitySet="Categories" />
-            <End Role="Equipment" EntitySet="Equipment" />
+            <End Role="Equipments" EntitySet="Equipments" />
           </AssociationSet>
           <AssociationSet Name="FK_Equipment_Departments" Association="Self.FK_Equipment_Departments">
             <End Role="Departments" EntitySet="Departments" />
-            <End Role="Equipment" EntitySet="Equipment" />
+            <End Role="Equipments" EntitySet="Equipments" />
           </AssociationSet>
           <AssociationSet Name="FK_Equipment_EquipmentStatus" Association="Self.FK_Equipment_EquipmentStatus">
             <End Role="EquipmentStatus" EntitySet="EquipmentStatus" />
-            <End Role="Equipment" EntitySet="Equipment" />
+            <End Role="Equipments" EntitySet="Equipments" />
           </AssociationSet>
           <AssociationSet Name="FK_Equipment_Locations" Association="Self.FK_Equipment_Locations">
             <End Role="Locations" EntitySet="Locations" />
-            <End Role="Equipment" EntitySet="Equipment" />
+            <End Role="Equipments" EntitySet="Equipments" />
           </AssociationSet>
           <AssociationSet Name="FK_Equipment_Suppliers" Association="Self.FK_Equipment_Suppliers">
             <End Role="Suppliers" EntitySet="Suppliers" />
-            <End Role="Equipment" EntitySet="Equipment" />
+            <End Role="Equipments" EntitySet="Equipments" />
           </AssociationSet>
           <AssociationSet Name="FK_InventoryMovements_Employees" Association="Self.FK_InventoryMovements_Employees">
             <End Role="Employees" EntitySet="Employees" />
@@ -552,7 +552,7 @@
             <End Role="InventoryMovements" EntitySet="InventoryMovements" />
           </AssociationSet>
           <AssociationSet Name="FK_InventoryMovements_Equipment" Association="Self.FK_InventoryMovements_Equipment">
-            <End Role="Equipment" EntitySet="Equipment" />
+            <End Role="Equipments" EntitySet="Equipments" />
             <End Role="InventoryMovements" EntitySet="InventoryMovements" />
           </AssociationSet>
           <AssociationSet Name="FK_InventoryMovements_Locations" Association="Self.FK_InventoryMovements_Locations">
@@ -572,11 +572,11 @@
             <End Role="MaintenanceRecords" EntitySet="MaintenanceRecords" />
           </AssociationSet>
           <AssociationSet Name="FK_MaintenanceRecords_Equipment" Association="Self.FK_MaintenanceRecords_Equipment">
-            <End Role="Equipment" EntitySet="Equipment" />
+            <End Role="Equipments" EntitySet="Equipments" />
             <End Role="MaintenanceRecords" EntitySet="MaintenanceRecords" />
           </AssociationSet>
           <AssociationSet Name="FK_MaintenanceRecords_Equipment1" Association="Self.FK_MaintenanceRecords_Equipment1">
-            <End Role="Equipment" EntitySet="Equipment" />
+            <End Role="Equipments" EntitySet="Equipments" />
             <End Role="MaintenanceRecords" EntitySet="MaintenanceRecords" />
           </AssociationSet>
           <AssociationSet Name="FK_Orders_Suppliers" Association="Self.FK_Orders_Suppliers">
@@ -592,7 +592,7 @@
             <End Role="UtilizationRecords" EntitySet="UtilizationRecords" />
           </AssociationSet>
           <AssociationSet Name="FK_UtilizationRecords_Equipment" Association="Self.FK_UtilizationRecords_Equipment">
-            <End Role="Equipment" EntitySet="Equipment" />
+            <End Role="Equipments" EntitySet="Equipments" />
             <End Role="UtilizationRecords" EntitySet="UtilizationRecords" />
           </AssociationSet>
           <AssociationSet Name="FK_UtilizationRecords_Students" Association="Self.FK_UtilizationRecords_Students">
@@ -600,11 +600,12 @@
             <End Role="UtilizationRecords" EntitySet="UtilizationRecords" />
           </AssociationSet>
           <AssociationSet Name="FK_WarrantyClaims_Equipment" Association="Self.FK_WarrantyClaims_Equipment">
-            <End Role="Equipment" EntitySet="Equipment" />
+            <End Role="Equipments" EntitySet="Equipments" />
             <End Role="WarrantyClaims" EntitySet="WarrantyClaims" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="InventoryManagmentModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -637,7 +638,7 @@
           <Property Name="IdCategories" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Equipment" Relationship="Self.FK_Equipment_Categories" FromRole="Categories" ToRole="Equipment" />
+          <NavigationProperty Name="Equipments" Relationship="Self.FK_Equipment_Categories" FromRole="Categories" ToRole="Equipments" />
         </EntityType>
         <EntityType Name="Departments">
           <Key>
@@ -648,7 +649,7 @@
           <Property Name="HeadOfDepartment" Type="String" MaxLength="75" FixedLength="true" Unicode="true" />
           <NavigationProperty Name="BudgetAllocations" Relationship="Self.FK_BudgetAllocations_Departments" FromRole="Departments" ToRole="BudgetAllocations" />
           <NavigationProperty Name="Employees" Relationship="Self.FK_Employees_Departments" FromRole="Departments" ToRole="Employees" />
-          <NavigationProperty Name="Equipment" Relationship="Self.FK_Equipment_Departments" FromRole="Departments" ToRole="Equipment" />
+          <NavigationProperty Name="Equipments" Relationship="Self.FK_Equipment_Departments" FromRole="Departments" ToRole="Equipments" />
           <NavigationProperty Name="Locations" Relationship="Self.FK_Locations_Departments" FromRole="Departments" ToRole="Locations" />
           <NavigationProperty Name="Students" Relationship="Self.FK_Students_Departments" FromRole="Departments" ToRole="Students" />
         </EntityType>
@@ -669,7 +670,7 @@
           <NavigationProperty Name="MaintenanceRecords" Relationship="Self.FK_MaintenanceRecords_Employees" FromRole="Employees" ToRole="MaintenanceRecords" />
           <NavigationProperty Name="UtilizationRecords" Relationship="Self.FK_UtilizationRecords_Employees" FromRole="Employees" ToRole="UtilizationRecords" />
         </EntityType>
-        <EntityType Name="Equipment">
+        <EntityType Name="Equipments">
           <Key>
             <PropertyRef Name="IdEquipment" />
           </Key>
@@ -684,16 +685,16 @@
           <Property Name="WarrantyExpiration" Type="DateTime" Precision="0" />
           <Property Name="SupplierID" Type="Int32" />
           <Property Name="Cost" Type="Decimal" Precision="19" Scale="4" />
-          <NavigationProperty Name="Categories" Relationship="Self.FK_Equipment_Categories" FromRole="Equipment" ToRole="Categories" />
-          <NavigationProperty Name="Departments" Relationship="Self.FK_Equipment_Departments" FromRole="Equipment" ToRole="Departments" />
-          <NavigationProperty Name="EquipmentStatus" Relationship="Self.FK_Equipment_EquipmentStatus" FromRole="Equipment" ToRole="EquipmentStatus" />
-          <NavigationProperty Name="Locations" Relationship="Self.FK_Equipment_Locations" FromRole="Equipment" ToRole="Locations" />
-          <NavigationProperty Name="Suppliers" Relationship="Self.FK_Equipment_Suppliers" FromRole="Equipment" ToRole="Suppliers" />
-          <NavigationProperty Name="InventoryMovements" Relationship="Self.FK_InventoryMovements_Equipment" FromRole="Equipment" ToRole="InventoryMovements" />
-          <NavigationProperty Name="MaintenanceRecords" Relationship="Self.FK_MaintenanceRecords_Equipment" FromRole="Equipment" ToRole="MaintenanceRecords" />
-          <NavigationProperty Name="MaintenanceRecords1" Relationship="Self.FK_MaintenanceRecords_Equipment1" FromRole="Equipment" ToRole="MaintenanceRecords" />
-          <NavigationProperty Name="UtilizationRecords" Relationship="Self.FK_UtilizationRecords_Equipment" FromRole="Equipment" ToRole="UtilizationRecords" />
-          <NavigationProperty Name="WarrantyClaims" Relationship="Self.FK_WarrantyClaims_Equipment" FromRole="Equipment" ToRole="WarrantyClaims" />
+          <NavigationProperty Name="Categories" Relationship="Self.FK_Equipment_Categories" FromRole="Equipments" ToRole="Categories" />
+          <NavigationProperty Name="Departments" Relationship="Self.FK_Equipment_Departments" FromRole="Equipments" ToRole="Departments" />
+          <NavigationProperty Name="EquipmentStatus" Relationship="Self.FK_Equipment_EquipmentStatus" FromRole="Equipments" ToRole="EquipmentStatus" />
+          <NavigationProperty Name="Locations" Relationship="Self.FK_Equipment_Locations" FromRole="Equipments" ToRole="Locations" />
+          <NavigationProperty Name="Suppliers" Relationship="Self.FK_Equipment_Suppliers" FromRole="Equipments" ToRole="Suppliers" />
+          <NavigationProperty Name="InventoryMovements" Relationship="Self.FK_InventoryMovements_Equipment" FromRole="Equipments" ToRole="InventoryMovements" />
+          <NavigationProperty Name="MaintenanceRecords" Relationship="Self.FK_MaintenanceRecords_Equipment" FromRole="Equipments" ToRole="MaintenanceRecords" />
+          <NavigationProperty Name="MaintenanceRecords1" Relationship="Self.FK_MaintenanceRecords_Equipment1" FromRole="Equipments" ToRole="MaintenanceRecords" />
+          <NavigationProperty Name="UtilizationRecords" Relationship="Self.FK_UtilizationRecords_Equipment" FromRole="Equipments" ToRole="UtilizationRecords" />
+          <NavigationProperty Name="WarrantyClaims" Relationship="Self.FK_WarrantyClaims_Equipment" FromRole="Equipments" ToRole="WarrantyClaims" />
         </EntityType>
         <EntityType Name="EquipmentStatus">
           <Key>
@@ -702,7 +703,7 @@
           <Property Name="IdStatus" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Equipment" Relationship="Self.FK_Equipment_EquipmentStatus" FromRole="EquipmentStatus" ToRole="Equipment" />
+          <NavigationProperty Name="Equipments" Relationship="Self.FK_Equipment_EquipmentStatus" FromRole="EquipmentStatus" ToRole="Equipments" />
         </EntityType>
         <EntityType Name="InventoryMovements">
           <Key>
@@ -717,7 +718,7 @@
           <Property Name="ReceivedByEmployeeID" Type="Int32" />
           <NavigationProperty Name="Employees" Relationship="Self.FK_InventoryMovements_Employees" FromRole="InventoryMovements" ToRole="Employees" />
           <NavigationProperty Name="Employees1" Relationship="Self.FK_InventoryMovements_Employees1" FromRole="InventoryMovements" ToRole="Employees" />
-          <NavigationProperty Name="Equipment" Relationship="Self.FK_InventoryMovements_Equipment" FromRole="InventoryMovements" ToRole="Equipment" />
+          <NavigationProperty Name="Equipments" Relationship="Self.FK_InventoryMovements_Equipment" FromRole="InventoryMovements" ToRole="Equipments" />
           <NavigationProperty Name="Locations" Relationship="Self.FK_InventoryMovements_Locations" FromRole="InventoryMovements" ToRole="Locations" />
           <NavigationProperty Name="Locations1" Relationship="Self.FK_InventoryMovements_Locations1" FromRole="InventoryMovements" ToRole="Locations" />
         </EntityType>
@@ -729,7 +730,7 @@
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="DepartmentID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Departments" Relationship="Self.FK_Locations_Departments" FromRole="Locations" ToRole="Departments" />
-          <NavigationProperty Name="Equipment" Relationship="Self.FK_Equipment_Locations" FromRole="Locations" ToRole="Equipment" />
+          <NavigationProperty Name="Equipments" Relationship="Self.FK_Equipment_Locations" FromRole="Locations" ToRole="Equipments" />
           <NavigationProperty Name="InventoryMovements" Relationship="Self.FK_InventoryMovements_Locations" FromRole="Locations" ToRole="InventoryMovements" />
           <NavigationProperty Name="InventoryMovements1" Relationship="Self.FK_InventoryMovements_Locations1" FromRole="Locations" ToRole="InventoryMovements" />
         </EntityType>
@@ -744,8 +745,8 @@
           <Property Name="MaintenanceType" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
           <Property Name="Cost" Type="Decimal" Precision="19" Scale="4" />
           <NavigationProperty Name="Employees" Relationship="Self.FK_MaintenanceRecords_Employees" FromRole="MaintenanceRecords" ToRole="Employees" />
-          <NavigationProperty Name="Equipment" Relationship="Self.FK_MaintenanceRecords_Equipment" FromRole="MaintenanceRecords" ToRole="Equipment" />
-          <NavigationProperty Name="Equipment1" Relationship="Self.FK_MaintenanceRecords_Equipment1" FromRole="MaintenanceRecords" ToRole="Equipment" />
+          <NavigationProperty Name="Equipments" Relationship="Self.FK_MaintenanceRecords_Equipment" FromRole="MaintenanceRecords" ToRole="Equipments" />
+          <NavigationProperty Name="Equipments1" Relationship="Self.FK_MaintenanceRecords_Equipment1" FromRole="MaintenanceRecords" ToRole="Equipments" />
         </EntityType>
         <EntityType Name="Orders">
           <Key>
@@ -782,7 +783,7 @@
           <Property Name="ContactInfo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Adress" Type="String" MaxLength="150" FixedLength="true" Unicode="true" />
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
-          <NavigationProperty Name="Equipment" Relationship="Self.FK_Equipment_Suppliers" FromRole="Suppliers" ToRole="Equipment" />
+          <NavigationProperty Name="Equipments" Relationship="Self.FK_Equipment_Suppliers" FromRole="Suppliers" ToRole="Equipments" />
           <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_Suppliers" FromRole="Suppliers" ToRole="Orders" />
         </EntityType>
         <EntityType Name="sysdiagrams">
@@ -807,7 +808,7 @@
           <Property Name="UsageEnd" Type="DateTime" Precision="3" />
           <Property Name="Purpose" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
           <NavigationProperty Name="Employees" Relationship="Self.FK_UtilizationRecords_Employees" FromRole="UtilizationRecords" ToRole="Employees" />
-          <NavigationProperty Name="Equipment" Relationship="Self.FK_UtilizationRecords_Equipment" FromRole="UtilizationRecords" ToRole="Equipment" />
+          <NavigationProperty Name="Equipments" Relationship="Self.FK_UtilizationRecords_Equipment" FromRole="UtilizationRecords" ToRole="Equipments" />
           <NavigationProperty Name="Students" Relationship="Self.FK_UtilizationRecords_Students" FromRole="UtilizationRecords" ToRole="Students" />
         </EntityType>
         <EntityType Name="WarrantyClaims">
@@ -820,7 +821,7 @@
           <Property Name="IssueDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Status" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
           <Property Name="ResolvedDate" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="Equipment" Relationship="Self.FK_WarrantyClaims_Equipment" FromRole="WarrantyClaims" ToRole="Equipment" />
+          <NavigationProperty Name="Equipments" Relationship="Self.FK_WarrantyClaims_Equipment" FromRole="WarrantyClaims" ToRole="Equipments" />
         </EntityType>
         <Association Name="FK_Audits_Employees">
           <End Role="Employees" Type="Self.Employees" Multiplicity="1">
@@ -852,12 +853,12 @@
         </Association>
         <Association Name="FK_Equipment_Categories">
           <End Role="Categories" Type="Self.Categories" Multiplicity="1" />
-          <End Role="Equipment" Type="Self.Equipment" Multiplicity="*" />
+          <End Role="Equipments" Type="Self.Equipments" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Categories">
               <PropertyRef Name="IdCategories" />
             </Principal>
-            <Dependent Role="Equipment">
+            <Dependent Role="Equipments">
               <PropertyRef Name="CategoryID" />
             </Dependent>
           </ReferentialConstraint>
@@ -878,12 +879,12 @@
         </Association>
         <Association Name="FK_Equipment_Departments">
           <End Role="Departments" Type="Self.Departments" Multiplicity="1" />
-          <End Role="Equipment" Type="Self.Equipment" Multiplicity="*" />
+          <End Role="Equipments" Type="Self.Equipments" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Departments">
               <PropertyRef Name="IdDepartments" />
             </Principal>
-            <Dependent Role="Equipment">
+            <Dependent Role="Equipments">
               <PropertyRef Name="DepartmentID" />
             </Dependent>
           </ReferentialConstraint>
@@ -968,45 +969,45 @@
         </Association>
         <Association Name="FK_Equipment_EquipmentStatus">
           <End Role="EquipmentStatus" Type="Self.EquipmentStatus" Multiplicity="1" />
-          <End Role="Equipment" Type="Self.Equipment" Multiplicity="*" />
+          <End Role="Equipments" Type="Self.Equipments" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="EquipmentStatus">
               <PropertyRef Name="IdStatus" />
             </Principal>
-            <Dependent Role="Equipment">
+            <Dependent Role="Equipments">
               <PropertyRef Name="StatusID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Equipment_Locations">
           <End Role="Locations" Type="Self.Locations" Multiplicity="1" />
-          <End Role="Equipment" Type="Self.Equipment" Multiplicity="*" />
+          <End Role="Equipments" Type="Self.Equipments" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Locations">
               <PropertyRef Name="IdLocations" />
             </Principal>
-            <Dependent Role="Equipment">
+            <Dependent Role="Equipments">
               <PropertyRef Name="LocationID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Equipment_Suppliers">
           <End Role="Suppliers" Type="Self.Suppliers" Multiplicity="0..1" />
-          <End Role="Equipment" Type="Self.Equipment" Multiplicity="*" />
+          <End Role="Equipments" Type="Self.Equipments" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Suppliers">
               <PropertyRef Name="IdSuppliers" />
             </Principal>
-            <Dependent Role="Equipment">
+            <Dependent Role="Equipments">
               <PropertyRef Name="SupplierID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_InventoryMovements_Equipment">
-          <End Role="Equipment" Type="Self.Equipment" Multiplicity="1" />
+          <End Role="Equipments" Type="Self.Equipments" Multiplicity="1" />
           <End Role="InventoryMovements" Type="Self.InventoryMovements" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Equipment">
+            <Principal Role="Equipments">
               <PropertyRef Name="IdEquipment" />
             </Principal>
             <Dependent Role="InventoryMovements">
@@ -1015,10 +1016,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_MaintenanceRecords_Equipment">
-          <End Role="Equipment" Type="Self.Equipment" Multiplicity="1" />
+          <End Role="Equipments" Type="Self.Equipments" Multiplicity="1" />
           <End Role="MaintenanceRecords" Type="Self.MaintenanceRecords" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Equipment">
+            <Principal Role="Equipments">
               <PropertyRef Name="IdEquipment" />
             </Principal>
             <Dependent Role="MaintenanceRecords">
@@ -1027,10 +1028,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_MaintenanceRecords_Equipment1">
-          <End Role="Equipment" Type="Self.Equipment" Multiplicity="1" />
+          <End Role="Equipments" Type="Self.Equipments" Multiplicity="1" />
           <End Role="MaintenanceRecords" Type="Self.MaintenanceRecords" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Equipment">
+            <Principal Role="Equipments">
               <PropertyRef Name="IdEquipment" />
             </Principal>
             <Dependent Role="MaintenanceRecords">
@@ -1039,10 +1040,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_UtilizationRecords_Equipment">
-          <End Role="Equipment" Type="Self.Equipment" Multiplicity="1" />
+          <End Role="Equipments" Type="Self.Equipments" Multiplicity="1" />
           <End Role="UtilizationRecords" Type="Self.UtilizationRecords" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Equipment">
+            <Principal Role="Equipments">
               <PropertyRef Name="IdEquipment" />
             </Principal>
             <Dependent Role="UtilizationRecords">
@@ -1051,10 +1052,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_WarrantyClaims_Equipment">
-          <End Role="Equipment" Type="Self.Equipment" Multiplicity="1" />
+          <End Role="Equipments" Type="Self.Equipments" Multiplicity="1" />
           <End Role="WarrantyClaims" Type="Self.WarrantyClaims" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Equipment">
+            <Principal Role="Equipments">
               <PropertyRef Name="IdEquipment" />
             </Principal>
             <Dependent Role="WarrantyClaims">
@@ -1118,7 +1119,7 @@
           <EntitySet Name="Categories" EntityType="Self.Categories" />
           <EntitySet Name="Departments" EntityType="Self.Departments" />
           <EntitySet Name="Employees" EntityType="Self.Employees" />
-          <EntitySet Name="Equipment" EntityType="Self.Equipment" />
+          <EntitySet Name="Equipments" EntityType="Self.Equipments" />
           <EntitySet Name="EquipmentStatus" EntityType="Self.EquipmentStatus" />
           <EntitySet Name="InventoryMovements" EntityType="Self.InventoryMovements" />
           <EntitySet Name="Locations" EntityType="Self.Locations" />
@@ -1139,7 +1140,7 @@
           </AssociationSet>
           <AssociationSet Name="FK_Equipment_Categories" Association="Self.FK_Equipment_Categories">
             <End Role="Categories" EntitySet="Categories" />
-            <End Role="Equipment" EntitySet="Equipment" />
+            <End Role="Equipments" EntitySet="Equipments" />
           </AssociationSet>
           <AssociationSet Name="FK_Employees_Departments" Association="Self.FK_Employees_Departments">
             <End Role="Departments" EntitySet="Departments" />
@@ -1147,7 +1148,7 @@
           </AssociationSet>
           <AssociationSet Name="FK_Equipment_Departments" Association="Self.FK_Equipment_Departments">
             <End Role="Departments" EntitySet="Departments" />
-            <End Role="Equipment" EntitySet="Equipment" />
+            <End Role="Equipments" EntitySet="Equipments" />
           </AssociationSet>
           <AssociationSet Name="FK_Locations_Departments" Association="Self.FK_Locations_Departments">
             <End Role="Departments" EntitySet="Departments" />
@@ -1175,34 +1176,34 @@
           </AssociationSet>
           <AssociationSet Name="FK_Equipment_EquipmentStatus" Association="Self.FK_Equipment_EquipmentStatus">
             <End Role="EquipmentStatus" EntitySet="EquipmentStatus" />
-            <End Role="Equipment" EntitySet="Equipment" />
+            <End Role="Equipments" EntitySet="Equipments" />
           </AssociationSet>
           <AssociationSet Name="FK_Equipment_Locations" Association="Self.FK_Equipment_Locations">
             <End Role="Locations" EntitySet="Locations" />
-            <End Role="Equipment" EntitySet="Equipment" />
+            <End Role="Equipments" EntitySet="Equipments" />
           </AssociationSet>
           <AssociationSet Name="FK_Equipment_Suppliers" Association="Self.FK_Equipment_Suppliers">
             <End Role="Suppliers" EntitySet="Suppliers" />
-            <End Role="Equipment" EntitySet="Equipment" />
+            <End Role="Equipments" EntitySet="Equipments" />
           </AssociationSet>
           <AssociationSet Name="FK_InventoryMovements_Equipment" Association="Self.FK_InventoryMovements_Equipment">
-            <End Role="Equipment" EntitySet="Equipment" />
+            <End Role="Equipments" EntitySet="Equipments" />
             <End Role="InventoryMovements" EntitySet="InventoryMovements" />
           </AssociationSet>
           <AssociationSet Name="FK_MaintenanceRecords_Equipment" Association="Self.FK_MaintenanceRecords_Equipment">
-            <End Role="Equipment" EntitySet="Equipment" />
+            <End Role="Equipments" EntitySet="Equipments" />
             <End Role="MaintenanceRecords" EntitySet="MaintenanceRecords" />
           </AssociationSet>
           <AssociationSet Name="FK_MaintenanceRecords_Equipment1" Association="Self.FK_MaintenanceRecords_Equipment1">
-            <End Role="Equipment" EntitySet="Equipment" />
+            <End Role="Equipments" EntitySet="Equipments" />
             <End Role="MaintenanceRecords" EntitySet="MaintenanceRecords" />
           </AssociationSet>
           <AssociationSet Name="FK_UtilizationRecords_Equipment" Association="Self.FK_UtilizationRecords_Equipment">
-            <End Role="Equipment" EntitySet="Equipment" />
+            <End Role="Equipments" EntitySet="Equipments" />
             <End Role="UtilizationRecords" EntitySet="UtilizationRecords" />
           </AssociationSet>
           <AssociationSet Name="FK_WarrantyClaims_Equipment" Association="Self.FK_WarrantyClaims_Equipment">
-            <End Role="Equipment" EntitySet="Equipment" />
+            <End Role="Equipments" EntitySet="Equipments" />
             <End Role="WarrantyClaims" EntitySet="WarrantyClaims" />
           </AssociationSet>
           <AssociationSet Name="FK_InventoryMovements_Locations" Association="Self.FK_InventoryMovements_Locations">
@@ -1321,9 +1322,9 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Equipment">
-            <EntityTypeMapping TypeName="InventoryManagmentModel.Equipment">
-              <MappingFragment StoreEntitySet="Equipment">
+          <EntitySetMapping Name="Equipments">
+            <EntityTypeMapping TypeName="InventoryManagmentModel.Equipments">
+              <MappingFragment StoreEntitySet="Equipments">
                 <ScalarProperty Name="IdEquipment" ColumnName="IdEquipment" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Serial_Number" ColumnName="Serial_Number" />

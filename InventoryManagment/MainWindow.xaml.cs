@@ -30,50 +30,10 @@ namespace InventoryManagment
 
 			using (InventoryManagmentEntities db = new InventoryManagmentEntities())
 			{
-				var q = EquipmentMethods.GetAllEquipmets();
-				#region first_variant
-				var equipments = from equipment in db.Equipments
-								 join supplier in db.Suppliers on equipment.SupplierID equals supplier.IdSuppliers
-								 join department in db.Departments on equipment.DepartmentID equals department.IdDepartments
-								 join category in db.Categories on equipment.CategoryID equals category.IdCategories
-								 join location in db.Locations on equipment.LocationID equals location.IdLocations
-								 select new
-								 {
-									 Name = equipment.Name,
-									 Serial_Number = equipment.Serial_Number,
-									 Category = category.Name,
-									 Department = department.Name,
-									 Location = location.Description,
-									 Supplier = supplier.Name,
-									
-								 };
-				#endregion
+				var q = EquipmentMethods.GetAllEquipments();
 
-				#region second_variant:
-				//var equipments2 = db.Equipments
-				//.Join(db.Suppliers,
-				//	  equipment => equipment.SupplierID,
-				//	  supplier => supplier.IdSuppliers,
-				//	  (equipment, supplier) => new { equipment, supplier })
-				//.Join(db.Departments,
-				//	  es => es.equipment.DepartmentID,
-				//	  department => department.IdDepartments,
-				//	  (es, department) => new
-				//	  {
-				//		  es.equipment,
-				//		  es.supplier,
-				//		  department
-				//	  })
-				//.Select(e => new
-				//{
-				//	e.equipment.IdEquipment,
-				//	e.equipment.Name,
-				//	SupplierName = e.supplier.Name,
-				//	DepartmentName = e.department.Name
-				//});
-				#endregion
 
-				dg.ItemsSource = equipments.ToList();
+				dg.ItemsSource = q.ToList();
 			}
 
 

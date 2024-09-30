@@ -106,6 +106,7 @@
     <Compile Include="Models\Employees.cs">
       <DependentUpon>InventoryManagmentModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\EquipmentDto.cs" />
     <Compile Include="Models\Equipments.cs">
       <DependentUpon>InventoryManagmentModel.tt</DependentUpon>
     </Compile>

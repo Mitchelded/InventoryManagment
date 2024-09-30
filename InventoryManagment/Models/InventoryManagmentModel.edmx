@@ -1,0 +1,1503 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище InventoryManagmentModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Audits">
+          <Key>
+            <PropertyRef Name="IdAudit" />
+          </Key>
+          <Property Name="IdAudit" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AuditDate" Type="date" Nullable="false" />
+          <Property Name="PerformedByEmployeeID" Type="int" Nullable="false" />
+          <Property Name="Notes" Type="text" />
+          <Property Name="Discrepancies" Type="text" />
+        </EntityType>
+        <EntityType Name="BudgetAllocations">
+          <Key>
+            <PropertyRef Name="IDBudget" />
+          </Key>
+          <Property Name="IDBudget" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AllocationDate" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="DepartmentID" Type="int" Nullable="false" />
+          <Property Name="Amount" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Purpose" Type="nchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Categories">
+          <Key>
+            <PropertyRef Name="IdCategories" />
+          </Key>
+          <Property Name="IdCategories" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="text" />
+        </EntityType>
+        <EntityType Name="Departments">
+          <Key>
+            <PropertyRef Name="IdDepartments" />
+          </Key>
+          <Property Name="IdDepartments" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="HeadOfDepartment" Type="nchar" MaxLength="75" />
+        </EntityType>
+        <EntityType Name="Employees">
+          <Key>
+            <PropertyRef Name="IdEmployee" />
+          </Key>
+          <Property Name="IdEmployee" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="Patronymic" Type="nchar" MaxLength="50" />
+          <Property Name="Position" Type="nchar" MaxLength="50" />
+          <Property Name="DepartmentID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Equipment">
+          <Key>
+            <PropertyRef Name="IdEquipment" />
+          </Key>
+          <Property Name="IdEquipment" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Serial_Number" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CategoryID" Type="int" Nullable="false" />
+          <Property Name="DepartmentID" Type="int" Nullable="false" />
+          <Property Name="LocationID" Type="int" Nullable="false" />
+          <Property Name="StatusID" Type="int" Nullable="false" />
+          <Property Name="PurchaseDate" Type="datetime" Nullable="false" />
+          <Property Name="WarrantyExpiration" Type="date" />
+          <Property Name="SupplierID" Type="int" />
+          <Property Name="Cost" Type="money" />
+        </EntityType>
+        <EntityType Name="EquipmentStatus">
+          <Key>
+            <PropertyRef Name="IdStatus" />
+          </Key>
+          <Property Name="IdStatus" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="text" />
+        </EntityType>
+        <EntityType Name="InventoryMovements">
+          <Key>
+            <PropertyRef Name="IdMovement" />
+          </Key>
+          <Property Name="IdMovement" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EquipmentID" Type="int" Nullable="false" />
+          <Property Name="FromLocationID" Type="int" Nullable="false" />
+          <Property Name="ToLocationID" Type="int" Nullable="false" />
+          <Property Name="MovementDate" Type="datetime" Nullable="false" />
+          <Property Name="MovedByEmployeeID" Type="int" Nullable="false" />
+          <Property Name="ReceivedByEmployeeID" Type="int" />
+        </EntityType>
+        <EntityType Name="Locations">
+          <Key>
+            <PropertyRef Name="IdLocations" />
+          </Key>
+          <Property Name="IdLocations" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="text" />
+          <Property Name="DepartmentID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MaintenanceRecords">
+          <Key>
+            <PropertyRef Name="IdMaintenance" />
+          </Key>
+          <Property Name="IdMaintenance" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EquipmentID" Type="int" Nullable="false" />
+          <Property Name="MaintensnceDate" Type="datetime" Nullable="false" />
+          <Property Name="PerformedByEmployeeID" Type="int" />
+          <Property Name="MaintenanceType" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="Cost" Type="money" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="IdOrder" />
+          </Key>
+          <Property Name="IdOrder" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrderDate" Type="date" Nullable="false" />
+          <Property Name="SupplierID" Type="int" Nullable="false" />
+          <Property Name="Status" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="TotalCost" Type="money" />
+          <Property Name="OrderItems" Type="text" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Students">
+          <Key>
+            <PropertyRef Name="IdStudents" />
+          </Key>
+          <Property Name="IdStudents" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="Patronymic" Type="nchar" MaxLength="50" />
+          <Property Name="StudentIDСard" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="DepartmentID" Type="int" Nullable="false" />
+          <Property Name="Course" Type="nchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Suppliers">
+          <Key>
+            <PropertyRef Name="IdSuppliers" />
+          </Key>
+          <Property Name="IdSuppliers" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="ContactInfo" Type="text" />
+          <Property Name="Adress" Type="nchar" MaxLength="150" />
+          <Property Name="Email" Type="nchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="UtilizationRecords">
+          <Key>
+            <PropertyRef Name="IdUtilization" />
+          </Key>
+          <Property Name="IdUtilization" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EquipmentID" Type="int" Nullable="false" />
+          <Property Name="StudentID" Type="int" Nullable="false" />
+          <Property Name="EmployeeID" Type="int" Nullable="false" />
+          <Property Name="UsageStart" Type="datetime" Nullable="false" />
+          <Property Name="UsageEnd" Type="datetime" />
+          <Property Name="Purpose" Type="nchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="WarrantyClaims">
+          <Key>
+            <PropertyRef Name="IdWarranty" />
+          </Key>
+          <Property Name="IdWarranty" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EquipmentID" Type="int" Nullable="false" />
+          <Property Name="ClaimDate" Type="date" Nullable="false" />
+          <Property Name="IssueDescription" Type="text" Nullable="false" />
+          <Property Name="Status" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="ResolvedDate" Type="date" />
+        </EntityType>
+        <Association Name="FK_Audits_Employees">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Audits" Type="Self.Audits" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="IdEmployee" />
+            </Principal>
+            <Dependent Role="Audits">
+              <PropertyRef Name="PerformedByEmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BudgetAllocations_Departments">
+          <End Role="Departments" Type="Self.Departments" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="BudgetAllocations" Type="Self.BudgetAllocations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departments">
+              <PropertyRef Name="IdDepartments" />
+            </Principal>
+            <Dependent Role="BudgetAllocations">
+              <PropertyRef Name="DepartmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employees_Departments">
+          <End Role="Departments" Type="Self.Departments" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Employees" Type="Self.Employees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departments">
+              <PropertyRef Name="IdDepartments" />
+            </Principal>
+            <Dependent Role="Employees">
+              <PropertyRef Name="DepartmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Equipment_Categories">
+          <End Role="Categories" Type="Self.Categories" Multiplicity="1" />
+          <End Role="Equipment" Type="Self.Equipment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categories">
+              <PropertyRef Name="IdCategories" />
+            </Principal>
+            <Dependent Role="Equipment">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Equipment_Departments">
+          <End Role="Departments" Type="Self.Departments" Multiplicity="1" />
+          <End Role="Equipment" Type="Self.Equipment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departments">
+              <PropertyRef Name="IdDepartments" />
+            </Principal>
+            <Dependent Role="Equipment">
+              <PropertyRef Name="DepartmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Equipment_EquipmentStatus">
+          <End Role="EquipmentStatus" Type="Self.EquipmentStatus" Multiplicity="1" />
+          <End Role="Equipment" Type="Self.Equipment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EquipmentStatus">
+              <PropertyRef Name="IdStatus" />
+            </Principal>
+            <Dependent Role="Equipment">
+              <PropertyRef Name="StatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Equipment_Locations">
+          <End Role="Locations" Type="Self.Locations" Multiplicity="1" />
+          <End Role="Equipment" Type="Self.Equipment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Locations">
+              <PropertyRef Name="IdLocations" />
+            </Principal>
+            <Dependent Role="Equipment">
+              <PropertyRef Name="LocationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Equipment_Suppliers">
+          <End Role="Suppliers" Type="Self.Suppliers" Multiplicity="0..1" />
+          <End Role="Equipment" Type="Self.Equipment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Suppliers">
+              <PropertyRef Name="IdSuppliers" />
+            </Principal>
+            <Dependent Role="Equipment">
+              <PropertyRef Name="SupplierID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InventoryMovements_Employees">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="1" />
+          <End Role="InventoryMovements" Type="Self.InventoryMovements" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="IdEmployee" />
+            </Principal>
+            <Dependent Role="InventoryMovements">
+              <PropertyRef Name="MovedByEmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InventoryMovements_Employees1">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="0..1" />
+          <End Role="InventoryMovements" Type="Self.InventoryMovements" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="IdEmployee" />
+            </Principal>
+            <Dependent Role="InventoryMovements">
+              <PropertyRef Name="ReceivedByEmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InventoryMovements_Equipment">
+          <End Role="Equipment" Type="Self.Equipment" Multiplicity="1" />
+          <End Role="InventoryMovements" Type="Self.InventoryMovements" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Equipment">
+              <PropertyRef Name="IdEquipment" />
+            </Principal>
+            <Dependent Role="InventoryMovements">
+              <PropertyRef Name="EquipmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InventoryMovements_Locations">
+          <End Role="Locations" Type="Self.Locations" Multiplicity="1" />
+          <End Role="InventoryMovements" Type="Self.InventoryMovements" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Locations">
+              <PropertyRef Name="IdLocations" />
+            </Principal>
+            <Dependent Role="InventoryMovements">
+              <PropertyRef Name="FromLocationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InventoryMovements_Locations1">
+          <End Role="Locations" Type="Self.Locations" Multiplicity="1" />
+          <End Role="InventoryMovements" Type="Self.InventoryMovements" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Locations">
+              <PropertyRef Name="IdLocations" />
+            </Principal>
+            <Dependent Role="InventoryMovements">
+              <PropertyRef Name="ToLocationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Locations_Departments">
+          <End Role="Departments" Type="Self.Departments" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Locations" Type="Self.Locations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departments">
+              <PropertyRef Name="IdDepartments" />
+            </Principal>
+            <Dependent Role="Locations">
+              <PropertyRef Name="DepartmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MaintenanceRecords_Employees">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="MaintenanceRecords" Type="Self.MaintenanceRecords" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="IdEmployee" />
+            </Principal>
+            <Dependent Role="MaintenanceRecords">
+              <PropertyRef Name="PerformedByEmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MaintenanceRecords_Equipment">
+          <End Role="Equipment" Type="Self.Equipment" Multiplicity="1" />
+          <End Role="MaintenanceRecords" Type="Self.MaintenanceRecords" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Equipment">
+              <PropertyRef Name="IdEquipment" />
+            </Principal>
+            <Dependent Role="MaintenanceRecords">
+              <PropertyRef Name="EquipmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MaintenanceRecords_Equipment1">
+          <End Role="Equipment" Type="Self.Equipment" Multiplicity="1" />
+          <End Role="MaintenanceRecords" Type="Self.MaintenanceRecords" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Equipment">
+              <PropertyRef Name="IdEquipment" />
+            </Principal>
+            <Dependent Role="MaintenanceRecords">
+              <PropertyRef Name="EquipmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_Suppliers">
+          <End Role="Suppliers" Type="Self.Suppliers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Suppliers">
+              <PropertyRef Name="IdSuppliers" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="SupplierID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Students_Departments">
+          <End Role="Departments" Type="Self.Departments" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Students" Type="Self.Students" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departments">
+              <PropertyRef Name="IdDepartments" />
+            </Principal>
+            <Dependent Role="Students">
+              <PropertyRef Name="DepartmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UtilizationRecords_Employees">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="1" />
+          <End Role="UtilizationRecords" Type="Self.UtilizationRecords" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="IdEmployee" />
+            </Principal>
+            <Dependent Role="UtilizationRecords">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UtilizationRecords_Equipment">
+          <End Role="Equipment" Type="Self.Equipment" Multiplicity="1" />
+          <End Role="UtilizationRecords" Type="Self.UtilizationRecords" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Equipment">
+              <PropertyRef Name="IdEquipment" />
+            </Principal>
+            <Dependent Role="UtilizationRecords">
+              <PropertyRef Name="EquipmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UtilizationRecords_Students">
+          <End Role="Students" Type="Self.Students" Multiplicity="1" />
+          <End Role="UtilizationRecords" Type="Self.UtilizationRecords" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Students">
+              <PropertyRef Name="IdStudents" />
+            </Principal>
+            <Dependent Role="UtilizationRecords">
+              <PropertyRef Name="StudentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WarrantyClaims_Equipment">
+          <End Role="Equipment" Type="Self.Equipment" Multiplicity="1" />
+          <End Role="WarrantyClaims" Type="Self.WarrantyClaims" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Equipment">
+              <PropertyRef Name="IdEquipment" />
+            </Principal>
+            <Dependent Role="WarrantyClaims">
+              <PropertyRef Name="EquipmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="Хранилище InventoryManagmentModelContainer">
+          <EntitySet Name="Audits" EntityType="Self.Audits" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BudgetAllocations" EntityType="Self.BudgetAllocations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Departments" EntityType="Self.Departments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employees" EntityType="Self.Employees" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Equipment" EntityType="Self.Equipment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EquipmentStatus" EntityType="Self.EquipmentStatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InventoryMovements" EntityType="Self.InventoryMovements" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Locations" EntityType="Self.Locations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MaintenanceRecords" EntityType="Self.MaintenanceRecords" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Students" EntityType="Self.Students" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Suppliers" EntityType="Self.Suppliers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UtilizationRecords" EntityType="Self.UtilizationRecords" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WarrantyClaims" EntityType="Self.WarrantyClaims" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Audits_Employees" Association="Self.FK_Audits_Employees">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="Audits" EntitySet="Audits" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BudgetAllocations_Departments" Association="Self.FK_BudgetAllocations_Departments">
+            <End Role="Departments" EntitySet="Departments" />
+            <End Role="BudgetAllocations" EntitySet="BudgetAllocations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employees_Departments" Association="Self.FK_Employees_Departments">
+            <End Role="Departments" EntitySet="Departments" />
+            <End Role="Employees" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Equipment_Categories" Association="Self.FK_Equipment_Categories">
+            <End Role="Categories" EntitySet="Categories" />
+            <End Role="Equipment" EntitySet="Equipment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Equipment_Departments" Association="Self.FK_Equipment_Departments">
+            <End Role="Departments" EntitySet="Departments" />
+            <End Role="Equipment" EntitySet="Equipment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Equipment_EquipmentStatus" Association="Self.FK_Equipment_EquipmentStatus">
+            <End Role="EquipmentStatus" EntitySet="EquipmentStatus" />
+            <End Role="Equipment" EntitySet="Equipment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Equipment_Locations" Association="Self.FK_Equipment_Locations">
+            <End Role="Locations" EntitySet="Locations" />
+            <End Role="Equipment" EntitySet="Equipment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Equipment_Suppliers" Association="Self.FK_Equipment_Suppliers">
+            <End Role="Suppliers" EntitySet="Suppliers" />
+            <End Role="Equipment" EntitySet="Equipment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InventoryMovements_Employees" Association="Self.FK_InventoryMovements_Employees">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="InventoryMovements" EntitySet="InventoryMovements" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InventoryMovements_Employees1" Association="Self.FK_InventoryMovements_Employees1">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="InventoryMovements" EntitySet="InventoryMovements" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InventoryMovements_Equipment" Association="Self.FK_InventoryMovements_Equipment">
+            <End Role="Equipment" EntitySet="Equipment" />
+            <End Role="InventoryMovements" EntitySet="InventoryMovements" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InventoryMovements_Locations" Association="Self.FK_InventoryMovements_Locations">
+            <End Role="Locations" EntitySet="Locations" />
+            <End Role="InventoryMovements" EntitySet="InventoryMovements" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InventoryMovements_Locations1" Association="Self.FK_InventoryMovements_Locations1">
+            <End Role="Locations" EntitySet="Locations" />
+            <End Role="InventoryMovements" EntitySet="InventoryMovements" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Locations_Departments" Association="Self.FK_Locations_Departments">
+            <End Role="Departments" EntitySet="Departments" />
+            <End Role="Locations" EntitySet="Locations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MaintenanceRecords_Employees" Association="Self.FK_MaintenanceRecords_Employees">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="MaintenanceRecords" EntitySet="MaintenanceRecords" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MaintenanceRecords_Equipment" Association="Self.FK_MaintenanceRecords_Equipment">
+            <End Role="Equipment" EntitySet="Equipment" />
+            <End Role="MaintenanceRecords" EntitySet="MaintenanceRecords" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MaintenanceRecords_Equipment1" Association="Self.FK_MaintenanceRecords_Equipment1">
+            <End Role="Equipment" EntitySet="Equipment" />
+            <End Role="MaintenanceRecords" EntitySet="MaintenanceRecords" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_Suppliers" Association="Self.FK_Orders_Suppliers">
+            <End Role="Suppliers" EntitySet="Suppliers" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Students_Departments" Association="Self.FK_Students_Departments">
+            <End Role="Departments" EntitySet="Departments" />
+            <End Role="Students" EntitySet="Students" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UtilizationRecords_Employees" Association="Self.FK_UtilizationRecords_Employees">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="UtilizationRecords" EntitySet="UtilizationRecords" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UtilizationRecords_Equipment" Association="Self.FK_UtilizationRecords_Equipment">
+            <End Role="Equipment" EntitySet="Equipment" />
+            <End Role="UtilizationRecords" EntitySet="UtilizationRecords" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UtilizationRecords_Students" Association="Self.FK_UtilizationRecords_Students">
+            <End Role="Students" EntitySet="Students" />
+            <End Role="UtilizationRecords" EntitySet="UtilizationRecords" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WarrantyClaims_Equipment" Association="Self.FK_WarrantyClaims_Equipment">
+            <End Role="Equipment" EntitySet="Equipment" />
+            <End Role="WarrantyClaims" EntitySet="WarrantyClaims" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="InventoryManagmentModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Audits">
+          <Key>
+            <PropertyRef Name="IdAudit" />
+          </Key>
+          <Property Name="IdAudit" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AuditDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="PerformedByEmployeeID" Type="Int32" Nullable="false" />
+          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Discrepancies" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK_Audits_Employees" FromRole="Audits" ToRole="Employees" />
+        </EntityType>
+        <EntityType Name="BudgetAllocations">
+          <Key>
+            <PropertyRef Name="IDBudget" />
+          </Key>
+          <Property Name="IDBudget" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AllocationDate" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="DepartmentID" Type="Int32" Nullable="false" />
+          <Property Name="Amount" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Purpose" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Departments" Relationship="Self.FK_BudgetAllocations_Departments" FromRole="BudgetAllocations" ToRole="Departments" />
+        </EntityType>
+        <EntityType Name="Categories">
+          <Key>
+            <PropertyRef Name="IdCategories" />
+          </Key>
+          <Property Name="IdCategories" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Equipment" Relationship="Self.FK_Equipment_Categories" FromRole="Categories" ToRole="Equipment" />
+        </EntityType>
+        <EntityType Name="Departments">
+          <Key>
+            <PropertyRef Name="IdDepartments" />
+          </Key>
+          <Property Name="IdDepartments" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="HeadOfDepartment" Type="String" MaxLength="75" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="BudgetAllocations" Relationship="Self.FK_BudgetAllocations_Departments" FromRole="Departments" ToRole="BudgetAllocations" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK_Employees_Departments" FromRole="Departments" ToRole="Employees" />
+          <NavigationProperty Name="Equipment" Relationship="Self.FK_Equipment_Departments" FromRole="Departments" ToRole="Equipment" />
+          <NavigationProperty Name="Locations" Relationship="Self.FK_Locations_Departments" FromRole="Departments" ToRole="Locations" />
+          <NavigationProperty Name="Students" Relationship="Self.FK_Students_Departments" FromRole="Departments" ToRole="Students" />
+        </EntityType>
+        <EntityType Name="Employees">
+          <Key>
+            <PropertyRef Name="IdEmployee" />
+          </Key>
+          <Property Name="IdEmployee" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Patronymic" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="Position" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="DepartmentID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Audits" Relationship="Self.FK_Audits_Employees" FromRole="Employees" ToRole="Audits" />
+          <NavigationProperty Name="Departments" Relationship="Self.FK_Employees_Departments" FromRole="Employees" ToRole="Departments" />
+          <NavigationProperty Name="InventoryMovements" Relationship="Self.FK_InventoryMovements_Employees" FromRole="Employees" ToRole="InventoryMovements" />
+          <NavigationProperty Name="InventoryMovements1" Relationship="Self.FK_InventoryMovements_Employees1" FromRole="Employees" ToRole="InventoryMovements" />
+          <NavigationProperty Name="MaintenanceRecords" Relationship="Self.FK_MaintenanceRecords_Employees" FromRole="Employees" ToRole="MaintenanceRecords" />
+          <NavigationProperty Name="UtilizationRecords" Relationship="Self.FK_UtilizationRecords_Employees" FromRole="Employees" ToRole="UtilizationRecords" />
+        </EntityType>
+        <EntityType Name="Equipment">
+          <Key>
+            <PropertyRef Name="IdEquipment" />
+          </Key>
+          <Property Name="IdEquipment" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Serial_Number" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CategoryID" Type="Int32" Nullable="false" />
+          <Property Name="DepartmentID" Type="Int32" Nullable="false" />
+          <Property Name="LocationID" Type="Int32" Nullable="false" />
+          <Property Name="StatusID" Type="Int32" Nullable="false" />
+          <Property Name="PurchaseDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="WarrantyExpiration" Type="DateTime" Precision="0" />
+          <Property Name="SupplierID" Type="Int32" />
+          <Property Name="Cost" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="Categories" Relationship="Self.FK_Equipment_Categories" FromRole="Equipment" ToRole="Categories" />
+          <NavigationProperty Name="Departments" Relationship="Self.FK_Equipment_Departments" FromRole="Equipment" ToRole="Departments" />
+          <NavigationProperty Name="EquipmentStatus" Relationship="Self.FK_Equipment_EquipmentStatus" FromRole="Equipment" ToRole="EquipmentStatus" />
+          <NavigationProperty Name="Locations" Relationship="Self.FK_Equipment_Locations" FromRole="Equipment" ToRole="Locations" />
+          <NavigationProperty Name="Suppliers" Relationship="Self.FK_Equipment_Suppliers" FromRole="Equipment" ToRole="Suppliers" />
+          <NavigationProperty Name="InventoryMovements" Relationship="Self.FK_InventoryMovements_Equipment" FromRole="Equipment" ToRole="InventoryMovements" />
+          <NavigationProperty Name="MaintenanceRecords" Relationship="Self.FK_MaintenanceRecords_Equipment" FromRole="Equipment" ToRole="MaintenanceRecords" />
+          <NavigationProperty Name="MaintenanceRecords1" Relationship="Self.FK_MaintenanceRecords_Equipment1" FromRole="Equipment" ToRole="MaintenanceRecords" />
+          <NavigationProperty Name="UtilizationRecords" Relationship="Self.FK_UtilizationRecords_Equipment" FromRole="Equipment" ToRole="UtilizationRecords" />
+          <NavigationProperty Name="WarrantyClaims" Relationship="Self.FK_WarrantyClaims_Equipment" FromRole="Equipment" ToRole="WarrantyClaims" />
+        </EntityType>
+        <EntityType Name="EquipmentStatus">
+          <Key>
+            <PropertyRef Name="IdStatus" />
+          </Key>
+          <Property Name="IdStatus" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Equipment" Relationship="Self.FK_Equipment_EquipmentStatus" FromRole="EquipmentStatus" ToRole="Equipment" />
+        </EntityType>
+        <EntityType Name="InventoryMovements">
+          <Key>
+            <PropertyRef Name="IdMovement" />
+          </Key>
+          <Property Name="IdMovement" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EquipmentID" Type="Int32" Nullable="false" />
+          <Property Name="FromLocationID" Type="Int32" Nullable="false" />
+          <Property Name="ToLocationID" Type="Int32" Nullable="false" />
+          <Property Name="MovementDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="MovedByEmployeeID" Type="Int32" Nullable="false" />
+          <Property Name="ReceivedByEmployeeID" Type="Int32" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK_InventoryMovements_Employees" FromRole="InventoryMovements" ToRole="Employees" />
+          <NavigationProperty Name="Employees1" Relationship="Self.FK_InventoryMovements_Employees1" FromRole="InventoryMovements" ToRole="Employees" />
+          <NavigationProperty Name="Equipment" Relationship="Self.FK_InventoryMovements_Equipment" FromRole="InventoryMovements" ToRole="Equipment" />
+          <NavigationProperty Name="Locations" Relationship="Self.FK_InventoryMovements_Locations" FromRole="InventoryMovements" ToRole="Locations" />
+          <NavigationProperty Name="Locations1" Relationship="Self.FK_InventoryMovements_Locations1" FromRole="InventoryMovements" ToRole="Locations" />
+        </EntityType>
+        <EntityType Name="Locations">
+          <Key>
+            <PropertyRef Name="IdLocations" />
+          </Key>
+          <Property Name="IdLocations" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="DepartmentID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Departments" Relationship="Self.FK_Locations_Departments" FromRole="Locations" ToRole="Departments" />
+          <NavigationProperty Name="Equipment" Relationship="Self.FK_Equipment_Locations" FromRole="Locations" ToRole="Equipment" />
+          <NavigationProperty Name="InventoryMovements" Relationship="Self.FK_InventoryMovements_Locations" FromRole="Locations" ToRole="InventoryMovements" />
+          <NavigationProperty Name="InventoryMovements1" Relationship="Self.FK_InventoryMovements_Locations1" FromRole="Locations" ToRole="InventoryMovements" />
+        </EntityType>
+        <EntityType Name="MaintenanceRecords">
+          <Key>
+            <PropertyRef Name="IdMaintenance" />
+          </Key>
+          <Property Name="IdMaintenance" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EquipmentID" Type="Int32" Nullable="false" />
+          <Property Name="MaintensnceDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="PerformedByEmployeeID" Type="Int32" />
+          <Property Name="MaintenanceType" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Cost" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK_MaintenanceRecords_Employees" FromRole="MaintenanceRecords" ToRole="Employees" />
+          <NavigationProperty Name="Equipment" Relationship="Self.FK_MaintenanceRecords_Equipment" FromRole="MaintenanceRecords" ToRole="Equipment" />
+          <NavigationProperty Name="Equipment1" Relationship="Self.FK_MaintenanceRecords_Equipment1" FromRole="MaintenanceRecords" ToRole="Equipment" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="IdOrder" />
+          </Key>
+          <Property Name="IdOrder" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="SupplierID" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="TotalCost" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="OrderItems" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Suppliers" Relationship="Self.FK_Orders_Suppliers" FromRole="Orders" ToRole="Suppliers" />
+        </EntityType>
+        <EntityType Name="Students">
+          <Key>
+            <PropertyRef Name="IdStudents" />
+          </Key>
+          <Property Name="IdStudents" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Patronymic" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="StudentIDСard" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="DepartmentID" Type="Int32" Nullable="false" />
+          <Property Name="Course" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Departments" Relationship="Self.FK_Students_Departments" FromRole="Students" ToRole="Departments" />
+          <NavigationProperty Name="UtilizationRecords" Relationship="Self.FK_UtilizationRecords_Students" FromRole="Students" ToRole="UtilizationRecords" />
+        </EntityType>
+        <EntityType Name="Suppliers">
+          <Key>
+            <PropertyRef Name="IdSuppliers" />
+          </Key>
+          <Property Name="IdSuppliers" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="ContactInfo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Adress" Type="String" MaxLength="150" FixedLength="true" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Equipment" Relationship="Self.FK_Equipment_Suppliers" FromRole="Suppliers" ToRole="Equipment" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_Suppliers" FromRole="Suppliers" ToRole="Orders" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="UtilizationRecords">
+          <Key>
+            <PropertyRef Name="IdUtilization" />
+          </Key>
+          <Property Name="IdUtilization" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EquipmentID" Type="Int32" Nullable="false" />
+          <Property Name="StudentID" Type="Int32" Nullable="false" />
+          <Property Name="EmployeeID" Type="Int32" Nullable="false" />
+          <Property Name="UsageStart" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UsageEnd" Type="DateTime" Precision="3" />
+          <Property Name="Purpose" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK_UtilizationRecords_Employees" FromRole="UtilizationRecords" ToRole="Employees" />
+          <NavigationProperty Name="Equipment" Relationship="Self.FK_UtilizationRecords_Equipment" FromRole="UtilizationRecords" ToRole="Equipment" />
+          <NavigationProperty Name="Students" Relationship="Self.FK_UtilizationRecords_Students" FromRole="UtilizationRecords" ToRole="Students" />
+        </EntityType>
+        <EntityType Name="WarrantyClaims">
+          <Key>
+            <PropertyRef Name="IdWarranty" />
+          </Key>
+          <Property Name="IdWarranty" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EquipmentID" Type="Int32" Nullable="false" />
+          <Property Name="ClaimDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="IssueDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="ResolvedDate" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Equipment" Relationship="Self.FK_WarrantyClaims_Equipment" FromRole="WarrantyClaims" ToRole="Equipment" />
+        </EntityType>
+        <Association Name="FK_Audits_Employees">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Audits" Type="Self.Audits" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="IdEmployee" />
+            </Principal>
+            <Dependent Role="Audits">
+              <PropertyRef Name="PerformedByEmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BudgetAllocations_Departments">
+          <End Role="Departments" Type="Self.Departments" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="BudgetAllocations" Type="Self.BudgetAllocations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departments">
+              <PropertyRef Name="IdDepartments" />
+            </Principal>
+            <Dependent Role="BudgetAllocations">
+              <PropertyRef Name="DepartmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Equipment_Categories">
+          <End Role="Categories" Type="Self.Categories" Multiplicity="1" />
+          <End Role="Equipment" Type="Self.Equipment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categories">
+              <PropertyRef Name="IdCategories" />
+            </Principal>
+            <Dependent Role="Equipment">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employees_Departments">
+          <End Role="Departments" Type="Self.Departments" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Employees" Type="Self.Employees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departments">
+              <PropertyRef Name="IdDepartments" />
+            </Principal>
+            <Dependent Role="Employees">
+              <PropertyRef Name="DepartmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Equipment_Departments">
+          <End Role="Departments" Type="Self.Departments" Multiplicity="1" />
+          <End Role="Equipment" Type="Self.Equipment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departments">
+              <PropertyRef Name="IdDepartments" />
+            </Principal>
+            <Dependent Role="Equipment">
+              <PropertyRef Name="DepartmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Locations_Departments">
+          <End Role="Departments" Type="Self.Departments" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Locations" Type="Self.Locations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departments">
+              <PropertyRef Name="IdDepartments" />
+            </Principal>
+            <Dependent Role="Locations">
+              <PropertyRef Name="DepartmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Students_Departments">
+          <End Role="Departments" Type="Self.Departments" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Students" Type="Self.Students" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departments">
+              <PropertyRef Name="IdDepartments" />
+            </Principal>
+            <Dependent Role="Students">
+              <PropertyRef Name="DepartmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InventoryMovements_Employees">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="1" />
+          <End Role="InventoryMovements" Type="Self.InventoryMovements" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="IdEmployee" />
+            </Principal>
+            <Dependent Role="InventoryMovements">
+              <PropertyRef Name="MovedByEmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InventoryMovements_Employees1">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="0..1" />
+          <End Role="InventoryMovements" Type="Self.InventoryMovements" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="IdEmployee" />
+            </Principal>
+            <Dependent Role="InventoryMovements">
+              <PropertyRef Name="ReceivedByEmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MaintenanceRecords_Employees">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="MaintenanceRecords" Type="Self.MaintenanceRecords" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="IdEmployee" />
+            </Principal>
+            <Dependent Role="MaintenanceRecords">
+              <PropertyRef Name="PerformedByEmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UtilizationRecords_Employees">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="1" />
+          <End Role="UtilizationRecords" Type="Self.UtilizationRecords" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="IdEmployee" />
+            </Principal>
+            <Dependent Role="UtilizationRecords">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Equipment_EquipmentStatus">
+          <End Role="EquipmentStatus" Type="Self.EquipmentStatus" Multiplicity="1" />
+          <End Role="Equipment" Type="Self.Equipment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EquipmentStatus">
+              <PropertyRef Name="IdStatus" />
+            </Principal>
+            <Dependent Role="Equipment">
+              <PropertyRef Name="StatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Equipment_Locations">
+          <End Role="Locations" Type="Self.Locations" Multiplicity="1" />
+          <End Role="Equipment" Type="Self.Equipment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Locations">
+              <PropertyRef Name="IdLocations" />
+            </Principal>
+            <Dependent Role="Equipment">
+              <PropertyRef Name="LocationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Equipment_Suppliers">
+          <End Role="Suppliers" Type="Self.Suppliers" Multiplicity="0..1" />
+          <End Role="Equipment" Type="Self.Equipment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Suppliers">
+              <PropertyRef Name="IdSuppliers" />
+            </Principal>
+            <Dependent Role="Equipment">
+              <PropertyRef Name="SupplierID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InventoryMovements_Equipment">
+          <End Role="Equipment" Type="Self.Equipment" Multiplicity="1" />
+          <End Role="InventoryMovements" Type="Self.InventoryMovements" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Equipment">
+              <PropertyRef Name="IdEquipment" />
+            </Principal>
+            <Dependent Role="InventoryMovements">
+              <PropertyRef Name="EquipmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MaintenanceRecords_Equipment">
+          <End Role="Equipment" Type="Self.Equipment" Multiplicity="1" />
+          <End Role="MaintenanceRecords" Type="Self.MaintenanceRecords" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Equipment">
+              <PropertyRef Name="IdEquipment" />
+            </Principal>
+            <Dependent Role="MaintenanceRecords">
+              <PropertyRef Name="EquipmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MaintenanceRecords_Equipment1">
+          <End Role="Equipment" Type="Self.Equipment" Multiplicity="1" />
+          <End Role="MaintenanceRecords" Type="Self.MaintenanceRecords" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Equipment">
+              <PropertyRef Name="IdEquipment" />
+            </Principal>
+            <Dependent Role="MaintenanceRecords">
+              <PropertyRef Name="EquipmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UtilizationRecords_Equipment">
+          <End Role="Equipment" Type="Self.Equipment" Multiplicity="1" />
+          <End Role="UtilizationRecords" Type="Self.UtilizationRecords" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Equipment">
+              <PropertyRef Name="IdEquipment" />
+            </Principal>
+            <Dependent Role="UtilizationRecords">
+              <PropertyRef Name="EquipmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WarrantyClaims_Equipment">
+          <End Role="Equipment" Type="Self.Equipment" Multiplicity="1" />
+          <End Role="WarrantyClaims" Type="Self.WarrantyClaims" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Equipment">
+              <PropertyRef Name="IdEquipment" />
+            </Principal>
+            <Dependent Role="WarrantyClaims">
+              <PropertyRef Name="EquipmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InventoryMovements_Locations">
+          <End Role="Locations" Type="Self.Locations" Multiplicity="1" />
+          <End Role="InventoryMovements" Type="Self.InventoryMovements" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Locations">
+              <PropertyRef Name="IdLocations" />
+            </Principal>
+            <Dependent Role="InventoryMovements">
+              <PropertyRef Name="FromLocationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InventoryMovements_Locations1">
+          <End Role="Locations" Type="Self.Locations" Multiplicity="1" />
+          <End Role="InventoryMovements" Type="Self.InventoryMovements" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Locations">
+              <PropertyRef Name="IdLocations" />
+            </Principal>
+            <Dependent Role="InventoryMovements">
+              <PropertyRef Name="ToLocationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_Suppliers">
+          <End Role="Suppliers" Type="Self.Suppliers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Suppliers">
+              <PropertyRef Name="IdSuppliers" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="SupplierID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UtilizationRecords_Students">
+          <End Role="Students" Type="Self.Students" Multiplicity="1" />
+          <End Role="UtilizationRecords" Type="Self.UtilizationRecords" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Students">
+              <PropertyRef Name="IdStudents" />
+            </Principal>
+            <Dependent Role="UtilizationRecords">
+              <PropertyRef Name="StudentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="InventoryManagmentEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Audits" EntityType="Self.Audits" />
+          <EntitySet Name="BudgetAllocations" EntityType="Self.BudgetAllocations" />
+          <EntitySet Name="Categories" EntityType="Self.Categories" />
+          <EntitySet Name="Departments" EntityType="Self.Departments" />
+          <EntitySet Name="Employees" EntityType="Self.Employees" />
+          <EntitySet Name="Equipment" EntityType="Self.Equipment" />
+          <EntitySet Name="EquipmentStatus" EntityType="Self.EquipmentStatus" />
+          <EntitySet Name="InventoryMovements" EntityType="Self.InventoryMovements" />
+          <EntitySet Name="Locations" EntityType="Self.Locations" />
+          <EntitySet Name="MaintenanceRecords" EntityType="Self.MaintenanceRecords" />
+          <EntitySet Name="Orders" EntityType="Self.Orders" />
+          <EntitySet Name="Students" EntityType="Self.Students" />
+          <EntitySet Name="Suppliers" EntityType="Self.Suppliers" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="UtilizationRecords" EntityType="Self.UtilizationRecords" />
+          <EntitySet Name="WarrantyClaims" EntityType="Self.WarrantyClaims" />
+          <AssociationSet Name="FK_Audits_Employees" Association="Self.FK_Audits_Employees">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="Audits" EntitySet="Audits" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BudgetAllocations_Departments" Association="Self.FK_BudgetAllocations_Departments">
+            <End Role="Departments" EntitySet="Departments" />
+            <End Role="BudgetAllocations" EntitySet="BudgetAllocations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Equipment_Categories" Association="Self.FK_Equipment_Categories">
+            <End Role="Categories" EntitySet="Categories" />
+            <End Role="Equipment" EntitySet="Equipment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employees_Departments" Association="Self.FK_Employees_Departments">
+            <End Role="Departments" EntitySet="Departments" />
+            <End Role="Employees" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Equipment_Departments" Association="Self.FK_Equipment_Departments">
+            <End Role="Departments" EntitySet="Departments" />
+            <End Role="Equipment" EntitySet="Equipment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Locations_Departments" Association="Self.FK_Locations_Departments">
+            <End Role="Departments" EntitySet="Departments" />
+            <End Role="Locations" EntitySet="Locations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Students_Departments" Association="Self.FK_Students_Departments">
+            <End Role="Departments" EntitySet="Departments" />
+            <End Role="Students" EntitySet="Students" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InventoryMovements_Employees" Association="Self.FK_InventoryMovements_Employees">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="InventoryMovements" EntitySet="InventoryMovements" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InventoryMovements_Employees1" Association="Self.FK_InventoryMovements_Employees1">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="InventoryMovements" EntitySet="InventoryMovements" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MaintenanceRecords_Employees" Association="Self.FK_MaintenanceRecords_Employees">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="MaintenanceRecords" EntitySet="MaintenanceRecords" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UtilizationRecords_Employees" Association="Self.FK_UtilizationRecords_Employees">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="UtilizationRecords" EntitySet="UtilizationRecords" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Equipment_EquipmentStatus" Association="Self.FK_Equipment_EquipmentStatus">
+            <End Role="EquipmentStatus" EntitySet="EquipmentStatus" />
+            <End Role="Equipment" EntitySet="Equipment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Equipment_Locations" Association="Self.FK_Equipment_Locations">
+            <End Role="Locations" EntitySet="Locations" />
+            <End Role="Equipment" EntitySet="Equipment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Equipment_Suppliers" Association="Self.FK_Equipment_Suppliers">
+            <End Role="Suppliers" EntitySet="Suppliers" />
+            <End Role="Equipment" EntitySet="Equipment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InventoryMovements_Equipment" Association="Self.FK_InventoryMovements_Equipment">
+            <End Role="Equipment" EntitySet="Equipment" />
+            <End Role="InventoryMovements" EntitySet="InventoryMovements" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MaintenanceRecords_Equipment" Association="Self.FK_MaintenanceRecords_Equipment">
+            <End Role="Equipment" EntitySet="Equipment" />
+            <End Role="MaintenanceRecords" EntitySet="MaintenanceRecords" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MaintenanceRecords_Equipment1" Association="Self.FK_MaintenanceRecords_Equipment1">
+            <End Role="Equipment" EntitySet="Equipment" />
+            <End Role="MaintenanceRecords" EntitySet="MaintenanceRecords" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UtilizationRecords_Equipment" Association="Self.FK_UtilizationRecords_Equipment">
+            <End Role="Equipment" EntitySet="Equipment" />
+            <End Role="UtilizationRecords" EntitySet="UtilizationRecords" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WarrantyClaims_Equipment" Association="Self.FK_WarrantyClaims_Equipment">
+            <End Role="Equipment" EntitySet="Equipment" />
+            <End Role="WarrantyClaims" EntitySet="WarrantyClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InventoryMovements_Locations" Association="Self.FK_InventoryMovements_Locations">
+            <End Role="Locations" EntitySet="Locations" />
+            <End Role="InventoryMovements" EntitySet="InventoryMovements" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InventoryMovements_Locations1" Association="Self.FK_InventoryMovements_Locations1">
+            <End Role="Locations" EntitySet="Locations" />
+            <End Role="InventoryMovements" EntitySet="InventoryMovements" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_Suppliers" Association="Self.FK_Orders_Suppliers">
+            <End Role="Suppliers" EntitySet="Suppliers" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UtilizationRecords_Students" Association="Self.FK_UtilizationRecords_Students">
+            <End Role="Students" EntitySet="Students" />
+            <End Role="UtilizationRecords" EntitySet="UtilizationRecords" />
+          </AssociationSet>
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(InventoryManagmentModel.sp_helpdiagramdefinition_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(InventoryManagmentModel.sp_helpdiagrams_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
+        </EntityContainer>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище InventoryManagmentModelContainer" CdmEntityContainer="InventoryManagmentEntities">
+          <EntitySetMapping Name="Audits">
+            <EntityTypeMapping TypeName="InventoryManagmentModel.Audits">
+              <MappingFragment StoreEntitySet="Audits">
+                <ScalarProperty Name="IdAudit" ColumnName="IdAudit" />
+                <ScalarProperty Name="AuditDate" ColumnName="AuditDate" />
+                <ScalarProperty Name="PerformedByEmployeeID" ColumnName="PerformedByEmployeeID" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="Discrepancies" ColumnName="Discrepancies" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BudgetAllocations">
+            <EntityTypeMapping TypeName="InventoryManagmentModel.BudgetAllocations">
+              <MappingFragment StoreEntitySet="BudgetAllocations">
+                <ScalarProperty Name="IDBudget" ColumnName="IDBudget" />
+                <ScalarProperty Name="AllocationDate" ColumnName="AllocationDate" />
+                <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Purpose" ColumnName="Purpose" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="InventoryManagmentModel.Categories">
+              <MappingFragment StoreEntitySet="Categories">
+                <ScalarProperty Name="IdCategories" ColumnName="IdCategories" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Departments">
+            <EntityTypeMapping TypeName="InventoryManagmentModel.Departments">
+              <MappingFragment StoreEntitySet="Departments">
+                <ScalarProperty Name="IdDepartments" ColumnName="IdDepartments" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="HeadOfDepartment" ColumnName="HeadOfDepartment" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employees">
+            <EntityTypeMapping TypeName="InventoryManagmentModel.Employees">
+              <MappingFragment StoreEntitySet="Employees">
+                <ScalarProperty Name="IdEmployee" ColumnName="IdEmployee" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Patronymic" ColumnName="Patronymic" />
+                <ScalarProperty Name="Position" ColumnName="Position" />
+                <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Equipment">
+            <EntityTypeMapping TypeName="InventoryManagmentModel.Equipment">
+              <MappingFragment StoreEntitySet="Equipment">
+                <ScalarProperty Name="IdEquipment" ColumnName="IdEquipment" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Serial_Number" ColumnName="Serial_Number" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
+                <ScalarProperty Name="LocationID" ColumnName="LocationID" />
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+                <ScalarProperty Name="PurchaseDate" ColumnName="PurchaseDate" />
+                <ScalarProperty Name="WarrantyExpiration" ColumnName="WarrantyExpiration" />
+                <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EquipmentStatus">
+            <EntityTypeMapping TypeName="InventoryManagmentModel.EquipmentStatus">
+              <MappingFragment StoreEntitySet="EquipmentStatus">
+                <ScalarProperty Name="IdStatus" ColumnName="IdStatus" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InventoryMovements">
+            <EntityTypeMapping TypeName="InventoryManagmentModel.InventoryMovements">
+              <MappingFragment StoreEntitySet="InventoryMovements">
+                <ScalarProperty Name="IdMovement" ColumnName="IdMovement" />
+                <ScalarProperty Name="EquipmentID" ColumnName="EquipmentID" />
+                <ScalarProperty Name="FromLocationID" ColumnName="FromLocationID" />
+                <ScalarProperty Name="ToLocationID" ColumnName="ToLocationID" />
+                <ScalarProperty Name="MovementDate" ColumnName="MovementDate" />
+                <ScalarProperty Name="MovedByEmployeeID" ColumnName="MovedByEmployeeID" />
+                <ScalarProperty Name="ReceivedByEmployeeID" ColumnName="ReceivedByEmployeeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Locations">
+            <EntityTypeMapping TypeName="InventoryManagmentModel.Locations">
+              <MappingFragment StoreEntitySet="Locations">
+                <ScalarProperty Name="IdLocations" ColumnName="IdLocations" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MaintenanceRecords">
+            <EntityTypeMapping TypeName="InventoryManagmentModel.MaintenanceRecords">
+              <MappingFragment StoreEntitySet="MaintenanceRecords">
+                <ScalarProperty Name="IdMaintenance" ColumnName="IdMaintenance" />
+                <ScalarProperty Name="EquipmentID" ColumnName="EquipmentID" />
+                <ScalarProperty Name="MaintensnceDate" ColumnName="MaintensnceDate" />
+                <ScalarProperty Name="PerformedByEmployeeID" ColumnName="PerformedByEmployeeID" />
+                <ScalarProperty Name="MaintenanceType" ColumnName="MaintenanceType" />
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="InventoryManagmentModel.Orders">
+              <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="IdOrder" ColumnName="IdOrder" />
+                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+                <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="TotalCost" ColumnName="TotalCost" />
+                <ScalarProperty Name="OrderItems" ColumnName="OrderItems" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Students">
+            <EntityTypeMapping TypeName="InventoryManagmentModel.Students">
+              <MappingFragment StoreEntitySet="Students">
+                <ScalarProperty Name="IdStudents" ColumnName="IdStudents" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Patronymic" ColumnName="Patronymic" />
+                <ScalarProperty Name="StudentIDСard" ColumnName="StudentIDСard" />
+                <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
+                <ScalarProperty Name="Course" ColumnName="Course" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Suppliers">
+            <EntityTypeMapping TypeName="InventoryManagmentModel.Suppliers">
+              <MappingFragment StoreEntitySet="Suppliers">
+                <ScalarProperty Name="IdSuppliers" ColumnName="IdSuppliers" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ContactInfo" ColumnName="ContactInfo" />
+                <ScalarProperty Name="Adress" ColumnName="Adress" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="InventoryManagmentModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UtilizationRecords">
+            <EntityTypeMapping TypeName="InventoryManagmentModel.UtilizationRecords">
+              <MappingFragment StoreEntitySet="UtilizationRecords">
+                <ScalarProperty Name="IdUtilization" ColumnName="IdUtilization" />
+                <ScalarProperty Name="EquipmentID" ColumnName="EquipmentID" />
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="UsageStart" ColumnName="UsageStart" />
+                <ScalarProperty Name="UsageEnd" ColumnName="UsageEnd" />
+                <ScalarProperty Name="Purpose" ColumnName="Purpose" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WarrantyClaims">
+            <EntityTypeMapping TypeName="InventoryManagmentModel.WarrantyClaims">
+              <MappingFragment StoreEntitySet="WarrantyClaims">
+                <ScalarProperty Name="IdWarranty" ColumnName="IdWarranty" />
+                <ScalarProperty Name="EquipmentID" ColumnName="EquipmentID" />
+                <ScalarProperty Name="ClaimDate" ColumnName="ClaimDate" />
+                <ScalarProperty Name="IssueDescription" ColumnName="IssueDescription" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="ResolvedDate" ColumnName="ResolvedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="Хранилище InventoryManagmentModel.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="Хранилище InventoryManagmentModel.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="Хранилище InventoryManagmentModel.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="Хранилище InventoryManagmentModel.sp_helpdiagramdefinition">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="InventoryManagmentModel.sp_helpdiagramdefinition_Result">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="Хранилище InventoryManagmentModel.sp_helpdiagrams">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="InventoryManagmentModel.sp_helpdiagrams_Result">
+                <ScalarProperty Name="Database" ColumnName="Database" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="Хранилище InventoryManagmentModel.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="Хранилище InventoryManagmentModel.sp_upgraddiagrams" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

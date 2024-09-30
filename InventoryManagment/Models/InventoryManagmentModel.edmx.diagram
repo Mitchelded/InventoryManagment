@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="ff8abbbb8c114346a118fe59336cca37" Name="Diagram1" ZoomLevel="33">
+        <EntityTypeShape EntityType="InventoryManagmentModel.Audits" Width="1.5" PointX="7.5" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="InventoryManagmentModel.BudgetAllocations" Width="1.5" PointX="5.25" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="InventoryManagmentModel.Categories" Width="1.5" PointX="8.25" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="InventoryManagmentModel.Departments" Width="1.5" PointX="3" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="InventoryManagmentModel.Employees" Width="1.5" PointX="5.25" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="InventoryManagmentModel.Equipment" Width="1.5" PointX="10.5" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="InventoryManagmentModel.EquipmentStatus" Width="1.5" PointX="19.625" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="InventoryManagmentModel.InventoryMovements" Width="1.5" PointX="7.5" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="InventoryManagmentModel.Locations" Width="1.5" PointX="16.625" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="InventoryManagmentModel.MaintenanceRecords" Width="1.5" PointX="10.5" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="InventoryManagmentModel.Orders" Width="1.5" PointX="21.875" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="InventoryManagmentModel.Students" Width="1.5" PointX="16.625" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="InventoryManagmentModel.Suppliers" Width="1.5" PointX="19.625" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="InventoryManagmentModel.sysdiagrams" Width="1.5" PointX="1.5" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="InventoryManagmentModel.UtilizationRecords" Width="1.5" PointX="18.875" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="InventoryManagmentModel.WarrantyClaims" Width="1.5" PointX="12.75" PointY="9.5" IsExpanded="true" />
+        <AssociationConnector Association="InventoryManagmentModel.FK_Audits_Employees" ManuallyRouted="false" />
+        <AssociationConnector Association="InventoryManagmentModel.FK_BudgetAllocations_Departments" ManuallyRouted="false" />
+        <AssociationConnector Association="InventoryManagmentModel.FK_Equipment_Categories" ManuallyRouted="false" />
+        <AssociationConnector Association="InventoryManagmentModel.FK_Employees_Departments" ManuallyRouted="false" />
+        <AssociationConnector Association="InventoryManagmentModel.FK_Equipment_Departments" ManuallyRouted="false" />
+        <AssociationConnector Association="InventoryManagmentModel.FK_Locations_Departments" ManuallyRouted="false" />
+        <AssociationConnector Association="InventoryManagmentModel.FK_Students_Departments" ManuallyRouted="false" />
+        <AssociationConnector Association="InventoryManagmentModel.FK_InventoryMovements_Employees" ManuallyRouted="false" />
+        <AssociationConnector Association="InventoryManagmentModel.FK_InventoryMovements_Employees1" ManuallyRouted="false" />
+        <AssociationConnector Association="InventoryManagmentModel.FK_MaintenanceRecords_Employees" ManuallyRouted="false" />
+        <AssociationConnector Association="InventoryManagmentModel.FK_UtilizationRecords_Employees" ManuallyRouted="false" />
+        <AssociationConnector Association="InventoryManagmentModel.FK_Equipment_EquipmentStatus" ManuallyRouted="false" />
+        <AssociationConnector Association="InventoryManagmentModel.FK_Equipment_Locations" ManuallyRouted="false" />
+        <AssociationConnector Association="InventoryManagmentModel.FK_Equipment_Suppliers" ManuallyRouted="false" />
+        <AssociationConnector Association="InventoryManagmentModel.FK_InventoryMovements_Equipment" ManuallyRouted="false" />
+        <AssociationConnector Association="InventoryManagmentModel.FK_MaintenanceRecords_Equipment" ManuallyRouted="false" />
+        <AssociationConnector Association="InventoryManagmentModel.FK_MaintenanceRecords_Equipment1" ManuallyRouted="false" />
+        <AssociationConnector Association="InventoryManagmentModel.FK_UtilizationRecords_Equipment" ManuallyRouted="false" />
+        <AssociationConnector Association="InventoryManagmentModel.FK_WarrantyClaims_Equipment" ManuallyRouted="false" />
+        <AssociationConnector Association="InventoryManagmentModel.FK_InventoryMovements_Locations" ManuallyRouted="false" />
+        <AssociationConnector Association="InventoryManagmentModel.FK_InventoryMovements_Locations1" ManuallyRouted="false" />
+        <AssociationConnector Association="InventoryManagmentModel.FK_Orders_Suppliers" ManuallyRouted="false" />
+        <AssociationConnector Association="InventoryManagmentModel.FK_UtilizationRecords_Students" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

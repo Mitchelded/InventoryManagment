@@ -143,7 +143,7 @@ namespace InventoryManagment.Commands
 				#endregion
 
 
-				return equipments; // This will now be a List<EquipmentDto>
+				return equipments;
 			}
 		}
 

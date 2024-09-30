@@ -83,6 +83,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Commands\EquipmentMethods.cs" />
     <Compile Include="Enums\Codes.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -105,7 +106,7 @@
     <Compile Include="Models\Employees.cs">
       <DependentUpon>InventoryManagmentModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Equipment.cs">
+    <Compile Include="Models\Equipments.cs">
       <DependentUpon>InventoryManagmentModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EquipmentStatus.cs">
@@ -193,7 +194,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Commands\" />
     <Folder Include="Exceptions\" />
     <Folder Include="Helpers\" />
     <Folder Include="Resources\" />

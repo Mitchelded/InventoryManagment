@@ -14,5 +14,6 @@ namespace InventoryManagment
 	/// </summary>
 	public partial class App : Application
 	{
+
 	}
 }

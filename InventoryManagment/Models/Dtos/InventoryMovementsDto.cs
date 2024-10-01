@@ -9,7 +9,7 @@ namespace InventoryManagment.Models.Dtos
 	public class InventoryMovementsDto
 	{
 		public int IdMovement { get; set; }
-		public string Name { get; set; }
+		public string NameEquipment { get; set; }
 		public string SerialNumber { get; set; }
 		public string FromLocation { get; set; }
 		public string ToLocation { get; set; }

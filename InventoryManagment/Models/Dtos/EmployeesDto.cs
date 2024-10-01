@@ -13,7 +13,7 @@ namespace InventoryManagment.Models.Dtos
 		public string LastName { get; set; }
 		public string Patronymic { get; set; }
 		public string Position { get; set; }
-		public string Name { get; set; }
+		public string NameDepartment { get; set; }
 		public string HeadOfDepartment { get; set; }
 
 		public string Location { get; set; }

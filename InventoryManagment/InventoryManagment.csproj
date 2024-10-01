@@ -111,11 +111,13 @@
     <Compile Include="Models\Dtos\MaintenanceDto.cs" />
     <Compile Include="Models\Dtos\OrdersDto.cs" />
     <Compile Include="Models\Dtos\UtilizationDto.cs" />
+    <Compile Include="Models\Dtos\EmployeesDto.cs" />
+    <Compile Include="Models\Dtos\EquipmentDto.cs" />
+    <Compile Include="Models\Dtos\InventoryMovementsDto.cs" />
+    <Compile Include="Models\Dtos\LocationsDto.cs" />
     <Compile Include="Models\Employees.cs">
       <DependentUpon>InventoryManagmentModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Dtos\EmployeesDto.cs" />
-    <Compile Include="Models\Dtos\EquipmentDto.cs" />
     <Compile Include="Models\Equipments.cs">
       <DependentUpon>InventoryManagmentModel.tt</DependentUpon>
     </Compile>
@@ -140,11 +142,9 @@
     <Compile Include="Models\InventoryMovements.cs">
       <DependentUpon>InventoryManagmentModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Dtos\InventoryMovementsDto.cs" />
     <Compile Include="Models\Locations.cs">
       <DependentUpon>InventoryManagmentModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Dtos\LocationsDto.cs" />
     <Compile Include="Models\MaintenanceRecords.cs">
       <DependentUpon>InventoryManagmentModel.tt</DependentUpon>
     </Compile>

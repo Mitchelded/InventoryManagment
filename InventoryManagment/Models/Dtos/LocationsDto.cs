@@ -10,7 +10,7 @@ namespace InventoryManagment.Models.Dtos
 	{
 		public int IdLocations { get; set; }
 		public string Description { get; set; }
-		public string Name { get; set; }
+		public string NameDepartment { get; set; }
 		public string HeadOfDepartment { get; set; }
 	}
 }

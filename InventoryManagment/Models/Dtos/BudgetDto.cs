@@ -10,7 +10,7 @@ namespace InventoryManagment.Models.Dtos
 	{
 		public int IDBudget { get; set; }
 		public string AllocationDate { get; set; }
-		public string Name { get; set; }
+		public string NameDepartment { get; set; }
 		public string HeadOfDepartment { get; set; }
 		public string Amount { get; set; }
 		public string Purpose { get; set; }

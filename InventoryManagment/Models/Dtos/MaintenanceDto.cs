@@ -13,7 +13,7 @@ namespace InventoryManagment.Models.Dtos
 		public string Serial_Number { get; set; }
 		public string NameCategory { get; set; }
 		public System.DateTime MaintensnceDate { get; set; }
-		public string FirstName { get; set; }
+		public string PerfomedBy { get; set; }
 		public string MaintenanceType { get; set; }
 		public Nullable<decimal> Cost { get; set; }
 	}

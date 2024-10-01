@@ -106,9 +106,11 @@
     <Compile Include="Models\Departments.cs">
       <DependentUpon>InventoryManagmentModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Dtos\AuditsDto.cs" />
     <Compile Include="Models\Dtos\BudgetDto.cs" />
     <Compile Include="Models\Dtos\MaintenanceDto.cs" />
     <Compile Include="Models\Dtos\OrdersDto.cs" />
+    <Compile Include="Models\Dtos\UtilizationDto.cs" />
     <Compile Include="Models\Employees.cs">
       <DependentUpon>InventoryManagmentModel.tt</DependentUpon>
     </Compile>

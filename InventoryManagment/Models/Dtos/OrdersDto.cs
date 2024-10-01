@@ -10,7 +10,8 @@ namespace InventoryManagment.Models.Dtos
 	{
 		public int IdOrder { get; set; }
 		public System.DateTime OrderDate { get; set; }
-		public int SupplierID { get; set; }
+		public string Name { get; set; }
+		public string ContactInfo { get; set; }
 		public string Status { get; set; }
 		public Nullable<decimal> TotalCost { get; set; }
 		public string OrderItems { get; set; }

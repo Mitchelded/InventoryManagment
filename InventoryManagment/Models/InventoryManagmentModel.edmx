@@ -156,8 +156,8 @@
           </Key>
           <Property Name="IdUtilization" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="EquipmentID" Type="int" Nullable="false" />
-          <Property Name="StudentID" Type="int" Nullable="false" />
-          <Property Name="EmployeeID" Type="int" Nullable="false" />
+          <Property Name="StudentID" Type="int" />
+          <Property Name="EmployeeID" Type="int" />
           <Property Name="UsageStart" Type="datetime" Nullable="false" />
           <Property Name="UsageEnd" Type="datetime" />
           <Property Name="Purpose" Type="nchar" MaxLength="50" />
@@ -416,7 +416,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_UtilizationRecords_Employees">
-          <End Role="Employees" Type="Self.Employees" Multiplicity="1" />
+          <End Role="Employees" Type="Self.Employees" Multiplicity="0..1" />
           <End Role="UtilizationRecords" Type="Self.UtilizationRecords" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Employees">
@@ -440,7 +440,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_UtilizationRecords_Students">
-          <End Role="Students" Type="Self.Students" Multiplicity="1" />
+          <End Role="Students" Type="Self.Students" Multiplicity="0..1" />
           <End Role="UtilizationRecords" Type="Self.UtilizationRecords" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Students">
@@ -802,8 +802,8 @@
           </Key>
           <Property Name="IdUtilization" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="EquipmentID" Type="Int32" Nullable="false" />
-          <Property Name="StudentID" Type="Int32" Nullable="false" />
-          <Property Name="EmployeeID" Type="Int32" Nullable="false" />
+          <Property Name="StudentID" Type="Int32" />
+          <Property Name="EmployeeID" Type="Int32" />
           <Property Name="UsageStart" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="UsageEnd" Type="DateTime" Precision="3" />
           <Property Name="Purpose" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
@@ -956,7 +956,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_UtilizationRecords_Employees">
-          <End Role="Employees" Type="Self.Employees" Multiplicity="1" />
+          <End Role="Employees" Type="Self.Employees" Multiplicity="0..1" />
           <End Role="UtilizationRecords" Type="Self.UtilizationRecords" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Employees">
@@ -1102,7 +1102,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_UtilizationRecords_Students">
-          <End Role="Students" Type="Self.Students" Multiplicity="1" />
+          <End Role="Students" Type="Self.Students" Multiplicity="0..1" />
           <End Role="UtilizationRecords" Type="Self.UtilizationRecords" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Students">

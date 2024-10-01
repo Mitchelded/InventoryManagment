@@ -16,8 +16,8 @@ namespace InventoryManagment.Models
     {
         public int IdUtilization { get; set; }
         public int EquipmentID { get; set; }
-        public int StudentID { get; set; }
-        public int EmployeeID { get; set; }
+        public Nullable<int> StudentID { get; set; }
+        public Nullable<int> EmployeeID { get; set; }
         public System.DateTime UsageStart { get; set; }
         public Nullable<System.DateTime> UsageEnd { get; set; }
         public string Purpose { get; set; }

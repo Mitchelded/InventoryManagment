@@ -9,20 +9,20 @@
 
 namespace InventoryManagment.Models
 {
-	using System;
-	using System.Collections.Generic;
-
-	public partial class MaintenanceRecords
-	{
-		public int IdMaintenance { get; set; }
-		public int EquipmentID { get; set; }
-		public System.DateTime MaintensnceDate { get; set; }
-		public Nullable<int> PerformedByEmployeeID { get; set; }
-		public string MaintenanceType { get; set; }
-		public Nullable<decimal> Cost { get; set; }
-
-		public virtual Employees Employees { get; set; }
-		public virtual Equipments Equipments { get; set; }
-		public virtual Equipments Equipments1 { get; set; }
-	}
+    using System;
+    using System.Collections.Generic;
+    
+    public partial class MaintenanceRecords
+    {
+        public int IdMaintenance { get; set; }
+        public int EquipmentID { get; set; }
+        public System.DateTime MaintensnceDate { get; set; }
+        public Nullable<int> PerformedByEmployeeID { get; set; }
+        public string MaintenanceType { get; set; }
+        public Nullable<decimal> Cost { get; set; }
+    
+        public virtual Employees Employees { get; set; }
+        public virtual Equipments Equipments { get; set; }
+        public virtual Equipments Equipments1 { get; set; }
+    }
 }

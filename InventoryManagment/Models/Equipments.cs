@@ -9,50 +9,47 @@
 
 namespace InventoryManagment.Models
 {
-	using System;
-	using System.Collections.Generic;
-	using System.Linq;
-	using System.Windows;
-
-	public partial class Equipments
-	{
-		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-		public Equipments()
-		{
-			this.InventoryMovements = new HashSet<InventoryMovements>();
-			this.MaintenanceRecords = new HashSet<MaintenanceRecords>();
-			this.MaintenanceRecords1 = new HashSet<MaintenanceRecords>();
-			this.UtilizationRecords = new HashSet<UtilizationRecords>();
-			this.WarrantyClaims = new HashSet<WarrantyClaims>();
-		}
-
-
-		public int IdEquipment { get; set; }
-		public string Name { get; set; }
-		public string Serial_Number { get; set; }
-		public int CategoryID { get; set; }
-		public int DepartmentID { get; set; }
-		public int LocationID { get; set; }
-		public int StatusID { get; set; }
-		public System.DateTime PurchaseDate { get; set; }
-		public Nullable<System.DateTime> WarrantyExpiration { get; set; }
-		public Nullable<int> SupplierID { get; set; }
-		public Nullable<decimal> Cost { get; set; }
-
-		public virtual Categories Categories { get; set; }
-		public virtual Departments Departments { get; set; }
-		public virtual EquipmentStatus EquipmentStatus { get; set; }
-		public virtual Locations Locations { get; set; }
-		public virtual Suppliers Suppliers { get; set; }
-		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-		public virtual ICollection<InventoryMovements> InventoryMovements { get; set; }
-		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-		public virtual ICollection<MaintenanceRecords> MaintenanceRecords { get; set; }
-		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-		public virtual ICollection<MaintenanceRecords> MaintenanceRecords1 { get; set; }
-		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-		public virtual ICollection<UtilizationRecords> UtilizationRecords { get; set; }
-		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-		public virtual ICollection<WarrantyClaims> WarrantyClaims { get; set; }
-	}
+    using System;
+    using System.Collections.Generic;
+    
+    public partial class Equipments
+    {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Equipments()
+        {
+            this.InventoryMovements = new HashSet<InventoryMovements>();
+            this.MaintenanceRecords = new HashSet<MaintenanceRecords>();
+            this.MaintenanceRecords1 = new HashSet<MaintenanceRecords>();
+            this.UtilizationRecords = new HashSet<UtilizationRecords>();
+            this.WarrantyClaims = new HashSet<WarrantyClaims>();
+        }
+    
+        public int IdEquipment { get; set; }
+        public string Name { get; set; }
+        public string Serial_Number { get; set; }
+        public int CategoryID { get; set; }
+        public int DepartmentID { get; set; }
+        public int LocationID { get; set; }
+        public int StatusID { get; set; }
+        public System.DateTime PurchaseDate { get; set; }
+        public Nullable<System.DateTime> WarrantyExpiration { get; set; }
+        public Nullable<int> SupplierID { get; set; }
+        public Nullable<decimal> Cost { get; set; }
+    
+        public virtual Categories Categories { get; set; }
+        public virtual Departments Departments { get; set; }
+        public virtual EquipmentStatus EquipmentStatus { get; set; }
+        public virtual Locations Locations { get; set; }
+        public virtual Suppliers Suppliers { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<InventoryMovements> InventoryMovements { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MaintenanceRecords> MaintenanceRecords { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MaintenanceRecords> MaintenanceRecords1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UtilizationRecords> UtilizationRecords { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<WarrantyClaims> WarrantyClaims { get; set; }
+    }
 }

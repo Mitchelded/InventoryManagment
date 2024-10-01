@@ -61,23 +61,9 @@ namespace InventoryManagment
 
 
 		}
-
-		private T GetInstanceView<T>(object sender) where T : class
-		{
-			var packIcon = sender as PackIcon;
-			if (packIcon != null)
-			{
-				var employeeEdit = packIcon.DataContext as T;
-				return employeeEdit; // Возвращаем DataContext, приведенный к T
-			}
-			return default; // Возвращаем значение по умолчанию для T, если packIcon null
-		}
-
-
-
 		private void packIconEdit_MouseDown(object sender, MouseButtonEventArgs e)
 		{
-			var employeeEdit = GetInstanceView<Employees>(sender);
+			var employeeEdit = GetInstancesView.GetInstanceView<Employees>(sender);
 			var employeeToEdit = employees.Single(x => x.IdEmployee == employeeEdit.IdEmployee);
 
 			employeeToEdit.Position = employeeEdit.Position;
@@ -89,7 +75,7 @@ namespace InventoryManagment
 
 		private void packIconRemove_MouseDown(object sender, MouseButtonEventArgs e)
 		{
-			var employeeToRemove = GetInstanceView<Employees>(sender);
+			var employeeToRemove = GetInstancesView.GetInstanceView<Employees>(sender);
 			employees.Remove(employeeToRemove);
 			ls.Items.Refresh();
 		}

@@ -84,6 +84,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Commands\EquipmentMethods.cs" />
+    <Compile Include="Commands\GetInstancesView.cs" />
     <Compile Include="Enums\Codes.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

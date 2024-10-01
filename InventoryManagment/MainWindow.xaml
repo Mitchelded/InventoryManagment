@@ -8,18 +8,25 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <!--<DataGrid x:Name="dg"/>-->
-
+        <!--<Expander >-->
         <ListView x:Name="ls">
             <!--<ListView.View>
-                <GridView>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Title}" Header="Модель"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Company}" Header="Модель"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Price}" Header="Модель"/>
-                </GridView>
-            </ListView.View>-->
+        <GridView>
+            <GridViewColumn DisplayMemberBinding="{Binding Path=FirstName}" Header="First Name"/>
+            <GridViewColumn DisplayMemberBinding="{Binding Path=LastName}" Header="Last Name"/>
+            <GridViewColumn DisplayMemberBinding="{Binding Path=Position}" Header="Position"/>
+            <GridViewColumn DisplayMemberBinding="{Binding Path=DepartmentID}" Header="Department ID"/>
+            <GridViewColumn>
+                <materialDesign:PackIcon Kind="Edit" x:Name="packIconEdit" MouseDown="packIconEdit_MouseDown"/>
+            </GridViewColumn>
+            <GridViewColumn>
+                <materialDesign:PackIcon Kind="Remove" Margin="10,0,0,0" x:Name="packIconRemove" MouseDown="packIconRemove_MouseDown"/>
+            </GridViewColumn>
+        </GridView>
+    </ListView.View>-->
             <ListView.ItemTemplate>
                 <DataTemplate>
+
                     <StackPanel Orientation="Horizontal" Margin="10,0,0,5">
                         <materialDesign:PackIcon Kind="Edit" x:Name="packIconEdit" MouseDown="packIconEdit_MouseDown"/>
                         <materialDesign:PackIcon Kind="Remove" Margin="10,0,0,0" x:Name="packIconRemove" MouseDown="packIconRemove_MouseDown"/>
@@ -31,6 +38,8 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+        <!--</Expander>-->
+
     </Grid>
 </Window>
     

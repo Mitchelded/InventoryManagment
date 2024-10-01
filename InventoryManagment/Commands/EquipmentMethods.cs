@@ -79,11 +79,11 @@ namespace InventoryManagment.Commands
 		}
 
 
-		static public IEnumerable<Equipments> GetAllEquipmetsFromLocation(Locations locations)
+		static public IEnumerable<EquipmentDto> GetAllEquipmetsFromLocation(Locations locations)
 		{
 			using (InventoryManagmentEntities db = new InventoryManagmentEntities())
 			{
-				IEnumerable<Equipments> equipments = db.Equipments.Where(x => x.LocationID == locations.IdLocations);
+				IEnumerable<EquipmentDto> equipments = GetAllEquipments().Where(x => x.Location == locations.Description);
 				if (equipments != null && equipments.Count() > 0)
 					return equipments;
 				else

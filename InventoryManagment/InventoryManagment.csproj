@@ -85,6 +85,8 @@
     </Compile>
     <Compile Include="Commands\EquipmentMethods.cs" />
     <Compile Include="Commands\GetInstancesView.cs" />
+    <Compile Include="Commands\InventoryMovementsMethods.cs" />
+    <Compile Include="Commands\SuppliersMethods.cs" />
     <Compile Include="Enums\Codes.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -132,6 +134,7 @@
     <Compile Include="Models\InventoryMovements.cs">
       <DependentUpon>InventoryManagmentModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\InventoryMovementsDto.cs" />
     <Compile Include="Models\Locations.cs">
       <DependentUpon>InventoryManagmentModel.tt</DependentUpon>
     </Compile>

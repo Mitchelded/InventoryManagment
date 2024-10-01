@@ -105,6 +105,7 @@ namespace InventoryManagment.Commands
 								  join status in db.EquipmentStatus on equipment.StatusID equals status.IdStatus
 								  select new EquipmentDto
 								  {
+									  IdEquipment = equipment.IdEquipment,
 									  Name = equipment.Name,
 									  SerialNumber = equipment.Serial_Number,
 									  Category = category.Name,

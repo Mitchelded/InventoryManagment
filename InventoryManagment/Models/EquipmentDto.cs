@@ -7,6 +7,7 @@ namespace InventoryManagment.Models
 {
 	public class EquipmentDto
 	{
+		public int IdEquipment { get; set; }
 		public string Name { get; set; }
 		public string SerialNumber { get; set; }
 		public string Category { get; set; }

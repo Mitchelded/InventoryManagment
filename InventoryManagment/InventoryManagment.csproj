@@ -16,6 +16,7 @@
     <Deterministic>true</Deterministic>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -83,11 +84,12 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Commands\EquipmentMethods.cs" />
+    <Compile Include="Commands\DbMethods\EquipmentMethods.cs" />
+    <Compile Include="Commands\DbMethods\InventoryMovementsMethods.cs" />
+    <Compile Include="Commands\DbMethods\SuppliersMethods.cs" />
     <Compile Include="Commands\GetInstancesView.cs" />
-    <Compile Include="Commands\InventoryMovementsMethods.cs" />
-    <Compile Include="Commands\SuppliersMethods.cs" />
     <Compile Include="Enums\Codes.cs" />
+    <Compile Include="Interface\IDbMethods.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

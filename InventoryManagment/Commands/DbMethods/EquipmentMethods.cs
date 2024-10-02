@@ -1,12 +1,12 @@
-﻿using InventoryManagment.Models;
-using InventoryManagment.Models.Dtos;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using InventoryManagment.Interface;
+using InventoryManagment.Models;
+using InventoryManagment.Models.Dtos;
 
-namespace InventoryManagment.Commands
+namespace InventoryManagment.Commands.DbMethods
 {
 	internal class EquipmentMethods : IDbMethods<Equipments, EquipmentDto>
 	{

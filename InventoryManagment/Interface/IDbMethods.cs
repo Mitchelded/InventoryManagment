@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using InventoryManagment.Models;
 
 namespace InventoryManagment.Interface
 {

@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace InventoryManagment.Models.Dtos
 {
@@ -10,12 +6,12 @@ namespace InventoryManagment.Models.Dtos
 	{
 		public int IdUtilization { get; set; }
 		public string NameEquipment { get; set; }
-		public string Serial_Number { get; set; }
+		public string SerialNumber { get; set; }
 		public string NameCategory { get; set; }
 		public string LastNameStudent { get; set; }
 		public string LastNameEmployee { get; set; }
-		public System.DateTime UsageStart { get; set; }
-		public Nullable<System.DateTime> UsageEnd { get; set; }
+		public DateTime UsageStart { get; set; }
+		public DateTime? UsageEnd { get; set; }
 		public string Purpose { get; set; }
 	}
 }

@@ -28,5 +28,4 @@ namespace InventoryManagerMAUI
 			SemanticScreenReader.Announce(CounterBtn.Text);
 		}
 	}
-
 }

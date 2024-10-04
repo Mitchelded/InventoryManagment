@@ -18,6 +18,8 @@ namespace InventoryManagment.Models
     {
         public InventoryManagmentEntities()
         {
+            Database.EnsureCreated();
+            
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

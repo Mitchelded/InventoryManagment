@@ -40,14 +40,14 @@ namespace InventoryManagment.Commands.DbMethods
 				}
 				catch (Exception e)
 				{
-					MessageBox.Show(e.Message, "Error");
+					// MessageBox.Show(e.Message, "Error");
 					throw;
 				}
 
 			}
 			catch (Exception ex)
 			{
-				MessageBox.Show(ex.Message, "Error");
+				// MessageBox.Show(ex.Message, "Error");
 			}
 		}
 

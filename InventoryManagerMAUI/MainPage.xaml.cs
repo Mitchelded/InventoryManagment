@@ -8,7 +8,7 @@ namespace InventoryManagerMAUI
 		public MainPage()
 		{
 			InitializeComponent();
-			BindingContext = new EquipmentsViewModel();
+			BindingContext = new EquipmentStatusViewModel();
 			using (InventoryManagmentEntities db = new InventoryManagmentEntities())
 			{
 				

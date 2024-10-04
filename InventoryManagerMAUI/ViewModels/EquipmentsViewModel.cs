@@ -1,5 +1,8 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using InventoryManagment.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace InventoryManagerMAUI.ViewModels;
 
@@ -16,7 +19,14 @@ public class EquipmentsViewModel : ViewModelBase
     private DateTime? _warrantyExpiration;
     private DateTime _purchaseDate;
     private int _statusId;
-
+    public ObservableCollection<Equipments> Equipment { get; set; }
+    public EquipmentsViewModel()
+    {
+        using InventoryManagmentEntities db = new();
+        db.Database.EnsureCreated();
+        db.Equipments.Load();
+        Equipment = db.Equipments.Local.ToObservableCollection(); 
+    }
 
     public int IdEquipment
     {

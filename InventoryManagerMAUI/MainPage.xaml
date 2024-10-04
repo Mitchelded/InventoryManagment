@@ -6,27 +6,19 @@
              x:Class="InventoryManagerMAUI.MainPage">
     
     <ContentPage.BindingContext>
-        <model:EquipmentsViewModel/>
+        <model:EquipmentStatusViewModel/>
     </ContentPage.BindingContext>
     
     <ScrollView>
-        
         <VerticalStackLayout>
-            <ListView>
+            <Label Text="Test"/>
+            <ListView ItemsSource="{Binding EquipmentStatus}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <StackLayout Orientation="Horizontal" Margin="10,0,0,5">
+                            <Entry Text="{Binding IdStatus}" Margin="10,0,0,0" />
                             <Entry Text="{Binding Name}" Margin="10,0,0,0" />
-                            <Entry Text="{Binding Serial_Number}" Margin="10,0,0,0" />
-                            <Entry Text="{Binding DepartmentID}" Margin="10,0,0,0" />
-                            <Entry Text="{Binding CategoryID}" Margin="10,0,0,0" />
-                            <Entry Text="{Binding IdEquipment}" Margin="10,0,0,0" />
-                            <Entry Text="{Binding LocationID}" Margin="10,0,0,0" />
-                            <Entry Text="{Binding StatusID}" Margin="10,0,0,0" />
-                            <Entry Text="{Binding PurchaseDate}" Margin="10,0,0,0" />
-                            <Entry Text="{Binding WarrantyExpiration}" Margin="10,0,0,0" />
-                            <Entry Text="{Binding SupplierID}" Margin="10,0,0,0" />
-                            <Entry Text="{Binding Cost}" Margin="10,0,0,0" />
+                            <Entry Text="{Binding Description}" Margin="10,0,0,0" />
                         </StackLayout>
                     </DataTemplate>
                 </ListView.ItemTemplate>

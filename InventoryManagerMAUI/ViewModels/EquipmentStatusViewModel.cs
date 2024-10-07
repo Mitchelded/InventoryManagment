@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Windows.Input;
 using InventoryManagment.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,20 +8,35 @@ namespace InventoryManagerMAUI.ViewModels;
 public class EquipmentStatusViewModel : ViewModelBase
 {
     public ObservableCollection<EquipmentStatus> EquipmentStatus { get; set; }
-    
-    public EquipmentStatusViewModel()
+	public ICommand DeleteCommand { get; }
+    private readonly InventoryManagmentEntities db;
+	public EquipmentStatusViewModel()
     {
-        using InventoryManagmentEntities db = new();
+        db = new();
         db.Database.EnsureCreated();
         db.EquipmentStatus.Load();
-        EquipmentStatus = db.EquipmentStatus.Local.ToObservableCollection(); 
-    }
-    
-    private int _idStatus;
+        EquipmentStatus = db.EquipmentStatus.Local.ToObservableCollection();
+        DeleteCommand = new Command<EquipmentStatus>(OnDelete);
+	}
+
+
+
+	private async void OnDelete(EquipmentStatus status)
+	{
+        if(status != null) {
+			db.EquipmentStatus.Remove(status);
+			await db.SaveChangesAsync();
+		}
+
+
+	}
+
+	private int _idStatus;
     private string _description;
     private string _name;
+	private EquipmentStatus selectedStatus;
 
-    public int IdStatus
+	public int IdStatus
     {
         get => _idStatus;
         set

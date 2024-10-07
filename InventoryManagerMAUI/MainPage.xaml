@@ -4,22 +4,64 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:model="using:InventoryManagerMAUI.ViewModels"
              x:Class="InventoryManagerMAUI.MainPage">
-    
+
     <ContentPage.BindingContext>
-        <model:EquipmentStatusViewModel/>
+        <model:EquipmentStatusViewModel />
     </ContentPage.BindingContext>
-    
+
     <ScrollView>
-        <VerticalStackLayout>
-            <Label Text="Test"/>
-            <ListView ItemsSource="{Binding EquipmentStatus}">
+        <VerticalStackLayout x:Name="MainVerticalStackLayout">
+            <ListView ItemsSource="{Binding EquipmentStatus}" x:Name="statusListView">
+                <ListView.Header>
+                    <Grid MinimumWidthRequest="100">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.05*" />
+                            <ColumnDefinition Width="0.35*" />
+                            <ColumnDefinition Width="0.6*" />
+                        </Grid.ColumnDefinitions>
+                        <Border Grid.Column="0">
+                            <Label Text="Id" MinimumWidthRequest="10" MaximumHeightRequest="50"
+                                   HorizontalTextAlignment="Center" />
+                        </Border>
+                        <Border Grid.Column="1">
+                            <Label Text="Name" MinimumWidthRequest="100" HorizontalTextAlignment="Center" />
+                        </Border>
+                        <Border Grid.Column="2">
+                            <Label Text="Description" MinimumWidthRequest="200" HorizontalTextAlignment="Center" />
+                        </Border>
+                    </Grid>
+
+                </ListView.Header>
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <StackLayout Orientation="Horizontal" Margin="10,0,0,5">
-                            <Entry Text="{Binding IdStatus}" Margin="10,0,0,0" />
-                            <Entry Text="{Binding Name}" Margin="10,0,0,0" />
-                            <Entry Text="{Binding Description}" Margin="10,0,0,0" />
-                        </StackLayout>
+                        <ViewCell>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="0.05*" />
+                                    <ColumnDefinition Width="0.35*" />
+                                    <ColumnDefinition Width="0.3*" />
+                                    <ColumnDefinition Width="0.3*" />
+                                </Grid.ColumnDefinitions>
+                                <Border Grid.Column="0">
+                                    <Entry Text="{Binding IdStatus}" MinimumWidthRequest="10" MaximumHeightRequest="50" />
+                                </Border>
+                                <Border Grid.Column="1">
+                                    <Entry Text="{Binding Name}" MinimumWidthRequest="100" />
+                                </Border>
+                                <Border Grid.Column="2">
+                                    <Entry Text="{Binding Description}" MinimumWidthRequest="200"
+                                           MaximumHeightRequest="400" />
+                                </Border>
+                                <Border Grid.Column="3">
+                                    <HorizontalStackLayout>
+                                        <Button Text="Delete" Command="{Binding BindingContext.DeleteCommand, 
+                                            Source={RelativeSource AncestorType={x:Type ListView}}}" 
+                                                CommandParameter="{Binding .}"/>
+                                        <Button Text="Update"/>
+                                    </HorizontalStackLayout>
+                                </Border>
+                            </Grid>
+                        </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>

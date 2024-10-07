@@ -15,7 +15,8 @@ public class EquipmentStatusViewModel : ViewModelBase
 	public EquipmentStatus SelectedStatus
 	{
 		get => _selectedStatus;
-		set { _selectedStatus = value; OnPropertyChanged(nameof(SelectedStatus));}
+		set 
+			{ _selectedStatus = value; OnPropertyChanged(nameof(SelectedStatus));}
 
 	}
 

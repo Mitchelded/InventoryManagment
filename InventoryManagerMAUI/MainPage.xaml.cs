@@ -20,12 +20,12 @@ namespace InventoryManagerMAUI
 
 		private void Button_Clicked(object sender, EventArgs e)
 		{
-			var popup = new InputPopup(
+			var popup = new BaseContentPageClass<EquipmentStatusViewModel>(
 	new Dictionary<string, string>
 	{
 					{ "Enter status Name", "Name"},
 					{"Enter status Description", "Description"},
-	});
+	}, this.viewModel);
 			this.ShowPopupAsync(popup);
 		}
 	}

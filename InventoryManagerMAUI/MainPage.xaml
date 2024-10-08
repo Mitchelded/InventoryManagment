@@ -10,8 +10,14 @@
     </ContentPage.BindingContext>
 
     <ScrollView>
+
         <VerticalStackLayout x:Name="MainVerticalStackLayout">
             <ListView ItemsSource="{Binding EquipmentStatus}" x:Name="statusListView" SelectedItem="{Binding SelectedStatus}">
+                <FlyoutBase.ContextFlyout>
+                    <MenuFlyout>
+                        <MenuFlyoutItem Text="Add"/>
+                    </MenuFlyout>
+                </FlyoutBase.ContextFlyout>
                 <ListView.Header>
                     <Grid MinimumWidthRequest="100">
                         <Grid.ColumnDefinitions>
@@ -36,36 +42,36 @@
                     <DataTemplate>
                         <ViewCell>
                             <Grid>
+                                <FlyoutBase.ContextFlyout>
+                                    <MenuFlyout>
+                                        <MenuFlyoutItem Text="Delete" Command="{Binding BindingContext.DeleteCommand, 
+                                          Source={RelativeSource AncestorType={x:Type ListView}}}" 
+                                              CommandParameter="{Binding .}"/>
+                                        <MenuFlyoutItem Text="Update" Command="{Binding BindingContext.UpdateCommand, 
+                                          Source={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="{Binding .}"/>
+                                    </MenuFlyout>
+                                </FlyoutBase.ContextFlyout>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="0.05*" />
                                     <ColumnDefinition Width="0.35*" />
-                                    <ColumnDefinition Width="0.3*" />
-                                    <ColumnDefinition Width="0.3*" />
+                                    <ColumnDefinition Width="0.6*" />
                                 </Grid.ColumnDefinitions>
                                 <Border Grid.Column="0">
-                                    <Entry Text="{Binding IdStatus}" MinimumWidthRequest="10" MaximumHeightRequest="50" />
+                                    <Label Text="{Binding IdStatus}" MinimumWidthRequest="10" MaximumHeightRequest="50" />
                                 </Border>
                                 <Border Grid.Column="1">
-                                    <Entry Text="{Binding Name}" MinimumWidthRequest="100" />
+                                    <Label Text="{Binding Name}" MinimumWidthRequest="100" />
                                 </Border>
                                 <Border Grid.Column="2">
-                                    <Entry Text="{Binding Description}" MinimumWidthRequest="200"
+                                    <Label Text="{Binding Description}" MinimumWidthRequest="200"
                                            MaximumHeightRequest="400" />
-                                </Border>
-                                <Border Grid.Column="3">
-                                    <HorizontalStackLayout>
-                                        <Button Text="Delete" Command="{Binding BindingContext.DeleteCommand, 
-                                            Source={RelativeSource AncestorType={x:Type ListView}}}" 
-                                                CommandParameter="{Binding .}"/>
-                                        <Button Text="Update" Command="{Binding BindingContext.UpdateCommand, 
-                                            Source={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="{Binding .}"/>
-                                    </HorizontalStackLayout>
                                 </Border>
                             </Grid>
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+            <Button Clicked="Button_Clicked"/>
         </VerticalStackLayout>
     </ScrollView>
 

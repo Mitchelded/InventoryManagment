@@ -10,19 +10,24 @@ namespace InventoryManagerMAUI.Commands.DbMethods
 {
 	internal class EquipmentStatusMethods : IDbMethods<EquipmentStatus, EquipmentStatus>
 	{
-		public void Add(EquipmentStatus obj)
+		public async void Add(EquipmentStatus obj)
 		{
-			throw new NotImplementedException();
+			using InventoryManagmentEntities db = new InventoryManagmentEntities();
+			await db.EquipmentStatus.AddAsync(obj);
+			await db.SaveChangesAsync();
 		}
 
-		public void AddMany(List<EquipmentStatus> listObj)
+		public async void AddMany(List<EquipmentStatus> listObj)
 		{
-			throw new NotImplementedException();
+			using InventoryManagmentEntities db = new InventoryManagmentEntities();
+			await db.EquipmentStatus.AddRangeAsync(listObj);
+			await db.SaveChangesAsync();
 		}
 
 		public IEnumerable<EquipmentStatus> GetAll()
 		{
-			throw new NotImplementedException();
+			using InventoryManagmentEntities db = new InventoryManagmentEntities();
+			return db.EquipmentStatus;
 		}
 
 		public async void Remove(EquipmentStatus obj)
@@ -32,9 +37,11 @@ namespace InventoryManagerMAUI.Commands.DbMethods
 			await db.SaveChangesAsync();
 		}
 
-		public void RemoveMany(List<EquipmentStatus> listObj)
+		public async void RemoveMany(List<EquipmentStatus> listObj)
 		{
-			throw new NotImplementedException();
+			using InventoryManagmentEntities db = new InventoryManagmentEntities();
+			db.EquipmentStatus.RemoveRange(listObj);
+			await db.SaveChangesAsync();
 		}
 	}
 }

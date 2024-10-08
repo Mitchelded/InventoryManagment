@@ -22,16 +22,35 @@ public class EquipmentStatusViewModel : ViewModelBase
 
 	public ICommand DeleteCommand { get; }
 	public ICommand UpdateCommand { get; }
+	public ICommand AddCommand { get; }
 
 	private readonly InventoryManagmentEntities db;
 	public EquipmentStatusViewModel()
 	{
 		db = new();
 		db.Database.EnsureCreated();
-		db.EquipmentStatus.Load();
-		EquipmentStatus = db.EquipmentStatus.Local.ToObservableCollection();
+		LoadData();
 		DeleteCommand = new Command<EquipmentStatus>(OnDelete);
 		UpdateCommand = new Command<EquipmentStatus>(OnUpdate);
+		AddCommand = new Command(OnAdd);
+	}
+
+	private void OnAdd(object obj)
+	{
+		var status = new EquipmentStatus()
+		{
+			Name = _name,
+			Description = _description
+		};
+		EquipmentStatus.Add(status);
+		db.SaveChanges();
+	}
+
+	private void LoadData()
+	{
+		db.EquipmentStatus.Load();
+		EquipmentStatus = null;
+		EquipmentStatus = db.EquipmentStatus.Local.ToObservableCollection();
 	}
 
 	private void OnUpdate(EquipmentStatus status)
@@ -42,14 +61,21 @@ public class EquipmentStatusViewModel : ViewModelBase
 			status = q;
 			db.SaveChanges();
 		}
+		else
+		{
+			LoadData();
+		}
 	}
 
 	private void OnDelete(EquipmentStatus status)
 	{
 		if (status != null)
 		{
-			EquipmentStatusMethods methods = new();
-			methods.Remove(status);
+			//EquipmentStatusMethods methods = new();
+			//methods.Remove(status);
+			EquipmentStatus.Remove(status);
+
+			db.SaveChanges();
 		}
 	}
 

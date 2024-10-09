@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace InventoryManagment.Models
 {
@@ -26,6 +27,7 @@ public Students()
         public string LastName { get; set; }
         public string Patronymic { get; set; }
         public string StudentIDСard { get; set; }
+        [ForeignKey(nameof(Departments))]
         public int DepartmentID { get; set; }
         public string Course { get; set; }
     

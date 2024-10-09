@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace InventoryManagment.Models
 {
@@ -18,12 +19,13 @@ namespace InventoryManagment.Models
     {
         [Key]
         public int IdWarranty { get; set; }
+        [ForeignKey(nameof(Equipments))]
         public int EquipmentID { get; set; }
         public System.DateTime ClaimDate { get; set; }
         public string IssueDescription { get; set; }
         public string Status { get; set; }
         public Nullable<System.DateTime> ResolvedDate { get; set; }
     
-        public virtual Equipments Equipments { get; set; }
+        public Equipments Equipments { get; set; }
     }
 }

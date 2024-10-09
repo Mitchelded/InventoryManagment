@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace InventoryManagment.Models
 {
@@ -19,6 +20,7 @@ namespace InventoryManagment.Models
         [Key]
         public int IdOrder { get; set; }
         public System.DateTime OrderDate { get; set; }
+        [ForeignKey(nameof(Suppliers))]
         public int SupplierID { get; set; }
         public string Status { get; set; }
         public Nullable<decimal> TotalCost { get; set; }

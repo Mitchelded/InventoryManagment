@@ -22,5 +22,9 @@ namespace InventoryManagment.Models
         public string ContactInfo { get; set; }
         public string Adress { get; set; }
         public string Email { get; set; }
+        
+            
+        public ICollection<Equipments> Equipments { get; set; }
+        public ICollection<Orders> Orders { get; set; }
     }
 }

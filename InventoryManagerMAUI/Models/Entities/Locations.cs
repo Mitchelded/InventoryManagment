@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace InventoryManagment.Models
 {
@@ -19,8 +20,13 @@ namespace InventoryManagment.Models
         [Key]
         public int IdLocations { get; set; }
         public string Description { get; set; }
+        [ForeignKey(nameof(Departments))]
         public int DepartmentID { get; set; }
     
         public virtual Departments Departments { get; set; }
+
+        public ICollection<Equipments> Equipments { get; set; }
+        public ICollection<InventoryMovements> InventoryMovements { get; set; }
+        public ICollection<InventoryMovements> InventoryMovements1 { get; set; }
     }
 }

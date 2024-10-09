@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:model="using:InventoryManagerMAUI.ViewModels"
+             xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.Maui;assembly=LiveChartsCore.SkiaSharpView.Maui"
+             x:Class="InventoryManagerMAUI.View.BudgetAllocations">
+    
+    <ContentPage.BindingContext>
+        <model:BudgetAllocationsViewModel></model:BudgetAllocationsViewModel>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <lvc:PieChart
+            Series="{Binding Series}" WidthRequest="200" HeightRequest="200" >
+        </lvc:PieChart>
+    </ContentPage.Content>
+</ContentPage>

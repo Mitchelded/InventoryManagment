@@ -20,5 +20,7 @@ namespace InventoryManagment.Models
         public int IdCategories { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
+        
+        public ICollection<Equipments> Equipments { get; set; }
     }
 }

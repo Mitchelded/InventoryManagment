@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace InventoryManagment.Models
 {
@@ -18,11 +19,16 @@ namespace InventoryManagment.Models
     {
         [Key]
         public int IdMovement { get; set; }
+        [ForeignKey(nameof(Equipments))]
         public int EquipmentID { get; set; }
+        [ForeignKey(nameof(Locations))]
         public int FromLocationID { get; set; }
+        [ForeignKey(nameof(Locations1))]
         public int ToLocationID { get; set; }
         public System.DateTime MovementDate { get; set; }
+        [ForeignKey(nameof(Employees))]
         public int MovedByEmployeeID { get; set; }
+        [ForeignKey(nameof(Employees1))]
         public Nullable<int> ReceivedByEmployeeID { get; set; }
     
         public virtual Employees Employees { get; set; }

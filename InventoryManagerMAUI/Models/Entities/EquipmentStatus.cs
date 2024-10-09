@@ -20,6 +20,8 @@ namespace InventoryManagment.Models
         public int IdStatus { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
+        
+        public virtual ICollection<Equipments> Equipments { get; set; }
 
     }
 }

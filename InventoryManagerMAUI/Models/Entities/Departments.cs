@@ -20,6 +20,11 @@ namespace InventoryManagment.Models
         public int IdDepartments { get; set; }
         public string Name { get; set; }
         public string HeadOfDepartment { get; set; }
-
+   
+        public ICollection<BudgetAllocations> BudgetAllocations { get; set; }
+        public ICollection<Employees> Employees { get; set; }
+        public ICollection<Equipments> Equipments { get; set; }
+        public ICollection<Locations> Locations { get; set; }
+        public ICollection<Students> Students { get; set; }
     }
 }

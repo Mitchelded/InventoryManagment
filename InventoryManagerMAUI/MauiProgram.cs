@@ -1,5 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using CommunityToolkit.Maui;
+
+using SkiaSharp.Views.Maui.Controls.Hosting;
 namespace InventoryManagerMAUI
 {
 	public static class MauiProgram
@@ -8,6 +10,7 @@ namespace InventoryManagerMAUI
 		{
 			var builder = MauiApp.CreateBuilder();
 			builder
+				.UseSkiaSharp(true)
 				.UseMauiApp<App>()
 				.UseMauiCommunityToolkit()
 				.ConfigureFonts(fonts =>

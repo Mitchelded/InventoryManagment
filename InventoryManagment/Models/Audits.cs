@@ -7,6 +7,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace InventoryManagment.Models
 {
     using System;
@@ -16,6 +18,7 @@ namespace InventoryManagment.Models
     {
         public int IdAudit { get; set; }
         public System.DateTime AuditDate { get; set; }
+        
         public int PerformedByEmployeeID { get; set; }
         public string Notes { get; set; }
         public string Discrepancies { get; set; }

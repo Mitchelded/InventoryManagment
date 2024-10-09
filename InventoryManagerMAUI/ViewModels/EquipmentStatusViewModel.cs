@@ -1,14 +1,16 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
-using InventoryManagerMAUI.Commands.DbMethods;
+using InventoryManagerMAUI.Interface;
 using InventoryManagment.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace InventoryManagerMAUI.ViewModels;
 
-public class EquipmentStatusViewModel : ViewModelBase
+public class EquipmentStatusViewModel : ViewModelBase, IDbCommands<EquipmentStatus>
 {
-	public ObservableCollection<EquipmentStatus> EquipmentStatus { get; set; }
+
+
+	public ObservableCollection<EquipmentStatus> Collection { get; set; }
 
 	private EquipmentStatus _selectedStatus;
 
@@ -24,42 +26,41 @@ public class EquipmentStatusViewModel : ViewModelBase
 	public ICommand UpdateCommand { get; }
 	public ICommand AddCommand { get; }
 
-	private readonly InventoryManagmentEntities db;
+	// private readonly InventoryManagmentEntities _db;
 	public EquipmentStatusViewModel()
 	{
-		db = new();
-		db.Database.EnsureCreated();
+		// _db = new();
 		LoadData();
 		DeleteCommand = new Command<EquipmentStatus>(OnDelete);
 		UpdateCommand = new Command<EquipmentStatus>(OnUpdate);
 		AddCommand = new Command(OnAdd);
 	}
 
-	private void OnAdd(object obj)
+	public void OnAdd(object obj)
 	{
 		var status = new EquipmentStatus()
 		{
 			Name = _name,
 			Description = _description
 		};
-		EquipmentStatus.Add(status);
-		db.SaveChanges();
+		Collection.Add(status);
+		_db.SaveChanges();
 	}
 
-	private void LoadData()
+	public void LoadData()
 	{
-		db.EquipmentStatus.Load();
-		EquipmentStatus = null;
-		EquipmentStatus = db.EquipmentStatus.Local.ToObservableCollection();
+		_db.EquipmentStatus.Load();
+		Collection = null;
+		Collection = _db.EquipmentStatus.Local.ToObservableCollection();
 	}
 
-	private void OnUpdate(EquipmentStatus status)
+	public void OnUpdate(EquipmentStatus status)
 	{
 		if (status != null)
 		{
-			var q = db.EquipmentStatus.Find(status.IdStatus);
+			var q = _db.EquipmentStatus.Find(status.IdStatus);
 			status = q;
-			db.SaveChanges();
+			_db.SaveChanges();
 		}
 		else
 		{
@@ -67,15 +68,15 @@ public class EquipmentStatusViewModel : ViewModelBase
 		}
 	}
 
-	private void OnDelete(EquipmentStatus status)
+	public void OnDelete(EquipmentStatus status)
 	{
 		if (status != null)
 		{
 			//EquipmentStatusMethods methods = new();
 			//methods.Remove(status);
-			EquipmentStatus.Remove(status);
+			Collection.Remove(status);
 
-			db.SaveChanges();
+			_db.SaveChanges();
 		}
 	}
 

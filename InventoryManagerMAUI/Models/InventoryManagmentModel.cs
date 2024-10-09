@@ -18,7 +18,24 @@ namespace InventoryManagment.Models
     {
         public InventoryManagmentEntities()
         {
-            Database.EnsureCreated();
+            if (Database.EnsureCreated())
+            {
+                Departments.AddRange(new Departments[]
+                {
+                    new Departments(){ Name = "Department1", HeadOfDepartment = "Head1"},
+                    new Departments(){ Name = "Department2", HeadOfDepartment = "Head2"},
+                });
+                SaveChanges();
+                BudgetAllocations.AddRange(new BudgetAllocations[]
+                {
+                    new BudgetAllocations(){ AllocationDate = DateTime.Now, DepartmentID = 1, Amount = 1233214, 
+                        Purpose = "Purpose1"},
+                    new BudgetAllocations(){ AllocationDate = new DateTime(19,10,9), DepartmentID = 2, Amount = 1233214, 
+                        Purpose = "Purpose2"},
+                });
+
+                SaveChanges();
+            }
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

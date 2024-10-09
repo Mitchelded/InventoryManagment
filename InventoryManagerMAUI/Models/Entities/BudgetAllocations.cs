@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace InventoryManagment.Models
 {
@@ -18,9 +19,10 @@ namespace InventoryManagment.Models
     {
         [Key]
         public int IDBudget { get; set; }
-        public string AllocationDate { get; set; }
+        public DateTime AllocationDate { get; set; }
+        [ForeignKey(nameof(Departments))]
         public int DepartmentID { get; set; }
-        public string Amount { get; set; }
+        public double Amount { get; set; }
         public string Purpose { get; set; }
     
         public virtual Departments Departments { get; set; }

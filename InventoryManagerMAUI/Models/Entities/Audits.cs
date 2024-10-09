@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace InventoryManagment.Models
 {
@@ -19,6 +20,7 @@ namespace InventoryManagment.Models
         [Key]
         public int IdAudit { get; set; }
         public System.DateTime AuditDate { get; set; }
+        [ForeignKey(nameof(Employees))]
         public int PerformedByEmployeeID { get; set; }
         public string Notes { get; set; }
         public string Discrepancies { get; set; }

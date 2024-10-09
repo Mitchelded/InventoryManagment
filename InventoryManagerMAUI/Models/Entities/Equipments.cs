@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace InventoryManagment.Models
 {
@@ -20,20 +21,29 @@ namespace InventoryManagment.Models
         public int IdEquipment { get; set; }
         public string Name { get; set; }
         public string Serial_Number { get; set; }
+        [ForeignKey(nameof(Categories))]
         public int CategoryID { get; set; }
+        [ForeignKey(nameof(Departments))]
         public int DepartmentID { get; set; }
+        [ForeignKey(nameof(Locations))]
         public int LocationID { get; set; }
+        [ForeignKey(nameof(EquipmentStatus))]
         public int StatusID { get; set; }
         public System.DateTime PurchaseDate { get; set; }
         public Nullable<System.DateTime> WarrantyExpiration { get; set; }
+        [ForeignKey(nameof(Suppliers))]
         public Nullable<int> SupplierID { get; set; }
         public Nullable<decimal> Cost { get; set; }
     
-        public virtual Categories Categories { get; set; }
-        public virtual Departments Departments { get; set; }
-        public virtual EquipmentStatus EquipmentStatus { get; set; }
-        public virtual Locations Locations { get; set; }
-        public virtual Suppliers Suppliers { get; set; }
-
+        public Categories Categories { get; set; }
+        public Departments Departments { get; set; }
+        public EquipmentStatus EquipmentStatus { get; set; }
+        public Locations Locations { get; set; }
+        public Suppliers Suppliers { get; set; }
+        public virtual ICollection<InventoryMovements> InventoryMovements { get; set; }
+        public virtual ICollection<MaintenanceRecords> MaintenanceRecords { get; set; }
+        public virtual ICollection<MaintenanceRecords> MaintenanceRecords1 { get; set; }
+        public virtual ICollection<UtilizationRecords> UtilizationRecords { get; set; }
+        public virtual ICollection<WarrantyClaims> WarrantyClaims { get; set; }
     }
 }

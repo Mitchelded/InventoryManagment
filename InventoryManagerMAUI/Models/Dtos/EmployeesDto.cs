@@ -10,6 +10,6 @@
 		public string NameDepartment { get; set; }
 		public string HeadOfDepartment { get; set; }
 
-		public string Location { get; set; }
+		public string Locations { get; set; }
 	}
 }

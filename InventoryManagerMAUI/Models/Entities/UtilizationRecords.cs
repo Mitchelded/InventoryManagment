@@ -9,6 +9,7 @@
 
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using InventoryManagement.Models;
 
 namespace InventoryManagment.Models
 {

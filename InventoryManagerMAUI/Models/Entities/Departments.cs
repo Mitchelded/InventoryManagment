@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 
 using System.ComponentModel.DataAnnotations;
+using InventoryManagement.Models;
 
 namespace InventoryManagment.Models
 {

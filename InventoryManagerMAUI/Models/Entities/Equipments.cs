@@ -9,6 +9,7 @@
 
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using InventoryManagement.Models;
 
 namespace InventoryManagment.Models
 {
@@ -40,9 +41,9 @@ namespace InventoryManagment.Models
         public EquipmentStatus EquipmentStatus { get; set; }
         public Locations Locations { get; set; }
         public Suppliers Suppliers { get; set; }
+        
         public virtual ICollection<InventoryMovements> InventoryMovements { get; set; }
         public virtual ICollection<MaintenanceRecords> MaintenanceRecords { get; set; }
-        public virtual ICollection<MaintenanceRecords> MaintenanceRecords1 { get; set; }
         public virtual ICollection<UtilizationRecords> UtilizationRecords { get; set; }
         public virtual ICollection<WarrantyClaims> WarrantyClaims { get; set; }
     }

@@ -9,6 +9,7 @@
 
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using InventoryManagement.Models;
 
 namespace InventoryManagment.Models
 {
@@ -25,7 +26,7 @@ namespace InventoryManagment.Models
         
         public System.DateTime MaintensnceDate { get; set; }
         [ForeignKey(nameof(Employees))]
-        public Nullable<int> PerformedByEmployeeID { get; set; }
+        public int? PerformedByEmployeeID { get; set; }
         
         public string MaintenanceType { get; set; }
         public Nullable<decimal> Cost { get; set; }

@@ -7,6 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using InventoryManagement.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace InventoryManagment.Models
@@ -41,6 +42,46 @@ namespace InventoryManagment.Models
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlite("Data Source=InventoryManagment.db");
+        }
+        
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Employees>()
+                .HasMany(e => e.MovedInventory)
+                .WithOne(m => m.MovedByEmployee)
+                .HasForeignKey(m => m.MovedByEmployeeID)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Employees>()
+                .HasMany(e => e.ReceivedInventoryMovements)
+                .WithOne(m => m.ReceivedByEmployee)
+                .HasForeignKey(m => m.ReceivedByEmployeeID)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Employees>()
+                .HasMany(e => e.MaintenanceRecords)
+                .WithOne(m => m.Employees)
+                .HasForeignKey(m => m.PerformedByEmployeeID)
+                .OnDelete(DeleteBehavior.Restrict);
+            
+            modelBuilder.Entity<Equipments>()
+                .HasMany(e => e.MaintenanceRecords)
+                .WithOne(m => m.Equipments)
+                .HasForeignKey(m => m.EquipmentID)
+                .OnDelete(DeleteBehavior.Restrict);
+            
+            modelBuilder.Entity<Locations>()
+                .HasMany(e => e.FromLocation)
+                .WithOne(m => m.FromLocation)
+                .HasForeignKey(m => m.FromLocationID)
+                .OnDelete(DeleteBehavior.Restrict);
+            
+            modelBuilder.Entity<Locations>()
+                .HasMany(e => e.ToLocation)
+                .WithOne(m => m.ToLocation)
+                .HasForeignKey(m => m.ToLocationID)
+                .OnDelete(DeleteBehavior.Restrict);
+
         }
 
         public virtual DbSet<Audits> Audits { get; set; }

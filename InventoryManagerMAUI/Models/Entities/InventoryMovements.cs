@@ -1,31 +1,31 @@
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using InventoryManagment.Models;
 
-namespace InventoryManagment.Models
+namespace InventoryManagement.Models
 {
-    using System;
-    using System.Collections.Generic;
-    
     public partial class InventoryMovements
     {
-        [Key]
-        public int IdMovement { get; set; }
-        [ForeignKey("Equipments")]
-        public int EquipmentID { get; set; }
-        [ForeignKey("Locations")]
-        public int FromLocationID { get; set; }
-        [ForeignKey("Locations1")]
-        public int ToLocationID { get; set; }
-        public System.DateTime MovementDate { get; set; }
-        [ForeignKey("Employees")]
-        public int MovedByEmployeeID { get; set; }
-        [ForeignKey("Employees1")]
-        public Nullable<int> ReceivedByEmployeeID { get; set; }
-    
-        public Employees Employees { get; set; }
-        public Employees Employees1 { get; set; }
-        public Equipments Equipments { get; set; }
-        public Locations Locations { get; set; }
-        public Locations Locations1 { get; set; }
+        [Key] public int IdMovement { get; set; }
+
+        [ForeignKey(nameof(Equipment))] public int EquipmentID { get; set; }
+
+        [ForeignKey(nameof(FromLocation))] public int FromLocationID { get; set; }
+
+        [ForeignKey(nameof(ToLocation))] public int ToLocationID { get; set; }
+
+        public DateTime MovementDate { get; set; }
+
+        [ForeignKey(nameof(MovedByEmployee))] public int MovedByEmployeeID { get; set; }
+
+        [ForeignKey(nameof(ReceivedByEmployee))]
+        public int? ReceivedByEmployeeID { get; set; }
+
+        public Equipments Equipment { get; set; }
+        public Locations FromLocation { get; set; }
+        public Locations ToLocation { get; set; }
+        public Employees MovedByEmployee { get; set; }
+        public Employees ReceivedByEmployee { get; set; }
     }
 }

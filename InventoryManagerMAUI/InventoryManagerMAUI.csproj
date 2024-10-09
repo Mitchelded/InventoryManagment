@@ -67,15 +67,17 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="ViewModels\BasePopup.xaml.cs">
-	    <DependentUpon>BasePopup.xaml</DependentUpon>
-	  </Compile>
+	  <MauiXaml Update="View\BasePopup.xaml">
+	    <SubType>Designer</SubType>
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="ViewModels\BasePopup.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
+	  <Compile Update="View\BasePopup.xaml.cs">
+	    <DependentUpon>BasePopup.xaml</DependentUpon>
+	    <SubType>Code</SubType>
+	  </Compile>
 	</ItemGroup>
 
 </Project>

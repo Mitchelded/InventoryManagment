@@ -44,10 +44,10 @@
                             <Grid>
                                 <FlyoutBase.ContextFlyout>
                                     <MenuFlyout>
-                                        <MenuFlyoutItem Text="Delete" Command="{Binding BindingContext.DeleteCommand, 
+                                        <MenuFlyoutItem Text="Delete" Command="{Binding DeleteCommand, 
                                           Source={RelativeSource AncestorType={x:Type ListView}}}" 
                                               CommandParameter="{Binding .}"/>
-                                        <MenuFlyoutItem Text="Update" Command="{Binding BindingContext.UpdateCommand, 
+                                        <MenuFlyoutItem Text="Update" Command="{Binding UpdateCommand, 
                                           Source={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="{Binding .}"/>
                                     </MenuFlyout>
                                 </FlyoutBase.ContextFlyout>

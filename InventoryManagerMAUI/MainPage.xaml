@@ -17,7 +17,7 @@
             </MenuFlyout>
         </FlyoutBase.ContextFlyout>
         <VerticalStackLayout x:Name="MainVerticalStackLayout">
-            <ListView ItemsSource="{Binding EquipmentStatusCollection}" x:Name="statusListView" SelectedItem="{Binding SelectedStatus}">
+            <ListView ItemsSource="{Binding Collection}" x:Name="statusListView" SelectedItem="{Binding SelectedStatus}">
                 <ListView.Header>
                     <Grid MinimumWidthRequest="100">
                         <Grid.ColumnDefinitions>

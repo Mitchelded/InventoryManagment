@@ -34,7 +34,13 @@ namespace InventoryManagment.Models
                     new BudgetAllocations(){ AllocationDate = new DateTime(19,10,9), DepartmentID = 2, Amount = 1233214, 
                         Purpose = "Purpose2"},
                 });
-
+                SaveChanges();
+                
+                EquipmentStatus.AddRange(new EquipmentStatus[]
+                {
+                    new EquipmentStatus(){Name = "Установлен", Description = "Установлен на место"},
+                    new EquipmentStatus(){Name = "На складе", Description = "Находится на складе"},
+                });
                 SaveChanges();
             }
         }

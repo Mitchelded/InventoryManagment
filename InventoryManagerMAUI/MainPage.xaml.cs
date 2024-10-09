@@ -18,14 +18,14 @@ namespace InventoryManagerMAUI
 			}
 		}
 
-		private void Button_Clicked(object sender, EventArgs e)
+		private void btn_Add_Clicked(object sender, EventArgs e)
 		{
-			var popup = new BaseContentPageClass<EquipmentStatusViewModel>(
-	new Dictionary<string, string>
-	{
+			Dictionary<string, string> labelsDict = new Dictionary<string, string>
+			{
 					{ "Enter status Name", "Name"},
 					{"Enter status Description", "Description"},
-	}, this.viewModel);
+			};
+			var popup = new InputPopup<EquipmentStatusViewModel>(labelsDict, this.viewModel);
 			this.ShowPopupAsync(popup);
 		}
 	}

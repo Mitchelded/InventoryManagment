@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace InventoryManagerMAUI.ViewModels
 {
-	partial class BaseContentPageClass<T> : InputPopup
+	partial class InputPopup<T> : BasePopup where T : class
 	{
-		public BaseContentPageClass(Dictionary<string, string> fieldLabels, T viewModel) : base(fieldLabels)
+		public InputPopup(Dictionary<string, string> fieldLabels, T viewModel) : base()
 		{
 			GeneratePopup(fieldLabels, viewModel);
 		}

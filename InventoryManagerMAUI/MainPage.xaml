@@ -10,14 +10,13 @@
     </ContentPage.BindingContext>
 
     <ScrollView>
-
+        <FlyoutBase.ContextFlyout>
+            <MenuFlyout>
+                <MenuFlyoutItem Text="Add" x:Name="btn_Add" Clicked="btn_Add_Clicked"/>
+            </MenuFlyout>
+        </FlyoutBase.ContextFlyout>
         <VerticalStackLayout x:Name="MainVerticalStackLayout">
             <ListView ItemsSource="{Binding EquipmentStatus}" x:Name="statusListView" SelectedItem="{Binding SelectedStatus}">
-                <FlyoutBase.ContextFlyout>
-                    <MenuFlyout>
-                        <MenuFlyoutItem Text="Add"/>
-                    </MenuFlyout>
-                </FlyoutBase.ContextFlyout>
                 <ListView.Header>
                     <Grid MinimumWidthRequest="100">
                         <Grid.ColumnDefinitions>
@@ -71,7 +70,7 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <Button Clicked="Button_Clicked"/>
+            <Button Clicked="btn_Add_Clicked"/>
         </VerticalStackLayout>
     </ScrollView>
 

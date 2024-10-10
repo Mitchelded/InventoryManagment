@@ -1,83 +1,66 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
+
 using InventoryManagerMAUI.Interface;
 using InventoryManagment.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace InventoryManagerMAUI.ViewModels;
+namespace InventoryManagerMAUI.ViewModels.ViewModel;
 
-public class EquipmentStatusViewModel : ViewModelBase, IDbCommands<EquipmentStatus>
+public class EquipmentStatusViewModel : ViewModelBase<EquipmentStatus>
 {
 
 
-	public ObservableCollection<EquipmentStatus> Collection { get; set; }
+	//public ObservableCollection<EquipmentStatus> Collection { get; set; }
 
 	private EquipmentStatus _selectedStatus;
 
 	public EquipmentStatus SelectedStatus
 	{
 		get => _selectedStatus;
-		set 
-			{ _selectedStatus = value; OnPropertyChanged(nameof(SelectedStatus));}
+		set
+		{ _selectedStatus = value; OnPropertyChanged(nameof(SelectedStatus)); }
 
 	}
-
-	public ICommand DeleteCommand { get; }
-	public ICommand UpdateCommand { get; }
-	public ICommand AddCommand { get; }
-
+	private readonly InventoryManagmentEntities _db;
 	// private readonly InventoryManagmentEntities _db;
-	public EquipmentStatusViewModel()
+	public EquipmentStatusViewModel() : base()
 	{
-		// _db = new();
-		LoadData();
-		DeleteCommand = new Command<EquipmentStatus>(OnDelete);
-		UpdateCommand = new Command<EquipmentStatus>(OnUpdate);
-		AddCommand = new Command(OnAdd);
+		//_db = db;
 	}
 
-	public void OnAdd(object obj)
+
+	//public override void OnUpdate(EquipmentStatus status)
+	//{
+	//	if (status != null)
+	//	{
+	//		var existingStatus = _db.EquipmentStatus.Find(status.IdStatus);
+	//		if (existingStatus != null)
+	//		{
+	//			// Обновление свойств
+	//			existingStatus.Name = status.Name;
+	//			existingStatus.Description = status.Description;
+	//			_db.SaveChanges();
+	//		}
+	//	}
+	//	else
+	//	{
+	//		LoadData(); // Пере загружаем данные, если статус не выбран
+	//	}
+	//}
+
+	public override void OnAdd(object obj)
 	{
+		using InventoryManagmentEntities _db = new();
 		var status = new EquipmentStatus()
 		{
 			Name = _name,
 			Description = _description
 		};
+		
+		var q =_db.EquipmentStatus.Add(status);
 		Collection.Add(status);
 		_db.SaveChanges();
-	}
-
-	public void LoadData()
-	{
-		_db.EquipmentStatus.Load();
-		Collection = null;
-		Collection = _db.EquipmentStatus.Local.ToObservableCollection();
-	}
-
-	public void OnUpdate(EquipmentStatus status)
-	{
-		if (status != null)
-		{
-			var q = _db.EquipmentStatus.Find(status.IdStatus);
-			status = q;
-			_db.SaveChanges();
-		}
-		else
-		{
-			LoadData();
-		}
-	}
-
-	public void OnDelete(EquipmentStatus status)
-	{
-		if (status != null)
-		{
-			//EquipmentStatusMethods methods = new();
-			//methods.Remove(status);
-			Collection.Remove(status);
-
-			_db.SaveChanges();
-		}
 	}
 
 	private int _idStatus;

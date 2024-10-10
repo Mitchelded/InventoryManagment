@@ -4,34 +4,21 @@ using LiveChartsCore;
 using LiveChartsCore.SkiaSharpView;
 using Microsoft.EntityFrameworkCore;
 
-namespace InventoryManagerMAUI.ViewModels
+namespace InventoryManagerMAUI.ViewModels.ViewModel
 {
-    class BudgetAllocationsViewModel : ViewModelBase
+    class BudgetAllocationsViewModel : ViewModelBase<BudgetAllocations>
     {
-	    private readonly InventoryManagmentEntities _db;
-	    public ObservableCollection<BudgetAllocations> BudgetAllocationsCollection { get; set; }
-
-	    public BudgetAllocationsViewModel()
-	    {
-		    _db = new();
-		    LoadData();
+	    public BudgetAllocationsViewModel() : base()
+		{
 
 	    }
-	    
-	    
-	    private void LoadData()
-	    {
-		    _db.BudgetAllocations.Load();
-		    BudgetAllocationsCollection = null;
-		    BudgetAllocationsCollection = _db.BudgetAllocations.Local.ToObservableCollection();
-		    GenerateSeries();
-	    }
+
 	    public PieSeries<double>[] Series { get; set; }
 
 	    private void GenerateSeries()
 	    {
 		    // Group the budget data by department
-		    var groupedData = BudgetAllocationsCollection
+		    var groupedData = Collection
 			    .GroupBy(data => data.DepartmentID)
 			    .Select(g => new
 			    {
@@ -46,8 +33,13 @@ namespace InventoryManagerMAUI.ViewModels
 			    Values = new Double[] { g.TotalAmount }
 		    }).ToArray();
 	    }
-	    
-	    private int _idBudget;
+
+		public override void OnAdd(object obj)
+		{
+			base.OnAdd(obj);
+		}
+
+		private int _idBudget;
 	    private string _allocationDate;
 	    private int _departmentId;
 	    private string _amount;

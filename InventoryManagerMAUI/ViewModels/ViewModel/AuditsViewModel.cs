@@ -4,28 +4,22 @@ using InventoryManagerMAUI.Interface;
 using InventoryManagment.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace InventoryManagerMAUI.ViewModels;
+namespace InventoryManagerMAUI.ViewModels.ViewModel;
 
-public class AuditsViewModel : ViewModelBase, IDbCommands<Audits>
+public class AuditsViewModel : ViewModelBase<Audits>
 {
-    // private readonly InventoryManagmentEntities _db;
-    public ObservableCollection<Audits> Collection { get; set; }
-    
-    public ICommand DeleteCommand { get; }
-    public ICommand UpdateCommand { get; }
-    public ICommand AddCommand { get; }
-
-
-    public AuditsViewModel()
+    private readonly InventoryManagmentEntities _db;
+    //public ObservableCollection<Audits> Collection { get; set; }
+    public AuditsViewModel() : base()
     {
-        // _db = new();
-        LoadData();
+        //_db = db;
     }
 
 
-    public void OnAdd(object obj)
+    public override void OnAdd(object obj)
     {
-        var status = new Audits()
+		using InventoryManagmentEntities _db = new();
+		var status = new Audits()
         {
             AuditDate = _auditDate,
             PerformedByEmployeeID = _performedByEmployeeId,
@@ -37,21 +31,21 @@ public class AuditsViewModel : ViewModelBase, IDbCommands<Audits>
         _db.SaveChanges();
     }
 
-    public void OnUpdate(Audits status)
-    {
-        throw new NotImplementedException();
-    }
+    //public void OnUpdate(Audits status)
+    //{
+    //    throw new NotImplementedException();
+    //}
 
-    public void OnDelete(Audits status)
-    {
-        throw new NotImplementedException();
-    }
+    //public void OnDelete(Audits status)
+    //{
+    //    throw new NotImplementedException();
+    //}
 
-    public void LoadData()
-    {
-        _db.Audits.Load();
-        Collection = _db.Audits.Local.ToObservableCollection();
-    }
+    //public void LoadData()
+    //{
+    //    _db.Audits.Load();
+    //    Collection = _db.Audits.Local.ToObservableCollection();
+    //}
     
     private int _idAudit;
     private DateTime _auditDate;

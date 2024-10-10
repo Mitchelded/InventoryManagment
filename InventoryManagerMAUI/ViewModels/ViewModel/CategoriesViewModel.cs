@@ -4,16 +4,14 @@ using InventoryManagerMAUI.Interface;
 using InventoryManagment.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace InventoryManagerMAUI.ViewModels;
+namespace InventoryManagerMAUI.ViewModels.ViewModel;
 
-public class CategoriesViewModel : ViewModelBase ,IDbCommands<Categories>
+public class CategoriesViewModel : ViewModelBase<Categories>
 {
-    private readonly InventoryManagmentEntities _db;
 
-    public CategoriesViewModel()
-    {
-        _db = new();
-        LoadData();
+    public CategoriesViewModel() : base()
+	{
+
     }
     private int _idCategories;
     private string _name;
@@ -53,29 +51,7 @@ public class CategoriesViewModel : ViewModelBase ,IDbCommands<Categories>
         }
     }
 
-
-    public ObservableCollection<Categories> Collection { get; set; }
-    public ICommand DeleteCommand { get; }
-    public ICommand UpdateCommand { get; }
-    public ICommand AddCommand { get; }
-
-    public void OnAdd(object obj)
-    {
-        throw new NotImplementedException();
-    }
-
-    public void LoadData()
-    {
-        _db.Categories.Load();
-        Collection = _db.Categories.Local.ToObservableCollection();
-    }
-
-    public void OnUpdate(Categories status)
-    {
-        throw new NotImplementedException();
-    }
-
-    public void OnDelete(Categories status)
+    public override void OnAdd(object obj)
     {
         throw new NotImplementedException();
     }

@@ -4,9 +4,9 @@ using System.Runtime.CompilerServices;
 using InventoryManagment.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace InventoryManagerMAUI.ViewModels;
+namespace InventoryManagerMAUI.ViewModels.ViewModel;
 
-public class EquipmentsViewModel : ViewModelBase
+public class EquipmentsViewModel : ViewModelBase<Equipments>
 {
     private int _idEquipment;
     private string _name;
@@ -19,16 +19,12 @@ public class EquipmentsViewModel : ViewModelBase
     private DateTime? _warrantyExpiration;
     private DateTime _purchaseDate;
     private int _statusId;
-    public ObservableCollection<Equipments> Equipment { get; set; }
-    public EquipmentsViewModel()
-    {
-        using InventoryManagmentEntities db = new();
-        db.Database.EnsureCreated();
-        db.Equipments.Load();
-        Equipment = db.Equipments.Local.ToObservableCollection(); 
+    public EquipmentsViewModel() : base()
+	{
+
     }
 
-    public int IdEquipment
+	public int IdEquipment
     {
         get => _idEquipment;
         set

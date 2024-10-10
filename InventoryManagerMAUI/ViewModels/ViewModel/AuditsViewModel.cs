@@ -9,10 +9,8 @@ namespace InventoryManagerMAUI.ViewModels.ViewModel;
 public class AuditsViewModel : ViewModelBase<Audits>
 {
     private readonly InventoryManagmentEntities _db;
-    //public ObservableCollection<Audits> Collection { get; set; }
     public AuditsViewModel() : base()
     {
-        //_db = db;
     }
 
 
@@ -28,24 +26,9 @@ public class AuditsViewModel : ViewModelBase<Audits>
             
         };
         Collection.Add(status);
+        _db.Add(status);
         _db.SaveChanges();
     }
-
-    //public void OnUpdate(Audits status)
-    //{
-    //    throw new NotImplementedException();
-    //}
-
-    //public void OnDelete(Audits status)
-    //{
-    //    throw new NotImplementedException();
-    //}
-
-    //public void LoadData()
-    //{
-    //    _db.Audits.Load();
-    //    Collection = _db.Audits.Local.ToObservableCollection();
-    //}
     
     private int _idAudit;
     private DateTime _auditDate;

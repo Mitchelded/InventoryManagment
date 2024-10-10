@@ -22,32 +22,11 @@ public class EquipmentStatusViewModel : ViewModelBase<EquipmentStatus>
 		{ _selectedStatus = value; OnPropertyChanged(nameof(SelectedStatus)); }
 
 	}
-	private readonly InventoryManagmentEntities _db;
-	// private readonly InventoryManagmentEntities _db;
+
 	public EquipmentStatusViewModel() : base()
 	{
-		//_db = db;
+
 	}
-
-
-	//public override void OnUpdate(EquipmentStatus status)
-	//{
-	//	if (status != null)
-	//	{
-	//		var existingStatus = _db.EquipmentStatus.Find(status.IdStatus);
-	//		if (existingStatus != null)
-	//		{
-	//			// Обновление свойств
-	//			existingStatus.Name = status.Name;
-	//			existingStatus.Description = status.Description;
-	//			_db.SaveChanges();
-	//		}
-	//	}
-	//	else
-	//	{
-	//		LoadData(); // Пере загружаем данные, если статус не выбран
-	//	}
-	//}
 
 	public override void OnAdd(object obj)
 	{

@@ -9,28 +9,55 @@
       Title="Registration">
 
     <Grid>
-        <StackPanel>
+        <StackPanel VerticalAlignment="Center">
             <Label Content="FIO"/>
-            <TextBox/>
-            <Label Content="BirthDay"/>
-            <DatePicker/>
-            <Label Content="HaveAChild"/>
-            <CheckBox/>
+            <TextBox x:Name="tbFIO" Text="FIO"/>
+
+            <StackPanel Orientation="Horizontal">
+                <StackPanel Margin="10,0,0,0">
+                    <Label Content="BirthDay"/>
+                    <DatePicker x:Name="dpBirthDay" SelectedDate="12.10.2024"/>
+                </StackPanel>
+                <StackPanel Margin="10,0,0,0">
+                    <Label Content="HaveAChild"/>
+                    <CheckBox x:Name="cbChild" IsChecked="False"/>
+                </StackPanel>
+                <StackPanel Margin="10,0,0,0" Width="50">
+                    <Label Content="Gender"/>
+                    <ComboBox x:Name="cbGender" SelectedIndex="1">
+                        <ComboBoxItem Content="Man"/>
+                        <ComboBoxItem Content="Woman"/>
+                    </ComboBox>
+                </StackPanel>
+                <StackPanel Margin="10,0,0,0" Width="100">
+                    <Label Content="Role"/>
+                    <ComboBox SelectedIndex="0" x:Name="cbRole" ItemsSource="{Binding Roles}" SelectedValuePath="RoleID" DisplayMemberPath="RoleName"/>
+                </StackPanel>
+            </StackPanel>
+
+            <Label Content="Login"/>
+            <TextBox x:Name="tbLogin" Text="1"/>
+
+            <StackPanel Orientation="Horizontal">
+                <StackPanel Width="200">
+                    <Label Content="Password"/>
+                    <PasswordBox x:Name="tbPassword" Password="1"/>
+                </StackPanel>
+                <StackPanel Margin="10,0,0,0">
+                    <Label Content="RepPassword"/>
+                    <PasswordBox x:Name="tbRepPassword" Password="1" Width="200"/>
+                </StackPanel>
+            </StackPanel>
             <Label Content="Scholarship"/>
-            <TextBox/>
-            <Label Content="Gender"/>
-            <ComboBox>
-                <ComboBoxItem Content="Man"/>
-                <ComboBoxItem Content="Woman"/>
-            </ComboBox>
+            <TextBox x:Name="tbSholarship" Text="1"/>
             <Label Content="Salary"/>
-            <TextBox/>
+            <TextBox x:Name="tbSalary" Text="1"/>
             <Label Content="Dissertation"/>
-            <Button Content="Add Dissertation"/>
-            <Label Content="Departmnet"/>
-            <ComboBox/>
-            <Label Content="Role"/>
-            <ComboBox/>
+            <Button Content="Add Dissertation" x:Name="btnAdd" Click="btnAdd_Click"/>
+            <!--<Label Content="Departmnet"/>
+            <ComboBox/>-->
+
+            <Button Content="Register" Margin="0,10,0,0" x:Name="btnReg" Click="btnReg_Click"/>
         </StackPanel>
     </Grid>
 </Page>

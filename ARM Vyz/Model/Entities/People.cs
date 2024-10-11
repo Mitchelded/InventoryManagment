@@ -1,60 +1,76 @@
 namespace ARM_Vyz.Model.Entities
 {
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.Spatial;
+	using System;
+	using System.Collections.Generic;
+	using System.ComponentModel.DataAnnotations;
+	using System.ComponentModel.DataAnnotations.Schema;
+	using System.Data.Entity.Spatial;
+	using System.Linq;
 
-    public partial class People
-    {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public People()
-        {
-            Faculties = new HashSet<Faculties>();
-            ScientificDegrees = new HashSet<ScientificDegrees>();
-        }
+	public partial class People
+	{
+		public People()
+		{
+			Dessertations = new HashSet<Dessertations>();
+			Faculties = new HashSet<Faculties>();
+		}
 
-		public void AddDessertation(ScientificDegrees degrees)
+		public void AddDessertation(Dessertations degrees)
 		{
 
-			ScientificDegrees.Add(degrees);
+			Dessertations.Add(degrees);
+
+		}
+
+		public void AddDean(Faculties faculties)
+		{
+			if(faculties.DeanID == null || faculties.DeanID ==0)
+			{
+				faculties.DeanID = PeopleID;
+				Faculties.Add(faculties);
+			}
 
 		}
 
 		public int PeopleID { get; set; }
 
-        public int? RoleID { get; set; }
+		public int? RoleID { get; set; }
 
-        [Required]
-        [StringLength(10)]
-        public string FIO { get; set; }
+		[Required]
 
-        [Column(TypeName = "date")]
-        public DateTime Birthday { get; set; }
+		public string FIO { get; set; }
 
-        public bool HaveAChild { get; set; }
+		[Column(TypeName = "date")]
+		public DateTime Birthday { get; set; }
 
-        [Column(TypeName = "money")]
-        public decimal? Scholarship { get; set; }
+		public bool HaveAChild { get; set; }
 
-        [Required]
-        [StringLength(10)]
-        public string Gender { get; set; }
+		[Column(TypeName = "money")]
+		public decimal? Scholarship { get; set; }
 
-        [Column(TypeName = "money")]
-        public decimal? Salary { get; set; }
+		[Required]
 
-        public int DepartmentID { get; set; }
+		public string Gender { get; set; }
 
-        public virtual Departments Departments { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Faculties> Faculties { get; set; }
+		[Required]
 
-        public virtual Roles Roles { get; set; }
+		public string Login { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ScientificDegrees> ScientificDegrees { get; set; }
-    }
+		[Required]
+
+		public string Password { get; set; }
+
+		[Column(TypeName = "money")]
+		public decimal? Salary { get; set; }
+
+		public int? DepartmentID { get; set; }
+
+		public Departments Departments { get; set; }
+		public ICollection<Dessertations> Dessertations { get; set; }
+
+		public ICollection<Faculties> Faculties { get; set; }
+
+		public Roles Roles { get; set; }
+	}
 }

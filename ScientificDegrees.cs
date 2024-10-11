@@ -19,6 +19,6 @@ namespace ARM_Vyz.Model.Entities
 
         public int? TeacherID { get; set; }
 
-        public virtual People People { get; set; }
+        public virtual Peoples Peoples { get; set; }
     }
 }

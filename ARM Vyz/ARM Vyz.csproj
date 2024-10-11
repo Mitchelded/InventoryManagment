@@ -67,19 +67,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Migrations\202410110905199_ChangeTables.cs" />
-    <Compile Include="Migrations\202410110905199_ChangeTables.Designer.cs">
-      <DependentUpon>202410110905199_ChangeTables.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Model\Entities\C__MigrationHistory.cs" />
     <Compile Include="Model\Entities\Departments.cs" />
+    <Compile Include="Model\Entities\Dessertations.cs" />
     <Compile Include="Model\Entities\Faculties.cs" />
     <Compile Include="Model\Entities\People.cs" />
     <Compile Include="Model\Entities\Roles.cs" />
-    <Compile Include="Model\Entities\ScientificDegrees.cs" />
     <Compile Include="Model\Entities\sysdiagrams.cs" />
     <Compile Include="Model\UniversityEntities.cs" />
+    <Compile Include="Views\DessertationAdd.xaml.cs">
+      <DependentUpon>DessertationAdd.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Login_Page.xaml.cs">
       <DependentUpon>Login_Page.xaml</DependentUpon>
     </Compile>
@@ -98,6 +95,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\DessertationAdd.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Login_Page.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -121,9 +122,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="Migrations\202410110905199_ChangeTables.resx">
-      <DependentUpon>202410110905199_ChangeTables.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -137,6 +135,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

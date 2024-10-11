@@ -16,7 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using System.Security.Cryptography;
 namespace ARM_Vyz.Views
 {
 	/// <summary>
@@ -39,32 +39,49 @@ namespace ARM_Vyz.Views
 		private async void btnReg_Click(object sender, RoutedEventArgs e)
 		{
 			using (UniversityEntities _db = new UniversityEntities())
+			using (MD5 md5 = MD5.Create())
 			{
 				try
 				{
-					var people = new People()
+					if (tbPassword.Password == tbRepPassword.Password)
 					{
-						RoleID = int.Parse(cbRole.SelectedValue.ToString()),
-						FIO = tbFIO.Text,
-						Birthday = (DateTime)dpBirthDay.SelectedDate,
-						HaveAChild = cbChild.IsChecked ?? false,
-						Scholarship = decimal.Parse(tbSholarship.Text),
-						Gender = ((ComboBoxItem)cbGender.SelectedItem).Content.ToString(),
-						Salary = decimal.Parse(tbSalary.Text),
-						Password = tbPassword.Password,
-						Login = tbLogin.Text
-					};
+						var people = new People()
+						{
+							RoleID = int.Parse(cbRole.SelectedValue.ToString()),
+							FIO = tbFIO.Text,
+							Birthday = (DateTime)dpBirthDay.SelectedDate,
+							HaveAChild = cbChild.IsChecked ?? false,
+							Scholarship = decimal.Parse(tbSholarship.Text),
+							Gender = ((ComboBoxItem)cbGender.SelectedItem).Content.ToString(),
+							Salary = decimal.Parse(tbSalary.Text),
+							Login = tbLogin.Text
+						};
 
-					_db.People.Add(people);
-					_db.SaveChanges(); // Save before using the ID
+						// Hash the password
+						byte[] passwordBytes = Encoding.UTF8.GetBytes(tbPassword.Password);
+						byte[] hashBytes = md5.ComputeHash(passwordBytes);
 
-					foreach (var dessertation in _dessertations)
-					{
-						dessertation.TeacherID = people.PeopleID; // Use the original reference
+						// Convert hash to a hex string (or store as byte array, depending on your database)
+						StringBuilder sb = new StringBuilder();
+						foreach (byte b in hashBytes)
+						{
+							sb.Append(b.ToString("x2"));
+						}
+						people.Password = sb.ToString(); // Store the hashed password
+
+
+						_db.People.Add(people);
+						_db.SaveChanges(); // Save before using the ID
+
+						foreach (var dessertation in _dessertations)
+						{
+							dessertation.TeacherID = people.PeopleID; // Use the original reference
+						}
+
+						_db.Dessertations.AddRange(_dessertations);
+						await _db.SaveChangesAsync(); // Use async save if in a UI context
 					}
 
-					_db.Dessertations.AddRange(_dessertations);
-					await _db.SaveChangesAsync(); // Use async save if in a UI context
 				}
 
 				catch (DbEntityValidationException ex)

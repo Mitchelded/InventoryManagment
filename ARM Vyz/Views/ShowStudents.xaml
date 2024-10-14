@@ -9,53 +9,69 @@
       Title="ShowStudents">
 
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="0.103*"/>
-            <RowDefinition Height="0.056*"/>
-            <RowDefinition Height="0.54*"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.7*"/>
-            <ColumnDefinition Width="0.3*"/>
-            <ColumnDefinition Width="0.3*"/>
-            <ColumnDefinition Width="0.3*"/>
-            <ColumnDefinition Width="0.4*"/>
-            <ColumnDefinition Width="0.4*"/>
-        </Grid.ColumnDefinitions>
+        <StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <ComboBox Name="Faculty"/>
+                <ComboBox Name="Department"/>
+                <ComboBox Name="Course"/>
+            </StackPanel>
+            <Popup StaysOpen="True" Placement="Center" AllowsTransparency="True" Name="popup">
+                <StackPanel>
+                    <TextBox Text="{Binding FIO}"/>
+                    <ComboBox SelectedValuePath="{Binding DepartmentID}" 
+                              DisplayMemberPath="{Binding DepartmentID}" Name="cbDepartments"/>
+                    <ComboBox SelectedValuePath="{Binding FacultyID}" 
+                              DisplayMemberPath="{Binding FacultyName}" Name="cbFaculties"/>
+                    <TextBox Text="{Binding FIO}"/>
+                    <TextBox Text="{Binding Gender}"/>
+                    <TextBox Text="{Binding Birthday}"/>
 
-
-        <Label Content="FIO" Grid.Column="0" Grid.Row="1"/>
-        <Label Content="Gender" Grid.Column="1" Grid.Row="1"/>
-        <Label Content="Birthday" Grid.Column="2" Grid.Row="1"/>
-        <Label Content="HaveAChild" Grid.Column="3" Grid.Row="1"/>
-        <Label Content="Scholarship" Grid.Column="4" Grid.Row="1"/>
-        <Label Content="ScholarshipPurpose" Grid.Column="5" Grid.Row="1"/>
-        <StackPanel Grid.Row="0" Grid.ColumnSpan="2">
-            <ComboBox Name="Faculty"/>
-            <ComboBox Name="Department"/>
-            <ComboBox Name="Course"/>
-        </StackPanel>
-        <StackPanel Grid.Row="2" Grid.ColumnSpan="6">
-            <ListView ItemsSource="{Binding People}" Name="lvStudents"
-              Height="{Binding DesignHeight, Source={RelativeSource AncestorType={x:Type Page}}}" 
-              Width="{Binding DesignWidth, Source={RelativeSource AncestorType={x:Type Page}}}">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="FIO" DisplayMemberBinding="{Binding FIO}" Width="Auto"/>
-                        <GridViewColumn Header="Gender" DisplayMemberBinding="{Binding Gender}" Width="Auto"/>
-                        <GridViewColumn Header="Birthday" DisplayMemberBinding="{Binding Birthday}" Width="Auto"/>
-                        <GridViewColumn Header="HaveAChild" Width="Auto">
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <CheckBox IsChecked="{Binding HaveAChild}"/>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                        <GridViewColumn Header="Scholarship" DisplayMemberBinding="{Binding Scholarship}" Width="Auto"/>
-                        <GridViewColumn Header="ScholarshipPurpose" DisplayMemberBinding="{Binding ScholarshipPurpose}" Width="Auto"/>
-                    </GridView>
-                </ListView.View>
-            </ListView>
+                    <CheckBox IsChecked="{Binding HaveAChild}"/>
+                    <TextBox Text="{Binding Scholarship}"/>
+                    <TextBox Text="{Binding ScholarshipPurpose}"/>
+                    <StackPanel Orientation="Horizontal">
+                        <Button Content="✓" Name="btnOk" Click="btnOk_Click"/>
+                        <Button Content="×" Name="btnCancel" Click="btnCancel_Click"/>
+                    </StackPanel>
+                </StackPanel>
+            </Popup>
+            <StackPanel Grid.Row="2" Grid.ColumnSpan="6">
+                <ListView ItemsSource="{Binding People}" Name="lvStudents"
+       Height="{Binding DesignHeight, Source={RelativeSource AncestorType={x:Type Page}}}" 
+       Width="{Binding DesignWidth, Source={RelativeSource AncestorType={x:Type Page}}}">
+                    <ListView.Resources>
+                        <ContextMenu x:Key="ItemContextMenu">
+                            <MenuItem Header="Delete" x:Name="miDelete" Click="miDelete_Click"/>
+                            <MenuItem Header="Save"/>
+                            <MenuItem Header="Change" Click="miChange_Click"/>
+                        </ContextMenu>
+                    </ListView.Resources>
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="{x:Type ListViewItem}">
+                            <EventSetter Event="PreviewMouseLeftButtonDown" Handler="OnListViewItem_PreviewMouseLeftButtonDown" />
+                            <Setter Property="ContextMenu" Value="{StaticResource ItemContextMenu}"/>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="FIO" DisplayMemberBinding="{Binding FIO}" Width="Auto"/>
+                            <GridViewColumn Header="DepartmentName"  DisplayMemberBinding="{Binding Departments.DepartmentName}" Width="Auto"/>
+                            <GridViewColumn Header="FacultyName" DisplayMemberBinding="{Binding Departments.Faculties.FacultyName}" Width="Auto"/>
+                            <GridViewColumn Header="Gender" DisplayMemberBinding="{Binding Gender}" Width="Auto"/>
+                            <GridViewColumn Header="Birthday" DisplayMemberBinding="{Binding Birthday}" Width="Auto"/>
+                            <GridViewColumn Header="HaveAChild" Width="Auto">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <CheckBox IsChecked="{Binding HaveAChild}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Scholarship" DisplayMemberBinding="{Binding Scholarship}" Width="Auto"/>
+                            <GridViewColumn Header="ScholarshipPurpose" DisplayMemberBinding="{Binding ScholarshipPurpose}" Width="Auto"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </StackPanel>
         </StackPanel>
 
     </Grid>

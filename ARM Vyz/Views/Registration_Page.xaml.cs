@@ -17,6 +17,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Security.Cryptography;
+using System.Configuration;
+using ARM_Vyz.Commands;
 namespace ARM_Vyz.Views
 {
 	/// <summary>
@@ -39,12 +41,12 @@ namespace ARM_Vyz.Views
 		private async void btnReg_Click(object sender, RoutedEventArgs e)
 		{
 			using (UniversityEntities _db = new UniversityEntities())
-			using (MD5 md5 = MD5.Create())
 			{
 				try
 				{
 					if (tbPassword.Password == tbRepPassword.Password)
 					{
+						EcryptMethodes ecryptMethodes = new EcryptMethodes();
 						var people = new People()
 						{
 							RoleID = int.Parse(cbRole.SelectedValue.ToString()),
@@ -54,20 +56,9 @@ namespace ARM_Vyz.Views
 							Scholarship = decimal.Parse(tbSholarship.Text),
 							Gender = ((ComboBoxItem)cbGender.SelectedItem).Content.ToString(),
 							Salary = decimal.Parse(tbSalary.Text),
-							Login = tbLogin.Text
+							Login = tbLogin.Text,
+							Password = ecryptMethodes.Ecrypt(tbPassword.Password)
 						};
-
-						// Hash the password
-						byte[] passwordBytes = Encoding.UTF8.GetBytes(tbPassword.Password);
-						byte[] hashBytes = md5.ComputeHash(passwordBytes);
-
-						// Convert hash to a hex string (or store as byte array, depending on your database)
-						StringBuilder sb = new StringBuilder();
-						foreach (byte b in hashBytes)
-						{
-							sb.Append(b.ToString("x2"));
-						}
-						people.Password = sb.ToString(); // Store the hashed password
 
 
 						_db.People.Add(people);
@@ -81,7 +72,6 @@ namespace ARM_Vyz.Views
 						_db.Dessertations.AddRange(_dessertations);
 						await _db.SaveChangesAsync(); // Use async save if in a UI context
 					}
-
 				}
 
 				catch (DbEntityValidationException ex)
@@ -101,8 +91,6 @@ namespace ARM_Vyz.Views
 			}
 		}
 
-
-
 		private void btnAdd_Click(object sender, RoutedEventArgs e)
 		{
 			DessertationAdd dessertationAdd = new DessertationAdd();
@@ -111,6 +99,10 @@ namespace ARM_Vyz.Views
 			_dessertations = dessertationAdd.Dessertations;
 		}
 
+		private void btnLogin_Click(object sender, RoutedEventArgs e)
+		{
+			this.NavigationService.Navigate(new Login_Page());	
+		}
 	}
 
 }

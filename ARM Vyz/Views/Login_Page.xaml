@@ -9,6 +9,18 @@
       Title="Login_Page">
 
     <Grid>
-        
+        <StackPanel Width="200" VerticalAlignment="Center">
+
+
+            <Label Content="Login"/>
+            <TextBox x:Name="tbLogin" Text="1"/>
+
+
+            <Label Content="Password"/>
+            <PasswordBox Password="1" x:Name="pbPassword"/>
+
+
+            <Button Content="LogIn" x:Name="btnLogin" Click="btnLogin_Click"/>
+        </StackPanel>
     </Grid>
 </Page>

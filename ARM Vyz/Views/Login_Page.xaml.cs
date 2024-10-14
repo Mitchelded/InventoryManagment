@@ -1,4 +1,7 @@
-﻿using System;
+﻿using ARM_Vyz.Commands;
+using ARM_Vyz.Model.Entities;
+using ARM_Vyz.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +26,28 @@ namespace ARM_Vyz.Views
 		public Login_Page()
 		{
 			InitializeComponent();
+		}
+
+		private void btnLogin_Click(object sender, RoutedEventArgs e)
+		{
+			using (UniversityEntities _db = new UniversityEntities())
+			{
+
+				EcryptMethodes ecryptMethodes = new EcryptMethodes();
+				string encryptPass = ecryptMethodes.Ecrypt(pbPassword.Password);
+				People people = _db.People.Include("Roles").Single(x=> x.Password == encryptPass
+				&&  x.Login==tbLogin.Text);
+
+				
+				if(people != null)
+				{
+					switch (people.Roles.RoleName)
+					{
+						case "Dean": this.NavigationService.Navigate(new ShowStudents()); break;
+					}
+
+				}
+			}
 		}
 	}
 }

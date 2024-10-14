@@ -19,7 +19,11 @@ namespace ARM_Vyz.Model
 				SaveChanges();
 				Departments.Add(new Entities.Departments {DepartmentName= "DepartmentName", FacultyID = 1 });
 				SaveChanges();
-				Roles.Add(new Entities.Roles { RoleName = "Teacher"});
+				Roles.AddRange(new Roles[]
+				{
+					new Entities.Roles { RoleName = "Teacher"},
+					new Entities.Roles { RoleName = "Dean"},
+				});
 				SaveChanges();
 			}
 		}

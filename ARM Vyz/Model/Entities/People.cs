@@ -48,6 +48,8 @@ namespace ARM_Vyz.Model.Entities
 		[Column(TypeName = "money")]
 		public decimal? Scholarship { get; set; }
 
+		public string ScholarshipPurpose { get; set; }
+
 		[Required]
 
 		public string Gender { get; set; }
@@ -60,6 +62,7 @@ namespace ARM_Vyz.Model.Entities
 		[Required]
 
 		public string Password { get; set; }
+		public string Course { get; set; }
 
 		[Column(TypeName = "money")]
 		public decimal? Salary { get; set; }

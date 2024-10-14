@@ -42,6 +42,8 @@ namespace ARM_Vyz.Views
 					.ToList());
 				lvStudents.ItemsSource = peoples;
 				DataContext = peoples;
+				cbFaculties.DataContext = db.Faculties.ToList();
+				cbDepartments.DataContext = db.Departments.ToList();
 			}
 		}
 
@@ -62,6 +64,7 @@ namespace ARM_Vyz.Views
 		{
 			using(UniversityEntities db = new UniversityEntities())
 			{
+
 				cbDepartments.ItemsSource = new 
 					ObservableCollection<Departments>(db.Departments.ToList());
 				cbFaculties.ItemsSource = new ObservableCollection<Faculties>(db.Faculties.ToList());

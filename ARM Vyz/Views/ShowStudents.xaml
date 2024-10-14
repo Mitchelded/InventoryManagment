@@ -18,13 +18,16 @@
             <Popup StaysOpen="True" Placement="Center" AllowsTransparency="True" Name="popup">
                 <StackPanel>
                     <TextBox Text="{Binding FIO}"/>
-                    <ComboBox SelectedValuePath="{Binding DepartmentID}" 
-                              DisplayMemberPath="{Binding DepartmentID}" Name="cbDepartments"/>
-                    <ComboBox SelectedValuePath="{Binding FacultyID}" 
+                    <ComboBox ItemsSource="{Binding Departments}" SelectedValuePath="{Binding DepartmentID}" 
+                              DisplayMemberPath="{Binding DepartmentName}" Name="cbDepartments"/>
+                    <ComboBox ItemsSource="{Binding Faculties}" SelectedValuePath="{Binding FacultyID}" 
                               DisplayMemberPath="{Binding FacultyName}" Name="cbFaculties"/>
                     <TextBox Text="{Binding FIO}"/>
-                    <TextBox Text="{Binding Gender}"/>
-                    <TextBox Text="{Binding Birthday}"/>
+                    <ComboBox SelectedValue="{Binding Gender}">
+                        <ComboBoxItem Content="Man"/>
+                        <ComboBoxItem Content="Woman"/>
+                    </ComboBox>
+                    <DatePicker SelectedDate="{Binding Birthday}"/>
 
                     <CheckBox IsChecked="{Binding HaveAChild}"/>
                     <TextBox Text="{Binding Scholarship}"/>
@@ -57,7 +60,16 @@
                             <GridViewColumn Header="FIO" DisplayMemberBinding="{Binding FIO}" Width="Auto"/>
                             <GridViewColumn Header="DepartmentName"  DisplayMemberBinding="{Binding Departments.DepartmentName}" Width="Auto"/>
                             <GridViewColumn Header="FacultyName" DisplayMemberBinding="{Binding Departments.Faculties.FacultyName}" Width="Auto"/>
-                            <GridViewColumn Header="Gender" DisplayMemberBinding="{Binding Gender}" Width="Auto"/>
+                            <GridViewColumn Header="Gender" DisplayMemberBinding="{Binding Gender}" Width="Auto">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <ComboBox>
+                                            <ComboBoxItem Content="Man"/>
+                                            <ComboBoxItem Content="Woman"/>
+                                        </ComboBox>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
                             <GridViewColumn Header="Birthday" DisplayMemberBinding="{Binding Birthday}" Width="Auto"/>
                             <GridViewColumn Header="HaveAChild" Width="Auto">
                                 <GridViewColumn.CellTemplate>

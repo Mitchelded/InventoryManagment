@@ -55,6 +55,7 @@ namespace ARM_Vyz.Views
 
 			using (UniversityEntities db = new UniversityEntities())
 			{
+				// TODO: проверить при введеных Department и Faculty
 				db.People.Remove(db.People.FirstOrDefault(x=> x.PeopleID == people.PeopleID));
 				db.SaveChanges();
 				Refresh(); // Call your refresh method to update UI

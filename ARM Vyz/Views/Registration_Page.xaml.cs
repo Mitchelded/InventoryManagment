@@ -60,10 +60,10 @@ namespace ARM_Vyz.Views
 							Password = ecryptMethodes.Ecrypt(tbPassword.Password)
 						};
 
-
+						// TODO: добавить проверку на существующего пользователя
 						_db.People.Add(people);
 						_db.SaveChanges(); // Save before using the ID
-
+						// TODO: добавить проверку на null
 						foreach (var dessertation in _dessertations)
 						{
 							dessertation.TeacherID = people.PeopleID; // Use the original reference

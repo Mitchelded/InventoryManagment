@@ -55,7 +55,8 @@ namespace ARM_Vyz.Views
 
 			using (UniversityEntities db = new UniversityEntities())
 			{
-				db.People.Remove(people);
+
+				db.People.Remove(db.People.FirstOrDefault(x=> x.PeopleID == people.PeopleID));
 				db.SaveChanges();
 			}
 		}

@@ -37,6 +37,11 @@ namespace ARM_Vyz.Model
 
 		protected override void OnModelCreating(DbModelBuilder modelBuilder)
 		{
+			modelBuilder.Entity<People>().
+				HasMany(e=>e.Dessertations)
+				.WithOptional(e=>e.People)
+				.HasForeignKey(e=> e.TeacherID)
+				.WillCascadeOnDelete(true);
 
 			modelBuilder.Entity<People>()
 				.Property(e => e.Scholarship)

@@ -21,24 +21,47 @@ using System.Windows.Shapes;
 namespace ARM_Vyz.Views
 {
 	/// <summary>
-	/// Логика взаимодействия для ShowStudents.xaml
+	/// Логика взаимодействия для ShowStudents_Page.xaml
 	/// </summary>
-	public partial class ShowStudents : Page
+	public partial class ShowStudents_Page : Page
 	{
-		public ShowStudents()
+		public ShowStudents_Page()
 		{
+
 			InitializeComponent();
+
 			Refresh();
+			using (UniversityEntities db = new UniversityEntities())
+			{
+				var faculties = db.Faculties.ToList();
+				var departments = db.Departments.ToList();
+				var course = db.People
+					.Select(x => x.Course)
+					.Distinct()
+					.ToList();
 
+				cbFaculty.DataContext = faculties;
+				cbFaculty.ItemsSource = faculties;
+
+
+				cbCourse.DataContext = course;
+				cbCourse.ItemsSource = course;
+
+
+				cbDepartment.DataContext = departments;
+				cbDepartment.ItemsSource = departments;
+			}
 		}
-
+		ObservableCollection<People> peoples = new ObservableCollection<People>();
 		private void Refresh()
 		{
 			using (UniversityEntities db = new UniversityEntities())
 			{
-				var peoples = new ObservableCollection<People>(
+				peoples = new ObservableCollection<People>(
 					db.People.Include("Departments")
 					.Include("Faculties")
+					.Include("Roles")
+					.Where(x=>x.Roles.RoleName == "Student")
 					.ToList());
 				lvStudents.ItemsSource = peoples;
 				DataContext = peoples;
@@ -56,7 +79,7 @@ namespace ARM_Vyz.Views
 			using (UniversityEntities db = new UniversityEntities())
 			{
 				// TODO: проверить при введеных Department и Faculty
-				db.People.Remove(db.People.FirstOrDefault(x=> x.PeopleID == people.PeopleID));
+				db.People.Remove(db.People.FirstOrDefault(x => x.PeopleID == people.PeopleID));
 				db.SaveChanges();
 				Refresh(); // Call your refresh method to update UI
 			}
@@ -64,10 +87,10 @@ namespace ARM_Vyz.Views
 
 		private void miChange_Click(object sender, RoutedEventArgs e)
 		{
-			using(UniversityEntities db = new UniversityEntities())
+			using (UniversityEntities db = new UniversityEntities())
 			{
 
-				cbDepartments.ItemsSource = new 
+				cbDepartments.ItemsSource = new
 					ObservableCollection<Departments>(db.Departments.ToList());
 				cbFaculties.ItemsSource = new ObservableCollection<Faculties>(db.Faculties.ToList());
 			}
@@ -167,6 +190,45 @@ namespace ARM_Vyz.Views
 
 			popup.IsOpen = false; // Close the popup
 		}
+
+		private void cbSearch_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			var comboBox = sender as ComboBox;
+			if (comboBox.SelectedItem == null) return;
+
+			using (UniversityEntities db = new UniversityEntities())
+			{
+				var selectedItem = comboBox.SelectedItem;
+
+				// Метод для получения студентов по фильтру
+				peoples = new ObservableCollection<People>(
+					GetFilteredPeople(db, selectedItem));
+
+				// Обновите источник данных
+				lvStudents.ItemsSource = peoples;
+			}
+		}
+
+		private IEnumerable<People> GetFilteredPeople(UniversityEntities db, object filter)
+		{
+			IQueryable<People> query = db.People.Include("Departments").Include("Faculties").AsNoTracking();
+
+			if (filter is Faculties faculty)
+			{
+				query = query.Where(x => x.Departments.Faculties.FacultyName == faculty.FacultyName);
+			}
+			else if (filter is Departments department)
+			{
+				query = query.Where(x => x.Departments.DepartmentName == department.DepartmentName);
+			}
+			else if (filter is string course)
+			{
+				query = query.Where(x => x.Course == course);
+			}
+
+			return query.ToList();
+		}
+
 
 	}
 }

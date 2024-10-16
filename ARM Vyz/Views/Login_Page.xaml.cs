@@ -35,7 +35,7 @@ namespace ARM_Vyz.Views
 
 				EcryptMethodes ecryptMethodes = new EcryptMethodes();
 				string encryptPass = ecryptMethodes.Ecrypt(pbPassword.Password);
-				People people = _db.People.Include("Roles").Single(x=> x.Password == encryptPass
+				People people = _db.People.Include("Roles").FirstOrDefault(x=> x.Password == encryptPass
 				&&  x.Login==tbLogin.Text);
 
 				
@@ -43,7 +43,7 @@ namespace ARM_Vyz.Views
 				{
 					switch (people.Roles.RoleName)
 					{
-						case "Dean": this.NavigationService.Navigate(new ShowStudents()); break;
+						case "Dean": this.NavigationService.Navigate(new TabItem_Page()); break;
 					}
 
 				}

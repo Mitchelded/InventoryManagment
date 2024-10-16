@@ -84,8 +84,14 @@
     <Compile Include="Views\Registration_Page.xaml.cs">
       <DependentUpon>Registration_Page.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ShowStudents.xaml.cs">
-      <DependentUpon>ShowStudents.xaml</DependentUpon>
+    <Compile Include="Views\ShowStudents_Page.xaml.cs">
+      <DependentUpon>ShowStudents_Page.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ShowTeachers_Page.xaml.cs">
+      <DependentUpon>ShowTeachers_Page.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TabItem_Page.xaml.cs">
+      <DependentUpon>TabItem_Page.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -111,7 +117,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ShowStudents.xaml">
+    <Page Include="Views\ShowStudents_Page.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ShowTeachers_Page.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TabItem_Page.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

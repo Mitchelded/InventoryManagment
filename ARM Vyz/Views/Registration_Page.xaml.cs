@@ -59,18 +59,25 @@ namespace ARM_Vyz.Views
 							Login = tbLogin.Text,
 							Password = ecryptMethodes.Ecrypt(tbPassword.Password)
 						};
-
-						// TODO: добавить проверку на существующего пользователя
-						_db.People.Add(people);
-						_db.SaveChanges(); // Save before using the ID
-						// TODO: добавить проверку на null
-						foreach (var dessertation in _dessertations)
+						if (_db.People.FirstOrDefault(x => x.Login == people.Login) == null)
 						{
-							dessertation.TeacherID = people.PeopleID; // Use the original reference
-						}
+							_db.People.Add(people);
+							_db.SaveChanges(); // Save before using the ID
+							if (_dessertations != null)
+							{
+								foreach (var dessertation in _dessertations)
+								{
+									dessertation.TeacherID = people.PeopleID; // Use the original reference
+								}
 
-						_db.Dessertations.AddRange(_dessertations);
-						await _db.SaveChangesAsync(); // Use async save if in a UI context
+								_db.Dessertations.AddRange(_dessertations);
+								await _db.SaveChangesAsync(); // Use async save if in a UI context
+							}
+						}
+						else
+						{
+							MessageBox.Show("User already exist");
+						}
 					}
 				}
 
@@ -101,7 +108,7 @@ namespace ARM_Vyz.Views
 
 		private void btnLogin_Click(object sender, RoutedEventArgs e)
 		{
-			this.NavigationService.Navigate(new Login_Page());	
+			this.NavigationService.Navigate(new Login_Page());
 		}
 	}
 

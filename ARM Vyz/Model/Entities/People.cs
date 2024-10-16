@@ -42,8 +42,10 @@ namespace ARM_Vyz.Model.Entities
 
 		[Column(TypeName = "date")]
 		public DateTime Birthday { get; set; }
-
+		[Required]
 		public bool HaveAChild { get; set; }
+
+		public int? NumberOfChildren { get; set; }
 
 		[Column(TypeName = "money")]
 		public decimal? Scholarship { get; set; }
@@ -60,7 +62,6 @@ namespace ARM_Vyz.Model.Entities
 		public string Login { get; set; }
 
 		[Required]
-
 		public string Password { get; set; }
 		public string Course { get; set; }
 

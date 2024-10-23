@@ -14,6 +14,7 @@ namespace InventoryManagerMAUI.ViewModels
 			GeneratePopup(fieldLabels, viewModel);
 		}
 		private readonly List<Entry> _entries = new();
+		private readonly List<DatePicker> _datepickers = new();
 
 		public Dictionary<string, string> FieldResults { get; private set; } = new();
 
@@ -26,13 +27,24 @@ namespace InventoryManagerMAUI.ViewModels
 			foreach (var field in fieldLabels)
 			{
 				var label = new Label { Text = field.Key };
-				var entry = new Entry { Placeholder = field.Value };
-
-				entry.SetBinding(Entry.TextProperty, field.Value);
-
-				_entries.Add(entry);
-				stackLayout.Add(label);
-				stackLayout.Add(entry);
+				var entry = new Entry();
+				var datepicker = new DatePicker();
+				if (field.Value.ToLower().Contains("date"))
+				{
+					datepicker = new DatePicker{};
+					datepicker.SetBinding(DatePicker.DateProperty, field.Value);
+					_datepickers.Add(datepicker);
+					stackLayout.Add(label);
+					stackLayout.Add(datepicker);
+				}
+				else
+				{
+					entry = new Entry { Placeholder = field.Value };
+					entry.SetBinding(Entry.TextProperty, field.Value);
+					_entries.Add(entry);
+					stackLayout.Add(label);
+					stackLayout.Add(entry);
+				}
 			}
 			var buttonsLayout = new HorizontalStackLayout
 			{
@@ -70,6 +82,13 @@ namespace InventoryManagerMAUI.ViewModels
 
 			for (int i = 0; i < _entries.Count; i++)
 			{
+				for(int j = 0 ; j < _datepickers.Count; j++)
+				{
+					if (_datepickers[j] == null && _datepickers[j] is DatePicker)
+					{
+						FieldResults.Add($"Field{i + 1}", _datepickers[i].Date.ToString());
+					}
+				}
 				FieldResults.Add($"Field{i + 1}", _entries[i].Text);
 			}
 			Close(FieldResults);

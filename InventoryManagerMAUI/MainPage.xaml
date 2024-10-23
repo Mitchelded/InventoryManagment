@@ -7,9 +7,10 @@
              xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.Maui;assembly=LiveChartsCore.SkiaSharpView.Maui"
              x:Class="InventoryManagerMAUI.MainPage">
     <VerticalStackLayout>
-        <Button x:Name="EquipmentStatus" Clicked="EquipmentStatus_Clicked"/>
+        <Button x:Name="EquipmentStatusView" Clicked="EquipmentStatus_Clicked"/>
         <Button x:Name="AuditsView" Clicked="AuditsView_Clicked"/>
-        <Button/>
+        <Button x:Name="CategoriesView" Clicked="CategoriesView_Clicked"/>
+        <Button x:Name="EquipmentView" Clicked="EquipmentView_Clicked"/>
         <Button/>
     </VerticalStackLayout>
 

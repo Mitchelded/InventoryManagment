@@ -6,9 +6,6 @@
              xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.Maui;assembly=LiveChartsCore.SkiaSharpView.Maui"
              x:Class="InventoryManagerMAUI.View.BudgetAllocations">
     
-    <ContentPage.BindingContext>
-        <!--<model:BudgetAllocationsViewModel></model:BudgetAllocationsViewModel>-->
-    </ContentPage.BindingContext>
     <ContentPage.Content>
         <lvc:PieChart
             Series="{Binding Series}" WidthRequest="200" HeightRequest="200" >

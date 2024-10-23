@@ -13,15 +13,6 @@ public class EquipmentStatusViewModel : ViewModelBase<EquipmentStatus>
 
 	//public ObservableCollection<EquipmentStatus> Collection { get; set; }
 
-	private EquipmentStatus _selectedStatus;
-
-	public EquipmentStatus SelectedStatus
-	{
-		get => _selectedStatus;
-		set
-		{ _selectedStatus = value; OnPropertyChanged(nameof(SelectedStatus)); }
-
-	}
 
 	public EquipmentStatusViewModel() : base()
 	{

@@ -23,6 +23,17 @@ public class ViewModelBase<T> : INotifyPropertyChanged where T : class
 		AddCommand = new Command(OnAdd);
 	}
 
+
+	private T _selectedItem;
+
+	public T SelectedItem
+	{
+		get => _selectedItem;
+		set
+		{ _selectedItem = value; OnPropertyChanged(nameof(SelectedItem)); }
+
+	}
+
 	public virtual void OnAdd(object obj)
 	{
 		// Logic for adding a new item

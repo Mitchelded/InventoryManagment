@@ -12,7 +12,7 @@
         <VerticalStackLayout x:Name="MainVerticalStackLayout">
             <ListView ItemsSource="{Binding BindingContext.Collection, 
             Source={RelativeSource AncestorType={x:Type ContentPage}}}" x:Name="statusListView" 
-                  SelectedItem="{Binding BindingContext.SelectedStatus, 
+                  SelectedItem="{Binding BindingContext.SelectedItem, 
             Source={RelativeSource AncestorType={x:Type ContentPage}}, Mode=TwoWay}">
                 <ListView.Header>
                     <Grid MinimumWidthRequest="100">
@@ -42,10 +42,10 @@
                                     <MenuFlyout>
                                         <MenuFlyoutItem Text="Delete"
                                         Command="{Binding BindingContext.DeleteCommand, Source={RelativeSource AncestorType={x:Type ContentPage}}}"
-                                        CommandParameter="{Binding BindingContext.SelectedStatus, Source={RelativeSource AncestorType={x:Type ContentPage}}, Mode=TwoWay}"/>
+                                        CommandParameter="{Binding BindingContext.SelectedItem, Source={RelativeSource AncestorType={x:Type ContentPage}}, Mode=TwoWay}"/>
                                         <MenuFlyoutItem Text="Update"
                                         Command="{Binding BindingContext.UpdateCommand, Source={RelativeSource AncestorType={x:Type ContentPage}}}"
-                                        CommandParameter="{Binding BindingContext.SelectedStatus, Source={RelativeSource AncestorType={x:Type ContentPage}}, Mode=TwoWay}"/>
+                                        CommandParameter="{Binding BindingContext.SelectedItem, Source={RelativeSource AncestorType={x:Type ContentPage}}, Mode=TwoWay}"/>
                                     </MenuFlyout>
                                 </FlyoutBase.ContextFlyout>
                                 <Grid.ColumnDefinitions>

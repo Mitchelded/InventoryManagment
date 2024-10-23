@@ -23,7 +23,17 @@ namespace InventoryManagerMAUI
 
 		private void AuditsView_Clicked(object sender, EventArgs e)
 		{
+			Navigation.PushAsync(new AuditsView());
+		}
 
+		private void CategoriesView_Clicked(object sender, EventArgs e)
+		{
+			Navigation.PushAsync(new CategoriesView());
+		}
+
+		private void EquipmentView_Clicked(object sender, EventArgs e)
+		{
+			Navigation.PushAsync(new EquipmentsView());
 		}
 	}
 }

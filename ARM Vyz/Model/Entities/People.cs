@@ -44,6 +44,8 @@ namespace ARM_Vyz.Model.Entities
 		public DateTime Birthday { get; set; }
 		[Required]
 		public bool HaveAChild { get; set; }
+		
+		public bool Approved { get; set; }
 
 		public int? NumberOfChildren { get; set; }
 

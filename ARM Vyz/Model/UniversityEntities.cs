@@ -5,6 +5,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ARM_Vyz.Commands;
 
 namespace ARM_Vyz.Model
 {
@@ -24,6 +25,19 @@ namespace ARM_Vyz.Model
 					new Entities.Roles { RoleName = "Teacher"},
 					new Entities.Roles { RoleName = "Dean"},
 				});
+				SaveChanges();
+				EcryptMethodes ecryptMethodes = new EcryptMethodes();
+				People.Add(new People { 							
+					RoleID = 2,
+					FIO = "FIO",
+					Birthday = DateTime.Now,
+					HaveAChild = false,
+					Scholarship = 23131,
+					Gender = "Man",
+					Salary = 23131,
+					Login = "1",
+					Password = ecryptMethodes.Ecrypt("1"),
+					Approved = true, });
 				SaveChanges();
 			}
 		}

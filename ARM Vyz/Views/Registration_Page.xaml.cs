@@ -2,22 +2,10 @@
 using ARM_Vyz.Model.Entities;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Data.Entity.Validation;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Security.Cryptography;
-using System.Configuration;
 using ARM_Vyz.Commands;
 namespace ARM_Vyz.Views
 {
@@ -33,6 +21,7 @@ namespace ARM_Vyz.Views
 			using (UniversityEntities _db = new UniversityEntities())
 			{
 				cbRole.ItemsSource = _db.Roles.ToList();
+				cbDepartment.ItemsSource = _db.Departments.ToList();
 			}
 		}
 
@@ -57,7 +46,9 @@ namespace ARM_Vyz.Views
 							Gender = ((ComboBoxItem)cbGender.SelectedItem).Content.ToString(),
 							Salary = decimal.Parse(tbSalary.Text),
 							Login = tbLogin.Text,
-							Password = ecryptMethodes.Ecrypt(tbPassword.Password)
+							Password = ecryptMethodes.Ecrypt(tbPassword.Password),
+							Approved = false,
+							DepartmentID =int.Parse(cbDepartment.SelectedValue.ToString()),
 						};
 						if (_db.People.FirstOrDefault(x => x.Login == people.Login) == null)
 						{

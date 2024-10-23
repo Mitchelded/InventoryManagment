@@ -33,6 +33,10 @@
                     <Label Content="Role"/>
                     <ComboBox SelectedIndex="0" x:Name="cbRole" ItemsSource="{Binding Roles}" SelectedValuePath="RoleID" DisplayMemberPath="RoleName"/>
                 </StackPanel>
+                <StackPanel Margin="10,0,0,0" Width="100">
+                    <Label Content="Department"/>
+                    <ComboBox SelectedIndex="0" x:Name="cbDepartment" ItemsSource="{Binding Departments}" SelectedValuePath="DepartmentID" DisplayMemberPath="DepartmentName"/>
+                </StackPanel>
             </StackPanel>
 
             <Label Content="Login"/>

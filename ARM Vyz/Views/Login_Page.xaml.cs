@@ -18,36 +18,44 @@ using System.Windows.Shapes;
 
 namespace ARM_Vyz.Views
 {
-	/// <summary>
-	/// Логика взаимодействия для Login_Page.xaml
-	/// </summary>
-	public partial class Login_Page : Page
-	{
-		public Login_Page()
-		{
-			InitializeComponent();
-		}
+    /// <summary>
+    /// Логика взаимодействия для Login_Page.xaml
+    /// </summary>
+    public partial class Login_Page : Page
+    {
+        public Login_Page()
+        {
+            InitializeComponent();
+        }
 
-		private void btnLogin_Click(object sender, RoutedEventArgs e)
-		{
-			using (UniversityEntities _db = new UniversityEntities())
-			{
+        private void btnLogin_Click(object sender, RoutedEventArgs e)
+        {
+            using (UniversityEntities _db = new UniversityEntities())
+            {
+                EcryptMethodes ecryptMethodes = new EcryptMethodes();
+                string encryptPass = ecryptMethodes.Ecrypt(pbPassword.Password);
+                People people = _db.People.Include("Roles").FirstOrDefault(x => x.Password == encryptPass
+                    && x.Login == tbLogin.Text);
 
-				EcryptMethodes ecryptMethodes = new EcryptMethodes();
-				string encryptPass = ecryptMethodes.Ecrypt(pbPassword.Password);
-				People people = _db.People.Include("Roles").FirstOrDefault(x=> x.Password == encryptPass
-				&&  x.Login==tbLogin.Text);
 
-				
-				if(people != null)
-				{
-					switch (people.Roles.RoleName)
-					{
-						case "Dean": this.NavigationService.Navigate(new TabItem_Page()); break;
-					}
+                if (people != null)
+                {
+                    if (people.Approved)
+                    {
+                        switch (people.Roles.RoleName)
+                        {
+                            case "Dean":
+                                this.NavigationService.Navigate(new TabItem_Page());
+                                break;
+                        }
+                    }
 
-				}
-			}
-		}
-	}
+                    else
+                    {
+                        MessageBox.Show("Ждите одобрения Декана");
+                    }
+                }
+            }
+        }
+    }
 }

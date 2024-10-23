@@ -230,5 +230,32 @@ namespace ARM_Vyz.Views
 		}
 
 
+		private void Approve_CLick(object sender, RoutedEventArgs e)
+		{
+			var menuItem = sender as MenuItem;
+			var personToUpdate = menuItem.DataContext as People;
+
+			if (personToUpdate == null) return; // Ensure person data context is valid
+
+			using (UniversityEntities db = new UniversityEntities())
+			{
+				// Retrieve the existing person from the database
+				var existingPerson = db.People.FirstOrDefault(x => x.PeopleID == personToUpdate.PeopleID);
+				if (existingPerson != null)
+				{
+					// Update properties of the existing person with new values
+					existingPerson.Approved = !personToUpdate.Approved;
+
+					// Save changes to the database
+					db.SaveChanges();
+					Refresh(); // Call your refresh method to update UI
+				}
+			}
+		}
+
+		private void BtnReset_OnClick(object sender, RoutedEventArgs e)
+		{
+			throw new NotImplementedException();
+		}
 	}
 }

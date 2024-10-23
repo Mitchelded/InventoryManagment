@@ -19,7 +19,7 @@
                           DisplayMemberPath="{Binding DepartmentName}" Width="100" SelectionChanged="cbSearch_SelectionChanged"/>
                 <ComboBox Name="cbCourse" SelectedValuePath="{Binding PeopleID}" 
                           DisplayMemberPath="{Binding Course}"  Width="100" SelectionChanged="cbSearch_SelectionChanged"/>
-                <Button Content="Reset" Margin="10,0,0,0"/>
+                <Button Content="Reset" Margin="10,0,0,0" Name="btnReset" Click="BtnReset_OnClick"/>
             </StackPanel>
             <Popup StaysOpen="True" Placement="Center" AllowsTransparency="True" Name="popup">
                 <Border CornerRadius="10">
@@ -57,6 +57,7 @@
                             <MenuItem Header="Delete" x:Name="miDelete" Click="miDelete_Click"/>
                             <MenuItem Header="Save"/>
                             <MenuItem Header="Change" Click="miChange_Click"/>
+                            <MenuItem Header="Approve" Click="Approve_CLick"/>
                         </ContextMenu>
                     </ListView.Resources>
                     <ListView.ItemContainerStyle>
@@ -85,6 +86,13 @@
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <CheckBox IsChecked="{Binding HaveAChild}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Approved" Width="Auto">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <CheckBox IsChecked="{Binding Approved}"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>

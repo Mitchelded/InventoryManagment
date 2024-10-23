@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Maui.Views;
+using InventoryManagerMAUI.View;
 using InventoryManagerMAUI.ViewModels;
 using InventoryManagerMAUI.ViewModels.ViewModel;
 using InventoryManagment.Models;
@@ -8,34 +9,21 @@ namespace InventoryManagerMAUI
 {
 	public partial class MainPage : ContentPage
 	{
-		private readonly InventoryManagmentEntities _db = new();
 
-		private EquipmentStatusViewModel viewModel;
 		public MainPage()
 		{
 			InitializeComponent();
-			viewModel = new();
-			BindingContext = viewModel;
-			
-			using (InventoryManagmentEntities db = new InventoryManagmentEntities())
-			{
 
-			}
-		}
-		private void btn_Add_Clicked(object sender, EventArgs e)
-		{
-			Dictionary<string, string> labelsDict = new Dictionary<string, string>
-			{
-					{ "Enter status Name", "Name"},
-					{"Enter status Description", "Description"},
-			};
-			var popup = new InputPopup<EquipmentStatusViewModel>(labelsDict, viewModel);
-			this.ShowPopupAsync(popup);
 		}
 
-		private void Button_OnClicked(object? sender, EventArgs e)
+		private void EquipmentStatus_Clicked(object sender, EventArgs e)
 		{
-			Navigation.PushAsync(new BudgetAllocations());
+			Navigation.PushAsync(new EquipmentStatusView());
+		}
+
+		private void AuditsView_Clicked(object sender, EventArgs e)
+		{
+
 		}
 	}
 }

@@ -1,0 +1,54 @@
+﻿<Page x:Class="ARM_Vyz.Views.ShowDessertation_Page"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ARM_Vyz.Views"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="ShowDessertation_Page">
+
+    <Grid>
+        <StackPanel>
+            <Popup StaysOpen="True" Placement="Center" AllowsTransparency="True" Name="popup">
+                <Border CornerRadius="10">
+                    <StackPanel>
+                        <TextBox Text="{Binding DessertationID}" Width="Auto"/>
+                        <TextBox Text="{Binding NameDissertation}" Width="Auto"/>
+                        <DatePicker SelectedDate="{Binding Year}" Width="Auto"/>
+                        <StackPanel Orientation="Horizontal">
+                            <Button Content="✓" Name="btnOk" Click="btnOk_Click"/>
+                            <Button Content="×" Name="btnCancel" Click="btnCancel_Click"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+            </Popup>
+
+            <ListView ItemsSource="{Binding Dessertations}" Name="lvDessertation"
+Height="{Binding DesignHeight, Source={RelativeSource AncestorType={x:Type Page}}}" 
+Width="{Binding DesignWidth, Source={RelativeSource AncestorType={x:Type Page}}}">
+                <ListView.Resources>
+                    <ContextMenu x:Key="ItemContextMenu">
+                        <MenuItem Header="Delete" x:Name="miDelete" Click="miDelete_Click"/>
+                        <MenuItem Header="Save"/>
+                        <MenuItem Header="Change" Click="miChange_Click"/>
+                        <MenuItem Header="Go BAck" x:Name="GoBack" Click="GoBack_Click"/>
+                    </ContextMenu>
+                </ListView.Resources>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="{x:Type ListViewItem}">
+                        <EventSetter Event="PreviewMouseLeftButtonDown" Handler="OnListViewItem_PreviewMouseLeftButtonDown" />
+                        <Setter Property="ContextMenu" Value="{StaticResource ItemContextMenu}"/>
+                    </Style>
+                </ListView.ItemContainerStyle>
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="ID" DisplayMemberBinding="{Binding DessertationID}" Width="Auto"/>
+                        <GridViewColumn Header="Name Dissertation" DisplayMemberBinding="{Binding NameDissertation}" Width="Auto"/>
+                        <GridViewColumn Header="Year"  DisplayMemberBinding="{Binding Year}" Width="Auto"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </StackPanel>
+    </Grid>
+</Page>

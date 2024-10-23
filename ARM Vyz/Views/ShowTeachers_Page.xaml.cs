@@ -227,11 +227,22 @@ namespace ARM_Vyz.Views
 			return query.ToList();
 		}
 
-
-
 		private void btnShowDessertation_Click(object sender, RoutedEventArgs e)
 		{
-
+			var comboBox = sender as Button;
+			if (comboBox.DataContext == null) return;
+			using (UniversityEntities db = new UniversityEntities())
+			{
+				IQueryable<People> query = db.People.Include("Departments").Include("Faculties").AsNoTracking();
+				var selectedItem = comboBox.DataContext;
+				if (selectedItem is People people)
+				{
+					People selectedPeople = query.Single(x => x.PeopleID == people.PeopleID);
+					this.NavigationService.Navigate(new ShowDessertation_Page(selectedPeople));
+				}
+				
+			}
+			
 		}
 	}
 }

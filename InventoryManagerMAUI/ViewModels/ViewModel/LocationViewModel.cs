@@ -1,13 +1,17 @@
-﻿using InventoryManagement.Models;
-using InventoryManagment.Models;
+﻿using InventoryManagment.Models;
 
 namespace InventoryManagerMAUI.ViewModels.ViewModel;
 
+// TODO: add viewmodel
 public class LocationViewModel : ViewModelBase<Locations>
 {
-    private int _idLocations;
-    private string _description;
     private int _departmentId;
+    private string _description;
+    private int _idLocations;
+
+    public LocationViewModel() : base()
+    {
+    }
 
     public int IdLocations
     {
@@ -40,11 +44,6 @@ public class LocationViewModel : ViewModelBase<Locations>
             _departmentId = value;
             OnPropertyChanged(nameof(DepartmentID));
         }
-    }
-
-    public LocationViewModel() : base()
-    {
-        
     }
 
     public override void OnAdd(object obj)

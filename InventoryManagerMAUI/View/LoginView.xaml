@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="InventoryManagerMAUI.View.LoginView">
+    <VerticalStackLayout VerticalOptions="Center">
+        <Border Background="#323232" StrokeShape="RoundRectangle 10,10,10,10">
+            <VerticalStackLayout>
+                <VerticalStackLayout HorizontalOptions="Center">
+                    <Label Text="Login" TextColor="#fff" />
+                </VerticalStackLayout>
+                <VerticalStackLayout>
+                    <Label Text="Username" TextColor="#fff" Margin="5,0,0,0" />
+                    <Entry Placeholder="Enter your username" Margin="10,0,0,0" />
+                </VerticalStackLayout>
+                <VerticalStackLayout>
+                    <Label Text="Password" TextColor="#fff" Margin="5,0,0,0" />
+                    <Entry Placeholder="Enter your password" Margin="10,0,0,0" />
+                </VerticalStackLayout>
+            </VerticalStackLayout>
+
+        </Border>
+    </VerticalStackLayout>
+</ContentPage>

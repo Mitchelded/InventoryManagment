@@ -2,13 +2,14 @@
 
 namespace InventoryManagerMAUI.ViewModels.ViewModel;
 
+// TODO: add viewmodel
 public class SuppliersViewModel : ViewModelBase<Suppliers>
 {
+    private string _adress;
+    private string _contactInfo;
+    private string _email;
     private int _idSuppliers;
     private string _name;
-    private string _contactInfo;
-    private string _adress;
-    private string _email;
 
     public SuppliersViewModel()
     {
@@ -57,7 +58,7 @@ public class SuppliersViewModel : ViewModelBase<Suppliers>
             OnPropertyChanged(nameof(Adress));
         }
     }
-    
+
     public string Email
     {
         get => _email;
@@ -79,7 +80,6 @@ public class SuppliersViewModel : ViewModelBase<Suppliers>
             ContactInfo = _contactInfo,
             Adress = _adress,
             Email = _email,
-            
         };
         Collection.Add(status);
         _db.Add(status);

@@ -2,8 +2,9 @@ namespace InventoryManagerMAUI.View;
 
 public partial class EquipmentsView : ContentPage
 {
-	public EquipmentsView()
-	{
-		InitializeComponent();
-	}
+    // TODO: add xaml and code
+    public EquipmentsView()
+    {
+        InitializeComponent();
+    }
 }

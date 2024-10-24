@@ -2,15 +2,16 @@
 
 namespace InventoryManagerMAUI.ViewModels.ViewModel;
 
+// TODO: add viewmodel
 public class UtilizationRecordsViewModel : ViewModelBase<UtilizationRecords>
 {
-    private int _idUtilization;
-    private int _equipmentId;
-    private int? _studentId;
     private int? _employeeId;
-    private DateTime _usageStart;
-    private DateTime? _usageEnd;
+    private int _equipmentId;
+    private int _idUtilization;
     private string _purpose;
+    private int? _studentId;
+    private DateTime? _usageEnd;
+    private DateTime _usageStart;
 
     public UtilizationRecordsViewModel()
     {
@@ -60,7 +61,7 @@ public class UtilizationRecordsViewModel : ViewModelBase<UtilizationRecords>
         }
     }
 
-    public System.DateTime UsageStart
+    public DateTime UsageStart
     {
         get => _usageStart;
         set
@@ -71,7 +72,7 @@ public class UtilizationRecordsViewModel : ViewModelBase<UtilizationRecords>
         }
     }
 
-    public Nullable<System.DateTime> UsageEnd
+    public Nullable<DateTime> UsageEnd
     {
         get => _usageEnd;
         set
@@ -105,7 +106,6 @@ public class UtilizationRecordsViewModel : ViewModelBase<UtilizationRecords>
             UsageStart = _usageStart,
             UsageEnd = _usageEnd,
             Purpose = _purpose,
-            
         };
         Collection.Add(status);
         _db.Add(status);

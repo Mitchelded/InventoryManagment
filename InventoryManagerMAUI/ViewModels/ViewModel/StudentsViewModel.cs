@@ -2,15 +2,16 @@
 
 namespace InventoryManagerMAUI.ViewModels.ViewModel;
 
+// TODO: add viewmodel
 public class StudentsViewModel : ViewModelBase<Students>
 {
-    private int _idStudents;
+    private string _course;
+    private int _departmentId;
     private string _firstName;
+    private int _idStudents;
     private string _lastName;
     private string _patronymic;
     private string _studentIdСard;
-    private int _departmentId;
-    private string _course;
 
     public int IdStudents
     {
@@ -94,14 +95,13 @@ public class StudentsViewModel : ViewModelBase<Students>
         using InventoryManagmentEntities _db = new();
         var status = new Students()
         {
-    IdStudents = _idStudents,
-    FirstName = _firstName,
-    LastName = _lastName,
-    Patronymic = _patronymic,
-    StudentIDСard = _studentIdСard,
-    DepartmentID = _departmentId,
-    Course = _course,
-            
+            IdStudents = _idStudents,
+            FirstName = _firstName,
+            LastName = _lastName,
+            Patronymic = _patronymic,
+            StudentIDСard = _studentIdСard,
+            DepartmentID = _departmentId,
+            Course = _course,
         };
         Collection.Add(status);
         _db.Add(status);

@@ -2,14 +2,19 @@
 
 namespace InventoryManagerMAUI.ViewModels.ViewModel;
 
+// TODO: add viewmodel
 public class MaintenanceRecordsViewModel : ViewModelBase<MaintenanceRecords>
 {
-    private int _idMaintenance;
+    private decimal? _cost;
     private int _equipmentId;
+    private int _idMaintenance;
+    private string _maintenanceType;
     private DateTime _maintensnceDate;
     private int? _performedByEmployeeId;
-    private string _maintenanceType;
-    private decimal? _cost;
+
+    public MaintenanceRecordsViewModel() : base()
+    {
+    }
 
     public int IdMaintenance
     {
@@ -76,10 +81,6 @@ public class MaintenanceRecordsViewModel : ViewModelBase<MaintenanceRecords>
             _cost = value;
             OnPropertyChanged(nameof(Cost));
         }
-    }
-
-    public MaintenanceRecordsViewModel() : base()
-    {
     }
 
     public override void OnAdd(object obj)

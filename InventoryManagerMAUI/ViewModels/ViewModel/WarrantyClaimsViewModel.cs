@@ -2,6 +2,7 @@
 
 namespace InventoryManagerMAUI.ViewModels.ViewModel;
 
+// TODO: add viewmodel
 public class WarrantyClaimsViewModel : ViewModelBase<WarrantyClaims>
 {
     private DateTime _claimDate;

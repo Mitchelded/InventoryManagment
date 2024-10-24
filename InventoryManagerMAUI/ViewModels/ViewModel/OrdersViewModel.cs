@@ -2,14 +2,19 @@
 
 namespace InventoryManagerMAUI.ViewModels.ViewModel;
 
+// TODO: add viewmodel
 public class OrdersViewModel : ViewModelBase<Orders>
 {
     private int _idOrder;
     private DateTime _orderDate;
-    private int _supplierId;
-    private string _status;
-    private decimal? _totalCost;
     private string _orderItems;
+    private string _status;
+    private int _supplierId;
+    private decimal? _totalCost;
+
+    public OrdersViewModel()
+    {
+    }
 
     public int IdOrder
     {
@@ -23,7 +28,7 @@ public class OrdersViewModel : ViewModelBase<Orders>
         }
     }
 
-    public System.DateTime OrderDate
+    public DateTime OrderDate
     {
         get => _orderDate;
         set
@@ -81,10 +86,6 @@ public class OrdersViewModel : ViewModelBase<Orders>
         }
     }
 
-    public OrdersViewModel()
-    {
-    }
-
     public override void OnAdd(object obj)
     {
         using InventoryManagmentEntities db = new();
@@ -96,7 +97,6 @@ public class OrdersViewModel : ViewModelBase<Orders>
             Status = _status,
             TotalCost = _totalCost,
             OrderItems = _orderItems,
-            
         };
         Collection.Add(status);
         db.Add(status);

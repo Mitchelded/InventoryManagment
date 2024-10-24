@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace InventoryManagerMAUI.View;
 
-namespace InventoryManagerMAUI.View;
-
+// TODO: add xaml and code
 public partial class DepartmentsView : ContentPage
 {
     public DepartmentsView()

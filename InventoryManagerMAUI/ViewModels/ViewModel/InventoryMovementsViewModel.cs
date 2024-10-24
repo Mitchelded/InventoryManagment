@@ -3,15 +3,21 @@ using InventoryManagment.Models;
 
 namespace InventoryManagerMAUI.ViewModels.ViewModel;
 
+// TODO: add viewmodel
 public class InventoryMovementsViewModel : ViewModelBase<InventoryMovements>
 {
-    private int _idMovement;
     private int _equipmentId;
     private int _fromLocationId;
-    private int _toLocationId;
-    private DateTime _movementDate;
+    private int _idMovement;
     private int _movedByEmployeeId;
+    private DateTime _movementDate;
     private int? _receivedByEmployeeId;
+    private int _toLocationId;
+
+
+    public InventoryMovementsViewModel() : base()
+    {
+    }
 
     public int IdMovement
     {
@@ -91,23 +97,18 @@ public class InventoryMovementsViewModel : ViewModelBase<InventoryMovements>
         }
     }
 
-
-    public InventoryMovementsViewModel() : base()
-    {
-    }
-
     public override void OnAdd(object obj)
     {
         using InventoryManagmentEntities _db = new();
         var categories = new InventoryMovements()
         {
-            IdMovement =_idMovement,
+            IdMovement = _idMovement,
             EquipmentID = _equipmentId,
             FromLocationID = _fromLocationId,
-            ToLocationID =_toLocationId,
-            MovementDate =_movementDate,
-            MovedByEmployeeID =_movedByEmployeeId,
-            ReceivedByEmployeeID =_receivedByEmployeeId,
+            ToLocationID = _toLocationId,
+            MovementDate = _movementDate,
+            MovedByEmployeeID = _movedByEmployeeId,
+            ReceivedByEmployeeID = _receivedByEmployeeId,
         };
         Collection.Add(categories);
         _db.Add(categories);

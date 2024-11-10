@@ -103,7 +103,24 @@
 
                                 <!-- Conditionally Styled Status Label -->
                                 <Label Text="{Binding StatusID}" FontSize="16" FontAttributes="Bold">
-                                 
+                                    <!-- <Label.Style> -->
+                                    <!--     <Style TargetType="Label"> -->
+                                    <!--         <Style.Triggers> -->
+                                    <!--             <DataTrigger TargetType="Label" Binding="{Binding Status}" Value="In Stock"> -->
+                                    <!--                 <Setter Property="BackgroundColor" Value="#d4edda"/> -->
+                                    <!--                 <Setter Property="TextColor" Value="#155724"/> -->
+                                    <!--             </DataTrigger> -->
+                                    <!--             <DataTrigger TargetType="Label" Binding="{Binding Status}" Value="Low Stock"> -->
+                                    <!--                 <Setter Property="BackgroundColor" Value="#fff3cd"/> -->
+                                    <!--                 <Setter Property="TextColor" Value="#856404"/> -->
+                                    <!--             </DataTrigger> -->
+                                    <!--             <DataTrigger TargetType="Label" Binding="{Binding Status}" Value="Out of Stock"> -->
+                                    <!--                 <Setter Property="BackgroundColor" Value="#f8d7da"/> -->
+                                    <!--                 <Setter Property="TextColor" Value="#721c24"/> -->
+                                    <!--             </DataTrigger> -->
+                                    <!--         </Style.Triggers> -->
+                                    <!--     </Style> -->
+                                    <!-- </Label.Style> -->
                                 </Label>
 
                                 <StackLayout Orientation="Horizontal" Spacing="5">

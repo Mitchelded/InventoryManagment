@@ -33,5 +33,10 @@ namespace InventoryManagerMAUI
         {
             Navigation.PushAsync(new LoginView());
         }
+
+        private void InventoryView_OnClicked(object? sender, EventArgs e)
+        {
+            Navigation.PushAsync(new InventoryView());
+        }
     }
 }

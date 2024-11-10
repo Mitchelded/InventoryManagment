@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using InventoryManagment.Models;
 using Microsoft.EntityFrameworkCore;
@@ -90,7 +91,15 @@ public class ViewModelBase<T> : INotifyPropertyChanged where T : class
 			}
 		}
 	}
+	protected bool SetProperty<T>(ref T backingField, T value, [CallerMemberName] string propertyName = null)
+	{
+		if (EqualityComparer<T>.Default.Equals(backingField, value))
+			return false;
 
+		backingField = value;
+		OnPropertyChanged(propertyName);
+		return true;
+	}
 	public event PropertyChangedEventHandler? PropertyChanged;
 
 	protected void OnPropertyChanged(string propertyName)

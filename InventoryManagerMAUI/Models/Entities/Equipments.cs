@@ -10,6 +10,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using InventoryManagement.Models;
+using InventoryManagerMAUI.Commands;
 
 namespace InventoryManagment.Models
 {
@@ -21,6 +22,9 @@ namespace InventoryManagment.Models
         [Key]
         public int IdEquipment { get; set; }
         public string Name { get; set; }
+        
+        public byte[]? Photo { get; set; }
+
         public string Serial_Number { get; set; }
         [ForeignKey(nameof(Categories))]
         public int CategoryID { get; set; }

@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:model="clr-namespace:InventoryManagerMAUI.ViewModels.ViewModel"
+             xmlns:local="clr-namespace:InventoryManagerMAUI.Commands"
+             x:Class="InventoryManagerMAUI.View.InventoryView">
+    <ContentPage.BindingContext>
+        <model:EquipmentsViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Resources>
+        <Style TargetType="Label" x:Key="StatusInStock">
+            <Setter Property="BackgroundColor" Value="#d4edda" />
+            <Setter Property="TextColor" Value="#155724" />
+            <Setter Property="Padding" Value="5,2" />
+            <Setter Property="FontAttributes" Value="Bold" />
+        </Style>
+        <Style TargetType="Label" x:Key="StatusLowStock">
+            <Setter Property="BackgroundColor" Value="#fff3cd" />
+            <Setter Property="TextColor" Value="#856404" />
+            <Setter Property="Padding" Value="5,2" />
+            <Setter Property="FontAttributes" Value="Bold" />
+        </Style>
+        <Style TargetType="Label" x:Key="StatusOutOfStock">
+            <Setter Property="BackgroundColor" Value="#f8d7da" />
+            <Setter Property="TextColor" Value="#721c24" />
+            <Setter Property="Padding" Value="5,2" />
+            <Setter Property="FontAttributes" Value="Bold" />
+        </Style>
+        
+        <ResourceDictionary>
+            <local:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter" />
+        </ResourceDictionary>
+        
+    </ContentPage.Resources>
+
+    <Grid RowDefinitions="*, Auto" ColumnDefinitions="2*, 8*">
+        <!-- Sidebar -->
+        <StackLayout Grid.Column="0" BackgroundColor="#2c3e50" Padding="10">
+            <Label Text="Inventory Pro" FontSize="24" TextColor="White" Margin="0,0,0,20" />
+            <Button Text="Dashboard" TextColor="White" BackgroundColor="Transparent" />
+            <Button Text="Inventory" TextColor="White" BackgroundColor="Transparent" />
+            <Button Text="Orders" TextColor="White" BackgroundColor="Transparent" />
+            <Button Text="Suppliers" TextColor="White" BackgroundColor="Transparent" />
+            <Button Text="Reports" TextColor="White" BackgroundColor="Transparent" />
+            <Button Text="Settings" TextColor="White" BackgroundColor="Transparent" />
+        </StackLayout>
+
+        <!-- Main Content -->
+        <StackLayout Grid.Column="1" Padding="20">
+            <Label Text="Inventory Management" FontSize="30" Margin="0,0,0,20" />
+            <StackLayout Orientation="Horizontal" Spacing="10">
+                <Button Text="Add New Product" BackgroundColor="#3498db" TextColor="White"
+                        x:Name="btnAdd" Clicked="BtnAdd_OnClicked"/>
+            </StackLayout>
+
+            <!-- Filters -->
+            <Grid Padding="15" Margin="0,20,0,20" BackgroundColor="White" ColumnDefinitions="*,*,*,*">
+                <Picker Title="Category" Grid.Column="0">
+                    <Picker.Items>
+                        <x:String>All Categories</x:String>
+                        <x:String>Electronics</x:String>
+                        <x:String>Clothing</x:String>
+                        <x:String>Food</x:String>
+                        <x:String>Furniture</x:String>
+                    </Picker.Items>
+                </Picker>
+                <Picker Title="Stock Status" Grid.Column="1">
+                    <Picker.Items>
+                        <x:String>All Status</x:String>
+                        <x:String>In Stock</x:String>
+                        <x:String>Low Stock</x:String>
+                        <x:String>Out of Stock</x:String>
+                    </Picker.Items>
+                </Picker>
+                <Picker Title="Sort By" Grid.Column="2">
+                    <Picker.Items>
+                        <x:String>Name</x:String>
+                        <x:String>Stock Level</x:String>
+                        <x:String>Price</x:String>
+                        <x:String>Date Added</x:String>
+                    </Picker.Items>
+                </Picker>
+                <Entry Placeholder="Search products..." Grid.Column="3" />
+            </Grid>
+
+            <!-- Inventory Table -->
+            <ListView ItemsSource="{Binding Collection}" Background="Wheat"
+                      SelectedItem="{Binding BindingContext.SelectedItem, 
+            Source={RelativeSource AncestorType={x:Type ContentPage}}, Mode=TwoWay}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal" Spacing="15">
+                                <Image Source="{Binding Photo, Converter={StaticResource ByteArrayToImageSourceConverter}}"/>
+                                
+                                    <Label Text="{Binding Name}" FontSize="20" />
+                                    <Label Text="{Binding CategoryID}" FontSize="16" TextColor="Gray" />
+                                
+                                <Label Text="{Binding Serial_Number}" FontSize="16" />
+                                <Label Text="{Binding DepartmentID}" FontSize="16" />
+                                <Label Text="{Binding Cost, StringFormat='{}{0:C}'}" FontSize="16" />
+
+                                <!-- Conditionally Styled Status Label -->
+                                <Label Text="{Binding StatusID}" FontSize="16" FontAttributes="Bold">
+                                 
+                                </Label>
+
+                                <StackLayout Orientation="Horizontal" Spacing="5">
+                                    <Button Text="Edit" BackgroundColor="#3498db" TextColor="White" WidthRequest="70" />
+                                    <Button Text="Restock" BackgroundColor="#2ecc71" TextColor="White"
+                                            WidthRequest="70" Command="{Binding BindingContext.LoadImageCommand,
+                                Source={RelativeSource AncestorType={x:Type ContentPage}}}"
+                                            CommandParameter="{Binding BindingContext.SelectedItem, 
+                                            Source={RelativeSource AncestorType={x:Type ContentPage}}, Mode=TwoWay}"/>
+                                    <Button Text="Delete" BackgroundColor="#e74c3c" TextColor="White" WidthRequest="70" 
+                                            Command="{Binding BindingContext.DeleteCommand, Source={RelativeSource AncestorType={x:Type ContentPage}}}"
+                                            CommandParameter="{Binding BindingContext.SelectedItem, 
+                                            Source={RelativeSource AncestorType={x:Type ContentPage}}, Mode=TwoWay}"/>
+                                </StackLayout>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+
+            </ListView>
+            <Button></Button>
+        </StackLayout>
+    </Grid>
+</ContentPage>

@@ -19,6 +19,7 @@ namespace InventoryManagment.Models
     {
         public InventoryManagmentEntities()
         {
+            // Database.EnsureDeleted();
             if (Database.EnsureCreated())
             {
                 Departments.AddRange(new Departments[]
@@ -40,6 +41,25 @@ namespace InventoryManagment.Models
                 {
                     new EquipmentStatus(){Name = "Установлен", Description = "Установлен на место"},
                     new EquipmentStatus(){Name = "На складе", Description = "Находится на складе"},
+                });
+                SaveChanges();
+                Suppliers.AddRange(new []
+                {
+                    new Suppliers(){Name = "Supplier1", ContactInfo = "ContactInfo1", Adress = "Address1", Email = "Email1"},
+                    new Suppliers(){Name = "Supplier2", ContactInfo = "ContactInfo2", Adress = "Address2", Email = "Email2"},
+                });
+
+                SaveChanges();
+                Categories.AddRange(new []
+                {
+                    new Categories(){Name="Name1", Description = "Description1"},
+                    new Categories(){Name="Name2", Description = "Description2"},
+                });
+                SaveChanges();
+                Locations.AddRange(new []
+                {
+                    new Locations(){Description = "Description1", DepartmentID = 1},
+                    new Locations(){Description = "Description2", DepartmentID = 2},
                 });
                 SaveChanges();
             }

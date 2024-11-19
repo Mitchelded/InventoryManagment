@@ -156,6 +156,7 @@ public class EquipmentsViewModel : ViewModelBase<Equipments>
 				OnPropertyChanged(nameof(SelectedStatusId));
 				OnPropertyChanged(nameof(SelectedStatus));
 				OnPropertyChanged(nameof(SelectedStatusId));
+				ApplyFilter();
 			}
 		}
 	}
@@ -173,6 +174,7 @@ public class EquipmentsViewModel : ViewModelBase<Equipments>
 				OnPropertyChanged(nameof(SelectedCategoryId));
 				OnPropertyChanged(nameof(SelectedCategory));
 				OnPropertyChanged(nameof(SelectedCategoryId));
+				ApplyFilter();
 			}
 		}
 	}
@@ -232,6 +234,7 @@ public class EquipmentsViewModel : ViewModelBase<Equipments>
 		}
 	}
 	public ICommand LoadImageCommand { get; }
+	
 	public EquipmentsViewModel()
 	{
 		LoadImageCommand = new Command<Equipments>(LoadImage);
@@ -243,6 +246,31 @@ public class EquipmentsViewModel : ViewModelBase<Equipments>
 		LoadImagesAsync();
 	}
 		
+	private void ApplyFilter()
+	{
+		List<Equipments> filtered;
+		if (Collection.Count != 0)
+		{
+			filtered = Collection
+				.Where(i => SelectedCategory == null || i.Categories.IdCategories == SelectedCategory.IdCategories)
+				.Where(i => SelectedStatus == null || i.EquipmentStatus.IdStatus == SelectedStatus.IdStatus)
+				.ToList();
+
+		}
+		else
+		{
+			using InventoryManagmentEntities db = new();
+			filtered = db.Equipments.Include("Categories") // Пример: загрузить связанные данные
+				.Include("EquipmentStatus").ToList();
+		}
+
+
+		Collection.Clear();
+		foreach (var item in filtered)
+			Collection.Add(item);
+	}
+	
+	
 	private ImageSource _equipmentImageSource;
 
 	public ImageSource EquipmentImageSource

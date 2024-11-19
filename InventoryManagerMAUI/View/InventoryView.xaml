@@ -55,23 +55,29 @@
             </StackLayout>
 
             <!-- Filters -->
-            <Grid Padding="15" Margin="0,20,0,20" BackgroundColor="White" ColumnDefinitions="*,*,*,*">
-                <Picker Title="Category" Grid.Column="0">
-                    <Picker.Items>
-                        <x:String>All Categories</x:String>
-                        <x:String>Electronics</x:String>
-                        <x:String>Clothing</x:String>
-                        <x:String>Food</x:String>
-                        <x:String>Furniture</x:String>
-                    </Picker.Items>
+            <Grid Padding="15" Margin="0,20,0,20" BackgroundColor="White" ColumnDefinitions="*,*,*,*,*">
+                <Picker Title="Category" Grid.Column="0" 
+                        ItemsSource="{Binding Categories}" 
+                        ItemDisplayBinding="{Binding Name}"
+                        SelectedItem="{Binding SelectedCategory}">
+                    <!-- <Picker.Items> -->
+                    <!--     <x:String>All Categories</x:String> -->
+                    <!--     <x:String>Electronics</x:String> -->
+                    <!--     <x:String>Clothing</x:String> -->
+                    <!--     <x:String>Food</x:String> -->
+                    <!--     <x:String>Furniture</x:String> -->
+                    <!-- </Picker.Items> -->
                 </Picker>
-                <Picker Title="Stock Status" Grid.Column="1">
-                    <Picker.Items>
-                        <x:String>All Status</x:String>
-                        <x:String>In Stock</x:String>
-                        <x:String>Low Stock</x:String>
-                        <x:String>Out of Stock</x:String>
-                    </Picker.Items>
+                <Picker Title="Stock Status" Grid.Column="1" 
+                        ItemsSource="{Binding EquipmentStatus}"
+                        ItemDisplayBinding="{Binding Name}"
+                        SelectedItem="{Binding SelectedStatus}">
+                    <!-- <Picker.Items> -->
+                    <!--     <x:String>All Status</x:String> -->
+                    <!--     <x:String>In Stock</x:String> -->
+                    <!--     <x:String>Low Stock</x:String> -->
+                    <!--     <x:String>Out of Stock</x:String> -->
+                    <!-- </Picker.Items> -->
                 </Picker>
                 <Picker Title="Sort By" Grid.Column="2">
                     <Picker.Items>
@@ -82,6 +88,11 @@
                     </Picker.Items>
                 </Picker>
                 <Entry Placeholder="Search products..." Grid.Column="3" />
+                <HorizontalStackLayout Grid.Column="3">
+                    <Button Text="Сброс" x:Name="BtnReset" Command="{Binding ResetCommand}"/>
+                    <Button Text="Поиск"/>
+                </HorizontalStackLayout>
+
             </Grid>
 
             <!-- Inventory Table -->
@@ -95,14 +106,14 @@
                                 <Image Source="{Binding Photo, Converter={StaticResource ByteArrayToImageSourceConverter}}"/>
                                 
                                     <Label Text="{Binding Name}" FontSize="20" />
-                                    <Label Text="{Binding CategoryID}" FontSize="16" TextColor="Gray" />
+                                    <Label Text="{Binding Categories.Name}" FontSize="16" TextColor="Gray" />
                                 
                                 <Label Text="{Binding Serial_Number}" FontSize="16" />
                                 <Label Text="{Binding DepartmentID}" FontSize="16" />
                                 <Label Text="{Binding Cost, StringFormat='{}{0:C}'}" FontSize="16" />
 
                                 <!-- Conditionally Styled Status Label -->
-                                <Label Text="{Binding StatusID}" FontSize="16" FontAttributes="Bold">
+                                <Label Text="{Binding EquipmentStatus.Name}" FontSize="16" FontAttributes="Bold">
                                     <!-- <Label.Style> -->
                                     <!--     <Style TargetType="Label"> -->
                                     <!--         <Style.Triggers> -->

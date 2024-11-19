@@ -13,15 +13,21 @@ public class ViewModelBase<T> : INotifyPropertyChanged where T : class
 	public ICommand DeleteCommand { get; }
 	public ICommand UpdateCommand { get; }
 	public ICommand AddCommand { get; }
-
+	public ICommand ResetCommand { get; }
 	
 	public ViewModelBase() //InventoryManagmentEntities db
 	{
 		//_db = db;
 		LoadData();
 		DeleteCommand = new Command<T>(OnDelete);
+		ResetCommand = new Command<T>(OnResete);
 		UpdateCommand = new Command<T>(OnUpdate);
 		AddCommand = new Command(OnAdd);
+	}
+
+	private void OnResete(T obj)
+	{
+		LoadData();
 	}
 
 
@@ -44,7 +50,10 @@ public class ViewModelBase<T> : INotifyPropertyChanged where T : class
 	{
 		using InventoryManagmentEntities _db = new();
 		Collection.Clear();
-		await _db.Set<T>().LoadAsync();
+		await _db.Set<T>()
+			.Include("Categories") // Пример: загрузить связанные данные
+			.Include("EquipmentStatus") // Подгрузка статусов
+			.LoadAsync();
 		foreach (var item in _db.Set<T>().Local)
 		{
 			Collection.Add(item);

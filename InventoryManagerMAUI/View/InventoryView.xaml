@@ -83,16 +83,15 @@
                     <!--     <x:String>Out of Stock</x:String> -->
                     <!-- </Picker.Items> -->
                 </Picker>
-                <custom:CustomPicker Title="Sort By" Grid.Column="2" x:Name="PickerCust">
-                </custom:CustomPicker>
-                <!-- <Picker Title="Sort By" Grid.Column="2"> -->
-                <!--     <Picker.Items> -->
-                <!--         <x:String>Name</x:String> -->
-                <!--         <x:String>Stock Level</x:String> -->
-                <!--         <x:String>Price</x:String> -->
-                <!--         <x:String>Date Added</x:String> -->
-                <!--     </Picker.Items> -->
-                <!-- </Picker> -->
+
+                <Picker Title="Sort By" Grid.Column="2">
+                    <Picker.Items>
+                        <x:String>Name</x:String>
+                        <x:String>Stock Level</x:String>
+                        <x:String>Price</x:String>
+                        <x:String>Date Added</x:String>
+                    </Picker.Items>
+                </Picker>
                 <Entry Placeholder="Search products..." Grid.Column="3" />
                 <HorizontalStackLayout Grid.Column="3">
                     <Button Text="Сброс" x:Name="BtnReset" Command="{Binding ResetCommand}"

@@ -15,14 +15,6 @@ public partial class InventoryView : ContentPage
     public InventoryView()
     {
         InitializeComponent();
-        ObservableCollection<string> SortOptions = new ObservableCollection<string>
-        {
-            "Name",
-            "Stock Level",
-            "Price",
-            "Date Added"
-        };
-        PickerCust.ItemsSource = SortOptions;
     }
 
     private void BtnAdd_OnClicked(object? sender, EventArgs e)

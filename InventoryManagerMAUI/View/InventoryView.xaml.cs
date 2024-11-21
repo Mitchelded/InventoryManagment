@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +15,14 @@ public partial class InventoryView : ContentPage
     public InventoryView()
     {
         InitializeComponent();
+        ObservableCollection<string> SortOptions = new ObservableCollection<string>
+        {
+            "Name",
+            "Stock Level",
+            "Price",
+            "Date Added"
+        };
+        PickerCust.ItemsSource = SortOptions;
     }
 
     private void BtnAdd_OnClicked(object? sender, EventArgs e)

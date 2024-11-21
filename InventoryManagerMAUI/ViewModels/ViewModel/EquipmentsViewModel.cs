@@ -13,7 +13,7 @@ public class EquipmentsViewModel : ViewModelBase<Equipments>
 	private string _name;
 	private string _serialNumber;
 	private int _categoryId;
-	private int _departmentId;
+	private int _departmentId;	
 	private int _locationId;
 	private decimal? _cost;
 	private int? _supplierId;
@@ -260,7 +260,8 @@ public class EquipmentsViewModel : ViewModelBase<Equipments>
 		else
 		{
 			using InventoryManagmentEntities db = new();
-			filtered = db.Equipments.Include("Categories") // Пример: загрузить связанные данные
+			filtered = db.Equipments
+				.Include("Categories") // Пример: загрузить связанные данные
 				.Include("EquipmentStatus").ToList();
 		}
 

@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<?xaml-comp compile="true" ?>
+
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    
+    
+    
+    <!-- Стили для кнопок -->
+    <Style x:Key="PrimaryButtonStyle" TargetType="Button">
+        <Setter Property="BackgroundColor" Value="#0d6efd" />
+        <Setter Property="TextColor" Value="White" />
+        <Setter Property="CornerRadius" Value="8" />
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="Padding" Value="10" />
+    </Style>
+    <Style x:Key="SecondaryButtonStyle" TargetType="Button">
+        <Setter Property="BackgroundColor" Value="#6c757d" />
+        <Setter Property="TextColor" Value="White" />
+    </Style>
+    <Style x:Key="SuccessButtonStyle" TargetType="Button">
+        <Setter Property="BackgroundColor" Value="#198754" />
+        <Setter Property="TextColor" Value="White" />
+    </Style>
+    <Style x:Key="DangerButtonStyle" TargetType="Button">
+        <Setter Property="BackgroundColor" Value="#dc3545" />
+        <Setter Property="TextColor" Value="White" />
+    </Style>
+    <Style x:Key="WarningButtonStyle" TargetType="Button">
+        <Setter Property="BackgroundColor" Value="#ffc107" />
+        <Setter Property="TextColor" Value="Black" />
+    </Style>
+    <Style x:Key="InfoButtonStyle" TargetType="Button">
+        <Setter Property="BackgroundColor" Value="#0dcaf0" />
+        <Setter Property="TextColor" Value="Black" />
+    </Style>
+    <Style x:Key="LightButtonStyle" TargetType="Button">
+        <Setter Property="BackgroundColor" Value="#f8f9fa" />
+        <Setter Property="TextColor" Value="Black" />
+    </Style>
+    <Style x:Key="DarkButtonStyle" TargetType="Button">
+        <Setter Property="BackgroundColor" Value="#212529" />
+        <Setter Property="TextColor" Value="White" />
+    </Style>
+</ResourceDictionary>

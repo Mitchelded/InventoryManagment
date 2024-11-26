@@ -5,15 +5,17 @@ using System.Windows;
 using InventoryManagment.Interface;
 using InventoryManagment.Models;
 using InventoryManagment.Models.Dtos;
+using InventoryManagment.Models.Entities;
+using Location = InventoryManagment.Models.Entities.Location;
 
 namespace InventoryManagment.Commands.DbMethods
 {
-	internal class EquipmentMethods : IDbMethods<Equipments, EquipmentDto>
+	internal class EquipmentMethods : IDbMethods<Equipment, EquipmentDto>
 	{
-		public IEnumerable<EquipmentDto> GetAllEquipmentsFromLocation(Locations locations)
+		public IEnumerable<EquipmentDto> GetAllEquipmentsFromLocation(Location locations)
 		{
 			using InventoryManagmentEntities db = new InventoryManagmentEntities();
-			IEnumerable<EquipmentDto> equipments = GetAll().Where(x => x.Location == locations.Description);
+			IEnumerable<EquipmentDto> equipments = GetAll().Where(x => x.Location == locations.LocationDescription);
 			IEnumerable<EquipmentDto> allEquipmentsFromLocation = equipments.ToList();
 			if (allEquipmentsFromLocation.Any())
 				return allEquipmentsFromLocation;
@@ -21,7 +23,7 @@ namespace InventoryManagment.Commands.DbMethods
 				return null;
 		}
 
-		public void Add(Equipments obj)
+		public void Add(Equipment obj)
 		{
 			try
 			{
@@ -51,7 +53,7 @@ namespace InventoryManagment.Commands.DbMethods
 			}
 		}
 
-		public void AddMany(List<Equipments> listObj)
+		public void AddMany(List<Equipment> listObj)
 		{
 			using InventoryManagmentEntities db = new InventoryManagmentEntities();
 			if (listObj is { Count: > 0 })
@@ -61,7 +63,7 @@ namespace InventoryManagment.Commands.DbMethods
 			}
 		}
 
-		public void Remove(Equipments obj)
+		public void Remove(Equipment obj)
 		{
 			using InventoryManagmentEntities db = new InventoryManagmentEntities();
 			db.Equipments.Remove(obj);
@@ -86,7 +88,7 @@ namespace InventoryManagment.Commands.DbMethods
 					SerialNumber = equipment.Serial_Number,
 					Category = category.Name,
 					Department = department.Name,
-					Location = location.Description,
+					Location = location.LocationDescription,
 					Status = status.Name,
 					PurchaseDate = equipment.PurchaseDate,
 					WarrantyExpiration = equipment.WarrantyExpiration,
@@ -123,7 +125,7 @@ namespace InventoryManagment.Commands.DbMethods
 			return equipments;
 		}
 
-		public void RemoveMany(List<Equipments> listObj)
+		public void RemoveMany(List<Equipment> listObj)
 		{
 			using InventoryManagmentEntities db = new InventoryManagmentEntities();
 			db.Equipments.RemoveRange(listObj);

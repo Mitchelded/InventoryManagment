@@ -7,8 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using InventoryManagement.Models;
+using InventoryManagment.Models.Entities;
 using Microsoft.EntityFrameworkCore;
+using Condition = InventoryManagment.Models.Entities.Condition;
+using Location = InventoryManagment.Models.Entities.Location;
 
 namespace InventoryManagment.Models
 {
@@ -22,109 +24,50 @@ namespace InventoryManagment.Models
             // Database.EnsureDeleted();
             if (Database.EnsureCreated())
             {
-                Departments.AddRange(new Departments[]
-                {
-                    new Departments(){ Name = "Department1", HeadOfDepartment = "Head1"},
-                    new Departments(){ Name = "Department2", HeadOfDepartment = "Head2"},
-                });
-                SaveChanges();
-                BudgetAllocations.AddRange(new BudgetAllocations[]
-                {
-                    new BudgetAllocations(){ AllocationDate = DateTime.Now, DepartmentID = 1, Amount = 1233214, 
-                        Purpose = "Purpose1"},
-                    new BudgetAllocations(){ AllocationDate = new DateTime(19,10,9), DepartmentID = 2, Amount = 1233214, 
-                        Purpose = "Purpose2"},
-                });
-                SaveChanges();
-                
-                EquipmentStatus.AddRange(new EquipmentStatus[]
-                {
-                    new EquipmentStatus(){Name = "Установлен", Description = "Установлен на место"},
-                    new EquipmentStatus(){Name = "На складе", Description = "Находится на складе"},
-                });
-                SaveChanges();
-                Suppliers.AddRange(new []
-                {
-                    new Suppliers(){Name = "Supplier1", ContactInfo = "ContactInfo1", Adress = "Address1", Email = "Email1"},
-                    new Suppliers(){Name = "Supplier2", ContactInfo = "ContactInfo2", Adress = "Address2", Email = "Email2"},
-                });
-
-                SaveChanges();
-                Categories.AddRange(new []
-                {
-                    new Categories(){Name="Name1", Description = "Description1"},
-                    new Categories(){Name="Name2", Description = "Description2"},
-                });
-                SaveChanges();
-                Locations.AddRange(new []
-                {
-                    new Locations(){Description = "Description1", DepartmentID = 1},
-                    new Locations(){Description = "Description2", DepartmentID = 2},
-                });
-                SaveChanges();
+               
             }
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite("Data Source=InventoryManagment.db");
+            optionsBuilder.UseSqlite("Data Source=InventoryManagmentDB.db");
         }
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Employees>()
-                .HasMany(e => e.MovedInventory)
-                .WithOne(m => m.MovedByEmployee)
-                .HasForeignKey(m => m.MovedByEmployeeID)
-                .OnDelete(DeleteBehavior.Restrict);
+            base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Employees>()
-                .HasMany(e => e.ReceivedInventoryMovements)
-                .WithOne(m => m.ReceivedByEmployee)
-                .HasForeignKey(m => m.ReceivedByEmployeeID)
-                .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<UserRole>()
+                .HasKey(ur => new { ur.UserID, ur.RoleID });
 
-            modelBuilder.Entity<Employees>()
-                .HasMany(e => e.MaintenanceRecords)
-                .WithOne(m => m.Employees)
-                .HasForeignKey(m => m.PerformedByEmployeeID)
-                .OnDelete(DeleteBehavior.Restrict);
-            
-            modelBuilder.Entity<Equipments>()
-                .HasMany(e => e.MaintenanceRecords)
-                .WithOne(m => m.Equipments)
-                .HasForeignKey(m => m.EquipmentID)
-                .OnDelete(DeleteBehavior.Restrict);
-            
-            modelBuilder.Entity<Locations>()
-                .HasMany(e => e.FromLocation)
-                .WithOne(m => m.FromLocation)
-                .HasForeignKey(m => m.FromLocationID)
-                .OnDelete(DeleteBehavior.Restrict);
-            
-            modelBuilder.Entity<Locations>()
-                .HasMany(e => e.ToLocation)
-                .WithOne(m => m.ToLocation)
-                .HasForeignKey(m => m.ToLocationID)
-                .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Movement>()
+                .HasOne(m => m.FromWarehouse)
+                .WithMany(w => w.FromMovements)
+                .HasForeignKey(m => m.FromWarehouseID)
+                .OnDelete(DeleteBehavior.SetNull);
 
+            modelBuilder.Entity<Movement>()
+                .HasOne(m => m.ToWarehouse)
+                .WithMany(w => w.ToMovements)
+                .HasForeignKey(m => m.ToWarehouseID)
+                .OnDelete(DeleteBehavior.SetNull);
         }
 
-        public virtual DbSet<Audits> Audits { get; set; }
-        public virtual DbSet<BudgetAllocations> BudgetAllocations { get; set; }
-        public virtual DbSet<Categories> Categories { get; set; }
-        public virtual DbSet<Departments> Departments { get; set; }
-        public virtual DbSet<Employees> Employees { get; set; }
-        public virtual DbSet<Equipments> Equipments { get; set; }
-        public virtual DbSet<EquipmentStatus> EquipmentStatus { get; set; }
-        public virtual DbSet<InventoryMovements> InventoryMovements { get; set; }
-        public virtual DbSet<Locations> Locations { get; set; }
-        public virtual DbSet<MaintenanceRecords> MaintenanceRecords { get; set; }
-        public virtual DbSet<Orders> Orders { get; set; }
-        public virtual DbSet<Students> Students { get; set; }
-        public virtual DbSet<Suppliers> Suppliers { get; set; }
-        public virtual DbSet<UtilizationRecords> UtilizationRecords { get; set; }
-        public virtual DbSet<WarrantyClaims> WarrantyClaims { get; set; }
+        public DbSet<Warehouse> Warehouses { get; set; }
+        public DbSet<Location> Locations { get; set; }
+        public DbSet<EquipmentType> EquipmentTypes { get; set; }
+        public DbSet<Equipment> Equipments { get; set; }
+        public DbSet<Brand> Brands { get; set; }
+        public DbSet<Model> Models { get; set; }
+        public DbSet<Condition> Conditions { get; set; }
+        public DbSet<Movement> Movements { get; set; }
+        public DbSet<EmployeeAssignment> EmployeeAssignments { get; set; }
+        public DbSet<Supplier> Suppliers { get; set; }
+        public DbSet<Purchase> Purchases { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Employee> Employees { get; set; }
+        public DbSet<Role> Roles { get; set; }
+        public DbSet<UserRole> UserRoles { get; set; }
 
     }
 }

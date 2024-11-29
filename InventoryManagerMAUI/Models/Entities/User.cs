@@ -2,30 +2,18 @@
 
 public class User
 {
-    [Key]
-    public int IdUser { get; set; }
-    
-    [Required]
-    [StringLength(255)]
+    public int UserID { get; set; }
     public string Username { get; set; }
-    
-    [Required]
-    public string PasswordHash { get; set; }
-    
-    [Required]
+    public string Password { get; set; }
     public string Email { get; set; }
-    
-    [Required]
-    public string FirstName { get; set; }
-    
-    [Required]
-    public string LastName { get; set; }
-    
-    public DateTime? LastLogin { get; set; }
-    
-    [Required]
-    public bool IsActive { get; set; }
-    
-    public ICollection<Employee> Employees { get; set; }
+    public DateTime CreatedAt { get; set; }
+
+    public int? DepartmentID { get; set; }  // Отдел сотрудника
+    public string FullName { get; set; }    // Имя сотрудника (если это сотрудник)
+
+    public Department Department { get; set; } // Отдел, к которому относится сотрудник (если применимо)
+    // Коллекция для учета использования оборудования пользователем
+    public ICollection<UtilizationRecord> UtilizationRecords { get; set; }
     public ICollection<UserRole> UserRoles { get; set; }
+    public ICollection<EquipmentMovement> EquipmentMovements { get; set; }
 }

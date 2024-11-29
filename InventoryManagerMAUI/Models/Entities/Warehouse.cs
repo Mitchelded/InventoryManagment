@@ -2,22 +2,14 @@
 
 public class Warehouse
 {
-    [Key]
-    public int IdWarehouse { get; set; }
-    
-    [Required]
-    public string WarehouseName { get; set; }
-    
-    [Required]
+    public int WarehouseID { get; set; }
+    public string Name { get; set; }
     public string Location { get; set; }
-    
-    [Required]
-    public int Capacity { get; set; }
-    
-    public string Description { get; set; }
-    
-    public ICollection<Location> Locations { get; set; }
-    public ICollection<Equipment> Equipments { get; set; }
-    public ICollection<Movement> FromMovements { get; set; }
-    public ICollection<Movement> ToMovements { get; set; }
+
+    public ICollection<Stock> Stocks { get; set; }
+    // Коллекция для учета движения оборудования, поступающего и исходящего со склада
+    public ICollection<EquipmentMovement> SourceWarehouseMovements { get; set; }
+
+    // Коллекция движений оборудования для склада назначения
+    public ICollection<EquipmentMovement> DestinationWarehouseMovements { get; set; }
 }

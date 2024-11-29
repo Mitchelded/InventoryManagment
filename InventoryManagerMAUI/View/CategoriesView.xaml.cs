@@ -1,16 +1,15 @@
 using CommunityToolkit.Maui.Views;
 using InventoryManagerMAUI.ViewModels;
 using InventoryManagerMAUI.ViewModels.ViewModel;
-using InventoryManagment.Models;
 
 namespace InventoryManagerMAUI.View;
 
-public partial class CategoriesView : ContentPage
+public partial class CategoryView : ContentPage
 {
 	private readonly InventoryManagmentEntities _db = new();
 
-	private CategoriesViewModel viewModel;
-	public CategoriesView()
+	private CategoryViewModel viewModel;
+	public CategoryView()
 	{
 		InitializeComponent();
 		viewModel = new();
@@ -31,7 +30,7 @@ public partial class CategoriesView : ContentPage
 					{ "Enter Name", "Name"},
 					{"Enter Description", "Description"},
 			};
-		var popup = new InputPopup<CategoriesViewModel>(labelsDict, viewModel);
+		var popup = new InputPopup<CategoryViewModel>(labelsDict, viewModel);
 		this.ShowPopupAsync(popup);
 	}
 

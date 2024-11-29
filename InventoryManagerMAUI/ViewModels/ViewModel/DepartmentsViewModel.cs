@@ -1,5 +1,4 @@
-﻿using InventoryManagment.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace InventoryManagerMAUI.ViewModels.ViewModel
 {
-	class DepartmentsViewModel : ViewModelBase<Departments>
+	class DepartmentsViewModel : ViewModelBase<Department>
 	{
 		public DepartmentsViewModel() : base()
 		{
@@ -40,7 +39,7 @@ namespace InventoryManagerMAUI.ViewModels.ViewModel
 		public override void OnAdd(object obj)
 		{
 			using InventoryManagmentEntities _db = new();
-			var status = new Departments()
+			var status = new Department()
 			{
 				Name = _name,
 				HeadOfDepartment = _headOfDepartment,

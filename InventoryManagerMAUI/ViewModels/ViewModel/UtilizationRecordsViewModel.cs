@@ -1,9 +1,7 @@
-﻿using InventoryManagment.Models;
-
-namespace InventoryManagerMAUI.ViewModels.ViewModel;
+﻿namespace InventoryManagerMAUI.ViewModels.ViewModel;
 
 // TODO: add viewmodel
-public class UtilizationRecordsViewModel : ViewModelBase<UtilizationRecords>
+public class UtilizationRecordsViewModel : ViewModelBase<UtilizationRecord>
 {
     private int? _employeeId;
     private int _equipmentId;
@@ -93,19 +91,19 @@ public class UtilizationRecordsViewModel : ViewModelBase<UtilizationRecords>
             OnPropertyChanged(nameof(Purpose));
         }
     }
-
+//TODO:Изменить метод
     public override void OnAdd(object obj)
     {
         using InventoryManagmentEntities _db = new();
-        var status = new UtilizationRecords()
+        var status = new UtilizationRecord()
         {
-            IdUtilization = _idUtilization,
-            EquipmentID = _equipmentId,
-            StudentID = _studentId,
-            EmployeeID = _employeeId,
-            UsageStart = _usageStart,
-            UsageEnd = _usageEnd,
-            Purpose = _purpose,
+            // IdUtilization = _idUtilization,
+            // EquipmentID = _equipmentId,
+            // StudentID = _studentId,
+            // EmployeeID = _employeeId,
+            // UsageStart = _usageStart,
+            // UsageEnd = _usageEnd,
+            // Purpose = _purpose,
         };
         Collection.Add(status);
         _db.Add(status);

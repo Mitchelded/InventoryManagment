@@ -2,7 +2,6 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
-using InventoryManagment.Models;
 using Microsoft.EntityFrameworkCore;
 namespace InventoryManagerMAUI.ViewModels;
 
@@ -51,8 +50,8 @@ public class ViewModelBase<T> : INotifyPropertyChanged where T : class
 		using InventoryManagmentEntities _db = new();
 		Collection.Clear();
 		await _db.Set<T>()
-			.Include("Categories") // Пример: загрузить связанные данные
-			.Include("EquipmentStatus") // Подгрузка статусов
+			.Include("Category") // Пример: загрузить связанные данные
+			.Include("Status") // Подгрузка статусов
 			.LoadAsync();
 		foreach (var item in _db.Set<T>().Local)
 		{

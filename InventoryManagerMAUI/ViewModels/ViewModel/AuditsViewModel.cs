@@ -1,12 +1,11 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
 using InventoryManagerMAUI.Interface;
-using InventoryManagment.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace InventoryManagerMAUI.ViewModels.ViewModel;
 
-public class AuditsViewModel : ViewModelBase<Audits>
+public class AuditsViewModel : ViewModelBase<Department>
 {
     private readonly InventoryManagmentEntities _db;
     public AuditsViewModel() : base()
@@ -17,12 +16,12 @@ public class AuditsViewModel : ViewModelBase<Audits>
     public override void OnAdd(object obj)
     {
 		using InventoryManagmentEntities _db = new();
-		var status = new Audits()
+		var status = new Department()
         {
-            AuditDate = _auditDate,
-            PerformedByEmployeeID = _performedByEmployeeId,
-            Notes = _notes,
-            Discrepancies = _discrepancies,
+            // AuditDate = _auditDate,
+            // PerformedByEmployeeID = _performedByEmployeeId,
+            // Notes = _notes,
+            // Discrepancies = _discrepancies,
             
         };
         Collection.Add(status);

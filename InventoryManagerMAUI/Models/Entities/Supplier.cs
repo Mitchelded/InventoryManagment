@@ -2,13 +2,9 @@
 
 public class Supplier
 {
-    [Key]
-    public int IdSupplier { get; set; }
-    
-    [Required]
-    public string SupplierName { get; set; }
-    
+    public int SupplierID { get; set; }
+    public string Name { get; set; }
     public string ContactInfo { get; set; }
-    
-    public ICollection<Purchase> Purchases { get; set; }
+    // Навигационное свойство для связи с Equipment
+    public ICollection<Equipment> Equipments { get; set; }
 }

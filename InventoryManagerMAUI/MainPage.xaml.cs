@@ -9,9 +9,9 @@ namespace InventoryManagerMAUI
             InitializeComponent();
         }
 
-        private void EquipmentStatus_Clicked(object sender, EventArgs e)
+        private void Status_Clicked(object sender, EventArgs e)
         {
-            Navigation.PushAsync(new EquipmentStatusView());
+            Navigation.PushAsync(new StatusView());
         }
 
         private void AuditsView_Clicked(object sender, EventArgs e)
@@ -19,9 +19,9 @@ namespace InventoryManagerMAUI
             Navigation.PushAsync(new AuditsView());
         }
 
-        private void CategoriesView_Clicked(object sender, EventArgs e)
+        private void CategoryView_Clicked(object sender, EventArgs e)
         {
-            Navigation.PushAsync(new CategoriesView());
+            Navigation.PushAsync(new CategoryView());
         }
 
         private void EquipmentView_Clicked(object sender, EventArgs e)

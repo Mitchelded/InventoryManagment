@@ -1,5 +1,4 @@
 ﻿using InventoryManagerMAUI.Commands;
-using InventoryManagment.Models;
 
 namespace InventoryManagerMAUI.ViewModels
 {
@@ -48,7 +47,7 @@ namespace InventoryManagerMAUI.ViewModels
 							picker.SetBinding(Picker.ItemsSourceProperty, "Departments");
 							picker.SetBinding(Picker.SelectedItemProperty, "SelectedDepartment");
 							picker.ItemDisplayBinding = new Binding("Name");
-							picker.ItemsSource = db.Departments.ToList();
+							picker.ItemsSource = db.Warehouses.ToList();
 							_pickers.Add(picker);
 							stackLayout.Add(label);
 							stackLayout.Add(picker);
@@ -63,32 +62,32 @@ namespace InventoryManagerMAUI.ViewModels
 							stackLayout.Add(label);
 							stackLayout.Add(picker);
 							break;
-						case { } value when value.Contains("Location"):
-							picker = new Picker();
-							picker.SetBinding(Picker.ItemsSourceProperty, "Locations");
-							picker.SetBinding(Picker.SelectedItemProperty, "SelectedLocation");
-							picker.ItemDisplayBinding = new Binding("Description");
-							picker.ItemsSource = db.Locations.ToList();
-							_pickers.Add(picker);
-							stackLayout.Add(label);
-							stackLayout.Add(picker);
-							break;
+						// case { } value when value.Contains("Location"):
+						// 	picker = new Picker();
+						// 	picker.SetBinding(Picker.ItemsSourceProperty, "Locations");
+						// 	picker.SetBinding(Picker.SelectedItemProperty, "SelectedLocation");
+						// 	picker.ItemDisplayBinding = new Binding("Description");
+						// 	picker.ItemsSource = db.Locations.ToList();
+						// 	_pickers.Add(picker);
+						// 	stackLayout.Add(label);
+						// 	stackLayout.Add(picker);
+						// 	break;
 						case { } value when value.Contains("Category"):
 							picker = new Picker();
-							picker.SetBinding(Picker.ItemsSourceProperty, "Categories");
+							picker.SetBinding(Picker.ItemsSourceProperty, "Category");
 							picker.SetBinding(Picker.SelectedItemProperty, "SelectedCategory");
 							picker.ItemDisplayBinding = new Binding("Name");
-							picker.ItemsSource = db.Categories.ToList();
+							picker.ItemsSource = db.Category.ToList();
 							_pickers.Add(picker);
 							stackLayout.Add(label);
 							stackLayout.Add(picker);
 							break;
 						case { } value when value.Contains("Status"):
 							picker = new Picker();
-							picker.SetBinding(Picker.ItemsSourceProperty, "EquipmentStatus");
+							picker.SetBinding(Picker.ItemsSourceProperty, "Status");
 							picker.SetBinding(Picker.SelectedItemProperty, "SelectedStatus");
 							picker.ItemDisplayBinding = new Binding("Name");
-							picker.ItemsSource = db.EquipmentStatus.ToList();
+							picker.ItemsSource = db.Statuses.ToList();
 							_pickers.Add(picker);
 							stackLayout.Add(label);
 							stackLayout.Add(picker);

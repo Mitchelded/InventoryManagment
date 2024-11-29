@@ -1,12 +1,11 @@
 ﻿using System.Collections.ObjectModel;
-using InventoryManagment.Models;
 using LiveChartsCore;
 using LiveChartsCore.SkiaSharpView;
 using Microsoft.EntityFrameworkCore;
 
 namespace InventoryManagerMAUI.ViewModels.ViewModel
 {
-	class BudgetAllocationsViewModel : ViewModelBase<BudgetAllocations>
+	class BudgetAllocationsViewModel : ViewModelBase<Transaction>
 	{
 		public BudgetAllocationsViewModel() : base()
 		{
@@ -19,11 +18,11 @@ namespace InventoryManagerMAUI.ViewModels.ViewModel
 		{
 			// Group the budget data by department
 			var groupedData = Collection
-				.GroupBy(data => data.DepartmentID)
+				.GroupBy(data => data.WarehouseID)
 				.Select(g => new
 				{
 					DepartmentId = g.Key,
-					TotalAmount = g.Sum(data => data.Amount)
+					TotalAmount = g.Sum(data => data.Quantity)
 				})
 				.ToList();
 
@@ -37,13 +36,13 @@ namespace InventoryManagerMAUI.ViewModels.ViewModel
 		public override void OnAdd(object obj)
 		{
 			using InventoryManagmentEntities _db = new();
-			var budget = new BudgetAllocations()
+			var budget = new Transaction()
 			{
 
-				AllocationDate = _allocationDate,
-				DepartmentID = _departmentId,
-				Amount = _amount,
-				Purpose = _purpose,
+				// AllocationDate = _allocationDate,
+				// DepartmentID = _departmentId,
+				// Amount = _amount,
+				// Purpose = _purpose,
 
 			};
 			Collection.Add(budget);

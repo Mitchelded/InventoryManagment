@@ -1,16 +1,15 @@
 using CommunityToolkit.Maui.Views;
 using InventoryManagerMAUI.ViewModels;
 using InventoryManagerMAUI.ViewModels.ViewModel;
-using InventoryManagment.Models;
 
 namespace InventoryManagerMAUI.View;
 
-public partial class EquipmentStatusView : ContentPage
+public partial class StatusView : ContentPage
 {
 	private readonly InventoryManagmentEntities _db = new();
 
-	private EquipmentStatusViewModel viewModel;
-	public EquipmentStatusView()
+	private StatusViewModel viewModel;
+	public StatusView()
 	{
 		InitializeComponent();
 		viewModel = new();
@@ -29,7 +28,7 @@ public partial class EquipmentStatusView : ContentPage
 					{ "Enter status Name", "Name"},
 					{"Enter status Description", "Description"},
 			};
-		var popup = new InputPopup<EquipmentStatusViewModel>(labelsDict, viewModel);
+		var popup = new InputPopup<StatusViewModel>(labelsDict, viewModel);
 		this.ShowPopupAsync(popup);
 	}
 

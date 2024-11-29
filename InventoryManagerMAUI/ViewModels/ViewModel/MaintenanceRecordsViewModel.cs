@@ -1,9 +1,7 @@
-﻿using InventoryManagment.Models;
-
-namespace InventoryManagerMAUI.ViewModels.ViewModel;
+﻿namespace InventoryManagerMAUI.ViewModels.ViewModel;
 
 // TODO: add viewmodel
-public class MaintenanceRecordsViewModel : ViewModelBase<MaintenanceRecords>
+public class MaintenanceRecordsViewModel : ViewModelBase<Maintenance>
 {
     private decimal? _cost;
     private int _equipmentId;
@@ -82,21 +80,21 @@ public class MaintenanceRecordsViewModel : ViewModelBase<MaintenanceRecords>
             OnPropertyChanged(nameof(Cost));
         }
     }
-
+//TODO:Изменить метод
     public override void OnAdd(object obj)
     {
         using InventoryManagmentEntities db = new();
-        var categories = new MaintenanceRecords()
+        var Category = new Maintenance()
         {
-            IdMaintenance = _idMaintenance,
+            MaintenanceID = _idMaintenance,
             EquipmentID = _equipmentId,
-            MaintensnceDate = _maintensnceDate,
-            PerformedByEmployeeID = _performedByEmployeeId,
-            MaintenanceType = _maintenanceType,
-            Cost = _cost,
+            // MaintensnceDate = _maintensnceDate,
+            // PerformedByEmployeeID = _performedByEmployeeId,
+            // MaintenanceType = _maintenanceType,
+            // Cost = _cost,
         };
-        Collection.Add(categories);
-        db.Add(categories);
+        Collection.Add(Category);
+        db.Add(Category);
         db.SaveChanges();
     }
 }

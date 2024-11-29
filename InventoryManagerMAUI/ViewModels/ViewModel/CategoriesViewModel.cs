@@ -1,15 +1,14 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
 using InventoryManagerMAUI.Interface;
-using InventoryManagment.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace InventoryManagerMAUI.ViewModels.ViewModel;
 
-public class CategoriesViewModel : ViewModelBase<Categories>
+public class CategoryViewModel : ViewModelBase<Category>
 {
 
-	public CategoriesViewModel() : base()
+	public CategoryViewModel() : base()
 	{
 
 	}
@@ -17,30 +16,30 @@ public class CategoriesViewModel : ViewModelBase<Categories>
 	public override void OnAdd(object obj)
 	{
 		using InventoryManagmentEntities _db = new();
-		var categories = new Categories()
+		var Category = new Category()
 		{
 
 			Name = _name,
 			Description = _description,
 		};
-		Collection.Add(categories);
-		_db.Add(categories);
+		Collection.Add(Category);
+		_db.Add(Category);
 		_db.SaveChanges();
 	}
 
-	private int _idCategories;
+	private int _idCategory;
 	private string _name;
 	private string _description;
 
 
-	public int IdCategories
+	public int IdCategory
 	{
-		get => _idCategories;
+		get => _idCategory;
 		set
 		{
-			if (value == _idCategories) return;
-			_idCategories = value;
-			OnPropertyChanged(nameof(IdCategories));
+			if (value == _idCategory) return;
+			_idCategory = value;
+			OnPropertyChanged(nameof(IdCategory));
 		}
 	}
 

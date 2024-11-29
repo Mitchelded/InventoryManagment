@@ -1,9 +1,7 @@
-﻿using InventoryManagment.Models;
-
-namespace InventoryManagerMAUI.ViewModels.ViewModel;
+﻿namespace InventoryManagerMAUI.ViewModels.ViewModel;
 
 // TODO: add viewmodel
-public class SuppliersViewModel : ViewModelBase<Suppliers>
+public class SuppliersViewModel : ViewModelBase<Supplier>
 {
     private string _adress;
     private string _contactInfo;
@@ -69,17 +67,17 @@ public class SuppliersViewModel : ViewModelBase<Suppliers>
             OnPropertyChanged(nameof(Email));
         }
     }
-
+//TODO:Изменить метод
     public override void OnAdd(object obj)
     {
         using InventoryManagmentEntities _db = new();
-        var status = new Suppliers()
+        var status = new Supplier()
         {
-            IdSuppliers = _idSuppliers,
+            SupplierID = _idSuppliers,
             Name = _name,
             ContactInfo = _contactInfo,
-            Adress = _adress,
-            Email = _email,
+            // Adress = _adress,
+            // Email = _email,
         };
         Collection.Add(status);
         _db.Add(status);

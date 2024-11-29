@@ -2,37 +2,23 @@
 
 public class Equipment
 {
-    [Key]
-    public int IdEquipment { get; set; }
+    public int EquipmentID { get; set; }
+    public string Name { get; set; }
+    public byte[] Photo { get; set; }
+    public int CategoryID { get; set; }
     
-    [Required]
-    public string EquipmentName { get; set; }
-    
-    [ForeignKey("EquipmentType")]
-    public int EquipmentTypeID { get; set; }
-    
-    [ForeignKey("Brand")]
-    public int? BrandID { get; set; }
-    
-    [ForeignKey("Model")]
-    public int? ModelID { get; set; }
-    
-    [ForeignKey("Condition")]
-    public int? ConditionID { get; set; }
-    
-    [Required]
+    public decimal? Cost { get; set; }
     public string SerialNumber { get; set; }
-    
-    [ForeignKey("Warehouse")]
-    public int WarehouseID { get; set; }
-    
-    public EquipmentType EquipmentType { get; set; }
-    public Brand Brand { get; set; }
-    public Model Model { get; set; }
-    public Condition Condition { get; set; }
-    public Warehouse Warehouse { get; set; }
-    
-    public ICollection<Movement> Movements { get; set; }
-    public ICollection<EmployeeAssignment> EmployeeAssignments { get; set; }
-    public ICollection<Purchase> Purchases { get; set; }
+    public DateTime? PurchaseDate { get; set; }
+    public DateTime? WarrantyExpiration { get; set; }
+    public int StatusID { get; set; }
+    public int SupplierID { get; set; }
+    // Навигационное свойство для Supplier
+    public Supplier Supplier { get; set; }
+    public Category Category { get; set; }
+    public Status Status { get; set; }
+    // Коллекция для учета движения оборудования
+    public ICollection<EquipmentMovement> EquipmentMovements { get; set; }
+    // Коллекция для учета использования оборудования пользователем
+    public ICollection<UtilizationRecord> UtilizationRecords { get; set; }
 }

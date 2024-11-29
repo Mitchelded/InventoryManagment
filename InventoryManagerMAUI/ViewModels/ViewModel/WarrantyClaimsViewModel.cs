@@ -1,9 +1,7 @@
-﻿using InventoryManagment.Models;
-
-namespace InventoryManagerMAUI.ViewModels.ViewModel;
+﻿namespace InventoryManagerMAUI.ViewModels.ViewModel;
 
 // TODO: add viewmodel
-public class WarrantyClaimsViewModel : ViewModelBase<WarrantyClaims>
+public class WarrantyClaimsViewModel : ViewModelBase<WarrantyClaim>
 {
     private DateTime _claimDate;
     private int _equipmentId;
@@ -81,14 +79,14 @@ public class WarrantyClaimsViewModel : ViewModelBase<WarrantyClaims>
     public override void OnAdd(object obj)
     {
         using InventoryManagmentEntities _db = new();
-        var status = new WarrantyClaims
+        var status = new WarrantyClaim
         {
-            IdWarranty = _idWarranty,
+            WarrantyClaimID = _idWarranty,
             EquipmentID = _equipmentId,
             ClaimDate = _claimDate,
             IssueDescription = _issueDescription,
             Status = _status,
-            ResolvedDate = _resolvedDate
+            ResolutionDate = _resolvedDate
         };
         Collection.Add(status);
         _db.Add(status);

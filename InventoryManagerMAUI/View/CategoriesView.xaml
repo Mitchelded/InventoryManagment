@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="InventoryManagerMAUI.View.CategoriesView"
-             Title="CategoriesView">
+             x:Class="InventoryManagerMAUI.View.CategoryView"
+             Title="CategoryView">
     <ScrollView>
         <FlyoutBase.ContextFlyout>
             <MenuFlyout>
@@ -24,7 +24,7 @@
                             <ColumnDefinition Width="0.6*" />
                         </Grid.ColumnDefinitions>
                         <Border Grid.Column="0">
-                            <Label Text="IdCategories" MinimumWidthRequest="10" MaximumHeightRequest="50" />
+                            <Label Text="IdCategory" MinimumWidthRequest="10" MaximumHeightRequest="50" />
                         </Border>
                         <Border Grid.Column="1">
                             <Label Text="Name" MinimumWidthRequest="100" />
@@ -57,7 +57,7 @@
                                     <ColumnDefinition Width="0.6*" />
                                 </Grid.ColumnDefinitions>
                                 <Border Grid.Column="0">
-                                    <Label Text="{Binding IdCategories}" MinimumWidthRequest="10" MaximumHeightRequest="50" />
+                                    <Label Text="{Binding IdCategory}" MinimumWidthRequest="10" MaximumHeightRequest="50" />
                                 </Border>
                                 <Border Grid.Column="1">
                                     <Label Text="{Binding Name}" MinimumWidthRequest="100" />

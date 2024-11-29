@@ -9,8 +9,7 @@
 
 using InventoryManagment.Models.Entities;
 using Microsoft.EntityFrameworkCore;
-using Condition = InventoryManagment.Models.Entities.Condition;
-using Location = InventoryManagment.Models.Entities.Location;
+
 
 namespace InventoryManagment.Models
 {
@@ -36,38 +35,81 @@ namespace InventoryManagment.Models
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
+            
+            // Связь между Equipment и Supplier
+            modelBuilder.Entity<Equipment>()
+                .HasOne(e => e.Supplier)
+                .WithMany(s => s.Equipments)
+                .HasForeignKey(e => e.SupplierID)
+                .OnDelete(DeleteBehavior.Restrict); // Настройка поведения удаления
+            
+            // Связь многие ко многим между User и Role
             modelBuilder.Entity<UserRole>()
                 .HasKey(ur => new { ur.UserID, ur.RoleID });
 
-            modelBuilder.Entity<Movement>()
-                .HasOne(m => m.FromWarehouse)
-                .WithMany(w => w.FromMovements)
-                .HasForeignKey(m => m.FromWarehouseID)
-                .OnDelete(DeleteBehavior.SetNull);
+            modelBuilder.Entity<UserRole>()
+                .HasOne(ur => ur.User)
+                .WithMany(u => u.UserRoles)
+                .HasForeignKey(ur => ur.UserID);
 
-            modelBuilder.Entity<Movement>()
-                .HasOne(m => m.ToWarehouse)
-                .WithMany(w => w.ToMovements)
-                .HasForeignKey(m => m.ToWarehouseID)
-                .OnDelete(DeleteBehavior.SetNull);
+            modelBuilder.Entity<UserRole>()
+                .HasOne(ur => ur.Role)
+                .WithMany(r => r.UserRoles)
+                .HasForeignKey(ur => ur.RoleID);
+
+            // Связь User и Department
+            modelBuilder.Entity<User>()
+                .HasOne(u => u.Department)
+                .WithMany(d => d.Users)
+                .HasForeignKey(u => u.DepartmentID);
+
+            // Связь между EquipmentMovement и Equipment, Warehouse, User
+            modelBuilder.Entity<EquipmentMovement>()
+                .HasOne(em => em.Equipment)
+                .WithMany(e => e.EquipmentMovements)
+                .HasForeignKey(em => em.EquipmentID);
+
+            modelBuilder.Entity<EquipmentMovement>()
+                .HasOne(em => em.SourceWarehouse)
+                .WithMany(w => w.SourceWarehouseMovements)
+                .HasForeignKey(em => em.SourceWarehouseID);
+
+            modelBuilder.Entity<EquipmentMovement>()
+                .HasOne(em => em.DestinationWarehouse)
+                .WithMany(w => w.DestinationWarehouseMovements)
+                .HasForeignKey(em => em.DestinationWarehouseID);
+
+            modelBuilder.Entity<EquipmentMovement>()
+                .HasOne(em => em.User)
+                .WithMany(u => u.EquipmentMovements)
+                .HasForeignKey(em => em.UserID);
+
+            // Связь между UtilizationRecord и Equipment, User
+            modelBuilder.Entity<UtilizationRecord>()
+                .HasOne(ur => ur.Equipment)
+                .WithMany(e => e.UtilizationRecords)
+                .HasForeignKey(ur => ur.EquipmentID);
+
+            modelBuilder.Entity<UtilizationRecord>()
+                .HasOne(ur => ur.User)
+                .WithMany(u => u.UtilizationRecords)
+                .HasForeignKey(ur => ur.UserID);
         }
 
-        public DbSet<Warehouse> Warehouses { get; set; }
-        public DbSet<Location> Locations { get; set; }
-        public DbSet<EquipmentType> EquipmentTypes { get; set; }
-        public DbSet<Equipment> Equipments { get; set; }
-        public DbSet<Brand> Brands { get; set; }
-        public DbSet<Model> Models { get; set; }
-        public DbSet<Condition> Conditions { get; set; }
-        public DbSet<Movement> Movements { get; set; }
-        public DbSet<EmployeeAssignment> EmployeeAssignments { get; set; }
-        public DbSet<Supplier> Suppliers { get; set; }
-        public DbSet<Purchase> Purchases { get; set; }
         public DbSet<User> Users { get; set; }
-        public DbSet<Employee> Employees { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<UserRole> UserRoles { get; set; }
+        public DbSet<Category> Category { get; set; }
+        public DbSet<Status> Statuses { get; set; }
+        public DbSet<Equipment> Equipments { get; set; }
+        public DbSet<Supplier> Suppliers { get; set; }
+        public DbSet<Warehouse> Warehouses { get; set; }
+        public DbSet<Stock> Stocks { get; set; }
+        public DbSet<Transaction> Transactions { get; set; }
+        public DbSet<Department> Departments { get; set; }
+        public DbSet<Maintenance> Maintenances { get; set; }
+        public DbSet<EquipmentMovement> EquipmentMovements { get; set; }  // Добавлена таблица для движения оборудования
+        public DbSet<UtilizationRecord> UtilizationRecords { get; set; }
 
     }
 }

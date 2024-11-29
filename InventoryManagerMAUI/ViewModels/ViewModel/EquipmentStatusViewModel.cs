@@ -2,19 +2,18 @@
 using System.Windows.Input;
 
 using InventoryManagerMAUI.Interface;
-using InventoryManagment.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace InventoryManagerMAUI.ViewModels.ViewModel;
 
-public class EquipmentStatusViewModel : ViewModelBase<EquipmentStatus>
+public class StatusViewModel : ViewModelBase<Status>
 {
 
 
-	//public ObservableCollection<EquipmentStatus> Collection { get; set; }
+	//public ObservableCollection<Status> Collection { get; set; }
 
 
-	public EquipmentStatusViewModel() : base()
+	public StatusViewModel() : base()
 	{
 
 	}
@@ -22,13 +21,13 @@ public class EquipmentStatusViewModel : ViewModelBase<EquipmentStatus>
 	public override void OnAdd(object obj)
 	{
 		using InventoryManagmentEntities _db = new();
-		var status = new EquipmentStatus()
+		var status = new Status()
 		{
 			Name = _name,
 			Description = _description
 		};
 		
-		var q =_db.EquipmentStatus.Add(status);
+		var q =_db.Statuses.Add(status);
 		Collection.Add(status);
 		_db.SaveChanges();
 	}

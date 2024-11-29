@@ -42,12 +42,12 @@
             <Grid Padding="15" Margin="0,20,0,20" ColumnDefinitions="*,*,*,*,*">
                 
                 <Picker Title="Category" Grid.Column="0" 
-                        ItemsSource="{Binding Categories}" 
+                        ItemsSource="{Binding Category}" 
                         ItemDisplayBinding="{Binding Name}"
                         SelectedItem="{Binding SelectedCategory}">
                 </Picker>
                 <Picker Title="Stock Status" Grid.Column="1" 
-                        ItemsSource="{Binding EquipmentStatus}"
+                        ItemsSource="{Binding Status}"
                         ItemDisplayBinding="{Binding Name}"
                         SelectedItem="{Binding SelectedStatus}">
                 </Picker>
@@ -80,14 +80,14 @@
                                 <Image Source="{Binding Photo, Converter={StaticResource ByteArrayToImageSourceConverter}}"/>
                                 
                                     <Label Text="{Binding Name}" FontSize="20" />
-                                    <Label Text="{Binding Categories.Name}" FontSize="16" TextColor="Gray" />
+                                    <Label Text="{Binding Category.Name}" FontSize="16" TextColor="Gray" />
                                 
                                 <Label Text="{Binding Serial_Number}" FontSize="16" />
                                 <Label Text="{Binding DepartmentID}" FontSize="16" />
                                 <Label Text="{Binding Cost, StringFormat='{}{0:C}'}" FontSize="16" />
 
                                 <!-- Conditionally Styled Status Label -->
-                                <Label Text="{Binding EquipmentStatus.Name}" FontSize="16" FontAttributes="Bold">
+                                <Label Text="{Binding Status.Name}" FontSize="16" FontAttributes="Bold">
                                     <!-- <Label.Style> -->
                                     <!--     <Style TargetType="Label"> -->
                                     <!--         <Style.Triggers> -->

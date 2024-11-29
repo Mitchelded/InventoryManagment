@@ -2,13 +2,9 @@
 
 public class Role
 {
-    [Key]
-    public int IdRole { get; set; }
-    
-    [Required]
-    public string RoleName { get; set; }
-    
-    public string Description { get; set; }
+    public int RoleID { get; set; }
+    public string Name { get; set; }
+    public string? Description { get; set; }
     
     public ICollection<UserRole> UserRoles { get; set; }
 }

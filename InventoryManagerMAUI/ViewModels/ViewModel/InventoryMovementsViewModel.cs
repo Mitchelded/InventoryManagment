@@ -1,10 +1,9 @@
-﻿using InventoryManagement.Models;
-using InventoryManagment.Models;
+﻿using InventoryManagment.Models;
 
 namespace InventoryManagerMAUI.ViewModels.ViewModel;
 
 // TODO: add viewmodel
-public class InventoryMovementsViewModel : ViewModelBase<InventoryMovements>
+public class InventoryMovementsViewModel : ViewModelBase<EquipmentMovement>
 {
     private int _equipmentId;
     private int _fromLocationId;
@@ -96,22 +95,21 @@ public class InventoryMovementsViewModel : ViewModelBase<InventoryMovements>
             OnPropertyChanged(nameof(ReceivedByEmployeeID));
         }
     }
-
+// TODO:Добавить новые данные в add
     public override void OnAdd(object obj)
     {
         using InventoryManagmentEntities _db = new();
-        var categories = new InventoryMovements()
+        var Category = new EquipmentMovement()
         {
-            IdMovement = _idMovement,
+            EquipmentMovementID = _idMovement,
             EquipmentID = _equipmentId,
-            FromLocationID = _fromLocationId,
-            ToLocationID = _toLocationId,
+            SourceWarehouseID = _fromLocationId,
+            DestinationWarehouseID = _toLocationId,
             MovementDate = _movementDate,
-            MovedByEmployeeID = _movedByEmployeeId,
-            ReceivedByEmployeeID = _receivedByEmployeeId,
+            UserID = _movedByEmployeeId,
         };
-        Collection.Add(categories);
-        _db.Add(categories);
+        Collection.Add(Category);
+        _db.Add(Category);
         _db.SaveChanges();
     }
 }

@@ -1,13 +1,12 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
-using InventoryManagment.Models;
 using System.IO;
 using Microsoft.EntityFrameworkCore;
 
 
 namespace InventoryManagerMAUI.ViewModels.ViewModel;
 
-public class EquipmentsViewModel : ViewModelBase<Equipments>
+public class EquipmentsViewModel : ViewModelBase<Equipment>
 {
 	private int _idEquipment;
 	private string _name;
@@ -77,25 +76,25 @@ public class EquipmentsViewModel : ViewModelBase<Equipments>
 	}
 
 
-	private Departments _selectedDepartment;
-	private EquipmentStatus _selectedStatus;	
-	private Locations _selectedLocation;
-	private Suppliers _selectedSupplier;
-	private Categories _selectedCategory;
+	private Department _selectedDepartment;
+	private Status _selectedStatus;	
 
-	private ObservableCollection<Departments> _departments = new ObservableCollection<Departments>();
-	private ObservableCollection<Categories> _categories = new ObservableCollection<Categories>();
-	private ObservableCollection<EquipmentStatus> _equipmentStatus = new ObservableCollection<EquipmentStatus>();
-	private ObservableCollection<Locations> _locations = new ObservableCollection<Locations>();
-	private ObservableCollection<Suppliers> _suppliers = new ObservableCollection<Suppliers>();
+	private Supplier _selectedSupplier;
+	private Category _selectedCategory;
 
-	public int? SelectedDepartmentId => SelectedDepartment?.IdDepartments;
-	public int? SelectedSupplierId => SelectedSupplier?.IdSuppliers;	
-	public int? SelectedLocationId => SelectedLocation?.IdLocations;
-	public int? SelectedStatusId => SelectedStatus?.IdStatus;
-	public int? SelectedCategoryId => SelectedCategory?.IdCategories;
+	private ObservableCollection<Department> _departments = new ObservableCollection<Department>();
+	private ObservableCollection<Category> _Category = new ObservableCollection<Category>();
+	private ObservableCollection<Status> _Status = new ObservableCollection<Status>();
+
+	private ObservableCollection<Supplier> _suppliers = new ObservableCollection<Supplier>();
+
+	public int? SelectedDepartmentId => SelectedDepartment?.DepartmentID;
+	public int? SelectedSupplierId => SelectedSupplier?.SupplierID;	
+
+	public int? SelectedStatusId => SelectedStatus?.StatusID;
+	public int? SelectedCategoryId => SelectedCategory?.CategoryID;
 	
-	public Departments SelectedDepartment
+	public Department SelectedDepartment
 	{
 		get => _selectedDepartment;
 		set
@@ -112,7 +111,7 @@ public class EquipmentsViewModel : ViewModelBase<Equipments>
 	}
 	
 
-	public Suppliers SelectedSupplier
+	public Supplier SelectedSupplier
 	{
 		get => _selectedSupplier;
 		set
@@ -127,24 +126,9 @@ public class EquipmentsViewModel : ViewModelBase<Equipments>
 			}
 		}
 	}
+	
 
-	public Locations SelectedLocation
-	{
-		get => _selectedLocation;
-		set
-		{
-			if (_selectedLocation != value)
-			{
-				_selectedLocation = value;
-				OnPropertyChanged(nameof(SelectedLocation));
-				OnPropertyChanged(nameof(SelectedLocationId));
-				OnPropertyChanged(nameof(SelectedLocation));
-				OnPropertyChanged(nameof(SelectedLocationId));
-			}
-		}
-	}
-
-	public EquipmentStatus SelectedStatus
+	public Status SelectedStatus
 	{
 		get => _selectedStatus;
 		set
@@ -162,7 +146,7 @@ public class EquipmentsViewModel : ViewModelBase<Equipments>
 	}
 	
 
-	public Categories SelectedCategory
+	public Category SelectedCategory
 	{
 		get => _selectedCategory;
 		set
@@ -179,7 +163,7 @@ public class EquipmentsViewModel : ViewModelBase<Equipments>
 		}
 	}
 
-	public ObservableCollection<Departments> Departments
+	public ObservableCollection<Department> Departments
 	{
 		get => _departments;
 		set
@@ -190,40 +174,31 @@ public class EquipmentsViewModel : ViewModelBase<Equipments>
 		}
 	}
 
-	public ObservableCollection<Categories> Categories
+	public ObservableCollection<Category> Category
 	{
-		get => _categories;
+		get => _Category;
 		set
 		{
-			if (Equals(value, _categories)) return;
-			_categories = value;
-			OnPropertyChanged(nameof(Categories));
+			if (Equals(value, _Category)) return;
+			_Category = value;
+			OnPropertyChanged(nameof(Category));
 		}
 	}
 
-	public ObservableCollection<EquipmentStatus> EquipmentStatus
+	public ObservableCollection<Status> Status
 	{
-		get => _equipmentStatus;
+		get => _Status;
 		set
 		{
-			if (Equals(value, _equipmentStatus)) return;
-			_equipmentStatus = value;
-			OnPropertyChanged(nameof(EquipmentStatus));
+			if (Equals(value, _Status)) return;
+			_Status = value;
+			OnPropertyChanged(nameof(Status));
 		}
 	}
 
-	public ObservableCollection<Locations> Locations
-	{
-		get => _locations;
-		set
-		{
-			if (Equals(value, _locations)) return;
-			_locations = value;
-			OnPropertyChanged(nameof(Locations));
-		}
-	}
 
-	public ObservableCollection<Suppliers> Suppliers
+
+	public ObservableCollection<Supplier> Suppliers
 	{
 		get => _suppliers;
 		set
@@ -237,23 +212,23 @@ public class EquipmentsViewModel : ViewModelBase<Equipments>
 	
 	public EquipmentsViewModel()
 	{
-		LoadImageCommand = new Command<Equipments>(LoadImage);
-		LoadDepartments();
-		LoadCategories();
-		LoadLocations();
-		LoadSuppliers();
-		LoadEquipmentStatus();
-		LoadImagesAsync();
+		LoadImageCommand = new Command<Equipment>(LoadImage);
+		// LoadDepartments();
+		// LoadCategory();
+		//
+		// LoadSuppliers();
+		// LoadStatus();
+		// LoadImagesAsync();
 	}
 		
 	private void ApplyFilter()
 	{
-		List<Equipments> filtered;
+		List<Equipment> filtered;
 		if (Collection.Count != 0)
 		{
 			filtered = Collection
-				.Where(i => SelectedCategory == null || i.Categories.IdCategories == SelectedCategory.IdCategories)
-				.Where(i => SelectedStatus == null || i.EquipmentStatus.IdStatus == SelectedStatus.IdStatus)
+				.Where(i => SelectedCategory == null || i.Category.CategoryID == SelectedCategory.CategoryID)
+				.Where(i => SelectedStatus == null || i.Status.StatusID == SelectedStatus.StatusID)
 				.ToList();
 
 		}
@@ -261,8 +236,8 @@ public class EquipmentsViewModel : ViewModelBase<Equipments>
 		{
 			using InventoryManagmentEntities db = new();
 			filtered = db.Equipments
-				.Include("Categories") // Пример: загрузить связанные данные
-				.Include("EquipmentStatus").ToList();
+				.Include("Category") // Пример: загрузить связанные данные
+				.Include("Status").ToList();
 		}
 
 
@@ -279,13 +254,13 @@ public class EquipmentsViewModel : ViewModelBase<Equipments>
 		get { return _equipmentImageSource; }
 		set { SetProperty(ref _equipmentImageSource, value); }
 	}
-	private void LoadImage(Equipments item)
+	private void LoadImage(Equipment item)
 	{
 		using InventoryManagmentEntities _db = new();
 		// Fetch the user by Id (or any condition you need)
-		int idEquipment = item.IdEquipment; // For example, fetch the photo of user with Id = 1
+		int idEquipment = item.EquipmentID; // For example, fetch the photo of user with Id = 1
 
-		var equip = _db.Equipments.FirstOrDefault(u => u.IdEquipment == idEquipment);
+		var equip = _db.Equipments.FirstOrDefault(u => u.EquipmentID == idEquipment);
         
 		if (equip != null && equip.Photo != null)
 		{
@@ -310,34 +285,24 @@ public class EquipmentsViewModel : ViewModelBase<Equipments>
 			Departments.Add(item);
 		}
 	}
-	private void LoadCategories()
+	private void LoadCategory()
 	{
 		using InventoryManagmentEntities _db = new();
 		// Load data from the database and populate the ObservableCollection
-		var items = _db.Categories.ToList();
+		var items = _db.Category.ToList();
 		foreach (var item in items)
 		{
-			Categories.Add(item);
+			Category.Add(item);
 		}
 	}
-	private void LoadEquipmentStatus()
+	private void LoadStatus()
 	{
 		using InventoryManagmentEntities _db = new();
 		// Load data from the database and populate the ObservableCollection
-		var items = _db.EquipmentStatus.ToList();
+		var items = _db.Statuses.ToList();
 		foreach (var item in items)
 		{
-			EquipmentStatus.Add(item);
-		}
-	}
-	private void LoadLocations()
-	{
-		using InventoryManagmentEntities _db = new();
-		// Load data from the database and populate the ObservableCollection
-		var items = _db.Locations.ToList();
-		foreach (var item in items)
-		{
-			Locations.Add(item);
+			Status.Add(item);
 		}
 	}
 	private void LoadSuppliers()
@@ -358,22 +323,20 @@ public class EquipmentsViewModel : ViewModelBase<Equipments>
 		string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources/AppIcon", "gag.png");
 		byte[] photoBytes = File.ReadAllBytes(filePath);
 
-		var categories = new Equipments()
+		var Category = new Equipment()
 		{
 			Photo = photoBytes,
 			Name = _name,
-			Serial_Number = _serialNumber,
+			SerialNumber = _serialNumber,
 			CategoryID = (int)SelectedCategoryId!,
-			DepartmentID = (int)SelectedDepartmentId!,
-			LocationID = (int)SelectedDepartmentId,
 			Cost = _cost,
-			SupplierID = (int)SelectedDepartmentId,
+			// SupplierID = (int)SelectedDepartmentId,
 			WarrantyExpiration = _warrantyExpiration,
 			PurchaseDate = _purchaseDate,
 			StatusID = (int)SelectedStatusId!,
 		};
-		Collection.Add(categories);
-		_db.Add(categories);
+		Collection.Add(Category);
+		_db.Add(Category);
 		_db.SaveChanges();
 	}
 

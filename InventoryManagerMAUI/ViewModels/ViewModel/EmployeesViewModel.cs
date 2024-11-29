@@ -1,10 +1,9 @@
-﻿using InventoryManagement.Models;
-using InventoryManagment.Models;
+﻿
 
 // TODO: add viewmodel
 namespace InventoryManagerMAUI.ViewModels.ViewModel
 {
-    class EmployeesViewModel : ViewModelBase<Employees>
+    class EmployeesViewModel : ViewModelBase<User>
     {
         private int _departmentId;
         private string _firstName;
@@ -87,13 +86,13 @@ namespace InventoryManagerMAUI.ViewModels.ViewModel
         public override void OnAdd(object obj)
         {
             using InventoryManagmentEntities _db = new();
-            var status = new Employees()
+            var status = new User()
             {
-                IdEmployee = _idEmployee,
-                FirstName = _firstName,
-                LastName = _lastName,
-                Patronymic = _patronymic,
-                Position = _position,
+                // IdEmployee = _idEmployee,
+                // FirstName = _firstName,
+                // LastName = _lastName,
+                // Patronymic = _patronymic,
+                // Position = _position,
                 DepartmentID = _departmentId,
             };
             Collection.Add(status);

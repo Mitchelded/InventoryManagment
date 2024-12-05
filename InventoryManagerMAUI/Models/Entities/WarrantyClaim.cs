@@ -11,5 +11,5 @@ public class WarrantyClaim
     public string Status { get; set; }  // Статус заявки (например, "В процессе", "Завершено", "Отклонено")
 
     // Связь с другими сущностями
-    public Equipment Equipment { get; set; }
+    public virtual Equipment Equipment { get; set; }
 }

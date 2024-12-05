@@ -11,6 +11,6 @@ public class UtilizationRecord
     public string Notes { get; set; }  // Примечания
 
     // Связи с другими моделями
-    public Equipment Equipment { get; set; }
-    public User User { get; set; }
+    public virtual Equipment Equipment { get; set; }
+    public virtual User User { get; set; }
 }

@@ -11,9 +11,9 @@ public class User
     public int? DepartmentID { get; set; }  // Отдел сотрудника
     public string FullName { get; set; }    // Имя сотрудника (если это сотрудник)
 
-    public Department Department { get; set; } // Отдел, к которому относится сотрудник (если применимо)
+    public virtual Department Department { get; set; } // Отдел, к которому относится сотрудник (если применимо)
     // Коллекция для учета использования оборудования пользователем
-    public ICollection<UtilizationRecord> UtilizationRecords { get; set; }
-    public ICollection<UserRole> UserRoles { get; set; }
-    public ICollection<EquipmentMovement> EquipmentMovements { get; set; }
+    public virtual List<UtilizationRecord> UtilizationRecords { get; set; } = new();
+    public virtual List<UserRole> UserRoles { get; set; } = new();
+    public virtual List<EquipmentMovement> EquipmentMovements { get; set; } = new();
 }

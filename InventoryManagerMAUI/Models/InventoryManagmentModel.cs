@@ -23,18 +23,36 @@ namespace InventoryManagment.Models
             // Database.EnsureDeleted();
             if (Database.EnsureCreated())
             {
-               
+                string filePath = Path.Combine(FileSystem.AppDataDirectory,"InventoryManagmentDBDate.sql");
+                if (!File.Exists(filePath))
+                {
+                    System.Console.WriteLine($"SQL файл не найден: {filePath}");
+                }
+
+                string sqlScript = File.ReadAllText(filePath);
+
+                Database.ExecuteSqlRawAsync(sqlScript);
+                SaveChanges();
             }
+
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite("Data Source=InventoryManagmentDB.db");
+            optionsBuilder
+                .UseSqlite("Data Source=InventoryManagmentDB.db");
         }
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            
+            // Equipment -> Stock (One-to-Many)
+            modelBuilder.Entity<Stock>()
+                .HasOne(s => s.Equipment)
+                .WithMany(e => e.Stocks)
+                .HasForeignKey(s => s.EquipmentID)
+                .OnDelete(DeleteBehavior.Cascade);
             
             // Связь между Equipment и Supplier
             modelBuilder.Entity<Equipment>()

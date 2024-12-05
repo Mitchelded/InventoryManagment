@@ -7,6 +7,6 @@ public class Stock
     public int WarehouseID { get; set; }
     public int Quantity { get; set; }
 
-    public Equipment Equipment { get; set; }
-    public Warehouse Warehouse { get; set; }
+    public virtual Equipment Equipment { get; set; }
+    public virtual Warehouse Warehouse { get; set; }
 }

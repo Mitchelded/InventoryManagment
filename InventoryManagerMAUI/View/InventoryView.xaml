@@ -11,9 +11,10 @@
     </ContentPage.BindingContext>
     <ContentPage.Resources>
         
-        <ResourceDictionary>
+        <ResourceDictionary xmlns:local="clr-namespace:InventoryManagerMAUI.Commands">
             <local:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter" />
         </ResourceDictionary>
+
     
     </ContentPage.Resources>
 
@@ -77,13 +78,14 @@
                     <DataTemplate>
                         <ViewCell>
                             <StackLayout Orientation="Horizontal" Spacing="15">
-                                <Image Source="{Binding Photo, Converter={StaticResource ByteArrayToImageSourceConverter}}"/>
+                                <Image Source="{Binding Photo, Converter={StaticResource ByteArrayToImageSourceConverter}}" />
+
                                 
                                     <Label Text="{Binding Name}" FontSize="20" />
                                     <Label Text="{Binding Category.Name}" FontSize="16" TextColor="Gray" />
                                 
-                                <Label Text="{Binding Serial_Number}" FontSize="16" />
-                                <Label Text="{Binding DepartmentID}" FontSize="16" />
+                                <Label Text="{Binding SerialNumber}" FontSize="16" />
+                                <Label Text="{Binding LastLocation}" FontSize="16" />
                                 <Label Text="{Binding Cost, StringFormat='{}{0:C}'}" FontSize="16" />
 
                                 <!-- Conditionally Styled Status Label -->

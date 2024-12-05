@@ -10,7 +10,7 @@ public class Transaction
     public string TransactionType { get; set; }  // "Поступление", "Выдача"
     public DateTime TransactionDate { get; set; }
 
-    public Equipment Equipment { get; set; }
-    public Warehouse Warehouse { get; set; }
-    public User User { get; set; } // Сотрудник, совершивший транзакцию
+    public virtual Equipment Equipment { get; set; }
+    public virtual Warehouse Warehouse { get; set; }
+    public virtual User User { get; set; } // Сотрудник, совершивший транзакцию
 }

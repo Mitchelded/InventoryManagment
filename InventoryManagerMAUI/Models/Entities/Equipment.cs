@@ -13,12 +13,22 @@ public class Equipment
     public DateTime? WarrantyExpiration { get; set; }
     public int StatusID { get; set; }
     public int SupplierID { get; set; }
+    public string LastLocation
+    {
+        get
+        {
+            var lastStock = Stocks?.LastOrDefault();
+            return lastStock?.Warehouse?.Name ?? "Unknown Location";
+        }
+    }
+
+    public virtual List<Stock> Stocks { get; set; } = new();
     // Навигационное свойство для Supplier
-    public Supplier Supplier { get; set; }
-    public Category Category { get; set; }
-    public Status Status { get; set; }
+    public virtual Supplier Supplier { get; set; }
+    public virtual Category Category { get; set; }
+    public virtual Status Status { get; set; }
     // Коллекция для учета движения оборудования
-    public ICollection<EquipmentMovement> EquipmentMovements { get; set; }
+    public virtual List<EquipmentMovement> EquipmentMovements { get; set; } = new();
     // Коллекция для учета использования оборудования пользователем
-    public ICollection<UtilizationRecord> UtilizationRecords { get; set; }
+    public virtual List<UtilizationRecord> UtilizationRecords { get; set; } = new();
 }

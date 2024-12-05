@@ -19,8 +19,29 @@ public class EquipmentsViewModel : ViewModelBase<Equipment>
 	private DateTime? _warrantyExpiration;
 	private DateTime _purchaseDate;
 	private int _statusId;
-	private byte[] _photo;    
-	
+	private byte[] _photo;
+
+
+	public async override void LoadData()
+	{
+		using InventoryManagmentEntities _db = new();
+		Collection.Clear();
+		await _db.Equipments
+			.Include(u => u.Stocks) // Include Stocks navigation property
+			.ThenInclude(s => s.Warehouse) // Then include Warehouse from Stock navigation property
+			.Include(u => u.Supplier) // Include Supplier navigation property
+			.Include(u => u.Category) // Include Category navigation property
+			.Include(u => u.Status) // Include Status navigation property
+			.Include(u => u.EquipmentMovements) // Include EquipmentMovements navigation property
+			.Include(u => u.UtilizationRecords) // Include UtilizationRecords navigation property
+			.LoadAsync(); // Asynchronous load of the query
+		foreach (var item in _db.Equipments.Local)
+		{
+			Collection.Add(item);
+		}
+		OnPropertyChanged(nameof(Collection));
+	}
+
 	private List<ImageSource> _imageSources;
 
 	public List<ImageSource> ImageSources
@@ -51,7 +72,7 @@ public class EquipmentsViewModel : ViewModelBase<Equipment>
 		// Привязываем к свойству
 		ImageSources = imageSources;
 	}
-
+	
 	// Метод для получения байтов всех изображений из базы данных
 	private async Task<List<byte[]>> GetAllEquipmentImagesAsync()
 	{
@@ -86,7 +107,19 @@ public class EquipmentsViewModel : ViewModelBase<Equipment>
 	private ObservableCollection<Category> _Category = new ObservableCollection<Category>();
 	private ObservableCollection<Status> _Status = new ObservableCollection<Status>();
 
+	public ObservableCollection<Stock> Stocks
+	{
+		get => _stocks;
+		set
+		{
+			if (Equals(value, _stocks)) return;
+			_stocks = value;
+			OnPropertyChanged(nameof(Stocks));
+		}
+	}
+
 	private ObservableCollection<Supplier> _suppliers = new ObservableCollection<Supplier>();
+	
 
 	public int? SelectedDepartmentId => SelectedDepartment?.DepartmentID;
 	public int? SelectedSupplierId => SelectedSupplier?.SupplierID;	
@@ -215,12 +248,23 @@ public class EquipmentsViewModel : ViewModelBase<Equipment>
 		LoadImageCommand = new Command<Equipment>(LoadImage);
 		// LoadDepartments();
 		// LoadCategory();
-		//
+		// LoadStocks();
 		// LoadSuppliers();
 		// LoadStatus();
 		// LoadImagesAsync();
 	}
-		
+
+	private void LoadStocks()
+	{
+		using InventoryManagmentEntities _db = new();
+		// Load data from the database and populate the ObservableCollection
+		var items = _db.Stocks.ToList();
+		foreach (var item in items)
+		{
+			Stocks.Add(item);
+		}
+	}
+
 	private void ApplyFilter()
 	{
 		List<Equipment> filtered;
@@ -248,6 +292,7 @@ public class EquipmentsViewModel : ViewModelBase<Equipment>
 	
 	
 	private ImageSource _equipmentImageSource;
+	private ObservableCollection<Stock> _stocks;
 
 	public ImageSource EquipmentImageSource
 	{

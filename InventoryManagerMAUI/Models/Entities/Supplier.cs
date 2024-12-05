@@ -6,5 +6,5 @@ public class Supplier
     public string Name { get; set; }
     public string ContactInfo { get; set; }
     // Навигационное свойство для связи с Equipment
-    public ICollection<Equipment> Equipments { get; set; }
+    public virtual List<Equipment> Equipments { get; set; } = new();
 }

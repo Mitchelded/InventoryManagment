@@ -6,5 +6,5 @@ public class Department
     public string Name { get; set; }
     public string HeadOfDepartment { get; set; }
 
-    public ICollection<User> Users { get; set; }
+    public virtual List<User> Users { get; set; } = new();
 }

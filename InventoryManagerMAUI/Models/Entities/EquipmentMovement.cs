@@ -12,8 +12,8 @@ public class EquipmentMovement
     public int Quantity { get; set; }  // Количество перемещаемого оборудования
     public string Notes { get; set; }  // Примечания
 
-    public Equipment Equipment { get; set; }
-    public Warehouse SourceWarehouse { get; set; }
-    public Warehouse DestinationWarehouse { get; set; }
-    public User User { get; set; }
+    public virtual Equipment Equipment { get; set; }
+    public virtual Warehouse SourceWarehouse { get; set; }
+    public virtual Warehouse DestinationWarehouse { get; set; }
+    public virtual User User { get; set; }
 }

@@ -6,5 +6,5 @@ public class Category
     public string Name { get; set; }
     public string Description { get; set; }
 
-    public ICollection<Equipment> Equipments { get; set; }
+    public virtual List<Equipment> Equipments { get; set; } = new();
 }

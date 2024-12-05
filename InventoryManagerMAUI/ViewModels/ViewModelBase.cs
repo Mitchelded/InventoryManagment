@@ -45,13 +45,17 @@ public class ViewModelBase<T> : INotifyPropertyChanged where T : class
 		// Logic for adding a new item
 	}
 
-	public async void LoadData()
+	public virtual async void LoadData()
 	{
 		using InventoryManagmentEntities _db = new();
 		Collection.Clear();
 		await _db.Set<T>()
-			.Include("Category") // Пример: загрузить связанные данные
-			.Include("Status") // Подгрузка статусов
+			.Include("Stocks")
+			.Include("Supplier")
+			.Include("Category")
+			.Include("Status")
+			.Include("EquipmentMovements")
+			.Include("UtilizationRecords")
 			.LoadAsync();
 		foreach (var item in _db.Set<T>().Local)
 		{

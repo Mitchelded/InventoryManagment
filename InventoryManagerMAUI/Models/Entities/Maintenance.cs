@@ -8,6 +8,6 @@ public class Maintenance
     public DateTime MaintenanceDate { get; set; }
     public string Notes { get; set; }
 
-    public Equipment Equipment { get; set; }
+    public virtual Equipment Equipment { get; set; }
 
 }

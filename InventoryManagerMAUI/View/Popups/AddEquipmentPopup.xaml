@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+               x:Class="InventoryManagerMAUI.ViewModels.Popups.AddEquipmentPopup"
+               CanBeDismissedByTappingOutsideOfPopup="True">
+    <!-- Add Product Modal -->
+    <Grid Width="450">
+        <VerticalStackLayout Width="450">
+            <HorizontalStackLayout>
+                <VerticalStackLayout>
+                    <Label Text="Product Name" />
+                    <Entry x:Name="ProductNameEntry" Placeholder="Enter product name"  Width="450"/>
+
+                </VerticalStackLayout>
+                <VerticalStackLayout>
+                    <Label Text="Category" />
+                    <Picker x:Name="CategoryPicker"
+                            ItemsSource="{Binding Category}"
+                            ItemDisplayBinding="{Binding Name}"
+                            SelectedItem="{Binding SelectedCategory}"  Width="450">
+
+                    </Picker>
+                </VerticalStackLayout>
+
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout>
+                <VerticalStackLayout>
+                    <Label Text="SKU" />
+                    <Entry x:Name="SkuEntry" Placeholder="Enter SKU"  Width="450"/>
+                </VerticalStackLayout>
+                <VerticalStackLayout>
+
+                    <Label Text="Price" />
+                    <Entry x:Name="PriceEntry" Placeholder="Enter price" Keyboard="Numeric"  Width="450"/>
+                </VerticalStackLayout>
+
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout>
+
+                <VerticalStackLayout>
+                    <Label Text="Initial Stock" />
+                    <Entry x:Name="StockEntry" Placeholder="Enter initial stock" Keyboard="Numeric"  Width="450"/>
+
+                </VerticalStackLayout>
+
+                <VerticalStackLayout>
+                    <Label Text="Reorder Point" />
+                    <Entry x:Name="ReorderPointEntry" Placeholder="Enter reorder point" Keyboard="Numeric"  Width="450"/>
+                </VerticalStackLayout>
+
+
+            </HorizontalStackLayout>
+
+
+            <Label Text="Description" />
+            <Editor x:Name="DescriptionEditor" Placeholder="Enter product description" HeightRequest="100" />
+
+
+            <Label Text="Product Image" />
+            <Button Text="Select Image" Clicked="OnSelectImageClicked"
+                    BorderColor="{StaticResource SecondaryColor}" Width="450">
+                <Button.Shadow>
+                    <Shadow Brush="#3498db"
+                            Opacity="0.25"
+                            Radius="4"
+                            Offset="0, 4" />
+                </Button.Shadow>
+            </Button>
+
+            <Button Text="Add Product" Clicked="OnAddProductClicked"
+                    Style="{StaticResource PrimaryButtonStyle}"  Width="450"/>
+        </VerticalStackLayout>
+    </Grid>
+</toolkit:Popup>

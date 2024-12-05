@@ -36,7 +36,8 @@
             <StackLayout Orientation="Horizontal" Spacing="10">
                 <Button Text="Add New Product"
                         x:Name="btnAdd" Clicked="BtnAdd_OnClicked" 
-                        Style="{StaticResource PrimaryButtonStyle}"/>
+                        Style="{StaticResource PrimaryButtonStyle}"
+                        />
             </StackLayout>
 
             <!-- Filters -->
@@ -78,10 +79,10 @@
                     <DataTemplate>
                         <ViewCell>
                             <StackLayout Orientation="Horizontal" Spacing="15">
-                                <Image Source="{Binding Photo, Converter={StaticResource ByteArrayToImageSourceConverter}}" />
+                                <Image Source="{Binding Photo, Converter={StaticResource ByteArrayToImageSourceConverter}}"/>
 
                                 
-                                    <Label Text="{Binding Name}" FontSize="20" />
+                                    <Label Text="{Binding Name}" BindingContextChanged="OnBindingContextChanged"  FontSize="20" />
                                     <Label Text="{Binding Category.Name}" FontSize="16" TextColor="Gray" />
                                 
                                 <Label Text="{Binding SerialNumber}" FontSize="16" />

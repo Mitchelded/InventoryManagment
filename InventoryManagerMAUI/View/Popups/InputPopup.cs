@@ -1,6 +1,6 @@
 ﻿using InventoryManagerMAUI.Commands;
 
-namespace InventoryManagerMAUI.ViewModels
+namespace InventoryManagerMAUI.ViewModels.Popups
 {
 	class InputPopup<T> : BasePopup where T : class
 	{

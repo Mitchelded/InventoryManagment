@@ -21,7 +21,29 @@ public class EquipmentsViewModel : ViewModelBase<Equipment>
 	private int _statusId;
 	private byte[] _photo;
 
+	public override void OnAdd(object obj)
+	{
+		using InventoryManagmentEntities _db = new();
+		string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources/AppIcon", "gag.png");
+		byte[] photoBytes = File.ReadAllBytes(filePath);
 
+		var Category = new Equipment()
+		{
+			Photo = photoBytes,
+			Name = _name,
+			SerialNumber = _serialNumber,
+			CategoryID = (int)SelectedCategoryId!,
+			Cost = _cost,
+			// SupplierID = (int)SelectedDepartmentId,
+			WarrantyExpiration = _warrantyExpiration,
+			PurchaseDate = _purchaseDate,
+			StatusID = (int)SelectedStatusId!,
+		};
+		Collection.Add(Category);
+		_db.Add(Category);
+		_db.SaveChanges();
+	}
+	
 	public async override void LoadData()
 	{
 		using InventoryManagmentEntities _db = new();
@@ -362,28 +384,7 @@ public class EquipmentsViewModel : ViewModelBase<Equipment>
 	}
 
 	
-	public override void OnAdd(object obj)
-	{
-		using InventoryManagmentEntities _db = new();
-		string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources/AppIcon", "gag.png");
-		byte[] photoBytes = File.ReadAllBytes(filePath);
 
-		var Category = new Equipment()
-		{
-			Photo = photoBytes,
-			Name = _name,
-			SerialNumber = _serialNumber,
-			CategoryID = (int)SelectedCategoryId!,
-			Cost = _cost,
-			// SupplierID = (int)SelectedDepartmentId,
-			WarrantyExpiration = _warrantyExpiration,
-			PurchaseDate = _purchaseDate,
-			StatusID = (int)SelectedStatusId!,
-		};
-		Collection.Add(Category);
-		_db.Add(Category);
-		_db.SaveChanges();
-	}
 
 	public int IdEquipment
 	{

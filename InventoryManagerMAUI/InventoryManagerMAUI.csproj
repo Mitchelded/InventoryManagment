@@ -71,10 +71,6 @@
 	  <MauiXaml Update="View\AuditsView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="View\BasePopup.xaml">
-	    <SubType>Designer</SubType>
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
 	  <MauiXaml Update="View\CategoryView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -84,13 +80,14 @@
 	  <MauiXaml Update="View\EquipmentsView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Compile Update="View\BasePopup.xaml.cs">
-	    <DependentUpon>BasePopup.xaml</DependentUpon>
-	    <SubType>Code</SubType>
-	  </Compile>
+	  <MauiXaml Update="View\Popups\BasePopup.xaml">
+	    <SubType>Designer</SubType>
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\Popups\AddEquipmentPopup.xaml">
+	    <SubType>Designer</SubType>
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -98,6 +95,17 @@
 	  <MauiAsset Include="Resources\AppIcon\gag.png">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </MauiAsset>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="View\Popups\BasePopup.xaml.cs">
+	    <DependentUpon>BasePopup.xaml</DependentUpon>
+	    <SubType>Code</SubType>
+	  </Compile>
+	  <Compile Update="View\Popups\AddEquipmentPopup.xaml.cs">
+	    <DependentUpon>AddEquipmentPopup.xaml</DependentUpon>
+	    <SubType>Code</SubType>
+	  </Compile>
 	</ItemGroup>
 
 </Project>

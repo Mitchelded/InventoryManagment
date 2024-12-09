@@ -47,9 +47,4 @@ public partial class AddEquipmentPopup : Popup
 			Console.WriteLine($"An error occurred: {ex.Message}");
 		}
 	}
-
-	private void OnAddProductClicked(object? sender, EventArgs e)
-	{
-		throw new NotImplementedException();
-	}
 }

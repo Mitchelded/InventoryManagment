@@ -1,6 +1,5 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
-using System.IO;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -11,316 +10,101 @@ public class EquipmentsViewModel : ViewModelBase<Equipment>
 	private int _idEquipment;
 	private string _name;
 	private string _serialNumber;
+	private string _fileName;
 	private int _categoryId;
 	private int _departmentId;	
 	private int _locationId;
 	private decimal? _cost;
 	private int? _supplierId;
-	private DateTime? _warrantyExpiration;
+	private DateTime _warrantyExpiration;
 	private DateTime _purchaseDate;
 	private int _statusId;
 	private byte[] _photo;
-
-	public override void OnAdd(object obj)
-	{
-		using InventoryManagmentEntities _db = new();
-		string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources/AppIcon", "gag.png");
-		byte[] photoBytes = File.ReadAllBytes(filePath);
-
-		var Category = new Equipment()
-		{
-			Photo = photoBytes,
-			Name = _name,
-			SerialNumber = _serialNumber,
-			CategoryID = (int)SelectedCategoryId!,
-			Cost = _cost,
-			// SupplierID = (int)SelectedDepartmentId,
-			WarrantyExpiration = _warrantyExpiration,
-			PurchaseDate = _purchaseDate,
-			StatusID = (int)SelectedStatusId!,
-		};
-		Collection.Add(Category);
-		_db.Add(Category);
-		_db.SaveChanges();
-	}
-	
-	public async override void LoadData()
-	{
-		using InventoryManagmentEntities _db = new();
-		Collection.Clear();
-		await _db.Equipments
-			.Include(u => u.Stocks) // Include Stocks navigation property
-			.ThenInclude(s => s.Warehouse) // Then include Warehouse from Stock navigation property
-			.Include(u => u.Supplier) // Include Supplier navigation property
-			.Include(u => u.Category) // Include Category navigation property
-			.Include(u => u.Status) // Include Status navigation property
-			.Include(u => u.EquipmentMovements) // Include EquipmentMovements navigation property
-			.Include(u => u.UtilizationRecords) // Include UtilizationRecords navigation property
-			.LoadAsync(); // Asynchronous load of the query
-		foreach (var item in _db.Equipments.Local)
-		{
-			Collection.Add(item);
-		}
-		OnPropertyChanged(nameof(Collection));
-	}
-
 	private List<ImageSource> _imageSources;
+	private Department _selectedFilterDepartment;
 
-	public List<ImageSource> ImageSources
-	{
-		get => _imageSources;
-		set
-		{
-			_imageSources = value;
-			OnPropertyChanged(nameof(ImageSources));
-		}
-	}
-	private async Task LoadImagesAsync()
-	{
-		// Получаем все байты изображений для всех объектов оборудования
-		var imageByteList = await GetAllEquipmentImagesAsync();
-        
-		var imageSources = new List<ImageSource>();
-
-		foreach (var imageBytes in imageByteList)
-		{
-			if (imageBytes != null)
-			{
-				// Преобразуем байты в ImageSource
-				imageSources.Add(ImageSource.FromStream(() => new MemoryStream(imageBytes)));
-			}
-		}
-
-		// Привязываем к свойству
-		ImageSources = imageSources;
-	}
-	
-	// Метод для получения байтов всех изображений из базы данных
-	private async Task<List<byte[]>> GetAllEquipmentImagesAsync()
-	{
-		using (var context = new InventoryManagmentEntities()) // Замените на свой контекст
-		{
-			var equipmentImages = await context.Equipments
-				.Select(eq => eq.Photo) // Извлекаем все байты из поля Photo
-				.ToListAsync();
-
-			return equipmentImages;
-		}
-	}
-	public byte[] Photo
-	{
-		get => _photo;
-		set
-		{
-			if (Equals(value, _photo)) return;
-			_photo = value;
-			OnPropertyChanged(nameof(Photo));
-		}
-	}
-
-
-	private Department _selectedDepartment;
-	private Status _selectedStatus;	
-
-	private Supplier _selectedSupplier;
+	private Status _selectedStatus;
 	private Category _selectedCategory;
-
-	private ObservableCollection<Department> _departments = new ObservableCollection<Department>();
-	private ObservableCollection<Category> _Category = new ObservableCollection<Category>();
-	private ObservableCollection<Status> _Status = new ObservableCollection<Status>();
-
-	public ObservableCollection<Stock> Stocks
-	{
-		get => _stocks;
-		set
-		{
-			if (Equals(value, _stocks)) return;
-			_stocks = value;
-			OnPropertyChanged(nameof(Stocks));
-		}
-	}
-
-	private ObservableCollection<Supplier> _suppliers = new ObservableCollection<Supplier>();
-	
-
-	public int? SelectedDepartmentId => SelectedDepartment?.DepartmentID;
-	public int? SelectedSupplierId => SelectedSupplier?.SupplierID;	
-
-	public int? SelectedStatusId => SelectedStatus?.StatusID;
-	public int? SelectedCategoryId => SelectedCategory?.CategoryID;
-	
-	public Department SelectedDepartment
-	{
-		get => _selectedDepartment;
-		set
-		{
-			if (_selectedDepartment != value)
-			{
-				_selectedDepartment = value;
-				OnPropertyChanged(nameof(SelectedDepartment));
-				OnPropertyChanged(nameof(SelectedDepartmentId));
-				OnPropertyChanged(nameof(SelectedDepartment));
-				OnPropertyChanged(nameof(SelectedDepartmentId));
-			}
-		}
-	}
-	
-
-	public Supplier SelectedSupplier
-	{
-		get => _selectedSupplier;
-		set
-		{
-			if (_selectedSupplier != value)
-			{
-				_selectedSupplier = value;
-				OnPropertyChanged(nameof(SelectedSupplier));
-				OnPropertyChanged(nameof(SelectedSupplierId));
-				OnPropertyChanged(nameof(SelectedSupplier));
-				OnPropertyChanged(nameof(SelectedSupplierId));
-			}
-		}
-	}
-	
+	private Supplier _selectedSupplier;
 
 	public Status SelectedStatus
 	{
 		get => _selectedStatus;
 		set
 		{
-			if (_selectedStatus != value)
-			{
-				_selectedStatus = value;
-				OnPropertyChanged(nameof(SelectedStatus));
-				OnPropertyChanged(nameof(SelectedStatusId));
-				OnPropertyChanged(nameof(SelectedStatus));
-				OnPropertyChanged(nameof(SelectedStatusId));
-				ApplyFilter();
-			}
+			if (Equals(value, _selectedStatus)) return;
+			_selectedStatus = value ?? throw new ArgumentNullException(nameof(value));
+			OnPropertyChanged(nameof(SelectedStatus));
 		}
 	}
-	
 
 	public Category SelectedCategory
 	{
 		get => _selectedCategory;
 		set
 		{
-			if (_selectedCategory != value)
-			{
-				_selectedCategory = value;
-				OnPropertyChanged(nameof(SelectedCategory));
-				OnPropertyChanged(nameof(SelectedCategoryId));
-				OnPropertyChanged(nameof(SelectedCategory));
-				OnPropertyChanged(nameof(SelectedCategoryId));
-				ApplyFilter();
-			}
+			if (Equals(value, _selectedCategory)) return;
+			_selectedCategory = value ?? throw new ArgumentNullException(nameof(value));
+			OnPropertyChanged(nameof(SelectedCategory));
 		}
 	}
 
-	public ObservableCollection<Department> Departments
+	public Supplier SelectedSupplier
 	{
-		get => _departments;
+		get => _selectedSupplier;
 		set
 		{
-			if (Equals(value, _departments)) return;
-			_departments = value;
-			OnPropertyChanged(nameof(Departments));
+			if (Equals(value, _selectedSupplier)) return;
+			_selectedSupplier = value ?? throw new ArgumentNullException(nameof(value));
+			OnPropertyChanged(nameof(SelectedSupplier));
 		}
 	}
 
-	public ObservableCollection<Category> Category
-	{
-		get => _Category;
-		set
-		{
-			if (Equals(value, _Category)) return;
-			_Category = value;
-			OnPropertyChanged(nameof(Category));
-		}
-	}
-
-	public ObservableCollection<Status> Status
-	{
-		get => _Status;
-		set
-		{
-			if (Equals(value, _Status)) return;
-			_Status = value;
-			OnPropertyChanged(nameof(Status));
-		}
-	}
-
-
-
-	public ObservableCollection<Supplier> Suppliers
-	{
-		get => _suppliers;
-		set
-		{
-			if (Equals(value, _suppliers)) return;
-			_suppliers = value;
-			OnPropertyChanged(nameof(Suppliers));
-		}
-	}
-	public ICommand LoadImageCommand { get; }
-	
-	public EquipmentsViewModel()
-	{
-		LoadImageCommand = new Command<Equipment>(LoadImage);
-		// LoadDepartments();
-		// LoadCategory();
-		// LoadStocks();
-		// LoadSuppliers();
-		// LoadStatus();
-		// LoadImagesAsync();
-	}
-
-	private void LoadStocks()
-	{
-		using InventoryManagmentEntities _db = new();
-		// Load data from the database and populate the ObservableCollection
-		var items = _db.Stocks.ToList();
-		foreach (var item in items)
-		{
-			Stocks.Add(item);
-		}
-	}
-
-	private void ApplyFilter()
-	{
-		List<Equipment> filtered;
-		if (Collection.Count != 0)
-		{
-			filtered = Collection
-				.Where(i => SelectedCategory == null || i.Category.CategoryID == SelectedCategory.CategoryID)
-				.Where(i => SelectedStatus == null || i.Status.StatusID == SelectedStatus.StatusID)
-				.ToList();
-
-		}
-		else
-		{
-			using InventoryManagmentEntities db = new();
-			filtered = db.Equipments
-				.Include("Category") // Пример: загрузить связанные данные
-				.Include("Status").ToList();
-		}
-
-
-		Collection.Clear();
-		foreach (var item in filtered)
-			Collection.Add(item);
-	}
-	
+	private Status _selectedFilterStatus;	
+	private Supplier _selectedFilterSupplier;
+	private Category _selectedFilterCategory;
 	
 	private ImageSource _equipmentImageSource;
 	private ObservableCollection<Stock> _stocks;
+	
+	public int? SelectedDepartmentId => SelectedFilterDepartment?.DepartmentID;
+	public int? SelectedSupplierId => SelectedSupplier?.SupplierID;	
+	public int? SelectedStatusId => SelectedStatus?.StatusID;
+	public int? SelectedCategoryId => SelectedCategory?.CategoryID;
 
-	public ImageSource EquipmentImageSource
+	private ObservableCollection<Department> _departments = new ObservableCollection<Department>();
+	private ObservableCollection<Category> _Category = new ObservableCollection<Category>();
+	private ObservableCollection<Status> _Status = new ObservableCollection<Status>();
+	private ObservableCollection<Supplier> _suppliers = new ObservableCollection<Supplier>();
+	public ICommand LoadImageCommand { get; }
+	public ICommand SelectImageCommand { get; }
+	
+	public EquipmentsViewModel()
 	{
-		get { return _equipmentImageSource; }
-		set { SetProperty(ref _equipmentImageSource, value); }
+		SelectImageCommand = new Command(OnSelectImage);
+		LoadImageCommand = new Command<Equipment>(LoadImage);
+		// LoadDepartments();
+		LoadCategory();
+		// LoadStocks();
+		LoadSuppliers();
+		LoadStatus();
+		// LoadImagesAsync();
 	}
+	
+	private async void OnSelectImage()
+	{
+		// Логика выбора изображения и преобразования его в массив байт
+		var result = await MediaPicker.PickPhotoAsync();
+		if (result != null)
+		{
+			using var stream = await result.OpenReadAsync();
+			using var memoryStream = new MemoryStream();
+			await stream.CopyToAsync(memoryStream);
+			FileName = result.FileName;
+			Photo = memoryStream.ToArray();
+		}
+	}
+	
 	private void LoadImage(Equipment item)
 	{
 		using InventoryManagmentEntities _db = new();
@@ -341,7 +125,6 @@ public class EquipmentsViewModel : ViewModelBase<Equipment>
 			Console.WriteLine("User or photo not found!");
 		}
 	}
-	
 	private void LoadDepartments()
 	{
 		using InventoryManagmentEntities _db = new();
@@ -383,9 +166,292 @@ public class EquipmentsViewModel : ViewModelBase<Equipment>
 		}
 	}
 
+	private void LoadStocks()
+	{
+		using InventoryManagmentEntities _db = new();
+		// Load data from the database and populate the ObservableCollection
+		var items = _db.Stocks.ToList();
+		foreach (var item in items)
+		{
+			Stocks.Add(item);
+		}
+	}
+
+	public override void OnResete(Equipment obj)
+	{
+		LoadData();
+		SelectedFilterCategory = null;
+		SelectedFilterStatus = null;
+	}
+
+	private void ApplyFilter()
+	{
+		using InventoryManagmentEntities db = new();
+		List<Equipment> filtered;
+
+		filtered = db.Equipments
+			.Include(e => e.Category)
+			.Include(e => e.Status)
+			.Where(e => 
+				(SelectedFilterCategory == null || e.Category.CategoryID == SelectedFilterCategory.CategoryID) &&
+				(SelectedFilterStatus == null || e.Status.StatusID == SelectedFilterStatus.StatusID))
+			.ToList();
+
+
+
+
+		Collection.Clear();
+		foreach (var item in filtered)
+			Collection.Add(item);
+	}
+
 	
+	public override void OnAdd(object obj)
+	{
+		using InventoryManagmentEntities _db = new();
+		Equipment equipment;
+		if (Photo == null)
+		{
+			string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources/AppIcon", "gag.png");
+			byte[] photoBytes = File.ReadAllBytes(filePath);
+			equipment = new Equipment()
+			{
+				Photo = photoBytes,
+				Name = _name,
+				SerialNumber = _serialNumber,
+				CategoryID = (int)SelectedCategoryId!,
+				Cost = _cost,
+				SupplierID = (int)SelectedSupplierId!,
+				WarrantyExpiration = _warrantyExpiration,
+				PurchaseDate = _purchaseDate,
+				StatusID = (int)SelectedStatusId!,
+			};
+			
+		}
+		else
+		{
+			equipment = new Equipment()
+			{
+				Photo = _photo,
+				Name = _name,
+				SerialNumber = _serialNumber,
+				CategoryID = (int)SelectedCategoryId!,
+				Cost = _cost,
+				SupplierID = (int)SelectedSupplierId!,
+				// SupplierID = 1,
+				WarrantyExpiration = _warrantyExpiration,
+				PurchaseDate = _purchaseDate,
+				StatusID = (int)SelectedStatusId!,
+			};
+		}
+		Collection.Add(equipment);
+		_db.Add(equipment);
+		_db.SaveChanges();
+	}
+	
+	public async override void LoadData()
+	{
+		using InventoryManagmentEntities _db = new();
+		Collection.Clear();
+		await _db.Equipments
+			.Include(u => u.Stocks) // Include Stocks navigation property
+			.ThenInclude(s => s.Warehouse) // Then include Warehouse from Stock navigation property
+			.Include(u => u.Supplier) // Include Supplier navigation property
+			.Include(u => u.Category) // Include Category navigation property
+			.Include(u => u.Status) // Include Status navigation property
+			.Include(u => u.EquipmentMovements) // Include EquipmentMovements navigation property
+			.Include(u => u.UtilizationRecords) // Include UtilizationRecords navigation property
+			.LoadAsync(); // Asynchronous load of the query
+		foreach (var item in _db.Equipments.Local)
+		{
+			Collection.Add(item);
+		}
+		OnPropertyChanged(nameof(Collection));
+	}
 
 
+
+	public List<ImageSource> ImageSources
+	{
+		get => _imageSources;
+		set
+		{
+			_imageSources = value;
+			OnPropertyChanged(nameof(ImageSources));
+		}
+	}
+	
+	public string FileName
+	{
+		get => _fileName;
+		set
+		{
+			_fileName = value;
+			OnPropertyChanged(nameof(FileName));
+		}
+	}
+	
+	private async Task LoadImagesAsync()
+	{
+		// Получаем все байты изображений для всех объектов оборудования
+		var imageByteList = await GetAllEquipmentImagesAsync();
+        
+		var imageSources = new List<ImageSource>();
+
+		foreach (var imageBytes in imageByteList)
+		{
+			if (imageBytes != null)
+			{
+				// Преобразуем байты в ImageSource
+				imageSources.Add(ImageSource.FromStream(() => new MemoryStream(imageBytes)));
+			}
+		}
+
+		// Привязываем к свойству
+		ImageSources = imageSources;
+	}
+	
+	// Метод для получения байтов всех изображений из базы данных
+	private async Task<List<byte[]>> GetAllEquipmentImagesAsync()
+	{
+		using (var context = new InventoryManagmentEntities()) // Замените на свой контекст
+		{
+			var equipmentImages = await context.Equipments
+				.Select(eq => eq.Photo) // Извлекаем все байты из поля Photo
+				.ToListAsync();
+
+			return equipmentImages;
+		}
+	}
+	
+	
+	public byte[] Photo
+	{
+		get => _photo;
+		set
+		{
+			if (Equals(value, _photo)) return;
+			_photo = value;
+			OnPropertyChanged(nameof(Photo));
+		}
+	}
+	public ObservableCollection<Stock> Stocks
+	{
+		get => _stocks;
+		set
+		{
+			if (Equals(value, _stocks)) return;
+			_stocks = value;
+			OnPropertyChanged(nameof(Stocks));
+		}
+	}
+	public Department SelectedFilterDepartment
+	{
+		get => _selectedFilterDepartment;
+		set
+		{
+			if (_selectedFilterDepartment != value)
+			{
+				_selectedFilterDepartment = value;
+				OnPropertyChanged(nameof(SelectedFilterDepartment));
+				OnPropertyChanged(nameof(SelectedDepartmentId));
+				OnPropertyChanged(nameof(SelectedFilterDepartment));
+				OnPropertyChanged(nameof(SelectedDepartmentId));
+			}
+		}
+	}
+	public Supplier SelectedFilterSupplier
+	{
+		get => _selectedFilterSupplier;
+		set
+		{
+			if (_selectedFilterSupplier != value)
+			{
+				_selectedFilterSupplier = value;
+				OnPropertyChanged(nameof(SelectedFilterSupplier));
+				OnPropertyChanged(nameof(SelectedSupplierId));
+				OnPropertyChanged(nameof(SelectedFilterSupplier));
+				OnPropertyChanged(nameof(SelectedSupplierId));
+			}
+		}
+	}
+	public Status SelectedFilterStatus
+	{
+		get => _selectedFilterStatus;
+		set
+		{
+			if (_selectedFilterStatus != value)
+			{
+				_selectedFilterStatus = value;
+				OnPropertyChanged(nameof(SelectedFilterStatus));
+				OnPropertyChanged(nameof(SelectedStatusId));
+				OnPropertyChanged(nameof(SelectedFilterStatus));
+				OnPropertyChanged(nameof(SelectedStatusId));
+				ApplyFilter();
+			}
+		}
+	}
+	public Category SelectedFilterCategory
+	{
+		get => _selectedFilterCategory;
+		set
+		{
+			if (_selectedFilterCategory != value)
+			{
+				_selectedFilterCategory = value;
+				OnPropertyChanged(nameof(SelectedFilterCategory));
+				OnPropertyChanged(nameof(SelectedCategoryId));
+				OnPropertyChanged(nameof(SelectedFilterCategory));
+				OnPropertyChanged(nameof(SelectedCategoryId));
+				ApplyFilter();
+			}
+		}
+	}
+	public ObservableCollection<Department> Departments
+	{
+		get => _departments;
+		set
+		{
+			if (Equals(value, _departments)) return;
+			_departments = value;
+			OnPropertyChanged(nameof(Departments));
+		}
+	}
+	public ObservableCollection<Category> Category
+	{
+		get => _Category;
+		set
+		{
+			if (Equals(value, _Category)) return;
+			_Category = value;
+			OnPropertyChanged(nameof(Category));
+		}
+	}
+	public ObservableCollection<Status> Status
+	{
+		get => _Status;
+		set
+		{
+			if (Equals(value, _Status)) return;
+			_Status = value;
+			OnPropertyChanged(nameof(Status));
+		}
+	}
+	public ObservableCollection<Supplier> Suppliers
+	{
+		get => _suppliers;
+		set
+		{
+			if (Equals(value, _suppliers)) return;
+			_suppliers = value;
+			OnPropertyChanged(nameof(Suppliers));
+		}
+	}
+	public ImageSource EquipmentImageSource
+	{
+		get { return _equipmentImageSource; }
+		set { SetProperty(ref _equipmentImageSource, value); }
+	}
 	public int IdEquipment
 	{
 		get => _idEquipment;
@@ -398,7 +464,6 @@ public class EquipmentsViewModel : ViewModelBase<Equipment>
 			OnPropertyChanged(nameof(IdEquipment));
 		}
 	}
-
 	public string Name
 	{
 		get => _name;
@@ -410,20 +475,18 @@ public class EquipmentsViewModel : ViewModelBase<Equipment>
 			OnPropertyChanged(nameof(Name));
 		}
 	}
-
-	public string Serial_Number
+	public string SerialNumber
 	{
 		get => _serialNumber;
 		set
 		{
 			if (value == _serialNumber) return;
 			_serialNumber = value;
-			OnPropertyChanged(nameof(Serial_Number));
-			OnPropertyChanged(nameof(Serial_Number));
-			OnPropertyChanged(nameof(Serial_Number));
+			OnPropertyChanged(nameof(SerialNumber));
+			OnPropertyChanged(nameof(SerialNumber));
+			OnPropertyChanged(nameof(SerialNumber));
 		}
 	}
-
 	public int CategoryID
 	{
 		get => _categoryId;
@@ -436,7 +499,6 @@ public class EquipmentsViewModel : ViewModelBase<Equipment>
 			OnPropertyChanged(nameof(CategoryID));
 		}
 	}
-
 	public int DepartmentID
 	{
 		get => _departmentId;
@@ -449,7 +511,6 @@ public class EquipmentsViewModel : ViewModelBase<Equipment>
 			OnPropertyChanged(nameof(DepartmentID));
 		}
 	}
-
 	public int LocationID
 	{
 		get => _locationId;
@@ -461,7 +522,6 @@ public class EquipmentsViewModel : ViewModelBase<Equipment>
 			OnPropertyChanged(nameof(LocationID));
 		}
 	}
-
 	public int StatusID
 	{
 		get => _statusId;
@@ -473,7 +533,6 @@ public class EquipmentsViewModel : ViewModelBase<Equipment>
 			OnPropertyChanged(nameof(StatusID));
 		}
 	}
-
 	public System.DateTime PurchaseDate
 	{
 		get => _purchaseDate;
@@ -485,19 +544,17 @@ public class EquipmentsViewModel : ViewModelBase<Equipment>
 			OnPropertyChanged(nameof(PurchaseDate));
 		}
 	}
-
-	public System.DateTime? WarrantyExpiration
+	public System.DateTime WarrantyExpiration
 	{
 		get => _warrantyExpiration;
 		set
 		{
-			if (Nullable.Equals(value, _warrantyExpiration)) return;
+			if (value.Equals(_warrantyExpiration)) return;
 			_warrantyExpiration = value;
 			OnPropertyChanged(nameof(WarrantyExpiration));
 			OnPropertyChanged(nameof(WarrantyExpiration));
 		}
 	}
-
 	public Nullable<int> SupplierID
 	{
 		get => _supplierId;
@@ -509,7 +566,6 @@ public class EquipmentsViewModel : ViewModelBase<Equipment>
 			OnPropertyChanged(nameof(SupplierID));
 		}
 	}
-
 	public Nullable<decimal> Cost
 	{
 		get => _cost;

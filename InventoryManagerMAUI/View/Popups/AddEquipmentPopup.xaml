@@ -4,75 +4,137 @@
                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
                x:Class="InventoryManagerMAUI.ViewModels.Popups.AddEquipmentPopup"
-               CanBeDismissedByTappingOutsideOfPopup="True">
+               xmlns:local="clr-namespace:InventoryManagerMAUI.Commands"
+               CanBeDismissedByTappingOutsideOfPopup="False"
+               Color="{StaticResource White}">
+    
+    <toolkit:Popup.Resources>
+        
+        <ResourceDictionary xmlns:local="clr-namespace:InventoryManagerMAUI.Commands">
+            <local:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter" />
+        </ResourceDictionary>
+
+    
+    </toolkit:Popup.Resources>
+    
     <!-- Add Product Modal -->
-    <Grid Width="450">
-        <VerticalStackLayout Width="450">
+    <ScrollView MaximumWidthRequest="500" MaximumHeightRequest="550">
+        <VerticalStackLayout>
             <HorizontalStackLayout>
-                <VerticalStackLayout>
-                    <Label Text="Product Name" />
-                    <Entry x:Name="ProductNameEntry" Placeholder="Enter product name"  Width="450"/>
+                <VerticalStackLayout Margin="0,0,25,0">
+                    <Label Text="Product Name" TextColor="{StaticResource Text}" />
+                    <Entry x:Name="ProductNameEntry" 
+                           Placeholder="Enter product name" 
+                           Text="{Binding Name}"
+                           TextColor="{StaticResource Text}"/>
 
+                    <Label Text="Cost" Margin="0,0,10,0" TextColor="{StaticResource Text}" />
+                    <Entry x:Name="CostEntry" Placeholder="Enter Cost" 
+                           Text="{Binding Cost}" Keyboard="Numeric"
+                           TextColor="{StaticResource Text}"/>
+
+                    <Label Text="Initial Serial Number" Margin="0,0,10,0" TextColor="{StaticResource Text}" />
+                    <Frame BorderColor="{StaticResource Border}"
+                           CornerRadius="5"
+                           Padding="0"
+                           HasShadow="False"
+                           Background="Transparent">
+                        <HorizontalStackLayout>
+                            <Entry x:Name="SerialNumberEntry" Placeholder="Enter Serial Number" 
+                                   Keyboard="Numeric" Text="{Binding SerialNumber}"
+                                   TextColor="{StaticResource Text}"/>
+                            <Button Text="Generate"/>
+                        </HorizontalStackLayout>
+                    </Frame>
+                    
+                    <Label Text="Status" Margin="0,0,10,0" TextColor="{StaticResource Text}" />
+                    <Frame BorderColor="{StaticResource Border}"
+                           CornerRadius="5"
+                           Padding="0"
+                           HasShadow="False"
+                           Background="Transparent">
+                        <Picker x:Name="StatusPicker"
+                                ItemsSource="{Binding Status}"
+                                ItemDisplayBinding="{Binding Name}"
+                                TextColor="{StaticResource Text}"
+                                WidthRequest="100" MaximumWidthRequest="150" SelectedItem="{Binding SelectedStatus}"/>
+                    </Frame>
                 </VerticalStackLayout>
-                <VerticalStackLayout>
-                    <Label Text="Category" />
-                    <Picker x:Name="CategoryPicker"
-                            ItemsSource="{Binding Category}"
-                            ItemDisplayBinding="{Binding Name}"
-                            SelectedItem="{Binding SelectedCategory}"  Width="450">
+                
+                <VerticalStackLayout Margin="0,0,25,0">
 
-                    </Picker>
+                    <Label Text="Category" Margin="0,0,10,0" TextColor="{StaticResource Text}" />
+                    <Frame BorderColor="{StaticResource Border}"
+                           CornerRadius="5"
+                           Padding="0"
+                           HasShadow="False"
+                           Background="Transparent">
+                        <Picker x:Name="CategoryPicker"
+                                ItemsSource="{Binding Category}"
+                                ItemDisplayBinding="{Binding Name}"
+                                TextColor="{StaticResource Text}" 
+                                WidthRequest="100" MaximumWidthRequest="150" SelectedItem="{Binding SelectedCategory}"/>
+                    </Frame>
+                
+                    <Label Text="Purchase Date" 
+                           Margin="0,0,10,0" 
+                           TextColor="{StaticResource Text}" />
+                    <DatePicker x:Name="PurchaseDatePicker" Date="{Binding PurchaseDate}"
+                                TextColor="{StaticResource Text}"/>
+                    
+                    <Label Text="Warranty Expiration" 
+                           Margin="0,0,10,0" 
+                           TextColor="{StaticResource Text}" />
+                    <DatePicker x:Name="WarrantyExpirationPicker" Date="{Binding WarrantyExpiration}" 
+                                TextColor="{StaticResource Text}"/>
+
+                    <Frame BorderColor="{StaticResource Border}"
+                           CornerRadius="5"
+                           Padding="0"
+                           HasShadow="False"
+                           Background="Transparent">
+                        <Picker x:Name="SupplierPicker"
+                                ItemsSource="{Binding Suppliers}"
+                                ItemDisplayBinding="{Binding Name}"
+                                TextColor="{StaticResource Text}" 
+                                WidthRequest="100" MaximumWidthRequest="150" SelectedItem="{Binding SelectedSupplier}" />
+                    </Frame>
+                   
                 </VerticalStackLayout>
-
             </HorizontalStackLayout>
+            <VerticalStackLayout>
+                <Label Text="Product Image" Margin="0,0,10,0" TextColor="{StaticResource Text}"/>
+                <Frame BorderColor="{StaticResource Border}"
+                    CornerRadius="5"
+                    Padding="0"
+                    HasShadow="False"
+                    Background="Transparent">
+                    <HorizontalStackLayout>
+                        <Button Text="Select Image"
+                                BorderColor="{StaticResource SecondaryColor}"
+                                WidthRequest="75"
+                                Command="{Binding SelectImageCommand}">
+                            <Button.Shadow>
+                                <Shadow Brush="#3498db"
+                                        Opacity="0.25"
+                                        Radius="4"
+                                        Offset="0, 4" />
+                            </Button.Shadow>
+                        </Button>
+                        <Label x:Name="TcFileName" Text="{Binding FileName}" TextColor="{StaticResource Text}"/>
+                    </HorizontalStackLayout>
+                </Frame>
 
-            <HorizontalStackLayout>
-                <VerticalStackLayout>
-                    <Label Text="SKU" />
-                    <Entry x:Name="SkuEntry" Placeholder="Enter SKU"  Width="450"/>
-                </VerticalStackLayout>
-                <VerticalStackLayout>
-
-                    <Label Text="Price" />
-                    <Entry x:Name="PriceEntry" Placeholder="Enter price" Keyboard="Numeric"  Width="450"/>
-                </VerticalStackLayout>
-
+            </VerticalStackLayout>
+            <HorizontalStackLayout HorizontalOptions="End" VerticalOptions="End">
+                <Button Text="Cancel" Background="{StaticResource WarningBrush}"/>
+                <Button Text="Add Product"
+                        Style="{StaticResource PrimaryButtonStyle}" 
+                        Command="{Binding BindingContext.AddCommand, 
+                        Source={RelativeSource AncestorType={x:Type ContentPage}}}"/>
+                
             </HorizontalStackLayout>
-
-            <HorizontalStackLayout>
-
-                <VerticalStackLayout>
-                    <Label Text="Initial Stock" />
-                    <Entry x:Name="StockEntry" Placeholder="Enter initial stock" Keyboard="Numeric"  Width="450"/>
-
-                </VerticalStackLayout>
-
-                <VerticalStackLayout>
-                    <Label Text="Reorder Point" />
-                    <Entry x:Name="ReorderPointEntry" Placeholder="Enter reorder point" Keyboard="Numeric"  Width="450"/>
-                </VerticalStackLayout>
-
-
-            </HorizontalStackLayout>
-
-
-            <Label Text="Description" />
-            <Editor x:Name="DescriptionEditor" Placeholder="Enter product description" HeightRequest="100" />
-
-
-            <Label Text="Product Image" />
-            <Button Text="Select Image" Clicked="OnSelectImageClicked"
-                    BorderColor="{StaticResource SecondaryColor}" Width="450">
-                <Button.Shadow>
-                    <Shadow Brush="#3498db"
-                            Opacity="0.25"
-                            Radius="4"
-                            Offset="0, 4" />
-                </Button.Shadow>
-            </Button>
-
-            <Button Text="Add Product" Clicked="OnAddProductClicked"
-                    Style="{StaticResource PrimaryButtonStyle}"  Width="450"/>
         </VerticalStackLayout>
-    </Grid>
+
+    </ScrollView>
 </toolkit:Popup>

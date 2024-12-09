@@ -24,7 +24,7 @@ public class ViewModelBase<T> : INotifyPropertyChanged where T : class
 		AddCommand = new Command(OnAdd);
 	}
 
-	private void OnResete(T obj)
+	public virtual void OnResete(T obj)
 	{
 		LoadData();
 	}

@@ -46,12 +46,12 @@
                 <Picker Title="Category" Grid.Column="0" 
                         ItemsSource="{Binding Category}" 
                         ItemDisplayBinding="{Binding Name}"
-                        SelectedItem="{Binding SelectedCategory}">
+                        SelectedItem="{Binding SelectedFilterCategory}">
                 </Picker>
                 <Picker Title="Stock Status" Grid.Column="1" 
                         ItemsSource="{Binding Status}"
                         ItemDisplayBinding="{Binding Name}"
-                        SelectedItem="{Binding SelectedStatus}">
+                        SelectedItem="{Binding SelectedFilterStatus}">
                 </Picker>
 
                 <Picker Title="Sort By" Grid.Column="2">
@@ -112,14 +112,14 @@
                                 </Label>
 
                                 <StackLayout Orientation="Horizontal" Spacing="5">
-                                    <Button Text="Edit" WidthRequest="70" Style="{StaticResource PrimaryButtonStyle}" />
+                                    <Button Text="Edit" WidthRequest="50" HeightRequest="25" Style="{StaticResource PrimaryButtonStyle}" />
                                     <Button Text="Restock"
                                             Style="{StaticResource SuccessButtonStyle}" 
-                                            WidthRequest="70" Command="{Binding BindingContext.LoadImageCommand,
+                                            WidthRequest="85" HeightRequest="25" Command="{Binding BindingContext.LoadImageCommand,
                                 Source={RelativeSource AncestorType={x:Type ContentPage}}}"
                                             CommandParameter="{Binding BindingContext.SelectedItem, 
                                             Source={RelativeSource AncestorType={x:Type ContentPage}}, Mode=TwoWay}"/>
-                                    <Button Text="Delete" WidthRequest="70" 
+                                    <Button Text="Delete" WidthRequest="70" HeightRequest="25" 
                                             Style="{StaticResource DangerButtonStyle}" 
                                             Command="{Binding BindingContext.DeleteCommand, Source={RelativeSource AncestorType={x:Type ContentPage}}}"
                                             CommandParameter="{Binding BindingContext.SelectedItem, 

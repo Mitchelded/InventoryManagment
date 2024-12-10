@@ -21,7 +21,7 @@ public class EquipmentsViewModel : ViewModelBase<Equipment>
 	private int _statusId;
 	private byte[] _photo;
 	private List<ImageSource> _imageSources;
-	private Department _selectedFilterDepartment;
+	
 
 	private Status _selectedStatus;
 	private Category _selectedCategory;
@@ -96,11 +96,25 @@ public class EquipmentsViewModel : ViewModelBase<Equipment>
 			OnPropertyChanged(nameof(SelectedSupplier));
 		}
 	}
-
+	
+	private Department _selectedFilterDepartment;
 	private Status _selectedFilterStatus;	
 	private Supplier _selectedFilterSupplier;
 	private Category _selectedFilterCategory;
-	
+	private string _filterName;
+
+	public string FilterName
+	{
+		get => _filterName;
+		set
+		{
+			if (value == _filterName) return;
+			_filterName = value ?? throw new ArgumentNullException(nameof(value));
+			OnPropertyChanged(nameof(FilterName));
+			ApplyFilter();
+		}
+	}
+
 	private ImageSource _equipmentImageSource;
 	private ObservableCollection<Stock> _stocks;
 	
@@ -231,7 +245,8 @@ public class EquipmentsViewModel : ViewModelBase<Equipment>
 			.Include(e => e.Status)
 			.Where(e => 
 				(SelectedFilterCategory == null || e.Category.CategoryID == SelectedFilterCategory.CategoryID) &&
-				(SelectedFilterStatus == null || e.Status.StatusID == SelectedFilterStatus.StatusID))
+				(SelectedFilterStatus == null || e.Status.StatusID == SelectedFilterStatus.StatusID) && 
+				(string.IsNullOrEmpty(FilterName) || e.Name.Contains(FilterName)))
 			.ToList();
 
 

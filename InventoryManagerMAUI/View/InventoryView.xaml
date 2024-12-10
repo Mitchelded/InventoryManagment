@@ -62,8 +62,8 @@
                         <x:String>Date Added</x:String>
                     </Picker.Items>
                 </Picker>
-                <Entry Placeholder="Search products..." Grid.Column="3" />
-                <HorizontalStackLayout Grid.Column="3">
+                <Entry Placeholder="Search products..." Grid.Column="3" Text="{Binding FilterName}" />
+                <HorizontalStackLayout Grid.Column="4">
                     <Button Text="Сброс" x:Name="BtnReset" Command="{Binding ResetCommand}"
                             Style="{StaticResource DangerButtonStyle}" />
                     <!-- <Button Text="Поиск" Style="{StaticResource PrimaryButtonStyle}" /> -->

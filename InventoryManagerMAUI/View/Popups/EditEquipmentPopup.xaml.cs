@@ -5,11 +5,11 @@ using InventoryManagerMAUI.ViewModels.ViewModel;
 
 namespace InventoryManagerMAUI.ViewModels.Popups;
 
-public partial class AddEquipmentPopup : Popup
+public partial class EditEquipmentPopup : Popup
 {
 	private readonly EquipmentsViewModel _viewModel;
 	private Equipment _editEquipment;
-	public AddEquipmentPopup(EquipmentsViewModel viewModel, Equipment editEquipment = null)
+	public EditEquipmentPopup(EquipmentsViewModel viewModel, Equipment editEquipment = null)
 	{
 		_viewModel = viewModel;
 		_editEquipment = editEquipment;

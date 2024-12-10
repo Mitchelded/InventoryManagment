@@ -68,22 +68,26 @@ public class ViewModelBase<T> : INotifyPropertyChanged where T : class
 	{
 		if (item != null)
 		{
+			Console.WriteLine($"Updating item: {item}");
 			try
 			{
 				using InventoryManagmentEntities _db = new();
 				_db.Entry(item).State = EntityState.Modified;
 				_db.SaveChanges();
+				Console.WriteLine("Item updated successfully");
 			}
 			catch (Exception ex)
 			{
-				// Handle the error (e.g., log it, notify user)
+				Console.WriteLine($"Error updating item: {ex.Message}");
 			}
 		}
 		else
 		{
+			Console.WriteLine("Item is null, reloading data.");
 			LoadData();
 		}
 	}
+
 
 
 	public virtual void OnDelete(T item)

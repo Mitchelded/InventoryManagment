@@ -88,6 +88,10 @@
 	    <SubType>Designer</SubType>
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="View\Popups\EditEquipmentPopup.xaml">
+	    <SubType>Designer</SubType>
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -104,6 +108,10 @@
 	  </Compile>
 	  <Compile Update="View\Popups\AddEquipmentPopup.xaml.cs">
 	    <DependentUpon>AddEquipmentPopup.xaml</DependentUpon>
+	    <SubType>Code</SubType>
+	  </Compile>
+	  <Compile Update="View\Popups\EditEquipmentPopup.xaml.cs">
+	    <DependentUpon>EditEquipmentPopup.xaml</DependentUpon>
 	    <SubType>Code</SubType>
 	  </Compile>
 	</ItemGroup>

@@ -38,6 +38,43 @@ public class EquipmentsViewModel : ViewModelBase<Equipment>
 		}
 	}
 
+	public override async void OnUpdate(Equipment item)
+	{
+		if (item != null)
+		{
+			Console.WriteLine($"Updating item: {item}");
+			try
+			{
+				using InventoryManagmentEntities _db = new();
+
+				item.Name = _name;
+				item.Photo = _photo;
+				item.CategoryID = _selectedCategory?.CategoryID ?? item.CategoryID;
+				item.Cost = _cost;
+				item.SerialNumber = _serialNumber;
+				item.PurchaseDate = _purchaseDate;
+				item.WarrantyExpiration = _warrantyExpiration;
+				item.StatusID = _selectedStatus?.StatusID ?? item.StatusID;
+				item.SupplierID = _selectedSupplier?.SupplierID ?? item.SupplierID;
+
+				_db.Entry(item).State = EntityState.Modified;
+				_db.SaveChanges();
+
+				await Application.Current.MainPage.DisplayAlert("Update", "Item updated successfully", "OK");
+			}
+			catch (Exception ex)
+			{
+				await Application.Current.MainPage.DisplayAlert("Error", $"Error updating item: {ex.Message}", "OK");
+			}
+		}
+		else
+		{
+			await Application.Current.MainPage.DisplayAlert("Error", "Item is null, reloading data.", "OK");
+			LoadData();
+		}
+	}
+
+
 	public Category SelectedCategory
 	{
 		get => _selectedCategory;

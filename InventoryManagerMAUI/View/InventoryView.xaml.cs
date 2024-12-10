@@ -63,4 +63,10 @@ public partial class InventoryView : ContentPage
         var popup = new AddEquipmentPopup(BindingContext as EquipmentsViewModel);
         this.ShowPopupAsync(popup);
     }
+
+    private void EditBtn_OnClicked(object? sender, EventArgs e)
+    {
+        var popup = new EditEquipmentPopup(BindingContext as EquipmentsViewModel);
+        this.ShowPopupAsync(popup);
+    }
 }

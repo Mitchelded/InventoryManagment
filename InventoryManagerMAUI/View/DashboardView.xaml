@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:charts="clr-namespace:LiveChartsCore.SkiaSharpView.Maui;assembly=LiveChartsCore.SkiaSharpView.Maui"
+             xmlns:model="clr-namespace:InventoryManagerMAUI.ViewModels.ViewModel"
+             x:Class="InventoryManagerMAUI.View.DashboardView">
+    <ContentPage.BindingContext>
+        <model:DashboardViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <Grid RowDefinitions="Auto, *, Auto">
+        <!-- Header -->
+        <Label Text="Dashboard Overview"
+               FontSize="24"
+               FontAttributes="Bold"
+               Margin="20,10,20,0" />
+        <Label Text="Welcome back! Here's what's happening with your inventory today."
+               FontSize="14"
+               TextColor="Gray"
+               Margin="20,0,20,10" />
+
+        <!-- Charts and Stats -->
+        <ScrollView Grid.Row="1" Padding="20">
+            <VerticalStackLayout Spacing="20">
+                <!-- Cards -->
+                <HorizontalStackLayout Spacing="10">
+                    <Frame BackgroundColor="White"
+                           CornerRadius="10"
+                           Padding="15"
+                           WidthRequest="150"
+                           HeightRequest="100">
+                        <VerticalStackLayout Spacing="5">
+                            <Label Text="Total Products" FontSize="14" TextColor="Gray" />
+                            <Label Text="1,234" FontSize="20" FontAttributes="Bold" />
+                            <Label Text="↑ 5.3% vs last month" FontSize="12" TextColor="Green" />
+                        </VerticalStackLayout>
+                    </Frame>
+                    <Frame BackgroundColor="White"
+                           CornerRadius="10"
+                           Padding="15"
+                           WidthRequest="150"
+                           HeightRequest="100">
+                        <VerticalStackLayout Spacing="5">
+                            <Label Text="Total Value" FontSize="14" TextColor="Gray" />
+                            <Label Text="$85,420" FontSize="20" FontAttributes="Bold" />
+                            <Label Text="↑ 2.1% vs last month" FontSize="12" TextColor="Green" />
+                        </VerticalStackLayout>
+                    </Frame>
+                </HorizontalStackLayout>
+
+                <!-- Inventory Trend Chart -->
+                <Frame BackgroundColor="White" CornerRadius="10" Padding="10" HeightRequest="300">
+                    <VerticalStackLayout>
+                        <Label Text="Inventory Value Trends" FontSize="16" FontAttributes="Bold" />
+                        <charts:CartesianChart x:Name="InventoryTrendChart" HeightRequest="250" Series="{Binding InventoryTrendSeries}"/>
+                    </VerticalStackLayout>
+                </Frame>
+
+                <!-- Stock Distribution Chart -->
+                <Frame BackgroundColor="White" CornerRadius="10" Padding="10" HeightRequest="300">
+                    <VerticalStackLayout>
+                        <Label Text="Stock Distribution" FontSize="16" FontAttributes="Bold" />
+                        <charts:PieChart x:Name="StockDistributionChart" HeightRequest="250" Series="{Binding StockDistributionSeries}"/>
+                    </VerticalStackLayout>
+                </Frame>
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+    </ContentPage.Content>
+</ContentPage>

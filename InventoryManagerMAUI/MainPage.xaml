@@ -10,6 +10,7 @@
         <Button x:Name="EquipmentView" Clicked="EquipmentView_Clicked"/>
         <Button x:Name="LoginView" Clicked="LoginView_OnClicked" />
         <Button x:Name="InventoryView" Clicked="InventoryView_OnClicked"/>
+        <Button x:Name="DashboardView" Clicked="DashboardView_OnClicked"/>
         <Button/>
     </VerticalStackLayout>
 

@@ -102,6 +102,18 @@ public class EquipmentsViewModel : ViewModelBase<Equipment>
 	private Supplier _selectedFilterSupplier;
 	private Category _selectedFilterCategory;
 	private string _filterName;
+	private string _sortBy;
+	public string SortBy
+	{
+		get => _sortBy;
+		set
+		{
+			_sortBy = value;
+			OnPropertyChanged(nameof(SortBy));
+			ApplyFilter(); // Вызываем фильтрацию при изменении сортировки
+		}
+	}
+
 
 	public string FilterName
 	{
@@ -243,14 +255,24 @@ public class EquipmentsViewModel : ViewModelBase<Equipment>
 		filtered = db.Equipments
 			.Include(e => e.Category)
 			.Include(e => e.Status)
+			.Include(e=>e.Supplier)
 			.Where(e => 
 				(SelectedFilterCategory == null || e.Category.CategoryID == SelectedFilterCategory.CategoryID) &&
 				(SelectedFilterStatus == null || e.Status.StatusID == SelectedFilterStatus.StatusID) && 
 				(string.IsNullOrEmpty(FilterName) || e.Name.Contains(FilterName)))
 			.ToList();
-
-
-
+		filtered = SortBy switch
+		{
+			"Name" => filtered.OrderBy(e => e.Name).ToList(),
+			"Category" => filtered.OrderBy(e => e.Category.Name).ToList(),
+			"Cost" => filtered.OrderBy(e => e.Cost).ToList(),
+			"Purchase Date" => filtered.OrderBy(e => e.PurchaseDate).ToList(),
+			"Warranty Expiration" => filtered.OrderBy(e => e.WarrantyExpiration).ToList(),
+			"Status" => filtered.OrderBy(e => e.Status.Name).ToList(),
+			"Supplier" => filtered.OrderBy(e => e.Supplier.Name).ToList(),
+			_ => filtered // Если ничего не выбрано, оставляем как есть
+		};
+		
 
 		Collection.Clear();
 		foreach (var item in filtered)
@@ -618,7 +640,7 @@ public class EquipmentsViewModel : ViewModelBase<Equipment>
 			OnPropertyChanged(nameof(SupplierID));
 		}
 	}
-	public Nullable<decimal> Cost
+	public decimal? Cost
 	{
 		get => _cost;
 		set

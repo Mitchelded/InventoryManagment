@@ -38,5 +38,10 @@ namespace InventoryManagerMAUI
         {
             Navigation.PushAsync(new InventoryView());
         }
+
+        private void DashboardView_OnClicked(object? sender, EventArgs e)
+        {
+            Navigation.PushAsync(new DashboardView());
+        }
     }
 }

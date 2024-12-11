@@ -54,12 +54,15 @@
                         SelectedItem="{Binding SelectedFilterStatus}">
                 </Picker>
 
-                <Picker Title="Sort By" Grid.Column="2">
+                <Picker Title="Sort By" Grid.Column="2"
+                        SelectedItem="{Binding SortBy, Mode=TwoWay}">
                     <Picker.Items>
                         <x:String>Name</x:String>
-                        <x:String>Stock Level</x:String>
-                        <x:String>Price</x:String>
-                        <x:String>Date Added</x:String>
+                        <x:String>Category</x:String>
+                        <x:String>Cost</x:String>
+                        <x:String>Purchase Date</x:String>
+                        <x:String>Status</x:String>
+                        <x:String>Supplier</x:String>
                     </Picker.Items>
                 </Picker>
                 <Entry Placeholder="Search products..." Grid.Column="3" Text="{Binding FilterName}" />

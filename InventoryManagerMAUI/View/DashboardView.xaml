@@ -6,66 +6,94 @@
              xmlns:model="clr-namespace:InventoryManagerMAUI.ViewModels.ViewModel"
              x:Class="InventoryManagerMAUI.View.DashboardView">
     <ContentPage.BindingContext>
-        <model:DashboardViewModel/>
+        <model:DashboardViewModel />
     </ContentPage.BindingContext>
     <ContentPage.Content>
         <Grid RowDefinitions="Auto, *, Auto">
-        <!-- Header -->
-        <Label Text="Dashboard Overview"
-               FontSize="24"
-               FontAttributes="Bold"
-               Margin="20,10,20,0" />
-        <Label Text="Welcome back! Here's what's happening with your inventory today."
-               FontSize="14"
-               TextColor="Gray"
-               Margin="20,0,20,10" />
+            <!-- Header -->
+            <Label Text="Dashboard Overview"
+                   FontSize="24"
+                   FontAttributes="Bold"
+                   Margin="20,10,20,0" />
+            <Label Text="Welcome back! Here's what's happening with your inventory today."
+                   FontSize="14"
+                   TextColor="Gray"
+                   Margin="20,0,20,10" />
 
-        <!-- Charts and Stats -->
-        <ScrollView Grid.Row="1" Padding="20">
-            <VerticalStackLayout Spacing="20">
-                <!-- Cards -->
-                <HorizontalStackLayout Spacing="10">
-                    <Frame BackgroundColor="White"
-                           CornerRadius="10"
-                           Padding="15"
-                           WidthRequest="150"
-                           HeightRequest="100">
-                        <VerticalStackLayout Spacing="5">
-                            <Label Text="Total Products" FontSize="14" TextColor="Gray" />
-                            <Label Text="1,234" FontSize="20" FontAttributes="Bold" />
-                            <Label Text="↑ 5.3% vs last month" FontSize="12" TextColor="Green" />
-                        </VerticalStackLayout>
-                    </Frame>
-                    <Frame BackgroundColor="White"
-                           CornerRadius="10"
-                           Padding="15"
-                           WidthRequest="150"
-                           HeightRequest="100">
-                        <VerticalStackLayout Spacing="5">
-                            <Label Text="Total Value" FontSize="14" TextColor="Gray" />
-                            <Label Text="$85,420" FontSize="20" FontAttributes="Bold" />
-                            <Label Text="↑ 2.1% vs last month" FontSize="12" TextColor="Green" />
-                        </VerticalStackLayout>
-                    </Frame>
-                </HorizontalStackLayout>
+            <!-- Charts and Stats -->
+            <ScrollView Grid.Row="1" Padding="20">
+                <VerticalStackLayout Spacing="20">
+                    <!-- Cards -->
+                    <HorizontalStackLayout Spacing="10">
+                        <Frame BackgroundColor="White"
+                               CornerRadius="10"
+                               Padding="15"
+                               WidthRequest="150"
+                               HeightRequest="100">
+                            <VerticalStackLayout Spacing="5">
+                                <Label Text="Total Equipment" FontSize="14" TextColor="Gray" />
+                                <Label Text="{Binding TotalEquipment}" FontSize="20" FontAttributes="Bold"
+                                       TextColor="Black" />
+                            </VerticalStackLayout>
+                        </Frame>
+                        <Frame BackgroundColor="White"
+                               CornerRadius="10"
+                               Padding="15"
+                               WidthRequest="150"
+                               HeightRequest="100">
+                            <VerticalStackLayout Spacing="5">
+                                <Label Text="Total Value" FontSize="14" TextColor="Gray" />
+                                <Label Text="{Binding TotalCost, StringFormat='{}{0:C}'}" FontSize="20"
+                                       FontAttributes="Bold"
+                                       TextColor="Black" />
+                            </VerticalStackLayout>
+                        </Frame>
+                        <Frame BackgroundColor="White"
+                               CornerRadius="10"
+                               Padding="15"
+                               WidthRequest="150"
+                               HeightRequest="100">
+                            <VerticalStackLayout Spacing="5">
+                                <Label Text="Low Stock Items" FontSize="14" TextColor="Gray" />
+                                <Label Text="{Binding LowStockEquipment.Count}" FontSize="20"
+                                       FontAttributes="Bold"
+                                       TextColor="Black" />
+                            </VerticalStackLayout>
+                        </Frame>
+                    </HorizontalStackLayout>
+                    <Grid RowDefinitions="Auto, *, Auto" ColumnDefinitions="Auto, *, Auto">
+                        <!-- Stock Distribution Chart -->
+                        <Frame Grid.Column="1" BackgroundColor="White" CornerRadius="10" Padding="10">
+                            <VerticalStackLayout>
+                                <Label Text="Stock Distribution" FontSize="16" FontAttributes="Bold" TextColor="Black"/>
+                                <charts:PieChart x:Name="StockDistributionChart" HeightRequest="150"
+                                                 Series="{Binding StockDistributionSeries}"
+                                                 LegendPosition="Right" />
+                            </VerticalStackLayout>
+                        </Frame>
 
-                <!-- Inventory Trend Chart -->
-                <Frame BackgroundColor="White" CornerRadius="10" Padding="10" HeightRequest="300">
-                    <VerticalStackLayout>
-                        <Label Text="Inventory Value Trends" FontSize="16" FontAttributes="Bold" />
-                        <charts:CartesianChart x:Name="InventoryTrendChart" HeightRequest="250" Series="{Binding InventoryTrendSeries}"/>
-                    </VerticalStackLayout>
-                </Frame>
-
-                <!-- Stock Distribution Chart -->
-                <Frame BackgroundColor="White" CornerRadius="10" Padding="10" HeightRequest="300">
-                    <VerticalStackLayout>
-                        <Label Text="Stock Distribution" FontSize="16" FontAttributes="Bold" />
-                        <charts:PieChart x:Name="StockDistributionChart" HeightRequest="250" Series="{Binding StockDistributionSeries}"/>
-                    </VerticalStackLayout>
-                </Frame>
-            </VerticalStackLayout>
-        </ScrollView>
-    </Grid>
+                        <Frame Grid.Column="2" BackgroundColor="White" CornerRadius="10" Padding="10" HeightRequest="300">
+                            <VerticalStackLayout>
+                                <Label Text="Recent Alerts" FontSize="16" FontAttributes="Bold" TextColor="Black"/>
+                                <ListView ItemsSource="{Binding LowStockEquipment}">
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate>
+                                            <ViewCell>
+                                                <VerticalStackLayout>
+                                                    <Label x:Name="HeaderLabel" 
+                                                           Text="{Binding StockStatus}" TextColor="Black"/>
+                                                    <Label x:Name="MessageHeader" 
+                                                           Text="{Binding CombinedMessage}" TextColor="Black"/>
+                                                </VerticalStackLayout>
+                                            </ViewCell>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+                            </VerticalStackLayout>
+                        </Frame>
+                    </Grid>
+                </VerticalStackLayout>
+            </ScrollView>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

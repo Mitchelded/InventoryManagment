@@ -7,8 +7,11 @@ public class Transaction
     public int WarehouseID { get; set; }
     public int? UserID { get; set; }  // Теперь это может быть User (сотрудник)
     public int Quantity { get; set; }
+    public int OrderDetailID { get; set; }
     public string TransactionType { get; set; }  // "Поступление", "Выдача"
     public DateTime TransactionDate { get; set; }
+    
+    public virtual OrderDetail OrderDetail { get; set; }
 
     public virtual Equipment Equipment { get; set; }
     public virtual Warehouse Warehouse { get; set; }

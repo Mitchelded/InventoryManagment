@@ -4,13 +4,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="InventoryManagerMAUI.MainPage">
     <VerticalStackLayout>
-        <Button x:Name="StatusView" Clicked="Status_Clicked"/>
-        <Button x:Name="AuditsView" Clicked="AuditsView_Clicked"/>
-        <Button x:Name="CategoryView" Clicked="CategoryView_Clicked"/>
-        <Button x:Name="EquipmentView" Clicked="EquipmentView_Clicked"/>
         <Button x:Name="LoginView" Clicked="LoginView_OnClicked" />
         <Button x:Name="InventoryView" Clicked="InventoryView_OnClicked"/>
         <Button x:Name="DashboardView" Clicked="DashboardView_OnClicked"/>
+        <Button x:Name="OrderView" Clicked="OrderView_OnClicked"/>
         <Button/>
     </VerticalStackLayout>
 

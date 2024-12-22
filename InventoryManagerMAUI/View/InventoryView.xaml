@@ -9,6 +9,7 @@
     <ContentPage.BindingContext>
         <model:EquipmentsViewModel/>
     </ContentPage.BindingContext>
+    
     <ContentPage.Resources>
         
         <ResourceDictionary xmlns:local="clr-namespace:InventoryManagerMAUI.Commands">

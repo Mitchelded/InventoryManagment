@@ -6,7 +6,7 @@ public class OrderDetail
     public int OrderID { get; set; }
     public int EquipmentID { get; set; }
     public int Quantity { get; set; }
-    public string Notes { get; set; }
+    public string? Notes { get; set; }
 
     public virtual Order Order { get; set; }
     public virtual Equipment Equipment { get; set; }

@@ -17,12 +17,7 @@ public partial class InventoryView : ContentPage
     {
         using InventoryManagmentEntities db = new();
     
-        foreach (var equipment in db.Equipments.ToList())
-        {
-            equipment.Photo = await LoadImageAsync(); // Await the Task to get byte[]
-        }
 
-        await db.SaveChangesAsync(); // Use the async version for saving
     }
 
     

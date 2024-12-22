@@ -113,21 +113,24 @@ namespace InventoryManagment.Models
                 .WithMany(u => u.UtilizationRecords)
                 .HasForeignKey(ur => ur.UserID);
         }
-
-        public DbSet<User> Users { get; set; }
-        public DbSet<Role> Roles { get; set; }
-        public DbSet<UserRole> UserRoles { get; set; }
+        
         public DbSet<Category> Category { get; set; }
-        public DbSet<Status> Statuses { get; set; }
-        public DbSet<Equipment> Equipments { get; set; }
-        public DbSet<Supplier> Suppliers { get; set; }
-        public DbSet<Warehouse> Warehouses { get; set; }
-        public DbSet<Stock> Stocks { get; set; }
-        public DbSet<Transaction> Transactions { get; set; }
-        public DbSet<Department> Departments { get; set; }
-        public DbSet<Maintenance> Maintenances { get; set; }
-        public DbSet<EquipmentMovement> EquipmentMovements { get; set; }  // Добавлена таблица для движения оборудования
-        public DbSet<UtilizationRecord> UtilizationRecords { get; set; }
-
+         public DbSet<Department> Departments { get; set; }
+          public DbSet<Equipment> Equipments { get; set; }
+         public DbSet<EquipmentMovement> EquipmentMovements { get; set; }  // Добавлена таблица для движения оборудования
+         public DbSet<Maintenance> Maintenances { get; set; }
+         public DbSet<Order> Orders { get; set; }
+         public DbSet<OrderDetail> OrderDetails { get; set; }
+          public DbSet<Role> Roles { get; set; }
+         public DbSet<Status> Statuses { get; set; }
+         public DbSet<Stock> Stocks { get; set; }
+         public DbSet<Supplier> Suppliers { get; set; }
+          public DbSet<Transaction> Transactions { get; set; }
+         public DbSet<User> Users { get; set; }
+         public DbSet<UserRole> UserRoles { get; set; }
+          public DbSet<UtilizationRecord> UtilizationRecords { get; set; }
+         public DbSet<Warehouse> Warehouses { get; set; }
+         public DbSet<WarrantyClaim> WarrantyClaims { get; set; }
+         
     }
 }

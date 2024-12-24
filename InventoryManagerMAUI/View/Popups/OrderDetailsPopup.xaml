@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="InventoryManagerMAUI.ViewModels.Popups.OrderDetailsPopup"
+               CanBeDismissedByTappingOutsideOfPopup="False">
+    <ScrollView MaximumWidthRequest="500" MaximumHeightRequest="550">
+        <VerticalStackLayout>
+            <HorizontalStackLayout>
+                <Label TextColor="{StaticResource White}" Text="Order Details"/>
+            </HorizontalStackLayout>
+            <HorizontalStackLayout>
+                <VerticalStackLayout>
+                        <Label TextColor="{StaticResource White}" Text="Customer Information"/>
+                    <HorizontalStackLayout>
+                        <Label TextColor="{StaticResource White}" Text="Name:"/> 
+                        <Label TextColor="{StaticResource White}" Text="{Binding SelectedItem.Order.User.FullName}"/> 
+                    </HorizontalStackLayout>
+                    <HorizontalStackLayout>
+                        <Label TextColor="{StaticResource White}" Text="Email:"/>
+                        <Label TextColor="{StaticResource White}" Text="{Binding SelectedItem.Order.User.Email}"/>
+                    </HorizontalStackLayout>
+                    
+                    <!-- Customer Information -->
+                    <!-- Name: John Doe -->
+                    <!-- Email: john.doe@example.com -->
+                    <!-- Phone: (555) 123-4567 -->
+                </VerticalStackLayout>
+                <VerticalStackLayout>
+                    <!-- Shipping Address -->
+                    <!-- 123 Main Street -->
+                    <!-- Apt 4B -->
+                    <!-- New York, NY 10001 -->
+                </VerticalStackLayout>
+            </HorizontalStackLayout>
+            <Label TextColor="{StaticResource White}" Text="Order Items"/>
+            <ListView ItemsSource="{Binding OrderDetails}"
+                      SelectedItem="{Binding BindingContext.SelectedItem2, 
+                        Source={RelativeSource AncestorType={x:Type ContentPage}}, Mode=TwoWay}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <HorizontalStackLayout>
+                                <Label Text="{Binding Equipment.Name}"/>
+                                <Label Text="{Binding Quantity}"/>
+                                <Label Text="{Binding Equipment.Cost}"/>
+                                <Label Text="{Binding Cost}"/>
+                            </HorizontalStackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <HorizontalStackLayout>
+                <Button Text="Cancel" Style="{StaticResource SecondaryButtonStyle}" Clicked="CloseButton_OnClicked"/>
+                <Button Text="Print Order" Style="{StaticResource PrimaryButtonStyle}"/>
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
+    
+</toolkit:Popup>

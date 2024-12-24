@@ -6,6 +6,9 @@ public class OrderDetail
     public int OrderID { get; set; }
     public int EquipmentID { get; set; }
     public int Quantity { get; set; }
+
+    public decimal? Cost => Equipment != null ? Quantity * Equipment.Cost : 0;
+
     public string? Notes { get; set; }
 
     public virtual Order Order { get; set; }

@@ -49,7 +49,7 @@
                     <Label Text="Manage and track all orders in one place" FontSize="14" TextColor="Gray" />
                 </StackLayout>
 
-                <Button Text="New Order" BackgroundColor="{DynamicResource Secondary}" TextColor="White" />
+                <Button Text="New Order!!" BackgroundColor="{DynamicResource Secondary}" TextColor="White" x:Name="AddOrderButton" Clicked="AddOrderButton_OnClicked"/>
 
                 <!-- Filters -->
                 <Grid ColumnSpacing="10" RowSpacing="10">
@@ -59,9 +59,9 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <Picker Title="All Statuses" Grid.Column="0" />
-                    <DatePicker Grid.Column="1" />
-                    <Entry Placeholder="Search customer..." Grid.Column="2" />
+                    <DatePicker Grid.Column="0" Date="{Binding StartDate, Mode=TwoWay}"/>
+                    <DatePicker Grid.Column="1" Date="{Binding EndDate, Mode=TwoWay}"/>
+                    <Entry Placeholder="Search customer..." Grid.Column="2" Text="{Binding FilterName}" />
                 </Grid>
 
                 <!-- Orders Table -->
@@ -79,7 +79,9 @@
                                     <Label Text="{Binding Order.TotalCost}" Grid.Column="3" TextColor="{StaticResource White}" />
                                     
                                     
-                                        <Button Style="{StaticResource PrimaryButtonStyle}" Text="👁"/>
+                                        <Button Style="{StaticResource PrimaryButtonStyle}" Text="👁" Clicked="ViewDetailBtn_OnClicked" x:Name="ViewDetailBtn"
+                                                Command="{Binding BindingContext.DetailCommand, 
+                                                Source={RelativeSource AncestorType={x:Type ContentPage}}}"/>
                                         <Button Style="{StaticResource SuccessButtonStyle}" Text="✔"/>
                                         <Button Style="{StaticResource DangerButtonStyle}" Text="Delete"
                                                 Command="{Binding BindingContext.DeleteCommand, 
@@ -92,6 +94,7 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
+                
             </StackLayout>
         </Grid>
 </ContentPage>

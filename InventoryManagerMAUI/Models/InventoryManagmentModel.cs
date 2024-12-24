@@ -28,10 +28,14 @@ namespace InventoryManagment.Models
                 {
                     System.Console.WriteLine($"SQL файл не найден: {filePath}");
                 }
+                else
+                {
+                    string sqlScript = File.ReadAllText(filePath);
 
-                string sqlScript = File.ReadAllText(filePath);
+                    Database.ExecuteSqlRawAsync(sqlScript);
+                }
 
-                Database.ExecuteSqlRawAsync(sqlScript);
+                
                 SaveChanges();
             }
 

@@ -9,7 +9,7 @@
         <Grid ColumnDefinitions="*,*" RowDefinitions="2*,2*,*,5*,*,*">
             <VerticalStackLayout Grid.Column="0" Grid.Row="0" Margin="10">
                 <Label Text="Customer Name"/>
-                <Entry />
+                <Entry Text="{Binding}"/>
             </VerticalStackLayout>
             <VerticalStackLayout Grid.Column="1"  Grid.Row="0"  Margin="10">
                 <Label Text="Email"/>
@@ -21,7 +21,7 @@
             </VerticalStackLayout>
             <VerticalStackLayout Grid.Row="3" Grid.ColumnSpan="2" Margin="10">
                 <Label Text="Products"/>
-                <ListView x:Name="listView" ItemsSource="{Binding Products}">
+                <ListView x:Name="listView" ItemsSource="{Binding Products}" HorizontalOptions="Fill">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>

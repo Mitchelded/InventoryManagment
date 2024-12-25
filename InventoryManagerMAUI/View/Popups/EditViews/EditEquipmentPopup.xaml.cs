@@ -3,7 +3,7 @@ using InventoryManagerMAUI.Interface;
 using System.Runtime.CompilerServices;
 using InventoryManagerMAUI.ViewModels.ViewModel;
 
-namespace InventoryManagerMAUI.ViewModels.Popups;
+namespace InventoryManagerMAUI.ViewModels.Popups.EditViews;
 
 public partial class EditEquipmentPopup : Popup
 {

@@ -40,6 +40,63 @@ namespace InventoryManagment.Models
             }
 
         }
+        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        {
+            UpdateOrderTotalCosts();
+            return await base.SaveChangesAsync(cancellationToken);
+        }
+
+        public override int SaveChanges()
+        {
+            UpdateOrderTotalCosts();
+            return base.SaveChanges();
+        }
+
+        private void UpdateOrderTotalCosts()
+        {
+            // Получить все измененные записи OrderDetail
+            var updatedOrderIds = ChangeTracker.Entries<OrderDetail>()
+                .Where(e => e.State == EntityState.Added || e.State == EntityState.Modified || e.State == EntityState.Deleted)
+                .Select(e => e.Entity.OrderID)
+                .Distinct()
+                .ToList();
+
+            // Получить все измененные записи Equipment
+            var updatedEquipmentIds = ChangeTracker.Entries<Equipment>()
+                .Where(e => e.State == EntityState.Modified)
+                .Select(e => e.Entity.EquipmentID)
+                .Distinct()
+                .ToList();
+
+            if (updatedEquipmentIds.Any())
+            {
+                // Добавить затронутые заказы из OrderDetails, связанных с изменённым Equipment
+                var affectedOrderIds = OrderDetails
+                    .Where(od => updatedEquipmentIds.Contains(od.EquipmentID))
+                    .Select(od => od.OrderID)
+                    .Distinct()
+                    .ToList();
+
+                updatedOrderIds.AddRange(affectedOrderIds);
+            }
+
+            // Удалить дубликаты ID заказов
+            updatedOrderIds = updatedOrderIds.Distinct().ToList();
+
+            // Пересчитать TotalCost для затронутых заказов
+            foreach (var orderId in updatedOrderIds)
+            {
+                var order = Orders.Include(o => o.OrderDetails)
+                    .ThenInclude(od => od.Equipment)
+                    .FirstOrDefault(o => o.OrderID == orderId);
+
+                if (order != null)
+                {
+                    order.TotalCost = (decimal)order.OrderDetails.Sum(od => od.Quantity * od.Equipment.Cost);
+                }
+            }
+        }
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

@@ -28,5 +28,10 @@ namespace InventoryManagerMAUI
         {
             Navigation.PushAsync(new OrdersManagementView());
         }
+
+        private void EquipmentMovementView_OnClicked(object? sender, EventArgs e)
+        {
+            Navigation.PushAsync(new EquipmentMovementView());
+        }
     }
 }

@@ -10,22 +10,22 @@ using InventoryManagerMAUI.ViewModels.Popups.DetailViews;
 
 namespace InventoryManagerMAUI.View;
 
-public partial class OrdersManagementView : ContentPage
+public partial class EquipmentMovementView : ContentPage
 {
-    public OrdersManagementView()
+    public EquipmentMovementView()
     {
         InitializeComponent();
     }
 
-    private void ViewDetailBtn_OnClicked(object? sender, EventArgs e)
+    private void AddMovementButton_OnClicked(object? sender, EventArgs e)
     {
-        var popup = new OrderDetailsPopup(BindingContext as OrderDetail);
+        var popup = new AddEquipmentMovementPopup(BindingContext as EquipmentMovement);
         this.ShowPopupAsync(popup);
     }
 
-    private void AddOrderButton_OnClicked(object? sender, EventArgs e)
+    private void ViewDetailBtn_OnClicked(object? sender, EventArgs e)
     {
-        var popup = new AddOrderPopup(BindingContext as OrderDetail);
+        var popup = new MovementDetailsPopup(BindingContext as EquipmentMovement);
         this.ShowPopupAsync(popup);
     }
 }

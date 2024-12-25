@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="InventoryManagerMAUI.ViewModels.Popups.DetailViews.MovementDetailsPopup"
+               CanBeDismissedByTappingOutsideOfPopup="False">
+    <ScrollView MaximumWidthRequest="500" MaximumHeightRequest="550">
+        <VerticalStackLayout>
+            <HorizontalStackLayout>
+                <Label TextColor="{StaticResource White}" Text="Movement Details"/>
+            </HorizontalStackLayout>
+            <HorizontalStackLayout>
+                <VerticalStackLayout>
+                    <HorizontalStackLayout>
+                        <Label TextColor="{StaticResource White}" Text="Movement ID:"/>
+                        <Label TextColor="{StaticResource White}" Text="{Binding SelectedItem.EquipmentMovementID}"/>
+                    </HorizontalStackLayout>
+                    <HorizontalStackLayout>
+                        <Label TextColor="{StaticResource White}" Text="Equipment:"/>
+                        <Label TextColor="{StaticResource White}" Text="{Binding SelectedItem.Equipment.Name}"/>
+                    </HorizontalStackLayout>
+                    <HorizontalStackLayout>
+                        <Label TextColor="{StaticResource White}" Text="From Location:"/>
+                        <Label TextColor="{StaticResource White}" Text="{Binding SelectedItem.SourceWarehouse.Name}"/>
+                    </HorizontalStackLayout>
+                    <HorizontalStackLayout>
+                        <Label TextColor="{StaticResource White}" Text="To Location:"/>
+                        <Label TextColor="{StaticResource White}" Text="{Binding SelectedItem.DestinationWarehouse.Name}"/>
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+                <VerticalStackLayout>
+                    <HorizontalStackLayout>
+                        <Label TextColor="{StaticResource White}" Text="Requested Date:"/>
+                        <Label TextColor="{StaticResource White}" Text="{Binding MovementDate}"/>
+                    </HorizontalStackLayout>
+                    <!-- Requested Date: 2023-06-20 -->
+                    <!-- Status: In Transit -->
+                </VerticalStackLayout>
+            </HorizontalStackLayout>
+            <Label TextColor="{StaticResource White}" Text="Reason for Movement"/>
+            <Label TextColor="{StaticResource White}" Text="{Binding ReasonForMovement}"/>
+            <HorizontalStackLayout>
+                <Button Text="Cancel" Style="{StaticResource SecondaryButtonStyle}" Clicked="CloseButton_OnClicked"/>
+                <Button Text="Print Order" Style="{StaticResource PrimaryButtonStyle}"/>
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
+    
+</toolkit:Popup>

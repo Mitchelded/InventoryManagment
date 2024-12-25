@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"  
              xmlns:model="clr-namespace:InventoryManagerMAUI.ViewModels.ViewModel"
-             x:Class="InventoryManagerMAUI.View.OrdersManagementView">
-    <ContentPage.Resources>
+             x:Class="InventoryManagerMAUI.View.EquipmentMovementView">
+        <ContentPage.Resources>
         <Style x:Key="SidebarButtonStyle" TargetType="Button">
             <Setter Property="BackgroundColor" Value="{DynamicResource Primary}" />
             <Setter Property="TextColor" Value="White" />
@@ -22,7 +22,7 @@
     </ContentPage.Resources>
 
     <ContentPage.BindingContext>
-        <model:OrdersManagementViewModel />
+        <model:EquipmentMovementViewModel />
     </ContentPage.BindingContext>
 
 
@@ -45,11 +45,13 @@
             <!-- Main Content -->
             <StackLayout Grid.Column="1" BackgroundColor="{DynamicResource Background}" Padding="20" Spacing="20">
                 <StackLayout>
-                    <Label Text="Orders Management" FontSize="24" FontAttributes="Bold" />
-                    <Label Text="Manage and track all orders in one place" FontSize="14" TextColor="Gray" />
+                    <Label Text="Equipment Movement" FontSize="24" FontAttributes="Bold" />
+                    <Label Text="Track and manage equipment transfers between locations" FontSize="14" TextColor="Gray" />
                 </StackLayout>
 
-                <Button Text="New Order!!" BackgroundColor="{DynamicResource Secondary}" TextColor="White" x:Name="AddOrderButton" Clicked="AddOrderButton_OnClicked"/>
+                <Button Text="New Movement" BackgroundColor="{DynamicResource Secondary}" TextColor="White" 
+                        x:Name="AddMovementButton" 
+                        Clicked="AddMovementButton_OnClicked"/>
 
                 <!-- Filters -->
                 <Grid ColumnSpacing="10" RowSpacing="10">
@@ -58,10 +60,14 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <DatePicker Grid.Column="0" Date="{Binding StartDate, Mode=TwoWay}"/>
-                    <DatePicker Grid.Column="1" Date="{Binding EndDate, Mode=TwoWay}"/>
-                    <Entry Placeholder="Search customer..." Grid.Column="2" Text="{Binding FilterName}" />
+                    </Grid.ColumnDefinitions> 
+                    <Entry Placeholder="Search by equipment name" 
+                           Grid.Column="2" 
+                           Text="{Binding FilterName}" />
+                    <HorizontalStackLayout Grid.Column="3">
+                        <Button Text="Сброс" x:Name="BtnReset" Command="{Binding ResetCommand}"
+                                Style="{StaticResource DangerButtonStyle}" />
+                    </HorizontalStackLayout>
                 </Grid>
 
                 <!-- Orders Table -->
@@ -73,15 +79,15 @@
                             <ViewCell>
                                 <HorizontalStackLayout>
 
-                                    <Label Text="{Binding OrderID}" Grid.Column="0" TextColor="{StaticResource White}"/>
-                                    <Label Text="{Binding Order.CustomerName}" Grid.Column="1" TextColor="{StaticResource White}" />
-                                    <Label Text="{Binding Order.OrderDate}" Grid.Column="2" TextColor="{StaticResource White}" />
-                                    <Label Text="{Binding Order.TotalCost}" Grid.Column="3" TextColor="{StaticResource White}" />
+                                    <Label Text="{Binding EquipmentMovementID}" Grid.Column="0" TextColor="{StaticResource White}"/>
+                                    <Label Text="{Binding Equipment.Name}" Grid.Column="1" TextColor="{StaticResource White}" />
+                                    <Label Text="{Binding SourceWarehouse.Name}" Grid.Column="2" TextColor="{StaticResource White}" />
+                                    <Label Text="{Binding DestinationWarehouse.Name}" Grid.Column="3" TextColor="{StaticResource White}" />
+                                    <Label Text="{Binding MovementDate}" Grid.Column="3" TextColor="{StaticResource White}" />
                                     
                                     
-                                        <Button Style="{StaticResource PrimaryButtonStyle}" Text="👁" Clicked="ViewDetailBtn_OnClicked" x:Name="ViewDetailBtn"
-                                                Command="{Binding BindingContext.DetailCommand, 
-                                                Source={RelativeSource AncestorType={x:Type ContentPage}}}"/>
+                                        <Button Style="{StaticResource PrimaryButtonStyle}" Text="👁" 
+                                                Clicked="ViewDetailBtn_OnClicked" x:Name="ViewDetailBtn"/>
                                         <Button Style="{StaticResource SuccessButtonStyle}" Text="✔"/>
                                         <Button Style="{StaticResource DangerButtonStyle}" Text="Delete"
                                                 Command="{Binding BindingContext.DeleteCommand, 

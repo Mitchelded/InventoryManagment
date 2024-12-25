@@ -1,6 +1,8 @@
 ﻿using CommunityToolkit.Maui.Views;
 using InventoryManagerMAUI.ViewModels;
 using InventoryManagerMAUI.ViewModels.Popups;
+using InventoryManagerMAUI.ViewModels.Popups.AddViews;
+using InventoryManagerMAUI.ViewModels.Popups.EditViews;
 using InventoryManagerMAUI.ViewModels.ViewModel;
 
 namespace InventoryManagerMAUI.View;

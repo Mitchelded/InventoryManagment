@@ -1,5 +1,4 @@
 ﻿namespace InventoryManagment.Models.Entities;
-
 public class EquipmentMovement
 {
     public int EquipmentMovementID { get; set; }
@@ -9,7 +8,6 @@ public class EquipmentMovement
     public int? UserID { get; set; }  // Сотрудник, который осуществил перемещение
     public DateTime MovementDate { get; set; }
     public string MovementType { get; set; }  // Тип движения, например: "Поступление", "Выдача", "Перемещение"
-    public int Quantity { get; set; }  // Количество перемещаемого оборудования
     public string Notes { get; set; }  // Примечания
 
     public virtual Equipment Equipment { get; set; }

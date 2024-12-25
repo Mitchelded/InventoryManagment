@@ -3,13 +3,13 @@ using InventoryManagerMAUI.Interface;
 using System.Runtime.CompilerServices;
 using InventoryManagerMAUI.ViewModels.ViewModel;
 
-namespace InventoryManagerMAUI.ViewModels.Popups;
+namespace InventoryManagerMAUI.ViewModels.Popups.AddViews;
 
-public partial class AddEquipmentPopup : Popup
+public partial class AddEquipmentMovementPopup : Popup
 {
-	private readonly EquipmentsViewModel _viewModel;
-	private Equipment _editEquipment;
-	public AddEquipmentPopup(EquipmentsViewModel viewModel, Equipment editEquipment = null)
+	private readonly EquipmentMovement? _viewModel;
+	private EquipmentMovement _editEquipment;
+	public AddEquipmentMovementPopup(EquipmentMovement? viewModel, EquipmentMovement editEquipment = null)
 	{
 		_viewModel = viewModel;
 		_editEquipment = editEquipment;

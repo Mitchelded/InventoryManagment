@@ -1,5 +1,5 @@
 ﻿namespace InventoryManagment.Models.Entities;
-
+// TODO: Реализовать 
 public class Maintenance
 {
     public int MaintenanceID { get; set; }

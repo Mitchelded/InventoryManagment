@@ -2,12 +2,12 @@ using CommunityToolkit.Maui.Views;
 using InventoryManagerMAUI.Interface;
 using System.Runtime.CompilerServices;
 
-namespace InventoryManagerMAUI.ViewModels.Popups;
+namespace InventoryManagerMAUI.ViewModels.Popups.DetailViews;
 
-public partial class OrderDetailsPopup : Popup
+public partial class MovementDetailsPopup : Popup
 {
-	private OrderDetail? _viewModel;
-	public OrderDetailsPopup(OrderDetail? viewModel)
+	private EquipmentMovement? _viewModel;
+	public MovementDetailsPopup(EquipmentMovement? viewModel)
 	{
 		InitializeComponent();
 		_viewModel = viewModel;

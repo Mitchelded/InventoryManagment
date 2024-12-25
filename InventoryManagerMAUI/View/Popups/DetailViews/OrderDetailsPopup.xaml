@@ -2,7 +2,7 @@
 <toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             x:Class="InventoryManagerMAUI.ViewModels.Popups.OrderDetailsPopup"
+             x:Class="InventoryManagerMAUI.ViewModels.Popups.DetailViews.OrderDetailsPopup"
                CanBeDismissedByTappingOutsideOfPopup="False">
     <ScrollView MaximumWidthRequest="500" MaximumHeightRequest="550">
         <VerticalStackLayout>
@@ -14,7 +14,8 @@
                         <Label TextColor="{StaticResource White}" Text="Customer Information"/>
                     <HorizontalStackLayout>
                         <Label TextColor="{StaticResource White}" Text="Name:"/> 
-                        <Label TextColor="{StaticResource White}" Text="{Binding SelectedItem.Order.User.FullName}"/> 
+                        <Label TextColor="{StaticResource White}" 
+                               Text="{Binding SelectedItem.Order.User.FullName}"/> 
                     </HorizontalStackLayout>
                     <HorizontalStackLayout>
                         <Label TextColor="{StaticResource White}" Text="Email:"/>

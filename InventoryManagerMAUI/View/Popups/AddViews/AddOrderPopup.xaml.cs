@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 
-namespace InventoryManagerMAUI.ViewModels.Popups;
+namespace InventoryManagerMAUI.ViewModels.Popups.AddViews;
 
 public partial class AddOrderPopup : Popup
 {

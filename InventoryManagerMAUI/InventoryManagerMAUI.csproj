@@ -86,19 +86,27 @@
 	    <SubType>Designer</SubType>
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="View\Popups\AddEquipmentPopup.xaml">
+	  <MauiXaml Update="View\Popups\AddViews\AddEquipmentMovementPopup.xaml">
 	    <SubType>Designer</SubType>
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="View\Popups\EditEquipmentPopup.xaml">
+	  <MauiXaml Update="View\Popups\AddViews\AddEquipmentPopup.xaml">
 	    <SubType>Designer</SubType>
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="View\Popups\OrderDetailsPopup.xaml">
+	  <MauiXaml Update="View\Popups\AddViews\AddOrderPopup.xaml">
 	    <SubType>Designer</SubType>
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="View\Popups\AddOrderPopup.xaml">
+	  <MauiXaml Update="View\Popups\EditViews\EditEquipmentPopup.xaml">
+	    <SubType>Designer</SubType>
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\Popups\DetailViews\MovementDetailsPopup.xaml">
+	    <SubType>Designer</SubType>
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\Popups\DetailViews\OrderDetailsPopup.xaml">
 	    <SubType>Designer</SubType>
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -116,20 +124,28 @@
 	    <DependentUpon>BasePopup.xaml</DependentUpon>
 	    <SubType>Code</SubType>
 	  </Compile>
-	  <Compile Update="View\Popups\AddEquipmentPopup.xaml.cs">
+	  <Compile Update="View\Popups\AddViews\AddEquipmentMovementPopup.xaml.cs">
+	    <DependentUpon>AddEquipmentMovementPopup.xaml</DependentUpon>
+	    <SubType>Code</SubType>
+	  </Compile>
+	  <Compile Update="View\Popups\AddViews\AddEquipmentPopup.xaml.cs">
 	    <DependentUpon>AddEquipmentPopup.xaml</DependentUpon>
 	    <SubType>Code</SubType>
 	  </Compile>
-	  <Compile Update="View\Popups\EditEquipmentPopup.xaml.cs">
+	  <Compile Update="View\Popups\AddViews\AddOrderPopup.xaml.cs">
+	    <DependentUpon>AddOrderPopup.xaml</DependentUpon>
+	    <SubType>Code</SubType>
+	  </Compile>
+	  <Compile Update="View\Popups\EditViews\EditEquipmentPopup.xaml.cs">
 	    <DependentUpon>EditEquipmentPopup.xaml</DependentUpon>
 	    <SubType>Code</SubType>
 	  </Compile>
-	  <Compile Update="View\Popups\OrderDetailsPopup.xaml.cs">
-	    <DependentUpon>OrderDetailsPopup.xaml</DependentUpon>
+	  <Compile Update="View\Popups\DetailViews\MovementDetailsPopup.xaml.cs">
+	    <DependentUpon>MovementDetailsPopup.xaml</DependentUpon>
 	    <SubType>Code</SubType>
 	  </Compile>
-	  <Compile Update="View\Popups\AddOrderPopup.xaml.cs">
-	    <DependentUpon>AddOrderPopup.xaml</DependentUpon>
+	  <Compile Update="View\Popups\DetailViews\OrderDetailsPopup.xaml.cs">
+	    <DependentUpon>OrderDetailsPopup.xaml</DependentUpon>
 	    <SubType>Code</SubType>
 	  </Compile>
 	</ItemGroup>

@@ -50,12 +50,7 @@ public class ViewModelBase<T> : INotifyPropertyChanged where T : class
 		using InventoryManagmentEntities _db = new();
 		Collection.Clear();
 		await _db.Set<T>()
-			.Include("Stocks")
-			.Include("Supplier")
-			.Include("Category")
-			.Include("Status")
-			.Include("EquipmentMovements")
-			.Include("UtilizationRecords")
+
 			.LoadAsync();
 		foreach (var item in _db.Set<T>().Local)
 		{

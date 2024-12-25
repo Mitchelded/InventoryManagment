@@ -269,7 +269,7 @@ public class EquipmentsViewModel : ViewModelBase<Equipment>
 			"Purchase Date" => filtered.OrderBy(e => e.PurchaseDate).ToList(),
 			"Warranty Expiration" => filtered.OrderBy(e => e.WarrantyExpiration).ToList(),
 			"Status" => filtered.OrderBy(e => e.Status.Name).ToList(),
-			"Supplier" => filtered.OrderBy(e => e.Supplier.Name).ToList(),
+			"Supplier" => filtered.OrderBy(e => e.Supplier.CompanyName).ToList(),
 			_ => filtered // Если ничего не выбрано, оставляем как есть
 		};
 		

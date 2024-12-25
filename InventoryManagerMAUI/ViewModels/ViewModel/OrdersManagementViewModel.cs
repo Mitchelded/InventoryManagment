@@ -8,12 +8,75 @@ namespace InventoryManagerMAUI.ViewModels.ViewModel;
 
 public class OrdersManagementViewModel : ViewModelBase<OrderDetail>
 {
+    private string _shippingAddress;
+    private string _notes;
+
+    public string Notes
+    {
+        get => _notes;
+        set
+        {
+            if (value == _notes) return;
+            _notes = value ?? throw new ArgumentNullException(nameof(value));
+            OnPropertyChanged(nameof(Notes));
+        }
+    }
+
+    public string ShippingAddress
+    {
+        get => _shippingAddress;
+        set
+        {
+            if (value == _shippingAddress) return;
+            _shippingAddress = value ?? throw new ArgumentNullException(nameof(value));
+            OnPropertyChanged(nameof(ShippingAddress));
+        }
+    }
+
+
     public ObservableCollection<ProductItem> Products { get; set; }
+    public List<OrderDetail> OrderDetailsToAdd = new();
     public ICommand AddProductCommand { get; }
     public ICommand DeleteProductCommand { get; }
+
     private void AddProduct()
     {
         Products.Add(new ProductItem());
+    }
+
+    public override void OnAdd(object obj)
+    {
+        using InventoryManagmentEntities _db = new();
+        List<Order> orders = new List<Order>();
+
+        var orderToAdd = new Order()
+        {
+            OrderDate = DateTime.Now,
+            ShippingAddress = ShippingAddress,
+            CustomerName = CustomerName,
+            // TODO: Добавить добавление текущего пользователя кто создал заказ. После добавления логина
+            UserID = 1,
+            Notes = Notes
+        };
+        _db.Orders.Add(orderToAdd);
+        _db.SaveChanges();
+        foreach (var product in Products)
+        {
+            if (product.Quantity > 0)
+            {
+                var orderDetail = new OrderDetail()
+                {
+                    EquipmentID = product.SelectedProduct.EquipmentID,
+                    Quantity = product.Quantity,
+                    OrderID = orderToAdd.OrderID, // Use the generated ID of the added order
+                };
+
+                // Add the order detail to the database
+                Collection.Add(orderDetail);
+                _db.OrderDetails.Add(orderDetail);
+                _db.SaveChanges();
+            }
+        }
     }
 
     private void DeleteProduct(ProductItem product)
@@ -21,8 +84,8 @@ public class OrdersManagementViewModel : ViewModelBase<OrderDetail>
         if (Products.Contains(product))
             Products.Remove(product);
     }
-    
-    
+
+
     private decimal _totalCost;
     private DateTime _orderDate;
     private string _fullName;
@@ -44,26 +107,25 @@ public class OrdersManagementViewModel : ViewModelBase<OrderDetail>
     }
 
 
-
-
     private int _orderId;
     private List<OrderDetail> _orderDetails = new();
     public ICommand DetailCommand { get; }
-    
+
     private DateTime _startDate;
     private DateTime _endDate;
 
     private string _filterName;
+
     public OrdersManagementViewModel()
     {
         DetailCommand = new Command(OrderFilter);
-        LoadEquipment();     
-        
+        LoadEquipment();
+
         Products = new ObservableCollection<ProductItem>();
         AddProductCommand = new Command(AddProduct);
         DeleteProductCommand = new Command<ProductItem>(DeleteProduct);
     }
-    
+
     private void LoadEquipment()
     {
         using InventoryManagmentEntities _db = new();
@@ -81,13 +143,13 @@ public class OrdersManagementViewModel : ViewModelBase<OrderDetail>
         List<OrderDetail> filtered;
 
         filtered = db.OrderDetails
-            .Include(e=>e.Equipment)
-            .Include(e=>e.Order)
-            .ThenInclude(e=>e.User)
-            .Where(e => 
+            .Include(e => e.Equipment)
+            .Include(e => e.Order)
+            .ThenInclude(e => e.User)
+            .Where(e =>
                 (e.Order.OrderDate >= StartDate) &&
-                 (e.Order.OrderDate <= EndDate) 
-                 && (string.IsNullOrEmpty(FilterName) || e.Order.User.FullName.Contains(FilterName)))
+                (e.Order.OrderDate <= EndDate)
+                && (string.IsNullOrEmpty(FilterName) || e.Order.User.FullName.Contains(FilterName)))
             .GroupBy(od => od.OrderID)
             .Select(g => g.First())
             .ToList();
@@ -96,7 +158,7 @@ public class OrdersManagementViewModel : ViewModelBase<OrderDetail>
         foreach (var item in filtered)
             Collection.Add(item);
     }
-    
+
     public List<OrderDetail> OrderDetails
     {
         get => _orderDetails;
@@ -105,30 +167,32 @@ public class OrdersManagementViewModel : ViewModelBase<OrderDetail>
             if (Equals(value, _orderDetails)) return;
             _orderDetails = value;
             OnPropertyChanged(nameof(OrderDetails));
-            
         }
     }
+
     void OrderFilter()
-    {   
+    {
         if (SelectedItem == null)
         {
             // Handle or log that SelectedItem is null
             return;
         }
+
         using InventoryManagmentEntities db = new();
         OrderDetails.Clear();
         db.OrderDetails
             .Include(u => u.Equipment) // Include Supplier navigation property
             .Include(u => u.Order) // Include Stocks navigation property
             .ThenInclude(s => s.User) // Then include Warehouse from Stock navigation property
-            .ThenInclude(s=>s.Department)
-            .Where(x=>x.OrderID == SelectedItem.OrderID)
+            .ThenInclude(s => s.Department)
+            .Where(x => x.OrderID == SelectedItem.OrderID)
             .Load(); // Asynchronous load of the query
         foreach (var item in db.OrderDetails.Local)
         {
             OrderDetails.Add(item);
         }
-        OnPropertyChanged(nameof(OrderDetails));   
+
+        OnPropertyChanged(nameof(OrderDetails));
     }
 
 
@@ -140,7 +204,7 @@ public class OrdersManagementViewModel : ViewModelBase<OrderDetail>
             .Include(u => u.Equipment) // Include Supplier navigation property
             .Include(u => u.Order) // Include Stocks navigation property
             .ThenInclude(s => s.User) // Then include Warehouse from Stock navigation property
-            .ThenInclude(s=>s.Department)
+            .ThenInclude(s => s.Department)
             .GroupBy(od => od.OrderID)
             .Select(g => g.First())
             .LoadAsync(); // Asynchronous load of the query
@@ -148,9 +212,10 @@ public class OrdersManagementViewModel : ViewModelBase<OrderDetail>
         {
             Collection.Add(item);
         }
+
         OnPropertyChanged(nameof(Collection));
     }
-    
+
     public string CustomerName
     {
         get => _customerName;
@@ -185,6 +250,7 @@ public class OrdersManagementViewModel : ViewModelBase<OrderDetail>
             ApplyFilter();
         }
     }
+
     public string CustomerEmail
     {
         get => _customerEmail;
@@ -195,6 +261,7 @@ public class OrdersManagementViewModel : ViewModelBase<OrderDetail>
             OnPropertyChanged(nameof(CustomerEmail));
         }
     }
+
     public decimal TotalCost
     {
         get => _totalCost;
@@ -203,7 +270,6 @@ public class OrdersManagementViewModel : ViewModelBase<OrderDetail>
             if (value == _totalCost) return;
             _totalCost = value;
             OnPropertyChanged(nameof(TotalCost));
-           
         }
     }
 
@@ -217,7 +283,7 @@ public class OrdersManagementViewModel : ViewModelBase<OrderDetail>
             OnPropertyChanged(nameof(OrderDate));
         }
     }
-   
+
 
     public string FilterName
     {
@@ -230,6 +296,7 @@ public class OrdersManagementViewModel : ViewModelBase<OrderDetail>
             ApplyFilter();
         }
     }
+
     public string FullName
     {
         get => _fullName;
@@ -251,8 +318,8 @@ public class OrdersManagementViewModel : ViewModelBase<OrderDetail>
             OnPropertyChanged(nameof(OrderID));
         }
     }
-
 }
+
 public class ProductItem : INotifyPropertyChanged
 {
     private Equipment _selectedProduct;

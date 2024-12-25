@@ -110,6 +110,14 @@
 	    <SubType>Designer</SubType>
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="View\Popups\DetailViews\WarrantyClaimDetailsPopup.xaml">
+	    <SubType>Designer</SubType>
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\Popups\AddViews\AddWarrantyClaimPopup.xaml">
+	    <SubType>Designer</SubType>
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -146,6 +154,14 @@
 	  </Compile>
 	  <Compile Update="View\Popups\DetailViews\OrderDetailsPopup.xaml.cs">
 	    <DependentUpon>OrderDetailsPopup.xaml</DependentUpon>
+	    <SubType>Code</SubType>
+	  </Compile>
+	  <Compile Update="View\Popups\DetailViews\WarrantyClaimDetailsPopup.xaml.cs">
+	    <DependentUpon>WarrantyClaimDetailsPopup.xaml</DependentUpon>
+	    <SubType>Code</SubType>
+	  </Compile>
+	  <Compile Update="View\Popups\AddViews\AddWarrantyClaimPopup.xaml.cs">
+	    <DependentUpon>AddWarrantyClaimPopup.xaml</DependentUpon>
 	    <SubType>Code</SubType>
 	  </Compile>
 	</ItemGroup>

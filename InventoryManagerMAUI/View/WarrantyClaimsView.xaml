@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:model="clr-namespace:InventoryManagerMAUI.ViewModels.ViewModel"
+             x:Class="InventoryManagerMAUI.View.WarrantyClaimsView">
+        <ContentPage.Resources>
+        <Style x:Key="SidebarButtonStyle" TargetType="Button">
+            <Setter Property="BackgroundColor" Value="{DynamicResource Primary}" />
+            <Setter Property="TextColor" Value="White" />
+            <Setter Property="CornerRadius" Value="15" />
+            <Setter Property="FontAttributes" Value="Bold" />
+            <Setter Property="Margin" Value="5,0" />
+        </Style>
+        <Style x:Key="StatusBadgeStyle" TargetType="Label">
+            <Setter Property="Padding" Value="5,2" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="FontAttributes" Value="Bold" />
+            <Setter Property="HorizontalOptions" Value="Center" />
+            <Setter Property="VerticalOptions" Value="Center" />
+        </Style>
+    </ContentPage.Resources>
+
+    <ContentPage.BindingContext>
+        <model:WarrantyClaimsViewModel />
+    </ContentPage.BindingContext>
+
+
+        <Grid>
+            <!-- Sidebar -->
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="8*" />
+            </Grid.ColumnDefinitions>
+            <StackLayout BackgroundColor="{DynamicResource Primary}" Padding="20" Spacing="10">
+                <Label Text="Inventory Pro" FontSize="24" TextColor="White" />
+                <Button Text="Dashboard" Style="{StaticResource SidebarButtonStyle}" />
+                <Button Text="Inventory" Style="{StaticResource SidebarButtonStyle}" />
+                <Button Text="Orders" Style="{StaticResource SidebarButtonStyle}" />
+                <Button Text="Suppliers" Style="{StaticResource SidebarButtonStyle}" />
+                <Button Text="Reports" Style="{StaticResource SidebarButtonStyle}" />
+                <Button Text="Settings" Style="{StaticResource SidebarButtonStyle}" />
+            </StackLayout>
+
+            <!-- Main Content -->
+            <StackLayout Grid.Column="1" BackgroundColor="{DynamicResource Background}" Padding="20" Spacing="20">
+                <StackLayout>
+                    <Label Text="Orders Management" FontSize="24" FontAttributes="Bold" />
+                    <Label Text="Manage and track all orders in one place" FontSize="14" TextColor="Gray" />
+                </StackLayout>
+
+                <Button Text="New Order!!" BackgroundColor="{DynamicResource Secondary}" TextColor="White" x:Name="AddOrderButton" 
+                        Clicked="AddWarrantyButton_OnClicked"/>
+
+                <!-- Filters -->
+                <Grid ColumnSpacing="10" RowSpacing="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Picker Title="Stock Status" Grid.Column="0" 
+                            ItemsSource="{Binding Status}"
+                            ItemDisplayBinding="{Binding Name}"
+                            SelectedItem="{Binding SelectedFilterStatus}">
+                    </Picker>
+                    <DatePicker Grid.Column="1" Date="{Binding StartDate, Mode=TwoWay}"/>
+                    <DatePicker Grid.Column="2" Date="{Binding EndDate, Mode=TwoWay}"/>
+                    <Entry Placeholder="Search customer..." Grid.Column="3" Text="{Binding FilterName}" />
+                </Grid>
+
+                <!-- Orders Table -->
+                <ListView ItemsSource="{Binding Collection}"
+                          SelectedItem="{Binding BindingContext.SelectedItem, 
+                        Source={RelativeSource AncestorType={x:Type ContentPage}}, Mode=TwoWay}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <HorizontalStackLayout>
+                                    <Label Text="{Binding WarrantyClaimID}" Grid.Column="0" TextColor="{StaticResource White}"/>
+                                    <Label Text="{Binding ClaimDate}" Grid.Column="1" TextColor="{StaticResource White}" />
+                                    <Label Text="{Binding Equipment.Name}" Grid.Column="2" TextColor="{StaticResource White}" />
+                                    <Label Text="{Binding Equipment.SerialNumber}" Grid.Column="3" TextColor="{StaticResource White}" />
+                                    <Label Text="{Binding IssueDescription}" Grid.Column="3" TextColor="{StaticResource White}" />
+                                    <Label Text="{Binding Resolution}" Grid.Column="3" TextColor="{StaticResource White}" />
+                                    <Label Text="{Binding ResolutionDate}" Grid.Column="3" TextColor="{StaticResource White}" />
+                                    <Label Text="{Binding Status.Name}" Grid.Column="3" TextColor="{StaticResource White}" />
+                                        <Button Style="{StaticResource PrimaryButtonStyle}" Text="👁" 
+                                                Clicked="ViewDetailBtn_OnClicked" x:Name="ViewDetailBtn"
+                                                Command="{Binding BindingContext.DetailCommand, 
+                                                Source={RelativeSource AncestorType={x:Type ContentPage}}}"/>
+                                        <Button Style="{StaticResource SuccessButtonStyle}" Text="✔"/>
+                                        <Button Style="{StaticResource DangerButtonStyle}" Text="Delete"
+                                                Command="{Binding BindingContext.DeleteCommand, 
+                                                Source={RelativeSource AncestorType={x:Type ContentPage}}}"
+                                                CommandParameter="{Binding BindingContext.SelectedItem, 
+                                                Source={RelativeSource AncestorType={x:Type ContentPage}}, Mode=TwoWay}" />
+                                    
+                                </HorizontalStackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                
+            </StackLayout>
+        </Grid>
+</ContentPage>

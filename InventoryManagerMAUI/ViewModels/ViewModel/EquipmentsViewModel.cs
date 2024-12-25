@@ -323,7 +323,7 @@ public class EquipmentsViewModel : ViewModelBase<Equipment>
 		_db.SaveChanges();
 	}
 	
-	public async override void LoadData()
+	public async override Task LoadData()
 	{
 		using InventoryManagmentEntities _db = new();
 		Collection.Clear();

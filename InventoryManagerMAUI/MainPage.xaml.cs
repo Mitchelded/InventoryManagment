@@ -33,5 +33,10 @@ namespace InventoryManagerMAUI
         {
             Navigation.PushAsync(new EquipmentMovementView());
         }
+
+        private void WarrantyClaimsView_OnClicked(object? sender, EventArgs e)
+        {
+            Navigation.PushAsync(new WarrantyClaimsView());
+        }
     }
 }

@@ -9,7 +9,7 @@
         <Button x:Name="DashboardView" Clicked="DashboardView_OnClicked"/>
         <Button x:Name="OrderView" Clicked="OrderView_OnClicked"/>
         <Button x:Name="EquipmentMovementView" Clicked="EquipmentMovementView_OnClicked"/>
-        <Button/>
+        <Button x:Name="WarrantyClaimsView" Clicked="WarrantyClaimsView_OnClicked"/>
     </VerticalStackLayout>
 
 </ContentPage>

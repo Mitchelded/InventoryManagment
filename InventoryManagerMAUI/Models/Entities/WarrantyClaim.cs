@@ -8,8 +8,9 @@ public class WarrantyClaim
     public string IssueDescription { get; set; }  // Описание проблемы
     public string Resolution { get; set; }  // Решение по заявке
     public DateTime? ResolutionDate { get; set; }  // Дата решения заявки (если применимо)
-    public string Status { get; set; }  // Статус заявки (например, "В процессе", "Завершено", "Отклонено")
+    public int StatusID { get; set; }  // Статус заявки (например, "В процессе", "Завершено", "Отклонено")
 
     // Связь с другими сущностями
     public virtual Equipment Equipment { get; set; }
+    public virtual Status Status { get; set; }
 }

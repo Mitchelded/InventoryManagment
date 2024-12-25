@@ -1,5 +1,5 @@
 ﻿namespace InventoryManagment.Models.Entities;
-// TODO: Реализовать 
+// TODO: Удалить
 public class UtilizationRecord
 {
     public int UtilizationRecordID { get; set; }

@@ -4,10 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace InventoryManagerMAUI.ViewModels.ViewModel;
 
-// TODO: Реализовать 
 public sealed class EquipmentMovementViewModel : ViewModelBase<EquipmentMovement>
 {
-    public override async void LoadData()
+    public override async Task LoadData()
     {
         using InventoryManagmentEntities _db = new();
         Collection.Clear();

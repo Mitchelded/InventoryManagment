@@ -45,7 +45,7 @@ public class ViewModelBase<T> : INotifyPropertyChanged where T : class
 		// Logic for adding a new item
 	}
 
-	public virtual async void LoadData()
+	public virtual async Task LoadData()
 	{
 		using InventoryManagmentEntities _db = new();
 		Collection.Clear();

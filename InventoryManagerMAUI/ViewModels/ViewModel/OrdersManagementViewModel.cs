@@ -196,7 +196,7 @@ public class OrdersManagementViewModel : ViewModelBase<OrderDetail>
     }
 
 
-    public async override void LoadData()
+    public async override Task LoadData()
     {
         using InventoryManagmentEntities db = new();
         Collection.Clear();

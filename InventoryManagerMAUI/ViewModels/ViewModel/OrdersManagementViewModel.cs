@@ -33,8 +33,117 @@ public class OrdersManagementViewModel : ViewModelBase<OrderDetail>
         }
     }
 
+    public override void OnUpdate(OrderDetail obj)
+{
+    using InventoryManagmentEntities _db = new();
+   
+
+    try
+    {
+        // Assume `obj` contains the OrderID to identify the order to update
+        int orderId = obj.OrderID;
+
+        // Retrieve the existing order
+        var existingOrder = _db.Orders.Include(o => o.OrderDetails)
+                                      .FirstOrDefault(o => o.OrderID == orderId);
+
+        if (existingOrder == null)
+        {
+            throw new Exception("Order not found.");
+        }
+
+        // Update order fields
+        existingOrder.ShippingAddress = ShippingAddress;
+        existingOrder.CustomerName = CustomerName;
+        existingOrder.Notes = Notes;
+        existingOrder.CustomerEmail = CustomerEmail;
+        // Update the order date to the current time (if needed)
+        existingOrder.OrderDate = DateTime.Now;
+
+        // TODO: Update the UserID if required (e.g., based on the logged-in user)
+        existingOrder.UserID = 1;
+
+        // Update or remove existing order details
+        foreach (var existingDetail in existingOrder.OrderDetails.ToList())
+        {
+            var updatedProduct = Products.FirstOrDefault(p => 
+                                p.SelectedProduct.EquipmentID == existingDetail.EquipmentID);
+
+            if (updatedProduct == null || updatedProduct.Quantity <= 0)
+            {
+                // Remove details that are no longer in the updated list
+                _db.OrderDetails.Remove(existingDetail);
+            }
+            else
+            {
+                // Update the quantity of existing details
+                existingDetail.Quantity = updatedProduct.Quantity;
+                Products.Remove(updatedProduct); // Remove from the list to handle remaining additions
+            }
+        }
+
+        // Add new order details for products not already in the order
+        foreach (var newProduct in ExistingProducts)
+        {
+            if (newProduct.Quantity > 0)
+            {
+                var newDetail = new OrderDetail()
+                {
+                    EquipmentID = newProduct.SelectedProduct.EquipmentID,
+                    Quantity = newProduct.Quantity,
+                    OrderID = existingOrder.OrderID,
+                    Notes = "q"
+                };
+
+                _db.OrderDetails.Add(newDetail);
+                Collection.Add(newDetail); // Add to the collection if used elsewhere
+            }
+        }
+
+        _db.SaveChanges(); // Save all changes
+       
+    }
+    catch (Exception ex)
+    {
+       
+        throw new Exception("An error occurred while updating the order and its details.", ex);
+    }
+}
 
     public ObservableCollection<ProductItem> Products { get; set; }
+
+    public ObservableCollection<ProductItem> ExistingProducts
+    {
+        get => _existingProducts;
+        set
+        {
+            if (Equals(value, _existingProducts)) return;
+            _existingProducts = value;
+            OnPropertyChanged(nameof(ExistingProducts));
+        }
+    }
+
+    public void LoadProduct()
+    {
+        using InventoryManagmentEntities _db = new();
+        // Load data from the database and populate the ObservableCollection
+        ExistingProducts.Clear();
+        var items = _db.OrderDetails
+            .Include(e=>e.Equipment)
+            .Include(e=>e.Order)
+            .Where(x=>x.OrderID == SelectedItem.OrderID)
+            .ToList();
+        foreach (var item in items)
+        {
+            ProductItem product = new()
+            {
+                Quantity = item.Quantity,
+                SelectedProduct = item.Equipment
+            };
+            ExistingProducts.Add(product);
+        }
+    }
+
     public List<OrderDetail> OrderDetailsToAdd = new();
     public ICommand AddProductCommand { get; }
     public ICommand DeleteProductCommand { get; }
@@ -54,6 +163,7 @@ public class OrdersManagementViewModel : ViewModelBase<OrderDetail>
             OrderDate = DateTime.Now,
             ShippingAddress = ShippingAddress,
             CustomerName = CustomerName,
+            CustomerEmail = CustomerEmail,
             // TODO: Добавить добавление текущего пользователя кто создал заказ. После добавления логина
             UserID = 1,
             Notes = Notes
@@ -115,12 +225,13 @@ public class OrdersManagementViewModel : ViewModelBase<OrderDetail>
     private DateTime _endDate;
 
     private string _filterName;
+    private ObservableCollection<ProductItem> _existingProducts = new();
 
     public OrdersManagementViewModel()
     {
         DetailCommand = new Command(OrderFilter);
         LoadEquipment();
-
+        
         Products = new ObservableCollection<ProductItem>();
         AddProductCommand = new Command(AddProduct);
         DeleteProductCommand = new Command<ProductItem>(DeleteProduct);
@@ -150,8 +261,6 @@ public class OrdersManagementViewModel : ViewModelBase<OrderDetail>
                 (e.Order.OrderDate >= StartDate) &&
                 (e.Order.OrderDate <= EndDate)
                 && (string.IsNullOrEmpty(FilterName) || e.Order.User.FullName.Contains(FilterName)))
-            .GroupBy(od => od.OrderID)
-            .Select(g => g.First())
             .ToList();
 
         Collection.Clear();
@@ -212,7 +321,8 @@ public class OrdersManagementViewModel : ViewModelBase<OrderDetail>
         {
             Collection.Add(item);
         }
-
+        // TODO: роверить работоспособность, может крашить
+        db.UpdateOrderTotalCosts();
         OnPropertyChanged(nameof(Collection));
     }
 

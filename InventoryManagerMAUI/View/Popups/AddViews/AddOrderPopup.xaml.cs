@@ -17,7 +17,10 @@ public partial class AddOrderPopup : Popup
         _viewModel = viewModel;
     }
 
-
+    private void CancelBtn_OnClicked(object? sender, EventArgs e)
+    {
+        Close();
+    }
     private void Button_Clicked(object sender, EventArgs e)
     {
         

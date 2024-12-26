@@ -55,7 +55,7 @@
             <Button Grid.Column="0" Grid.Row="4" Text="Add Product" Style="{StaticResource SecondaryButtonStyle}" 
                     Clicked="Button_Clicked" Command="{Binding BindingContext.AddProductCommand,Source={RelativeSource AncestorType={x:Type ContentPage}}}"/>
             <HorizontalStackLayout Grid.Column="1" Grid.Row="5" HorizontalOptions="End" VerticalOptions="Start">
-                <Button Text="Cancel" Style="{StaticResource SecondaryButtonStyle}"/>
+                <Button Text="Cancel" Style="{StaticResource SecondaryButtonStyle}" Clicked="CancelBtn_OnClicked"/>
                 <Button Text="Create" Style="{StaticResource PrimaryButtonStyle}"
                         Command="{Binding BindingContext.AddCommand, 
                         Source={RelativeSource AncestorType={x:Type ContentPage}}}"/>

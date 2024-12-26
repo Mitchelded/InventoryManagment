@@ -82,7 +82,7 @@
                                         <Button Style="{StaticResource PrimaryButtonStyle}" Text="👁" Clicked="ViewDetailBtn_OnClicked" x:Name="ViewDetailBtn"
                                                 Command="{Binding BindingContext.DetailCommand, 
                                                 Source={RelativeSource AncestorType={x:Type ContentPage}}}"/>
-                                        <Button Style="{StaticResource SuccessButtonStyle}" Text="✔"/>
+                                        <Button Style="{StaticResource SuccessButtonStyle}" Text="Edit" Clicked="Button_OnClicked"/>
                                         <Button Style="{StaticResource DangerButtonStyle}" Text="Delete"
                                                 Command="{Binding BindingContext.DeleteCommand, 
                                                 Source={RelativeSource AncestorType={x:Type ContentPage}}}"

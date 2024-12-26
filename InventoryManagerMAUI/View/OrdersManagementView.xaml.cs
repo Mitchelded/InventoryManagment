@@ -7,6 +7,8 @@ using CommunityToolkit.Maui.Views;
 using InventoryManagerMAUI.ViewModels.Popups;
 using InventoryManagerMAUI.ViewModels.Popups.AddViews;
 using InventoryManagerMAUI.ViewModels.Popups.DetailViews;
+using InventoryManagerMAUI.ViewModels.Popups.EditViews;
+using InventoryManagerMAUI.ViewModels.ViewModel;
 
 namespace InventoryManagerMAUI.View;
 
@@ -26,6 +28,12 @@ public partial class OrdersManagementView : ContentPage
     private void AddOrderButton_OnClicked(object? sender, EventArgs e)
     {
         var popup = new AddOrderPopup(BindingContext as OrderDetail);
+        this.ShowPopupAsync(popup);
+    }
+
+    private void Button_OnClicked(object? sender, EventArgs e)
+    {
+        var popup = new EditOrderPopup(BindingContext as OrderDetail, BindingContext as OrdersManagementViewModel);
         this.ShowPopupAsync(popup);
     }
 }

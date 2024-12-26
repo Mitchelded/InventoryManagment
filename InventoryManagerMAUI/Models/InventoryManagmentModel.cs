@@ -46,13 +46,13 @@ namespace InventoryManagment.Models
             return await base.SaveChangesAsync(cancellationToken);
         }
 
-        public override int SaveChanges()
+        public int SaveChangesWithUpdateOrderTotalCosts()
         {
             UpdateOrderTotalCosts();
             return base.SaveChanges();
         }
 
-        private void UpdateOrderTotalCosts()
+        public void UpdateOrderTotalCosts()
         {
             // Получить все измененные записи OrderDetail
             var updatedOrderIds = ChangeTracker.Entries<OrderDetail>()

@@ -120,7 +120,7 @@
                                     <Button Text="Restock"
                                             Style="{StaticResource SuccessButtonStyle}" 
                                             WidthRequest="85" HeightRequest="25" Command="{Binding BindingContext.LoadImageCommand,
-                                Source={RelativeSource AncestorType={x:Type ContentPage}}}"
+                                            Source={RelativeSource AncestorType={x:Type ContentPage}}}"
                                             CommandParameter="{Binding BindingContext.SelectedItem, 
                                             Source={RelativeSource AncestorType={x:Type ContentPage}}, Mode=TwoWay}"/>
                                     <Button Text="Delete" WidthRequest="70" HeightRequest="25" 

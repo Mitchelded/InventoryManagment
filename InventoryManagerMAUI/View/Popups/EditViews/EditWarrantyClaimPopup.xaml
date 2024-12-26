@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+               x:Class="InventoryManagerMAUI.ViewModels.Popups.EditViews.EditWarrantyClaimPopup"
+               xmlns:local="clr-namespace:InventoryManagerMAUI.Commands"
+               CanBeDismissedByTappingOutsideOfPopup="False"
+               Color="{StaticResource White}">
+    
+    <toolkit:Popup.Resources>
+        
+        <ResourceDictionary xmlns:local="clr-namespace:InventoryManagerMAUI.Commands">
+            <local:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter" />
+        </ResourceDictionary>
+
+    
+    </toolkit:Popup.Resources>
+    
+    <!-- Add Product Modal -->
+    <ScrollView MaximumWidthRequest="500" MaximumHeightRequest="550">
+        <VerticalStackLayout>
+            <HorizontalStackLayout>
+                <VerticalStackLayout Margin="0,0,25,0">
+                    <Label Text="Equipment" TextColor="{StaticResource Text}" />
+                    <Frame BorderColor="{StaticResource Border}"
+                           CornerRadius="5"
+                           Padding="0"
+                           HasShadow="False"
+                           Background="Transparent">
+                        <Picker x:Name="EquipmentPicker"
+                                ItemsSource="{Binding BindingContext.Equipment, Source={RelativeSource AncestorType={x:Type ContentPage}}}"
+                                ItemDisplayBinding="{Binding Name}"
+                                TextColor="{StaticResource Text}"
+                                WidthRequest="100" MaximumWidthRequest="150"
+                                SelectedItem="{Binding BindingContext.SelectedEquipment, Source={RelativeSource AncestorType={x:Type ContentPage}}}" />
+                    </Frame>
+
+                    <Label Text="Claim Date" TextColor="{StaticResource Text}" />
+                    <DatePicker x:Name="FromLocationPicker"
+                                TextColor="{StaticResource Text}"
+                                Date="{Binding ClaimDate}" />
+                    
+                    <Label Text="Status" TextColor="{StaticResource Text}" />
+                    <Frame BorderColor="{StaticResource Border}"
+                           CornerRadius="5"
+                           Padding="0"
+                           HasShadow="False"
+                           Background="Transparent">
+                        <Picker ItemsSource="{Binding BindingContext.Status, Source={RelativeSource AncestorType={x:Type ContentPage}}}"
+                                ItemDisplayBinding="{Binding Name}"
+                                TextColor="{StaticResource Text}"
+                                WidthRequest="100" MaximumWidthRequest="150"
+                                SelectedItem="{Binding BindingContext.SelectedStatus, Source={RelativeSource AncestorType={x:Type ContentPage}}}" />
+                    </Frame>
+                </VerticalStackLayout>
+
+                <VerticalStackLayout Margin="0,0,25,0">
+                    <Label Text="Issue Description"
+                           Margin="0,0,10,0"
+                           TextColor="{StaticResource Text}" />
+                    <Entry Text="{Binding IssueDescription}"
+                                TextColor="{StaticResource Text}" />
+
+                    <Label Text="Resolution"
+                           Margin="0,0,10,0"
+                           TextColor="{StaticResource Text}" />
+                    <Entry x:Name="PurchaseDatePicker" Text="{Binding Resolution}"
+                           TextColor="{StaticResource Text}" />
+                    
+                    <Label Text="Resolution Date"
+                           Margin="0,0,10,0"
+                           TextColor="{StaticResource Text}" />
+                    <DatePicker TextColor="{StaticResource Text}"
+                                Date="{Binding ResolutionDate}" />
+                </VerticalStackLayout>
+            </HorizontalStackLayout>
+            <HorizontalStackLayout HorizontalOptions="End" VerticalOptions="End">
+                <Button Text="Cancel" Background="{StaticResource WarningBrush}" x:Name="CancelBtn"
+                        Clicked="CancelBtn_OnClicked" />
+                <Button Text="Add Product"
+                        Style="{StaticResource PrimaryButtonStyle}"
+                        Command="{Binding BindingContext.AddCommand, 
+                        Source={RelativeSource AncestorType={x:Type ContentPage}}}" />
+
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+
+    </ScrollView>
+</toolkit:Popup>

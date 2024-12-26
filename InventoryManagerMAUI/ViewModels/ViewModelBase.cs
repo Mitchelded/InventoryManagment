@@ -30,9 +30,9 @@ public class ViewModelBase<T> : INotifyPropertyChanged where T : class
 	}
 
 
-	private T _selectedItem;
+	private T? _selectedItem;
 
-	public T SelectedItem
+	public T? SelectedItem
 	{
 		get => _selectedItem;
 		set

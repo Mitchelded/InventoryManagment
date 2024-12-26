@@ -6,6 +6,41 @@ namespace InventoryManagerMAUI.ViewModels.ViewModel;
 
 public sealed class EquipmentMovementViewModel : ViewModelBase<EquipmentMovement>
 {
+    
+    public override async void OnUpdate(EquipmentMovement item)
+    {
+        if (item != null)
+        {
+            Console.WriteLine($"Updating item: {item}");
+            try
+            {
+                using InventoryManagmentEntities _db = new();
+
+                item.EquipmentID = SelectedEquipment.EquipmentID;
+                item.SourceWarehouseID = SelectedFromLocation.WarehouseID;
+                item.DestinationWarehouseID = SelectedToLocation.WarehouseID;
+                item.UserID = 1;
+                item.MovementDate = MovementDate;
+                item.MovementType = MovementType;
+                item.Notes = Notes;
+
+                _db.Entry(item).State = EntityState.Modified;
+                _db.SaveChanges();
+
+                await Application.Current.MainPage.DisplayAlert("Update", "Item updated successfully", "OK");
+            }
+            catch (Exception ex)
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", $"Error updating item: {ex.Message}", "OK");
+            }
+        }
+        else
+        {
+            await Application.Current.MainPage.DisplayAlert("Error", "Item is null, reloading data.", "OK");
+            LoadData();
+        }
+    }
+    
     public override async Task LoadData()
     {
         using InventoryManagmentEntities _db = new();
@@ -69,7 +104,7 @@ public sealed class EquipmentMovementViewModel : ViewModelBase<EquipmentMovement
         }
     }
 
-    private Equipment _selectedEquipment;
+    private Equipment? _selectedEquipment;
     private Warehouse _selectedToLocation;
     private Warehouse _selectedFromLocation;
     private string _notes;
@@ -178,13 +213,13 @@ public sealed class EquipmentMovementViewModel : ViewModelBase<EquipmentMovement
     private ObservableCollection<Equipment> _equipment = new();
     private ObservableCollection<Warehouse> _location = new();
 
-    public Equipment SelectedEquipment
+    public Equipment? SelectedEquipment
     {
         get => _selectedEquipment;
         set
         {
             if (Equals(value, _selectedEquipment)) return;
-            _selectedEquipment = value ?? throw new ArgumentNullException(nameof(value));
+            _selectedEquipment = value;
             OnPropertyChanged(nameof(SelectedEquipment));
         }
     }

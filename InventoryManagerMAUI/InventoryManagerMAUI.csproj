@@ -118,6 +118,18 @@
 	    <SubType>Designer</SubType>
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="View\Popups\EditViews\EditEquipmentMovementPopup.xaml">
+	    <SubType>Designer</SubType>
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\Popups\EditViews\EditOrderPopup.xaml">
+	    <SubType>Designer</SubType>
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\Popups\EditViews\EditWarrantyClaimPopup.xaml">
+	    <SubType>Designer</SubType>
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -161,6 +173,18 @@
 	    <SubType>Code</SubType>
 	  </Compile>
 	  <Compile Update="View\Popups\AddViews\AddWarrantyClaimPopup.xaml.cs">
+	    <DependentUpon>AddWarrantyClaimPopup.xaml</DependentUpon>
+	    <SubType>Code</SubType>
+	  </Compile>
+	  <Compile Update="View\Popups\EditViews\EditEquipmentMovementPopup.xaml.cs">
+	    <DependentUpon>AddEquipmentMovementPopup.xaml</DependentUpon>
+	    <SubType>Code</SubType>
+	  </Compile>
+	  <Compile Update="View\Popups\EditViews\EditOrderPopup.xaml.cs">
+	    <DependentUpon>AddOrderPopup.xaml</DependentUpon>
+	    <SubType>Code</SubType>
+	  </Compile>
+	  <Compile Update="View\Popups\EditViews\EditWarrantyClaimPopup.xaml.cs">
 	    <DependentUpon>AddWarrantyClaimPopup.xaml</DependentUpon>
 	    <SubType>Code</SubType>
 	  </Compile>

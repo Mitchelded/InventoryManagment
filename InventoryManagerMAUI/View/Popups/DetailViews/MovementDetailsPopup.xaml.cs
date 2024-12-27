@@ -1,5 +1,5 @@
 using CommunityToolkit.Maui.Views;
-using InventoryManagerMAUI.Interface;
+
 using System.Runtime.CompilerServices;
 
 namespace InventoryManagerMAUI.ViewModels.Popups.DetailViews;

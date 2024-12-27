@@ -2,7 +2,13 @@
 
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:global="clr-namespace:"
+             xmlns:viewModel="clr-namespace:InventoryManagerMAUI.ViewModels.ViewModel"
              x:Class="InventoryManagerMAUI.View.LoginView">
+    
+    <ContentPage.BindingContext>
+        <viewModel:LoginViewModel/>
+    </ContentPage.BindingContext>
     <VerticalStackLayout VerticalOptions="Center">
         <Border Background="#323232" StrokeShape="RoundRectangle 10,10,10,10">
             <VerticalStackLayout>
@@ -11,12 +17,13 @@
                 </VerticalStackLayout>
                 <VerticalStackLayout>
                     <Label Text="Username" TextColor="#fff" Margin="5,0,0,0" />
-                    <Entry Placeholder="Enter your username" Margin="10,0,0,0" />
+                    <Entry Placeholder="Enter your username" Margin="10,0,0,0" Text="{Binding Username}"/>
                 </VerticalStackLayout>
                 <VerticalStackLayout>
                     <Label Text="Password" TextColor="#fff" Margin="5,0,0,0" />
-                    <Entry Placeholder="Enter your password" Margin="10,0,0,0" />
+                    <Entry Placeholder="Enter your password" Margin="10,0,0,0" Text="{Binding Password}"/>
                 </VerticalStackLayout>
+                <Button Command="{Binding LoginCommand}"/>
             </VerticalStackLayout>
 
         </Border>

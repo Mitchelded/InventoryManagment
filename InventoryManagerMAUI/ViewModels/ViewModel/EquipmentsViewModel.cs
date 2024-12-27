@@ -325,23 +325,31 @@ public class EquipmentsViewModel : ViewModelBase<Equipment>
 	
 	public async override Task LoadData()
 	{
-		using InventoryManagmentEntities _db = new();
-		Collection.Clear();
-		await _db.Equipments
-			.Include(u => u.Stocks) // Include Stocks navigation property
-			.ThenInclude(s => s.Warehouse) // Then include Warehouse from Stock navigation property
-			.Include(u => u.Supplier) // Include Supplier navigation property
-			.Include(u => u.Category) // Include Category navigation property
-			.Include(u => u.Status) // Include Status navigation property
-			.Include(u => u.EquipmentMovements) // Include EquipmentMovements navigation property
-			.Include(u => u.UtilizationRecords) // Include UtilizationRecords navigation property
-			.LoadAsync(); // Asynchronous load of the query
-		foreach (var item in _db.Equipments.Local)
+		using (var _db = new InventoryManagmentEntities())
 		{
-			Collection.Add(item);
+			Collection.Clear();
+
+			// Загружаем все данные асинхронно с нужными связями
+			var equipments = await _db.Equipments
+				.Include(u => u.Stocks)
+				.ThenInclude(s => s.Warehouse)
+				.Include(u => u.Supplier)
+				.Include(u => u.Category)
+				.Include(u => u.Status)
+				.Include(u => u.EquipmentMovements)
+				.Include(u => u.UtilizationRecords)
+				.ToListAsync(); // Получаем данные асинхронно в список
+
+			// Добавляем в коллекцию
+			foreach (var item in equipments)
+			{
+				Collection.Add(item);
+			}
+
+			OnPropertyChanged(nameof(Collection));
 		}
-		OnPropertyChanged(nameof(Collection));
 	}
+
 
 
 

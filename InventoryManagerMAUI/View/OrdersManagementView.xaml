@@ -27,20 +27,10 @@
 
 
         <Grid>
-            <!-- Sidebar -->
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="2*" />
                 <ColumnDefinition Width="8*" />
             </Grid.ColumnDefinitions>
-            <StackLayout BackgroundColor="{DynamicResource Primary}" Padding="20" Spacing="10">
-                <Label Text="Inventory Pro" FontSize="24" TextColor="White" />
-                <Button Text="Dashboard" Style="{StaticResource SidebarButtonStyle}" />
-                <Button Text="Inventory" Style="{StaticResource SidebarButtonStyle}" />
-                <Button Text="Orders" Style="{StaticResource SidebarButtonStyle}" />
-                <Button Text="Suppliers" Style="{StaticResource SidebarButtonStyle}" />
-                <Button Text="Reports" Style="{StaticResource SidebarButtonStyle}" />
-                <Button Text="Settings" Style="{StaticResource SidebarButtonStyle}" />
-            </StackLayout>
 
             <!-- Main Content -->
             <StackLayout Grid.Column="1" BackgroundColor="{DynamicResource Background}" Padding="20" Spacing="20">

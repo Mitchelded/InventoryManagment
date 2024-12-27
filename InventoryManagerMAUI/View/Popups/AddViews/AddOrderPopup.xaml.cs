@@ -1,5 +1,5 @@
 using CommunityToolkit.Maui.Views;
-using InventoryManagerMAUI.Interface;
+
 using System.Collections.ObjectModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;

@@ -20,17 +20,6 @@
     </ContentPage.Resources>
 
     <Grid RowDefinitions="*, Auto" ColumnDefinitions="2*, 8*">
-        <!-- Sidebar -->
-        <StackLayout Grid.Column="0" BackgroundColor="#2c3e50" Padding="10">
-            <Label Text="Inventory Pro" FontSize="24" Margin="0,0,0,20" />
-            <Button Text="Dashboard" BackgroundColor="Transparent" />
-            <Button Text="Inventory" BackgroundColor="Transparent" />
-            <Button Text="Orders" BackgroundColor="Transparent" />
-            <Button Text="Suppliers" BackgroundColor="Transparent" />
-            <Button Text="Reports" BackgroundColor="Transparent" />
-            <Button Text="Settings" BackgroundColor="Transparent" />
-        </StackLayout>
-
         <!-- Main Content -->
         <StackLayout Grid.Column="1" Padding="20">
             <Label Text="Inventory Management" FontSize="30" Margin="0,0,0,20" />

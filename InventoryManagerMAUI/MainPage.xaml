@@ -2,14 +2,10 @@
 
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:view="clr-namespace:InventoryManagerMAUI.View"
              x:Class="InventoryManagerMAUI.MainPage">
-    <VerticalStackLayout>
-        <Button x:Name="LoginView" Clicked="LoginView_OnClicked" Text="LoginView"/>
-        <Button x:Name="InventoryView" Clicked="InventoryView_OnClicked" Text="InventoryView"/>
-        <Button x:Name="DashboardView" Clicked="DashboardView_OnClicked" Text="DashboardView"/>
-        <Button x:Name="OrderView" Clicked="OrderView_OnClicked" Text="OrderView"/>
-        <Button x:Name="EquipmentMovementView" Clicked="EquipmentMovementView_OnClicked" Text="EquipmentMovementView"/>
-        <Button x:Name="WarrantyClaimsView" Clicked="WarrantyClaimsView_OnClicked" Text="WarrantyClaimsView"/>
-    </VerticalStackLayout>
+    <Grid>
+
+    </Grid>
 
 </ContentPage>

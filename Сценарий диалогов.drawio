@@ -21,7 +21,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="5XtgcM8SoPn40deR1ner-6" value="Форма авторизации" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="260" y="-90" width="120" height="60" as="geometry" />
+          <mxGeometry x="260" y="-80" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="5XtgcM8SoPn40deR1ner-32" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="5XtgcM8SoPn40deR1ner-8" target="5XtgcM8SoPn40deR1ner-22">
           <mxGeometry relative="1" as="geometry" />

@@ -33,82 +33,78 @@ public class OrdersManagementViewModel : ViewModelBase<OrderDetail>
         }
     }
 
-    public override void OnUpdate(OrderDetail obj)
-{
-    using InventoryManagmentEntities _db = new();
-   
-
-    try
+    public override async void OnUpdate(OrderDetail obj)
     {
-        // Assume `obj` contains the OrderID to identify the order to update
-        int orderId = obj.OrderID;
-
-        // Retrieve the existing order
-        var existingOrder = _db.Orders.Include(o => o.OrderDetails)
-                                      .FirstOrDefault(o => o.OrderID == orderId);
-
-        if (existingOrder == null)
+        await using InventoryManagmentEntities _db = new();
+        try
         {
-            throw new Exception("Order not found.");
-        }
+            // Assume `obj` contains the OrderID to identify the order to update
+            int orderId = obj.OrderID;
 
-        // Update order fields
-        existingOrder.ShippingAddress = ShippingAddress;
-        existingOrder.CustomerName = CustomerName;
-        existingOrder.Notes = Notes;
-        existingOrder.CustomerEmail = CustomerEmail;
-        // Update the order date to the current time (if needed)
-        existingOrder.OrderDate = DateTime.Now;
+            // Retrieve the existing order
+            var existingOrder = _db.Orders.Include(o => o.OrderDetails)
+                .FirstOrDefault(o => o.OrderID == orderId);
 
-        // TODO: Update the UserID if required (e.g., based on the logged-in user)
-        existingOrder.UserID = 1;
-
-        // Update or remove existing order details
-        foreach (var existingDetail in existingOrder.OrderDetails.ToList())
-        {
-            var updatedProduct = Products.FirstOrDefault(p => 
-                                p.SelectedProduct.EquipmentID == existingDetail.EquipmentID);
-
-            if (updatedProduct == null || updatedProduct.Quantity <= 0)
+            if (existingOrder == null)
             {
-                // Remove details that are no longer in the updated list
-                _db.OrderDetails.Remove(existingDetail);
+                throw new Exception("Order not found.");
             }
-            else
-            {
-                // Update the quantity of existing details
-                existingDetail.Quantity = updatedProduct.Quantity;
-                Products.Remove(updatedProduct); // Remove from the list to handle remaining additions
-            }
-        }
 
-        // Add new order details for products not already in the order
-        foreach (var newProduct in ExistingProducts)
-        {
-            if (newProduct.Quantity > 0)
+            // Update order fields
+            existingOrder.ShippingAddress = ShippingAddress;
+            existingOrder.CustomerName = CustomerName;
+            existingOrder.Notes = Notes;
+            existingOrder.CustomerEmail = CustomerEmail;
+            // Update the order date to the current time (if needed)
+            existingOrder.OrderDate = DateTime.Now;
+
+            // TODO: Update the UserID if required (e.g., based on the logged-in user)
+            existingOrder.UserID = 1;
+
+            // Update or remove existing order details
+            foreach (var existingDetail in existingOrder.OrderDetails.ToList())
             {
-                var newDetail = new OrderDetail()
+                var updatedProduct = Products.FirstOrDefault(p =>
+                    p.SelectedProduct.EquipmentID == existingDetail.EquipmentID);
+
+                if (updatedProduct == null || updatedProduct.Quantity <= 0)
                 {
-                    EquipmentID = newProduct.SelectedProduct.EquipmentID,
-                    Quantity = newProduct.Quantity,
-                    OrderID = existingOrder.OrderID,
-                    Notes = "q"
-                };
-
-                _db.OrderDetails.Add(newDetail);
-                Collection.Add(newDetail); // Add to the collection if used elsewhere
+                    // Remove details that are no longer in the updated list
+                    _db.OrderDetails.Remove(existingDetail);
+                }
+                else
+                {
+                    // Update the quantity of existing details
+                    existingDetail.Quantity = updatedProduct.Quantity;
+                    Products.Remove(updatedProduct); // Remove from the list to handle remaining additions
+                }
             }
-        }
 
-        _db.SaveChanges(); // Save all changes
-       
+            // Add new order details for products not already in the order
+            foreach (var newProduct in ExistingProducts)
+            {
+                if (newProduct.Quantity > 0)
+                {
+                    var newDetail = new OrderDetail()
+                    {
+                        EquipmentID = newProduct.SelectedProduct.EquipmentID,
+                        Quantity = newProduct.Quantity,
+                        OrderID = existingOrder.OrderID,
+                        Notes = "q"
+                    };
+
+                    _db.OrderDetails.Add(newDetail);
+                    Collection.Add(newDetail); // Add to the collection if used elsewhere
+                }
+            }
+
+            _db.SaveChanges(); // Save all changes
+        }
+        catch (Exception ex)
+        {
+            throw new Exception("An error occurred while updating the order and its details.", ex);
+        }
     }
-    catch (Exception ex)
-    {
-       
-        throw new Exception("An error occurred while updating the order and its details.", ex);
-    }
-}
 
     public ObservableCollection<ProductItem> Products { get; set; }
 
@@ -129,9 +125,9 @@ public class OrdersManagementViewModel : ViewModelBase<OrderDetail>
         // Load data from the database and populate the ObservableCollection
         ExistingProducts.Clear();
         var items = _db.OrderDetails
-            .Include(e=>e.Equipment)
-            .Include(e=>e.Order)
-            .Where(x=>x.OrderID == SelectedItem.OrderID)
+            .Include(e => e.Equipment)
+            .Include(e => e.Order)
+            .Where(x => x.OrderID == SelectedItem.OrderID)
             .ToList();
         foreach (var item in items)
         {
@@ -231,7 +227,7 @@ public class OrdersManagementViewModel : ViewModelBase<OrderDetail>
     {
         DetailCommand = new Command(OrderFilter);
         LoadEquipment();
-        
+
         Products = new ObservableCollection<ProductItem>();
         AddProductCommand = new Command(AddProduct);
         DeleteProductCommand = new Command<ProductItem>(DeleteProduct);
@@ -321,6 +317,7 @@ public class OrdersManagementViewModel : ViewModelBase<OrderDetail>
         {
             Collection.Add(item);
         }
+
         // TODO: роверить работоспособность, может крашить
         db.UpdateOrderTotalCosts();
         OnPropertyChanged(nameof(Collection));

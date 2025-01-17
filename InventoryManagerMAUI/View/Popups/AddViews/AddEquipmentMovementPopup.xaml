@@ -18,11 +18,11 @@
     </toolkit:Popup.Resources>
     
     <!-- Add Product Modal -->
-    <ScrollView MaximumWidthRequest="500" MaximumHeightRequest="550">
-        <VerticalStackLayout>
+    <ScrollView MaximumWidthRequest="500" MaximumHeightRequest="550" Margin="20">
+        <VerticalStackLayout Margin="20">
             <HorizontalStackLayout>
                 <VerticalStackLayout Margin="0,0,25,0">
-                    <Label Text="Equipment" TextColor="{StaticResource Text}" />
+                    <Label Text="Оборудование" TextColor="{StaticResource Text}" />
                     <Frame BorderColor="{StaticResource Border}"
                            CornerRadius="5"
                            Padding="0"
@@ -35,7 +35,7 @@
                                 WidthRequest="100" MaximumWidthRequest="150" SelectedItem="{Binding BindingContext.SelectedEquipment, Source={RelativeSource AncestorType={x:Type ContentPage}}}"/>
                     </Frame>
                     
-                    <Label Text="From Location" TextColor="{StaticResource Text}" />
+                    <Label Text="Откуда" TextColor="{StaticResource Text}" />
                     <Frame BorderColor="{StaticResource Border}"
                            CornerRadius="5"
                            Padding="0"
@@ -52,13 +52,13 @@
                 </VerticalStackLayout>
                 
                 <VerticalStackLayout Margin="0,0,25,0">
-                    <Label Text="MovementDate" 
+                    <Label Text="Дата передвижения" 
                            Margin="0,0,10,0" 
                            TextColor="{StaticResource Text}" />
                     <DatePicker x:Name="PurchaseDatePicker" Date="{Binding MovementDate}"
                                 TextColor="{StaticResource Text}"/>
                     
-                    <Label Text="To Location" Margin="0,0,10,0" TextColor="{StaticResource Text}" />
+                    <Label Text="Куда" Margin="0,0,10,0" TextColor="{StaticResource Text}" />
                     <Frame BorderColor="{StaticResource Border}"
                            CornerRadius="5"
                            Padding="0"
@@ -75,7 +75,7 @@
                 </VerticalStackLayout>
             </HorizontalStackLayout>
             <VerticalStackLayout>
-                <Label Text="Reason for Movement" Margin="0,0,10,0" TextColor="{StaticResource Text}"/>
+                <Label Text="Причина перемещения" Margin="0,0,10,0" TextColor="{StaticResource Text}"/>
                 <Frame BorderColor="{StaticResource Border}"
                     CornerRadius="5"
                     Padding="0"
@@ -85,7 +85,7 @@
                         <Entry Text="{Binding Notes}"/>
                     </HorizontalStackLayout>
                 </Frame>
-                <Label Text="Movement Type" Margin="0,0,10,0" TextColor="{StaticResource Text}"/>
+                <Label Text="Тип движения" Margin="0,0,10,0" TextColor="{StaticResource Text}"/>
                 <Frame BorderColor="{StaticResource Border}"
                        CornerRadius="5"
                        Padding="0"
@@ -97,11 +97,10 @@
                 </Frame>
             </VerticalStackLayout>
             <HorizontalStackLayout HorizontalOptions="End" VerticalOptions="End">
-                <Button Text="Cancel" Background="{StaticResource WarningBrush}" x:Name="CancelBtn" Clicked="CancelBtn_OnClicked"/>
-                <Button Text="Add Product"
+                <Button Text="Отмена" x:Name="CancelBtn" Clicked="CancelBtn_OnClicked" Style="{StaticResource WarningButtonStyle}"/>
+                <Button Text="Добавить"
                         Style="{StaticResource PrimaryButtonStyle}" 
-                        Command="{Binding BindingContext.AddCommand, 
-                        Source={RelativeSource AncestorType={x:Type ContentPage}}}"/>
+                        Command="{Binding AddCommand}"/>
                 
             </HorizontalStackLayout>
         </VerticalStackLayout>

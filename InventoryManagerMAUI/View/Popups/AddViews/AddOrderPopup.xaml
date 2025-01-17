@@ -8,29 +8,38 @@
     <ScrollView MaximumWidthRequest="500" MaximumHeightRequest="550" Background="Black">
         <Grid ColumnDefinitions="*,*" RowDefinitions="2*,2*,*,5*,*,*">
             <VerticalStackLayout Grid.Column="0" Grid.Row="0" Margin="10">
-                <Label Text="Customer Name"/>
+                <Label Text="Имя клиента"/>
+                <Border StrokeShape="RoundRectangle 10,10,10,10" Margin="10" Grid.Column="1" Grid.Row="1">
                 <Entry Text="{Binding CustomerName}"/>
+                </Border>
             </VerticalStackLayout>
             <VerticalStackLayout Grid.Column="1"  Grid.Row="0"  Margin="10">
-                <Label Text="Email"/>
+                <Label Text="Электронная почта"/>
+                <Border StrokeShape="RoundRectangle 10,10,10,10" Margin="10" Grid.Column="1" Grid.Row="1">
                 <Entry Text="{Binding CustomerEmail}"/>
+                </Border>
             </VerticalStackLayout>
             <VerticalStackLayout Grid.Row="2" Grid.Column="0" Margin="10">
-                <Label Text="Shipping Address"/>
+                <Label Text="Адрес доставки"/>
+                <Border StrokeShape="RoundRectangle 10,10,10,10" Margin="10" Grid.Column="1" Grid.Row="1">
                 <Entry Text="{Binding ShippingAddress}"/>
+                </Border>
             </VerticalStackLayout>
             <VerticalStackLayout Grid.Row="2" Grid.Column="1" Margin="10">
-                <Label Text="Shipping Address"/>
+                <Label Text="Примечания"/>
+                <Border StrokeShape="RoundRectangle 10,10,10,10" Margin="10" Grid.Column="1" Grid.Row="1">
                 <Entry Text="{Binding Notes}"/>
+                </Border>
             </VerticalStackLayout>
             <VerticalStackLayout Grid.Row="3" Grid.ColumnSpan="2" Margin="10">
-                <Label Text="Products"/>
+                <Label Text="Продукты"/>
+                <Border StrokeShape="RoundRectangle 10,10,10,10" Margin="10" Grid.Column="1" Grid.Row="1">
                 <ListView x:Name="listView" ItemsSource="{Binding Products}" HorizontalOptions="Fill">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
                                 <Grid ColumnDefinitions="Auto,Auto,Auto,Auto">
-                                    <Picker Grid.Column="0" TextColor="White"
+                                    <Picker Grid.Column="0"
                                             ItemsSource="{Binding BindingContext.Equipment, Source={RelativeSource AncestorType={x:Type ContentPage}}}"
                                             ItemDisplayBinding="{Binding Name}" 
                                             SelectedItem="{Binding SelectedProduct}"/>
@@ -40,25 +49,23 @@
                                            Grid.Column="2"/>
                                     <!-- Удалить -->
                                     <Button Grid.Column="3"
-                                    Text="Delete"
+                                    Text="Удалить"
                                     Command="{Binding BindingContext.DeleteProductCommand, Source={RelativeSource AncestorType={x:Type ContentPage}}}"
-                                    CommandParameter="{Binding .}"
-                                    BackgroundColor="Red"
-                                    TextColor="White"/>
+                                    CommandParameter="{Binding .}" Style="{StaticResource DangerButtonStyle}"/>
                                 </Grid>
                             </ViewCell>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
+                </Border>
             </VerticalStackLayout>
             <!-- Добавить новый продукт -->
-            <Button Grid.Column="0" Grid.Row="4" Text="Add Product" Style="{StaticResource SecondaryButtonStyle}" 
-                    Clicked="Button_Clicked" Command="{Binding BindingContext.AddProductCommand,Source={RelativeSource AncestorType={x:Type ContentPage}}}"/>
+            <Button Grid.Column="0" Grid.Row="4" Text="Добавить продукт" Style="{StaticResource PrimaryButtonStyle}" 
+                    Clicked="Button_Clicked" Command="{Binding AddProductCommand}"/>
             <HorizontalStackLayout Grid.Column="1" Grid.Row="5" HorizontalOptions="End" VerticalOptions="Start">
-                <Button Text="Cancel" Style="{StaticResource SecondaryButtonStyle}" Clicked="CancelBtn_OnClicked"/>
-                <Button Text="Create" Style="{StaticResource PrimaryButtonStyle}"
-                        Command="{Binding BindingContext.AddCommand, 
-                        Source={RelativeSource AncestorType={x:Type ContentPage}}}"/>
+                <Button Text="Отмена" Style="{StaticResource WarningButtonStyle}" Clicked="CancelBtn_OnClicked"/>
+                <Button Text="Добавить" Style="{StaticResource PrimaryButtonStyle}"
+                        Command="{Binding AddCommand}"/>
             </HorizontalStackLayout>
         </Grid>
     </ScrollView>

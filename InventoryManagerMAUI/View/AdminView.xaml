@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<Shell  xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+        xmlns:viewModel="clr-namespace:InventoryManagerMAUI.ViewModels.ViewModel"
+        xmlns:view="clr-namespace:InventoryManagerMAUI.View"
+        x:Class="InventoryManagerMAUI.View.AdminView">
+
+
+
+    <TabBar Title="Панель администратора">
+        <Tab Title="Роли" Icon="cat.png" 
+             Shell.BackgroundColor="#FFFFFF"
+             
+             Shell.ForegroundColor="#1E88E5"
+             Shell.UnselectedColor="#9E9E9E">       
+            <ShellContent Title="" ContentTemplate="{DataTemplate view:RoleView}" />
+            <!--Уже есть-->
+        </Tab>
+        <Tab Title="Статусы" Icon="cat.png" 
+     
+     Shell.ForegroundColor="#1E88E5"
+     Shell.UnselectedColor="Gray">
+            <ShellContent ContentTemplate="{DataTemplate view:StatusView}" />
+            <!--Уже есть-->
+        </Tab>
+        <Tab Title="Категории" Icon="cat.png" 
+     
+     Shell.ForegroundColor="#1E88E5"
+     Shell.UnselectedColor="Gray">
+            <ShellContent ContentTemplate="{DataTemplate view:CategoryView}" />
+            <!--Уже есть-->
+        </Tab>
+
+
+        <Tab Title="Склады" Icon="cat.png" 
+     
+     Shell.ForegroundColor="#1E88E5"
+     Shell.UnselectedColor="Gray">
+            <ShellContent ContentTemplate="{DataTemplate view:WarehouseView}"/>
+        </Tab>
+        <Tab Title="Поставщики" Icon="cat.png" 
+     
+     Shell.ForegroundColor="#1E88E5"
+     Shell.UnselectedColor="Gray">
+            <ShellContent ContentTemplate="{DataTemplate view:SuppliersView}"/>
+        </Tab>
+        <Tab Title="Пользователи" Icon="cat.png" 
+     
+     Shell.ForegroundColor="#1E88E5"
+     Shell.UnselectedColor="Gray">
+            <ShellContent ContentTemplate="{DataTemplate view:UsersView}"/>
+        </Tab>
+        <Tab Title="Привязанные роли" Icon="cat.png" 
+     
+     Shell.ForegroundColor="#1E88E5"
+     Shell.UnselectedColor="Gray">
+            <ShellContent ContentTemplate="{DataTemplate view:UserRolesView}"/>
+        </Tab>
+    </TabBar>
+
+</Shell>

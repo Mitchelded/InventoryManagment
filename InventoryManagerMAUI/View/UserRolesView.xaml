@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModel="clr-namespace:InventoryManagerMAUI.ViewModels.ViewModel"
+             x:Class="InventoryManagerMAUI.View.UserRolesView" Shell.NavBarIsVisible="False">
+
+    <ContentPage.BindingContext>
+        <viewModel:AdminViewModel />
+    </ContentPage.BindingContext>
+
+
+
+    <VerticalStackLayout>
+        <Label Text="Роли пользователей" VerticalOptions="Center" FontSize="Title" Margin="10" />
+        <Button Clicked="BtnAdd_Clicked" Text="Новые роли пользователей" x:Name="BtnAdd" Margin="10" HorizontalOptions="End"/>
+       
+            <ListView
+    SelectedItem="{Binding BindingContext.SelectedUserRoleItem,
+                            Source={RelativeSource AncestorType={x:Type ContentPage}}}"
+    Margin="10" Grid.Column="1" Grid.Row="1"
+    ItemsSource="{Binding CollectionUserRole}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                            <Grid ColumnDefinitions="10,*,*,*,*,*">
+                            <Label Text="{Binding UserRoleID}" Grid.Column="0" />
+                            <Label Text="{Binding User.Username}" Grid.Column="1" />
+                            <Label Text="{Binding User.FullName}" Grid.Column="2" />
+                            <Label Text="{Binding Role.Name}" Grid.Column="3" />
+                                <Button Grid.Column="4" Width="25" Text="Удалить" Style="{StaticResource DangerButtonStyle}"
+                            Command="{Binding BindingContext.DeleteUserCommand,
+                                                        Source={RelativeSource AncestorType={x:Type ContentPage}}}"
+                            CommandParameter="{Binding BindingContext.SelectedUserRoleItem ,Source={RelativeSource AncestorType={x:Type ContentPage}}}" />
+                            <Button Text="Редактировать" Grid.Column="5" Width="25"
+                            Clicked="UserRoleEditButton_OnClicked" Style="{StaticResource WarningButtonStyle}" />
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            </ListView>
+        
+    </VerticalStackLayout>
+</ContentPage>

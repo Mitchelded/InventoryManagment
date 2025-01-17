@@ -67,15 +67,18 @@ public class LoginViewModel : INotifyPropertyChanged
             await using InventoryManagmentEntities db = new();
             // Пример проверки учетных данных
             string hashedPassword = HashHelper.ComputeMD5Hash(Password);
-            User user = db.Users.Include(user => user.UserRoles).ThenInclude(userRole => userRole.Role)
-                .First(x => x.Username == Username && x.Password == hashedPassword);
+            User? user = db.Users.Include(user => user.UserRoles).ThenInclude(userRole => userRole.Role)
+                .First(x => x.Username == Username && x.Password.ToUpper() == hashedPassword.ToUpper());
             // Сохранение текущего пользователя
-            await SecureStorage.SetAsync("CurrentUsername", user.UserID.ToString());
-            Preferences.Set("CurrentRole", user.UserRoles.First().Role.Name);
-            // Обновляем боковое меню
-            UpdateMenuForRole(user.UserRoles.First().Role.Name);
-            // Переход к главной странице
-            if (Application.Current != null) Application.Current.MainPage = new AppShell();
+            if (user != null)
+            {
+                await SecureStorage.SetAsync("CurrentUsername", user.UserID.ToString());
+                Preferences.Set("CurrentRole", user.UserRoles.First().Role.Name);
+                // Обновляем боковое меню
+                UpdateMenuForRole(user.UserRoles.First().Role.Name);
+                // Переход к главной странице
+                if (Application.Current != null) Application.Current.MainPage = new AppShell();  
+            }
         }
         finally
         {

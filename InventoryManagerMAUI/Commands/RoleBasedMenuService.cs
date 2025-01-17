@@ -1,4 +1,5 @@
 ﻿using InventoryManagerMAUI.View;
+using InventoryManagerMAUI.ViewModels.ViewModel;
 
 namespace InventoryManagerMAUI.Commands;
 
@@ -6,13 +7,58 @@ public class RoleBasedMenuService
 {
     public static List<ShellItem> GetMenuForRole(string role)
     {
-        var menu = new List<ShellItem>();
-
-        if (role == "Администратор")
+        return role switch
         {
-            menu.Add(new ShellItem
+            "Администратор" => GetAdminMenu(),
+            "Кладовщик" => GetWarehouseMenu(),
+            "Менеджер" => GetManagerMenu(),
+            "Техническая поддержка" => GetSupportMenu(),
+            _ => new List<ShellItem>() // Пустое меню для неизвестных ролей
+        };
+    }
+
+    private static List<ShellItem> GetSupportMenu()
+    {
+        return new List<ShellItem>
+        {
+              // Регистрация и ведение данных о ремонте и техническом обслуживании оборудования.
+            new ShellItem
             {
-                Title = "Dashboard",
+                Title = "Претензии по гарантии",
+                Route = "Warranty_Claims",
+                Icon = "warranty_claims.png",
+                Items =
+                {
+                    new ShellContent
+                    {
+                        ContentTemplate = new DataTemplate(typeof(WarrantyClaimsView))
+                    }
+                }
+            },
+        };
+    }
+
+    private static List<ShellItem> GetManagerMenu()
+    {
+        return new List<ShellItem>
+       {
+            new ShellItem
+            {
+                Title = "Управление заказами",
+                Route = "Orders_Management",
+                Icon = "orders_management.png",
+                Items =
+                {
+                    new ShellContent
+                    {
+                        ContentTemplate = new DataTemplate(typeof(OrdersManagementView))
+                    }
+                }
+            },  
+            // Анализ данных (отчеты по оборудованию, заказам, складам и т. д.).
+            new ShellItem
+            {
+                Title = "Приборная панель",
                 Route = "dashboard",
                 Icon = "icon_dashboard.png",
                 Items =
@@ -22,53 +68,61 @@ public class RoleBasedMenuService
                         ContentTemplate = new DataTemplate(typeof(DashboardView))
                     }
                 }
-            });
+            },
+       };
+    }
 
-            menu.Add(new ShellItem
-            {
-                Title = "Equipment Movement",
-                Route = "Equipment_Movement",
-                Icon = "icon_users.png",
-                Items =
-                {
-                    new ShellContent
-                    {
-                        ContentTemplate = new DataTemplate(typeof(EquipmentMovementView))
-                    }
-                }
-            });
-            
-            menu.Add(new ShellItem
-            {
-                Title = "Orders Management",
-                Route = "Orders_Management",
-                Icon = "icon_users.png",
-                Items =
-                {
-                    new ShellContent
-                    {
-                        ContentTemplate = new DataTemplate(typeof(OrdersManagementView))
-                    }
-                }
-            });
-        }
-        else if (role == "Кладовщик")
+    private static List<ShellItem> GetAdminMenu()
+    {
+        return new List<ShellItem>
+    {
+        new ShellItem
         {
-            menu.Add(new ShellItem
+            Title = "Администратор",
+            Route = "Admin",
+            Icon = "icon_admin.png",
+            Items =
             {
-                Title = "Inventory",
-                Route = "Inventory",
-                Icon = "icon_profile.png",
-                Items =
+                new ShellContent
                 {
-                    new ShellContent
-                    {
-                        ContentTemplate = new DataTemplate(typeof(InventoryView))
-                    }
+                    ContentTemplate = new DataTemplate(typeof(AdminView))
                 }
-            });
-        }
+            }
+        },
+    };
+    }
 
-        return menu;
+
+    private static List<ShellItem> GetWarehouseMenu()
+    {
+        return new List<ShellItem>
+    {
+        new ShellItem
+        {
+            Title = "Инвентарь",
+            Route = "Inventory",
+            Icon = "icon_inventory.png",
+            Items =
+            {
+                new ShellContent
+                {
+                    ContentTemplate = new DataTemplate(typeof(InventoryView))
+                }
+            }
+        },
+        new ShellItem
+        {
+            Title = "Перемещение оборудования",
+            Route = "Equipment_Movement",
+            Icon = "icon_movement.png",
+            Items =
+            {
+                new ShellContent
+                {
+                    ContentTemplate = new DataTemplate(typeof(EquipmentMovementView))
+                }
+            }
+        }
+    };
     }
 }

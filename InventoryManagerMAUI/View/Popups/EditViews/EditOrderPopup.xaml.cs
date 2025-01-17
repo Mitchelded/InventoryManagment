@@ -11,11 +11,10 @@ public partial class EditOrderPopup : Popup
 {
     private readonly OrderDetail? _viewModel;
 
-    public EditOrderPopup(OrderDetail? viewModel, OrdersManagementViewModel viewModel2 = null)
+    public EditOrderPopup(OrdersManagementViewModel? viewModel, OrdersManagementViewModel viewModel2 = null)
 	{
 		InitializeComponent();
-
-        _viewModel = viewModel;
+        BindingContext = viewModel;
         viewModel2.LoadProduct();
     }
     private void CancelBtn_OnClicked(object? sender, EventArgs e)

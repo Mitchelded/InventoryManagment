@@ -23,17 +23,17 @@ public class EquipmentsViewModel : ViewModelBase<Equipment>
 	private List<ImageSource> _imageSources;
 	
 
-	private Status _selectedStatus;
-	private Category _selectedCategory;
-	private Supplier _selectedSupplier;
+	private Status? _selectedStatus;
+	private Category? _selectedCategory;
+	private Supplier? _selectedSupplier;
 
-	public Status SelectedStatus
+	public Status? SelectedStatus
 	{
 		get => _selectedStatus;
 		set
 		{
 			if (Equals(value, _selectedStatus)) return;
-			_selectedStatus = value ?? throw new ArgumentNullException(nameof(value));
+			_selectedStatus = value;
 			OnPropertyChanged(nameof(SelectedStatus));
 		}
 	}
@@ -75,24 +75,24 @@ public class EquipmentsViewModel : ViewModelBase<Equipment>
 	}
 
 
-	public Category SelectedCategory
+	public Category? SelectedCategory
 	{
 		get => _selectedCategory;
 		set
 		{
 			if (Equals(value, _selectedCategory)) return;
-			_selectedCategory = value ?? throw new ArgumentNullException(nameof(value));
+			_selectedCategory = value;
 			OnPropertyChanged(nameof(SelectedCategory));
 		}
 	}
 
-	public Supplier SelectedSupplier
+	public Supplier? SelectedSupplier
 	{
 		get => _selectedSupplier;
 		set
 		{
 			if (Equals(value, _selectedSupplier)) return;
-			_selectedSupplier = value ?? throw new ArgumentNullException(nameof(value));
+			_selectedSupplier = value;
 			OnPropertyChanged(nameof(SelectedSupplier));
 		}
 	}
@@ -121,7 +121,7 @@ public class EquipmentsViewModel : ViewModelBase<Equipment>
 		set
 		{
 			if (value == _filterName) return;
-			_filterName = value ?? throw new ArgumentNullException(nameof(value));
+			_filterName = value;
 			OnPropertyChanged(nameof(FilterName));
 			ApplyFilter();
 		}
@@ -263,13 +263,13 @@ public class EquipmentsViewModel : ViewModelBase<Equipment>
 			.ToList();
 		filtered = SortBy switch
 		{
-			"Name" => filtered.OrderBy(e => e.Name).ToList(),
-			"Category" => filtered.OrderBy(e => e.Category.Name).ToList(),
-			"Cost" => filtered.OrderBy(e => e.Cost).ToList(),
-			"Purchase Date" => filtered.OrderBy(e => e.PurchaseDate).ToList(),
-			"Warranty Expiration" => filtered.OrderBy(e => e.WarrantyExpiration).ToList(),
-			"Status" => filtered.OrderBy(e => e.Status.Name).ToList(),
-			"Supplier" => filtered.OrderBy(e => e.Supplier.CompanyName).ToList(),
+			"Имя" => filtered.OrderBy(e => e.Name).ToList(),
+			"Категория" => filtered.OrderBy(e => e.Category.Name).ToList(),
+			"Цена" => filtered.OrderBy(e => e.Cost).ToList(),
+			"Дата покупки" => filtered.OrderBy(e => e.PurchaseDate).ToList(),
+			"Срок гарантии" => filtered.OrderBy(e => e.WarrantyExpiration).ToList(),
+			"Статус" => filtered.OrderBy(e => e.Status.Name).ToList(),
+			"Поставщик" => filtered.OrderBy(e => e.Supplier.CompanyName).ToList(),
 			_ => filtered // Если ничего не выбрано, оставляем как есть
 		};
 		

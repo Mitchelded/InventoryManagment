@@ -27,13 +27,13 @@ public partial class OrdersManagementView : ContentPage
 
     private void AddOrderButton_OnClicked(object? sender, EventArgs e)
     {
-        var popup = new AddOrderPopup(BindingContext as OrderDetail);
+        var popup = new AddOrderPopup(BindingContext as OrdersManagementViewModel);
         this.ShowPopupAsync(popup);
     }
 
     private void Button_OnClicked(object? sender, EventArgs e)
     {
-        var popup = new EditOrderPopup(BindingContext as OrderDetail, BindingContext as OrdersManagementViewModel);
+        var popup = new EditOrderPopup(BindingContext as OrdersManagementViewModel, BindingContext as OrdersManagementViewModel);
         this.ShowPopupAsync(popup);
     }
 }

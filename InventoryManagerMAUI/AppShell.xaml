@@ -6,7 +6,7 @@
     xmlns:local="clr-namespace:InventoryManagerMAUI"
     xmlns:view="clr-namespace:InventoryManagerMAUI.View"
     Shell.NavBarIsVisible="False"
-    Title="InventoryManagerMAUI" FlyoutBehavior="Flyout">
+    Title="InventoryManagerMAUI" FlyoutBehavior="Flyout" FlyoutBackground="White" Shell.BackgroundColor="White">
 
     
 </Shell>

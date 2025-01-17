@@ -8,9 +8,9 @@ public partial class AddEquipmentMovementPopup : Popup
 {
 	private readonly EquipmentMovement? _viewModel;
 	private EquipmentMovement _editEquipment;
-	public AddEquipmentMovementPopup(EquipmentMovement? viewModel, EquipmentMovement editEquipment = null)
+	public AddEquipmentMovementPopup(EquipmentMovementViewModel? viewModel, EquipmentMovement editEquipment = null)
 	{
-		_viewModel = viewModel;
+
 		_editEquipment = editEquipment;
 		InitializeComponent();
 		BindingContext = _viewModel;

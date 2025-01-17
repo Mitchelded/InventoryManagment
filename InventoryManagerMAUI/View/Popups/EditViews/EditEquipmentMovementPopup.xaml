@@ -20,9 +20,9 @@
     <!-- Add Product Modal -->
     <ScrollView MaximumWidthRequest="500" MaximumHeightRequest="550">
         <VerticalStackLayout>
-            <HorizontalStackLayout>
+            <HorizontalStackLayout Margin="10">
                 <VerticalStackLayout Margin="0,0,25,0">
-                    <Label Text="Equipment" TextColor="{StaticResource Text}" />
+                    <Label Text="Оборудование" TextColor="{StaticResource Text}" />
                     <Frame BorderColor="{StaticResource Border}"
                            CornerRadius="5"
                            Padding="0"
@@ -35,7 +35,7 @@
                                 WidthRequest="100" MaximumWidthRequest="150" SelectedItem="{Binding BindingContext.SelectedEquipment, Source={RelativeSource AncestorType={x:Type ContentPage}}}"/>
                     </Frame>
                     
-                    <Label Text="From Location" TextColor="{StaticResource Text}" />
+                    <Label Text="Откуда" TextColor="{StaticResource Text}" />
                     <Frame BorderColor="{StaticResource Border}"
                            CornerRadius="5"
                            Padding="0"
@@ -52,14 +52,14 @@
                 </VerticalStackLayout>
                 
                 <VerticalStackLayout Margin="0,0,25,0">
-                    <Label Text="MovementDate" 
+                    <Label Text="Дата движения" 
                            Margin="0,0,10,0" 
                            TextColor="{StaticResource Text}" />
                     <DatePicker x:Name="PurchaseDatePicker" Date="{Binding BindingContext.MovementDate, 
                         Source={RelativeSource AncestorType={x:Type ContentPage}}}"
                                 TextColor="{StaticResource Text}"/>
                     
-                    <Label Text="To Location" Margin="0,0,10,0" TextColor="{StaticResource Text}" />
+                    <Label Text="Куда" Margin="0,0,10,0" TextColor="{StaticResource Text}" />
                     <Frame BorderColor="{StaticResource Border}"
                            CornerRadius="5"
                            Padding="0"
@@ -75,8 +75,8 @@
                     </Frame>
                 </VerticalStackLayout>
             </HorizontalStackLayout>
-            <VerticalStackLayout>
-                <Label Text="Reason for Movement" Margin="0,0,10,0" TextColor="{StaticResource Text}"/>
+            <VerticalStackLayout Margin="10">
+                <Label Text="Причина перемещения" Margin="0,0,10,0" TextColor="{StaticResource Text}"/>
                 <Frame BorderColor="{StaticResource Border}"
                     CornerRadius="5"
                     Padding="0"
@@ -87,7 +87,7 @@
                         Source={RelativeSource AncestorType={x:Type ContentPage}}}"/>
                     </HorizontalStackLayout>
                 </Frame>
-                <Label Text="Movement Type" Margin="0,0,10,0" TextColor="{StaticResource Text}"/>
+                <Label Text="Тип движения" Margin="0,0,10,0" TextColor="{StaticResource Text}"/>
                 <Frame BorderColor="{StaticResource Border}"
                        CornerRadius="5"
                        Padding="0"
@@ -99,14 +99,12 @@
                     </HorizontalStackLayout>
                 </Frame>
             </VerticalStackLayout>
-            <HorizontalStackLayout HorizontalOptions="End" VerticalOptions="End">
-                <Button Text="Cancel" Background="{StaticResource WarningBrush}" x:Name="CancelBtn" Clicked="CancelBtn_OnClicked"/>
-                <Button Text="Add Product"
+            <HorizontalStackLayout Margin="10" HorizontalOptions="End" VerticalOptions="End">
+                <Button  Margin="10" Style="{StaticResource WarningButtonStyle}" Text="Отмена" x:Name="CancelBtn" Clicked="CancelBtn_OnClicked"/>
+                <Button  Margin="10" Text="Сохранить"
                         Style="{StaticResource PrimaryButtonStyle}" 
-                        Command="{Binding BindingContext.UpdateCommand, 
-                        Source={RelativeSource AncestorType={x:Type ContentPage}}}"
-                        CommandParameter="{Binding BindingContext.SelectedItem, 
-                        Source={RelativeSource AncestorType={x:Type ContentPage}}}"/>
+                        Command="{Binding UpdateCommand}"
+                        CommandParameter="{Binding SelectedItem}"/>
                 
             </HorizontalStackLayout>
         </VerticalStackLayout>

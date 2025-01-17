@@ -6,20 +6,20 @@
                CanBeDismissedByTappingOutsideOfPopup="False">
     <ScrollView MaximumWidthRequest="500" MaximumHeightRequest="550">
         <VerticalStackLayout>
-            <HorizontalStackLayout>
-                <Label TextColor="{StaticResource White}" Text="Order Details"/>
+            <HorizontalStackLayout Margin="10">
+                <Label  Text="Детали заказа" FontAttributes="Bold"/>
             </HorizontalStackLayout>
-            <HorizontalStackLayout>
+            <HorizontalStackLayout Margin="10">
                 <VerticalStackLayout>
-                        <Label TextColor="{StaticResource White}" Text="Customer Information"/>
+                    <Label  Text="Информация о клиенте " FontAttributes="Bold"/>
                     <HorizontalStackLayout>
-                        <Label TextColor="{StaticResource White}" Text="Name:"/> 
-                        <Label TextColor="{StaticResource White}" 
+                        <Label  Text="Имя: " FontAttributes="Bold"/> 
+                        <Label  
                                Text="{Binding SelectedItem.Order.User.FullName}"/> 
                     </HorizontalStackLayout>
                     <HorizontalStackLayout>
-                        <Label TextColor="{StaticResource White}" Text="Email:"/>
-                        <Label TextColor="{StaticResource White}" Text="{Binding SelectedItem.Order.User.Email}"/>
+                        <Label  Text="Электронная почта: " FontAttributes="Bold"/>
+                        <Label  Text="{Binding SelectedItem.Order.User.Email}"/>
                     </HorizontalStackLayout>
                     
                     <!-- Customer Information -->
@@ -34,26 +34,26 @@
                     <!-- New York, NY 10001 -->
                 </VerticalStackLayout>
             </HorizontalStackLayout>
-            <Label TextColor="{StaticResource White}" Text="Order Items"/>
-            <ListView ItemsSource="{Binding OrderDetails}"
+            <Label  Text="Заказ товаров " FontAttributes="Bold" Margin="10"/>
+            <ListView ItemsSource="{Binding OrderDetails}" Margin="10"
                       SelectedItem="{Binding BindingContext.SelectedItem2, 
                         Source={RelativeSource AncestorType={x:Type ContentPage}}, Mode=TwoWay}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
                             <HorizontalStackLayout>
-                                <Label Text="{Binding Equipment.Name}"/>
-                                <Label Text="{Binding Quantity}"/>
-                                <Label Text="{Binding Equipment.Cost}"/>
-                                <Label Text="{Binding Cost}"/>
+                                <Label Text="{Binding Equipment.Name}" Margin="10"/>
+                                <Label Text="{Binding Quantity}" Margin="10"/>
+                                <Label Text="{Binding Equipment.Cost}" Margin="10"/>
+                                <Label Text="{Binding Cost}" Margin="10"/>
                             </HorizontalStackLayout>
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <HorizontalStackLayout>
-                <Button Text="Cancel" Style="{StaticResource SecondaryButtonStyle}" Clicked="CloseButton_OnClicked"/>
-                <Button Text="Print Order" Style="{StaticResource PrimaryButtonStyle}"/>
+            <HorizontalStackLayout Margin="10">
+                <Button Text="Отмена" Style="{StaticResource WarningButtonStyle}" Clicked="CloseButton_OnClicked"/>
+                <Button Text="Печать" Style="{StaticResource PrimaryButtonStyle}"/>
             </HorizontalStackLayout>
         </VerticalStackLayout>
     </ScrollView>

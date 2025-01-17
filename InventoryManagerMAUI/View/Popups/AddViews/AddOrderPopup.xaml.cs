@@ -1,5 +1,5 @@
 using CommunityToolkit.Maui.Views;
-
+using InventoryManagerMAUI.ViewModels.ViewModel;
 using System.Collections.ObjectModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
@@ -10,11 +10,11 @@ public partial class AddOrderPopup : Popup
 {
     private readonly OrderDetail? _viewModel;
 
-    public AddOrderPopup(OrderDetail? viewModel)
+    public AddOrderPopup(OrdersManagementViewModel? viewModel)
 	{
 		InitializeComponent();
 
-        _viewModel = viewModel;
+        BindingContext = viewModel;
     }
 
     private void CancelBtn_OnClicked(object? sender, EventArgs e)

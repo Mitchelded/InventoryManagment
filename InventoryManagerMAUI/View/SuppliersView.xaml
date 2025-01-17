@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModel="clr-namespace:InventoryManagerMAUI.ViewModels.ViewModel"
+             x:Class="InventoryManagerMAUI.View.SuppliersView" Shell.NavBarIsVisible="False">
+
+    <ContentPage.BindingContext>
+        <viewModel:AdminViewModel />
+    </ContentPage.BindingContext>
+    <VerticalStackLayout>
+        <Label Text="Поставщики" VerticalOptions="Center" FontSize="Title" Margin="10" />
+        <Button Clicked="BtnAdd_Clicked" Text="Новый поставщик" x:Name="BtnAdd" Margin="10" HorizontalOptions="End"/>
+       
+            <ListView
+    SelectedItem="{Binding BindingContext.SelectedSupplierItem,
+                            Source={RelativeSource AncestorType={x:Type ContentPage}}}"
+    Margin="10" Grid.Column="1" Grid.Row="0"
+    ItemsSource="{Binding CollectionSupplier}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                            <Grid ColumnDefinitions="10,*,*,*,*,*,*,*">
+                            <Label Text="{Binding SupplierID}" Grid.Column="0" />
+                            <Label Text="{Binding CompanyName}" Grid.Column="1" />
+                            <VerticalStackLayout Grid.Column="2">
+                                <Label Text="{Binding ContactInfo}" />
+                                <Label Text="{Binding ContactPerson}" />
+                            </VerticalStackLayout>
+                            <VerticalStackLayout Grid.Column="3">
+                                <Label Text="{Binding Email}" />
+                                <Label Text="{Binding Phone}" />
+                            </VerticalStackLayout>
+                            <VerticalStackLayout Grid.Column="4">
+                                <Label Text="{Binding Website}" />
+                                <Label Text="{Binding Address}" />
+                            </VerticalStackLayout>
+                            <Label Text="{Binding Category.Name}" Grid.Column="5" />
+                                <Button Grid.Column="6" Width="25" Text="Удалить" Style="{StaticResource DangerButtonStyle}"
+                            Command="{Binding BindingContext.DeleteSupplierCommand,
+                                            Source={RelativeSource AncestorType={x:Type ContentPage}}}"
+                            CommandParameter="{Binding BindingContext.SelectedSupplierItem ,Source={RelativeSource AncestorType={x:Type ContentPage}}}" />
+                            <Button Text="Редактировать" Grid.Column="7" Width="25"
+                            Clicked="SupplierEditButton_OnClicked" Style="{StaticResource WarningButtonStyle}"/>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            </ListView>
+        
+    </VerticalStackLayout>
+</ContentPage>

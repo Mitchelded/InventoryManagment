@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="InventoryManagerMAUI.ViewModels.Popups.AddViews.AddSuppliersPopup"
+               CanBeDismissedByTappingOutsideOfPopup="False">
+
+
+    <ScrollView MaximumWidthRequest="450" MaximumHeightRequest="450">
+        <Grid ColumnDefinitions="*,*" RowDefinitions="*,*,*,*,*">
+            <Entry Margin="10" Grid.Column="0" Grid.Row="0" Placeholder="Введите название компании" Text="{Binding CompanyName}"/>
+            <Entry  Margin="10" Grid.Column="0" Grid.Row="1" Placeholder="Введите контактную информацию" Text="{Binding ContactInfo}"/>
+            <Entry Margin="10" Grid.Column="0" Grid.Row="2" Placeholder="Введите контактное лицо" Text="{Binding ContactPerson}"/>
+            <Entry Margin="10" Grid.Column="0" Grid.Row="3" Placeholder="Введите адрес электронной почты" Text="{Binding Email}"/>
+
+            <Entry Margin="10" Grid.Column="1" Grid.Row="0" Placeholder="Введите телефон" Text="{Binding Phone}"/>
+            <Entry Margin="10" Grid.Column="1" Grid.Row="1" Placeholder="Введите веб-сайт" Text="{Binding Website}"/>
+            <Entry Margin="10" Grid.Column="1" Grid.Row="2" Placeholder="Введите адрес" Text="{Binding Address}"/>
+            <Picker Margin="10" Grid.Column="1" Grid.Row="3" Title="Категория"
+                    ItemsSource="{Binding CollectionCategory}" 
+                    ItemDisplayBinding="{Binding Name}"
+                    SelectedItem="{Binding SelectedCategoryItem}"/>
+
+
+            <Button Margin="10" Height="25" Grid.Column="0" Grid.Row="4"  Text="Добавить"
+                    Command="{Binding AddSupplierCommand}"/>
+            <Button Margin="10" Height="25"  Grid.Column="1" Grid.Row="4"  Clicked="CloseButton_Click" Style="{StaticResource WarningButtonStyle}" Text="Отмена"/>
+        </Grid>
+    </ScrollView>
+
+</toolkit:Popup>

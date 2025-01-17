@@ -26,20 +26,15 @@
     </ContentPage.BindingContext>
 
 
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*" />
-                <ColumnDefinition Width="8*" />
-            </Grid.ColumnDefinitions>
-
-            <!-- Main Content -->
+    <Grid>
+        <!-- Main Content -->
             <StackLayout Grid.Column="1" BackgroundColor="{DynamicResource Background}" Padding="20" Spacing="20">
                 <StackLayout>
-                    <Label Text="Orders Management" FontSize="24" FontAttributes="Bold" />
-                    <Label Text="Manage and track all orders in one place" FontSize="14" TextColor="Gray" />
+                    <Label Text="Управление заказами" FontSize="24" FontAttributes="Bold" />
+                    <Label Text="Управляйте и отслеживайте все заказы в одном месте" FontSize="14" TextColor="Gray" />
                 </StackLayout>
 
-                <Button Text="New Order!!" BackgroundColor="{DynamicResource Secondary}" TextColor="White" x:Name="AddOrderButton" Clicked="AddOrderButton_OnClicked"/>
+                <Button Text="Новый заказ" Style="{StaticResource PrimaryButtonStyle}" x:Name="AddOrderButton" Clicked="AddOrderButton_OnClicked"/>
 
                 <!-- Filters -->
                 <Grid ColumnSpacing="10" RowSpacing="10">
@@ -51,40 +46,41 @@
                     </Grid.ColumnDefinitions>
                     <DatePicker Grid.Column="0" Date="{Binding StartDate, Mode=TwoWay}"/>
                     <DatePicker Grid.Column="1" Date="{Binding EndDate, Mode=TwoWay}"/>
-                    <Entry Placeholder="Search customer..." Grid.Column="2" Text="{Binding FilterName}" />
+                    <Entry Placeholder="Поиск клиента..." Grid.Column="2" Text="{Binding FilterName}" />
                 </Grid>
 
                 <!-- Orders Table -->
-                <ListView ItemsSource="{Binding Collection}"
+            <ListView ItemsSource="{Binding Collection}"
                           SelectedItem="{Binding BindingContext.SelectedItem, 
                         Source={RelativeSource AncestorType={x:Type ContentPage}}, Mode=TwoWay}">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <ViewCell>
-                                <HorizontalStackLayout>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            
+                                <Grid ColumnDefinitions="15,*,*,*,*,*,*">
+                                    <Label Text="{Binding OrderID}" Grid.Column="0" />
+                                    <Label Text="{Binding Order.CustomerName}" Grid.Column="1"/>
+                                    <Label Text="{Binding Order.OrderDate}" Grid.Column="2"/>
+                                    <Label Text="{Binding Order.TotalCost}" Grid.Column="3"/>
 
-                                    <Label Text="{Binding OrderID}" Grid.Column="0" TextColor="{StaticResource White}"/>
-                                    <Label Text="{Binding Order.CustomerName}" Grid.Column="1" TextColor="{StaticResource White}" />
-                                    <Label Text="{Binding Order.OrderDate}" Grid.Column="2" TextColor="{StaticResource White}" />
-                                    <Label Text="{Binding Order.TotalCost}" Grid.Column="3" TextColor="{StaticResource White}" />
-                                    
-                                    
-                                        <Button Style="{StaticResource PrimaryButtonStyle}" Text="👁" Clicked="ViewDetailBtn_OnClicked" x:Name="ViewDetailBtn"
-                                                Command="{Binding BindingContext.DetailCommand, 
-                                                Source={RelativeSource AncestorType={x:Type ContentPage}}}"/>
-                                        <Button Style="{StaticResource SuccessButtonStyle}" Text="Edit" Clicked="Button_OnClicked"/>
-                                        <Button Style="{StaticResource DangerButtonStyle}" Text="Delete"
-                                                Command="{Binding BindingContext.DeleteCommand, 
-                                                Source={RelativeSource AncestorType={x:Type ContentPage}}}"
-                                                CommandParameter="{Binding BindingContext.SelectedItem, 
-                                                Source={RelativeSource AncestorType={x:Type ContentPage}}, Mode=TwoWay}" />
-                                    
-                                </HorizontalStackLayout>
-                            </ViewCell>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-                
-            </StackLayout>
+
+                                    <Button Style="{StaticResource PrimaryButtonStyle}" Grid.Column="4" Text="Детали" Clicked="ViewDetailBtn_OnClicked" x:Name="ViewDetailBtn"
+Command="{Binding BindingContext.DetailCommand, 
+Source={RelativeSource AncestorType={x:Type ContentPage}}}"/>
+                                    <Button Style="{StaticResource SuccessButtonStyle}" Grid.Column="5" Text="Редактировать" Clicked="Button_OnClicked"/>
+                                    <Button Style="{StaticResource DangerButtonStyle}" Text="Удалить" Grid.Column="6" 
+Command="{Binding BindingContext.DeleteCommand, 
+Source={RelativeSource AncestorType={x:Type ContentPage}}}"
+CommandParameter="{Binding BindingContext.SelectedItem, 
+Source={RelativeSource AncestorType={x:Type ContentPage}}, Mode=TwoWay}" />
+
+                                </Grid>
+                            
+                            
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
         </Grid>
 </ContentPage>

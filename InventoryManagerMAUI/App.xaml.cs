@@ -9,6 +9,7 @@ namespace InventoryManagerMAUI
 			InitializeComponent();
 
 			MainPage = new NavigationPage(new LoginView());
+
 		}
 	}
 }

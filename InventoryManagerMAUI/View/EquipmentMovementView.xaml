@@ -25,79 +25,73 @@
     <ContentPage.BindingContext>
         <model:EquipmentMovementViewModel />
     </ContentPage.BindingContext>
-<Grid>
-    <ContentView>
-     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*" />
-            <ColumnDefinition Width="8*" />
-        </Grid.ColumnDefinitions>
-        <!-- Main Content -->
-        <StackLayout Grid.Column="1" BackgroundColor="{DynamicResource Background}" Padding="20" Spacing="20">
-            <StackLayout>
-                <Label Text="Equipment Movement" FontSize="24" FontAttributes="Bold" />
-                <Label Text="Track and manage equipment transfers between locations" FontSize="14" TextColor="Gray" />
-            </StackLayout>
+    <Grid>
+        <ContentView>
+            <Grid>
+                <!-- Main Content -->
+                <StackLayout Grid.Column="1" BackgroundColor="{DynamicResource Background}" Padding="20" Spacing="20">
+                    <StackLayout>
+                        <Label Text="Движение оборудования" FontSize="24" FontAttributes="Bold" />
+                        <Label Text="Отслеживайте и управляйте перемещением оборудования между локациями" FontSize="14" TextColor="Gray" />
+                    </StackLayout>
 
-            <Button Text="New Movement" BackgroundColor="{DynamicResource Secondary}" TextColor="White"
+                    <Button Text="Новое движение" Style="{StaticResource PrimaryButtonStyle}"
                     x:Name="AddMovementButton"
                     Clicked="AddMovementButton_OnClicked" />
 
-            <!-- Filters -->
-            <Grid ColumnSpacing="10" RowSpacing="10">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Entry Placeholder="Search by equipment name"
-                       Grid.Column="2"
+                    <!-- Filters -->
+                    <Grid ColumnSpacing="10" RowSpacing="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Entry Placeholder="Поиск по названию оборудования"
+                       Grid.Column="0"
                        Text="{Binding FilterName}" />
-                <HorizontalStackLayout Grid.Column="3">
-                    <Button Text="Сброс" x:Name="BtnReset" Command="{Binding ResetCommand}"
+                        <HorizontalStackLayout Grid.Column="1">
+                            <Button Text="Сброс" x:Name="BtnReset" Command="{Binding ResetCommand}"
                             Style="{StaticResource DangerButtonStyle}" />
-                </HorizontalStackLayout>
+                        </HorizontalStackLayout>
+                    </Grid>
+
+                    <ListView ItemsSource="{Binding Collection}" Margin="10"
+      SelectedItem="{Binding BindingContext.SelectedItem, Source={RelativeSource AncestorType={x:Type ContentPage}}, Mode=TwoWay}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    
+                                        <Grid RowDefinitions="*" ColumnDefinitions="15,*,*,*,*,*,*,*">
+                                            <Label Text="{Binding EquipmentMovementID}" Grid.Column="0"/>
+                                            <Label Text="{Binding Equipment.Name}" Grid.Column="1"
+                />
+                                            <Label Text="{Binding SourceWarehouse.Name}" Grid.Column="2"
+                />
+                                            <Label Text="{Binding DestinationWarehouse.Name}" Grid.Column="3"
+                />
+                                            <Label Text="{Binding MovementDate}" Grid.Column="4"  />
+
+
+                                            <Button Style="{StaticResource PrimaryButtonStyle}" Text="Детали"
+                Clicked="ViewDetailBtn_OnClicked" x:Name="ViewDetailBtn" Grid.Column="5" CommandParameter="{Binding}" />
+                                            <Button Style="{StaticResource SuccessButtonStyle}" Text="Edit" Grid.Column="6"
+                Clicked="EditBtn_OnClicked" CommandParameter="{Binding}" />
+                                            <Button Style="{StaticResource DangerButtonStyle}" Text="Delete" Grid.Column="7"
+                Command="{Binding BindingContext.DeleteCommand, 
+                        Source={RelativeSource AncestorType={x:Type ContentPage}}}"
+                CommandParameter="{Binding}" />
+
+                                        </Grid>
+                                    
+
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+
+                </StackLayout>
             </Grid>
-
-            <!-- Orders Table -->
-            <ListView ItemsSource="{Binding Collection}"
-                      SelectedItem="{Binding BindingContext.SelectedItem, 
-                        Source={RelativeSource AncestorType={x:Type ContentPage}}, Mode=TwoWay}">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <HorizontalStackLayout>
-
-                                <Label Text="{Binding EquipmentMovementID}" Grid.Column="0"
-                                       TextColor="{StaticResource White}" />
-                                <Label Text="{Binding Equipment.Name}" Grid.Column="1"
-                                       TextColor="{StaticResource White}" />
-                                <Label Text="{Binding SourceWarehouse.Name}" Grid.Column="2"
-                                       TextColor="{StaticResource White}" />
-                                <Label Text="{Binding DestinationWarehouse.Name}" Grid.Column="3"
-                                       TextColor="{StaticResource White}" />
-                                <Label Text="{Binding MovementDate}" Grid.Column="3" TextColor="{StaticResource White}" />
-
-
-                                <Button Style="{StaticResource PrimaryButtonStyle}" Text="👁"
-                                        Clicked="ViewDetailBtn_OnClicked" x:Name="ViewDetailBtn" />
-                                <Button Style="{StaticResource SuccessButtonStyle}" Text="Edit"
-                                        Clicked="EditBtn_OnClicked" />
-                                <Button Style="{StaticResource DangerButtonStyle}" Text="Delete"
-                                        Command="{Binding BindingContext.DeleteCommand, 
-                                                Source={RelativeSource AncestorType={x:Type ContentPage}}}"
-                                        CommandParameter="{Binding BindingContext.SelectedItem, 
-                                                Source={RelativeSource AncestorType={x:Type ContentPage}}, Mode=TwoWay}" />
-
-                            </HorizontalStackLayout>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-
-        </StackLayout>
+        </ContentView>
     </Grid>
-    </ContentView>
-</Grid>
 </ContentPage>

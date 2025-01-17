@@ -5,26 +5,28 @@
              xmlns:model="clr-namespace:InventoryManagerMAUI.ViewModels.ViewModel"
              xmlns:custom="clr-namespace:InventoryManagerMAUI.View"
              xmlns:local="clr-namespace:InventoryManagerMAUI.Commands"
-             x:Class="InventoryManagerMAUI.View.InventoryView">
+             x:Class="InventoryManagerMAUI.View.InventoryView" Background="#f8f9fb">
     <ContentPage.BindingContext>
         <model:EquipmentsViewModel/>
     </ContentPage.BindingContext>
-    
+
     <ContentPage.Resources>
-        
+
         <ResourceDictionary xmlns:local="clr-namespace:InventoryManagerMAUI.Commands">
             <local:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter" />
         </ResourceDictionary>
 
-    
+
     </ContentPage.Resources>
 
-    <Grid RowDefinitions="*, Auto" ColumnDefinitions="2*, 8*">
+    <Grid RowDefinitions="*, Auto">
+
+
         <!-- Main Content -->
-        <StackLayout Grid.Column="1" Padding="20">
-            <Label Text="Inventory Management" FontSize="30" Margin="0,0,0,20" />
+        <StackLayout Padding="20">
+            <Label Text="Управление запасами" FontSize="30" Margin="0,0,0,20" />
             <StackLayout Orientation="Horizontal" Spacing="10">
-                <Button Text="Add New Product"
+                <Button Text="Добавить новый продукт"
                         x:Name="btnAdd" Clicked="BtnAdd_OnClicked" 
                         Style="{StaticResource PrimaryButtonStyle}"
                         />
@@ -32,30 +34,30 @@
 
             <!-- Filters -->
             <Grid Padding="15" Margin="0,20,0,20" ColumnDefinitions="*,*,*,*,*">
-                
-                <Picker Title="Category" Grid.Column="0" 
+
+                <Picker Title="Категория" Grid.Column="0" 
                         ItemsSource="{Binding Category}" 
                         ItemDisplayBinding="{Binding Name}"
                         SelectedItem="{Binding SelectedFilterCategory}">
                 </Picker>
-                <Picker Title="Stock Status" Grid.Column="1" 
+                <Picker Title="Статус запасов" Grid.Column="1" 
                         ItemsSource="{Binding Status}"
                         ItemDisplayBinding="{Binding Name}"
                         SelectedItem="{Binding SelectedFilterStatus}">
                 </Picker>
 
-                <Picker Title="Sort By" Grid.Column="2"
+                <Picker Title="Сортировать по" Grid.Column="2"
                         SelectedItem="{Binding SortBy, Mode=TwoWay}">
                     <Picker.Items>
-                        <x:String>Name</x:String>
-                        <x:String>Category</x:String>
-                        <x:String>Cost</x:String>
-                        <x:String>Purchase Date</x:String>
-                        <x:String>Status</x:String>
-                        <x:String>Supplier</x:String>
+                        <x:String>Имя</x:String>
+                        <x:String>Категория</x:String>
+                        <x:String>Цена</x:String>
+                        <x:String>Дата покупки</x:String>
+                        <x:String>Статус</x:String>
+                        <x:String>Поставщик</x:String>
                     </Picker.Items>
                 </Picker>
-                <Entry Placeholder="Search products..." Grid.Column="3" Text="{Binding FilterName}" />
+                <Entry Placeholder="Поиск продуктов..." Grid.Column="3" Text="{Binding FilterName}" />
                 <HorizontalStackLayout Grid.Column="4">
                     <Button Text="Сброс" x:Name="BtnReset" Command="{Binding ResetCommand}"
                             Style="{StaticResource DangerButtonStyle}" />
@@ -71,60 +73,44 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <StackLayout Orientation="Horizontal" Spacing="15">
-                                <Image Source="{Binding Photo, Converter={StaticResource ByteArrayToImageSourceConverter}}"/>
 
-                                
-                                    <Label Text="{Binding Name}" BindingContextChanged="OnBindingContextChanged"  FontSize="20" />
-                                    <Label Text="{Binding Category.Name}" FontSize="16" TextColor="Gray" />
-                                
-                                <Label Text="{Binding SerialNumber}" FontSize="16" />
-                                <Label Text="{Binding LastLocation}" FontSize="16" />
-                                <Label Text="{Binding Cost, StringFormat='{}{0:C}'}" FontSize="16" />
+                            <Grid ColumnDefinitions="130,*,100,100,*,100,*,*">
+                                <Image Grid.Column="0" Aspect="AspectFill" WidthRequest="125" HeightRequest="125" Source="{Binding Photo, Converter={StaticResource ByteArrayToImageSourceConverter}}"/>
+
+
+                                <Label Grid.Column="1"  Text="{Binding Name}" BindingContextChanged="OnBindingContextChanged"  FontSize="20" />
+                                <Label Grid.Column="2"  Text="{Binding Category.Name}" FontSize="16" TextColor="Gray" />
+
+                                <Label Grid.Column="3"  Text="{Binding SerialNumber}" FontSize="16" />
+                                <Label Grid.Column="4"  Text="{Binding LastLocation}" FontSize="16" />
+                                <Label Grid.Column="5"  Text="{Binding Cost, StringFormat='{}{0:C}'}" FontSize="16" />
 
                                 <!-- Conditionally Styled Status Label -->
-                                <Label Text="{Binding Status.Name}" FontSize="16" FontAttributes="Bold">
-                                    <!-- <Label.Style> -->
-                                    <!--     <Style TargetType="Label"> -->
-                                    <!--         <Style.Triggers> -->
-                                    <!--             <DataTrigger TargetType="Label" Binding="{Binding Status}" Value="In Stock"> -->
-                                    <!--                 <Setter Property="BackgroundColor" Value="#d4edda"/> -->
-                                    <!--                 <Setter Property="TextColor" Value="#155724"/> -->
-                                    <!--             </DataTrigger> -->
-                                    <!--             <DataTrigger TargetType="Label" Binding="{Binding Status}" Value="Low Stock"> -->
-                                    <!--                 <Setter Property="BackgroundColor" Value="#fff3cd"/> -->
-                                    <!--                 <Setter Property="TextColor" Value="#856404"/> -->
-                                    <!--             </DataTrigger> -->
-                                    <!--             <DataTrigger TargetType="Label" Binding="{Binding Status}" Value="Out of Stock"> -->
-                                    <!--                 <Setter Property="BackgroundColor" Value="#f8d7da"/> -->
-                                    <!--                 <Setter Property="TextColor" Value="#721c24"/> -->
-                                    <!--             </DataTrigger> -->
-                                    <!--         </Style.Triggers> -->
-                                    <!--     </Style> -->
-                                    <!-- </Label.Style> -->
+                                <Label  Grid.Column="6" Text="{Binding Status.Name}" FontSize="16" FontAttributes="Bold">
                                 </Label>
 
-                                <StackLayout Orientation="Horizontal" Spacing="5">
-                                    <Button Text="Edit" WidthRequest="50" HeightRequest="25" Style="{StaticResource PrimaryButtonStyle}" x:Name="EditBtn" Clicked="EditBtn_OnClicked"/>
-                                    <Button Text="Restock"
-                                            Style="{StaticResource SuccessButtonStyle}" 
-                                            WidthRequest="85" HeightRequest="25" Command="{Binding BindingContext.LoadImageCommand,
-                                            Source={RelativeSource AncestorType={x:Type ContentPage}}}"
-                                            CommandParameter="{Binding BindingContext.SelectedItem, 
-                                            Source={RelativeSource AncestorType={x:Type ContentPage}}, Mode=TwoWay}"/>
-                                    <Button Text="Delete" WidthRequest="70" HeightRequest="25" 
-                                            Style="{StaticResource DangerButtonStyle}" 
-                                            Command="{Binding BindingContext.DeleteCommand, Source={RelativeSource AncestorType={x:Type ContentPage}}}"
-                                            CommandParameter="{Binding BindingContext.SelectedItem, 
-                                            Source={RelativeSource AncestorType={x:Type ContentPage}}, Mode=TwoWay}"/>
+                                <StackLayout Grid.Column="7"  Orientation="Horizontal" Spacing="5">
+                                    <Button Text="Редактировать" HeightRequest="25" Style="{StaticResource PrimaryButtonStyle}" x:Name="EditBtn" Clicked="EditBtn_OnClicked"/>
+                                    <!--<Button Text="Restock"
+                Style="{StaticResource SuccessButtonStyle}" 
+                WidthRequest="85" HeightRequest="25" Command="{Binding BindingContext.LoadImageCommand,
+                Source={RelativeSource AncestorType={x:Type ContentPage}}}"
+                CommandParameter="{Binding BindingContext.SelectedItem, 
+                Source={RelativeSource AncestorType={x:Type ContentPage}}, Mode=TwoWay}"/>-->
+                                    <Button Text="Удалить" WidthRequest="70" HeightRequest="25" 
+                Style="{StaticResource DangerButtonStyle}" 
+                Command="{Binding BindingContext.DeleteCommand, Source={RelativeSource AncestorType={x:Type ContentPage}}}"
+                CommandParameter="{Binding BindingContext.SelectedItem, 
+                Source={RelativeSource AncestorType={x:Type ContentPage}}, Mode=TwoWay}"/>
                                 </StackLayout>
-                            </StackLayout>
+                            </Grid>
+
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
-
             </ListView>
-            <Button></Button>
+
+
         </StackLayout>
     </Grid>
 </ContentPage>

@@ -9,9 +9,8 @@ public partial class AddWarrantyClaimPopup : Popup
 {
 	private readonly WarrantyClaim? _viewModel;
 	private WarrantyClaim _editEquipment;
-	public AddWarrantyClaimPopup(WarrantyClaim? viewModel, WarrantyClaim editEquipment = null)
+	public AddWarrantyClaimPopup(WarrantyClaimsViewModel? viewModel, WarrantyClaim editEquipment = null)
 	{
-		_viewModel = viewModel;
 		_editEquipment = editEquipment;
 		InitializeComponent();
 		BindingContext = _viewModel;

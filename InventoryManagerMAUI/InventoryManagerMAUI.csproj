@@ -79,6 +79,24 @@
 	  <MauiXaml Update="View\CategoryView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="View\CategoryView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\Popups\AddViews\AddUserRolePopup.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\Popups\AddViews\AddWarehousePopup.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\Popups\AddViews\AddSuppliersPopup.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\Popups\AddViews\AddUserPopup.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\RoleView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="View\StatusView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -130,16 +148,93 @@
 	    <SubType>Designer</SubType>
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="View\Popups\EditViews\EditStatusPopup.xaml">
+	    <SubType>Designer</SubType>
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\Popups\EditViews\EditRolePopup.xaml">
+	    <SubType>Designer</SubType>
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\Popups\EditViews\EditCategoryPopup.xaml">
+	    <SubType>Designer</SubType>
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\Popups\AddViews\AddCategoryPopup.xaml">
+	    <SubType>Designer</SubType>
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\Popups\AddViews\AddRolePopup.xaml">
+	    <SubType>Designer</SubType>
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\Popups\AddViews\AddStatusPopup.xaml">
+	    <SubType>Designer</SubType>
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\Popups\EditViews\EditWarehousePopup.xaml">
+	    <SubType>Designer</SubType>
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\Popups\EditViews\EditSupplierPopup.xaml">
+	    <SubType>Designer</SubType>
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\Popups\EditViews\EditUserPopup.xaml">
+	    <SubType>Designer</SubType>
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\Popups\EditViews\EditUserRolePopup.xaml">
+	    <SubType>Designer</SubType>
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\SuppliersView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\UserRolesView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\UsersView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\WarehouseView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	</ItemGroup>
 
 	<ItemGroup>
 	  <None Remove="Resources\AppIcon\gag.png" />
+	  <None Remove="Resources\Images\icons_ruble.png" />
+	  <None Remove="Resources\Images\icons_warning.png" />
+	  <None Remove="Resources\Images\icon_admin.png" />
+	  <None Remove="Resources\Images\icon_dashboard.png" />
+	  <None Remove="Resources\Images\icon_inventory.png" />
+	  <None Remove="Resources\Images\icon_movement.png" />
+	  <None Remove="Resources\Images\icon_orders.png" />
+	  <None Remove="Resources\Images\icon_warranty_claims.png" />
+	  <None Remove="Resources\Images\logo.png" />
+	  <None Remove="Resources\Images\logoV2.png" />
 	  <MauiAsset Include="Resources\AppIcon\gag.png">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </MauiAsset>
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="View\CategoryView.xaml.cs">
+	    <DependentUpon>CategoryView.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="View\Popups\AddViews\AddUserRolePopup.xaml.cs">
+	    <DependentUpon>AddUserRolePopup.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="View\Popups\AddViews\AddWarehousePopup.xaml.cs">
+	    <DependentUpon>AddWarehousePopup.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="View\Popups\AddViews\AddSuppliersPopup.xaml.cs">
+	    <DependentUpon>AddSuppliersPopup.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="View\Popups\AddViews\AddUserPopup.xaml.cs">
+	    <DependentUpon>AddUserPopup.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="View\Popups\BasePopup.xaml.cs">
 	    <DependentUpon>BasePopup.xaml</DependentUpon>
 	    <SubType>Code</SubType>
@@ -186,6 +281,46 @@
 	  </Compile>
 	  <Compile Update="View\Popups\EditViews\EditWarrantyClaimPopup.xaml.cs">
 	    <DependentUpon>AddWarrantyClaimPopup.xaml</DependentUpon>
+	    <SubType>Code</SubType>
+	  </Compile>
+	  <Compile Update="View\Popups\EditViews\EditStatusPopup.xaml.cs">
+	    <DependentUpon>BasePopup.xaml</DependentUpon>
+	    <SubType>Code</SubType>
+	  </Compile>
+	  <Compile Update="View\Popups\EditViews\EditRolePopup.xaml.cs">
+	    <DependentUpon>EditRolePopup.xaml</DependentUpon>
+	    <SubType>Code</SubType>
+	  </Compile>
+	  <Compile Update="View\Popups\EditViews\EditCategoryPopup.xaml.cs">
+	    <DependentUpon>EditCategoryPopup.xaml</DependentUpon>
+	    <SubType>Code</SubType>
+	  </Compile>
+	  <Compile Update="View\Popups\AddViews\AddCategoryPopup.xaml.cs">
+	    <DependentUpon>EditCategoryPopup.xaml</DependentUpon>
+	    <SubType>Code</SubType>
+	  </Compile>
+	  <Compile Update="View\Popups\AddViews\AddRolePopup.xaml.cs">
+	    <DependentUpon>EditRolePopup.xaml</DependentUpon>
+	    <SubType>Code</SubType>
+	  </Compile>
+	  <Compile Update="View\Popups\AddViews\AddStatusPopup.xaml.cs">
+	    <DependentUpon>EditStatusPopup.xaml</DependentUpon>
+	    <SubType>Code</SubType>
+	  </Compile>
+	  <Compile Update="View\Popups\EditViews\EditWarehousePopup.xaml.cs">
+	    <DependentUpon>EditWarehousePopup.xaml</DependentUpon>
+	    <SubType>Code</SubType>
+	  </Compile>
+	  <Compile Update="View\Popups\EditViews\EditSupplierPopup.xaml.cs">
+	    <DependentUpon>EditSupplierPopup.xaml</DependentUpon>
+	    <SubType>Code</SubType>
+	  </Compile>
+	  <Compile Update="View\Popups\EditViews\EditUserPopup.xaml.cs">
+	    <DependentUpon>EdittUserPopup.xaml</DependentUpon>
+	    <SubType>Code</SubType>
+	  </Compile>
+	  <Compile Update="View\Popups\EditViews\EditUserRolePopup.xaml.cs">
+	    <DependentUpon>EditUserRolePopup.xaml</DependentUpon>
 	    <SubType>Code</SubType>
 	  </Compile>
 	</ItemGroup>

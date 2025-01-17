@@ -6,61 +6,61 @@
                CanBeDismissedByTappingOutsideOfPopup="False">
     <ScrollView MaximumWidthRequest="500" MaximumHeightRequest="550">
         <VerticalStackLayout>
-            <HorizontalStackLayout>
-                <Label TextColor="{StaticResource White}" Text="Movement Details"/>
+            <HorizontalStackLayout  Margin="10">
+                <Label   Text="Детали Гарантии" FontAttributes="Bold"/>
             </HorizontalStackLayout>
-            <HorizontalStackLayout>
+            <HorizontalStackLayout Margin="10">
                 <VerticalStackLayout>
                     <HorizontalStackLayout>
-                        <Label TextColor="{StaticResource White}" Text="Claim ID:"/>
-                        <Label TextColor="{StaticResource White}" 
+                        <Label   Text="Идентификатор заявки: " FontAttributes="Bold"/>
+                        <Label  
                                Text="{Binding SelectedItem.WarrantyClaimID}"/>
                     </HorizontalStackLayout>
                     <HorizontalStackLayout>
-                        <Label TextColor="{StaticResource White}" Text="Date Filed:"/>
-                        <Label TextColor="{StaticResource White}" 
+                        <Label  Text="Дата подачи: " FontAttributes="Bold"/>
+                        <Label  
                                Text="{Binding SelectedItem.ClaimDate}"/>
                     </HorizontalStackLayout>
                     <HorizontalStackLayout>
-                        <Label TextColor="{StaticResource White}" Text="Status:"/>
-                        <Label TextColor="{StaticResource White}" 
+                        <Label  Text="Статус: " FontAttributes="Bold"/>
+                        <Label  
                                Text="{Binding SelectedItem.Status.Name}"/>
                     </HorizontalStackLayout>
                     <HorizontalStackLayout>
-                        <Label TextColor="{StaticResource White}" Text="Warranty Until:"/>
-                        <Label TextColor="{StaticResource White}" 
+                        <Label  Text="Гарантия до: " FontAttributes="Bold"/>
+                        <Label  
                                Text="{Binding SelectedItem.Equipment.WarrantyExpiration}"/>
                     </HorizontalStackLayout>
                 </VerticalStackLayout>
                 <VerticalStackLayout>
                     <HorizontalStackLayout>
-                        <Label TextColor="{StaticResource White}" Text="Equipment:"/>
-                        <Label TextColor="{StaticResource White}" 
+                        <Label  Text="Оборудование: " FontAttributes="Bold"/>
+                        <Label  
                                Text="{Binding SelectedItem.Equipment.Name}"/>
                     </HorizontalStackLayout>
                     <HorizontalStackLayout>
-                        <Label TextColor="{StaticResource White}" Text="Serial Number:"/>
-                        <Label TextColor="{StaticResource White}" 
+                        <Label  Text="Серийный номер: " FontAttributes="Bold"/>
+                        <Label  
                                Text="{Binding SelectedItem.Equipment.SerialNumber}"/>
                     </HorizontalStackLayout>
                     <HorizontalStackLayout>
-                        <Label TextColor="{StaticResource White}" Text="Purchase Date:"/>
-                        <Label TextColor="{StaticResource White}" 
+                        <Label  Text="Дата покупки: " FontAttributes="Bold"/>
+                        <Label  
                                Text="{Binding SelectedItem.Equipment.PurchaseDate}"/> 
                     </HorizontalStackLayout>
                     <HorizontalStackLayout>
-                        <Label TextColor="{StaticResource White}" Text="Location:"/>
-                        <Label TextColor="{StaticResource White}" 
+                        <Label  Text="Расположение: " FontAttributes="Bold"/>
+                        <Label  
                                Text="{Binding SelectedItem.Equipment.LastLocation}"/>   
                     </HorizontalStackLayout>
                 </VerticalStackLayout>
             </HorizontalStackLayout>
-            <Label TextColor="{StaticResource White}" Text="Issue Description"/>
-            <Label TextColor="{StaticResource White}" 
+            <Label  Text="Описание проблемы" FontAttributes="Bold" Margin="10"/>
+            <Label  
                    Text="{Binding IssueDescription}"/>
-            <HorizontalStackLayout>
-                <Button Text="Cancel" Style="{StaticResource SecondaryButtonStyle}" Clicked="CloseButton_OnClicked"/>
-                <Button Text="Print Order" Style="{StaticResource PrimaryButtonStyle}"/>
+            <HorizontalStackLayout Margin="10">
+                <Button Text="Отмена" Style="{StaticResource WarningButtonStyle}" Clicked="CloseButton_OnClicked"/>
+                <Button Text="Печать" Style="{StaticResource PrimaryButtonStyle}"/>
             </HorizontalStackLayout>
         </VerticalStackLayout>
     </ScrollView>

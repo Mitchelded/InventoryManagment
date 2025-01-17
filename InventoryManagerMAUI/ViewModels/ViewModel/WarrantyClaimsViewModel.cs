@@ -9,7 +9,39 @@ public class WarrantyClaimsViewModel : ViewModelBase<WarrantyClaim>
         LoadEquipment();
         LoadStatus();
     }
-    
+//TODO: Проверить работоспособность
+    public override async void OnUpdate(WarrantyClaim item)
+    {
+        if (item != null)
+        {
+            Console.WriteLine($"Updating item: {item}");
+            try
+            {
+                using InventoryManagmentEntities _db = new();
+
+                if (SelectedEquipment != null) item.EquipmentID = SelectedEquipment.EquipmentID;
+                item.ClaimDate = ClaimDate;
+                item.IssueDescription = _issueDescription;
+                item.Resolution = _resolution;
+                item.ResolutionDate = ResolutionDate;    
+                    
+                _db.Entry(item).State = EntityState.Modified;
+                await _db.SaveChangesAsync();
+
+                await Application.Current.MainPage.DisplayAlert("Update", "Item updated successfully", "OK");
+            }
+            catch (Exception ex)
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", $"Error updating item: {ex.Message}", "OK");
+            }
+        }
+        else
+        {
+            await Application.Current.MainPage.DisplayAlert("Error", "Item is null, reloading data.", "OK");
+            LoadData();
+        }
+    }
+
     private void ApplyFilter()
     {
         using InventoryManagmentEntities db = new();
@@ -48,9 +80,30 @@ public class WarrantyClaimsViewModel : ViewModelBase<WarrantyClaim>
 
     public override void OnAdd(object obj)
     {
-        base.OnAdd(obj);
-    }
+        using InventoryManagmentEntities _db = new();
+        if (SelectedStatus != null)
+        {
+            if (SelectedEquipment != null)
+            {
+                WarrantyClaim warrantyClaim = new()
+                {
+                    EquipmentID = SelectedEquipment.EquipmentID,
+                    ClaimDate = ClaimDate,
+                    IssueDescription = IssueDescription,
+                    Resolution = Resolution,
+                    StatusID = SelectedStatus.StatusID,
+                    ResolutionDate = ResolutionDate
+                };
 
+                // Add the order detail to the database
+                Collection.Add(warrantyClaim);
+                _db.WarrantyClaims.Add(warrantyClaim);
+            }
+        }
+
+        _db.SaveChanges();
+    }
+    
     private void LoadStatus()
     {
         using InventoryManagmentEntities _db = new();
@@ -73,26 +126,76 @@ public class WarrantyClaimsViewModel : ViewModelBase<WarrantyClaim>
         }
     }
 
-    private Status _selectedStatus;
+    private Status? _selectedStatus;
+    
+    public DateTime _claimDate;
+    public string _issueDescription;
 
-    public Status SelectedStatus
+    public DateTime ClaimDate
+    {
+        get => _claimDate;
+        set
+        {
+            if (value.Equals(_claimDate)) return;
+            _claimDate = value;
+            OnPropertyChanged(nameof(ClaimDate));
+        }
+    }
+
+    public string IssueDescription
+    {
+        get => _issueDescription;
+        set
+        {
+            if (value == _issueDescription) return;
+            _issueDescription = value ?? throw new ArgumentNullException(nameof(value));
+            OnPropertyChanged(nameof(IssueDescription));
+        }
+    }
+
+    public string Resolution
+    {
+        get => _resolution;
+        set
+        {
+            if (value == _resolution) return;
+            _resolution = value ?? throw new ArgumentNullException(nameof(value));
+            OnPropertyChanged(nameof(Resolution));
+        }
+    }
+
+    public DateTime? ResolutionDate
+    {
+        get => _resolutionDate;
+        set
+        {
+            if (Nullable.Equals(value, _resolutionDate)) return;
+            _resolutionDate = value;
+            OnPropertyChanged(nameof(ResolutionDate));
+        }
+    }
+
+    public string _resolution;
+    public DateTime? _resolutionDate;
+
+    public Status? SelectedStatus
     {
         get => _selectedStatus;
         set
         {
             if (Equals(value, _selectedStatus)) return;
-            _selectedStatus = value ?? throw new ArgumentNullException(nameof(value));
+            _selectedStatus = value;
             OnPropertyChanged(nameof(SelectedStatus));
         }
     }
 
-    public Equipment SelectedEquipment
+    public Equipment? SelectedEquipment
     {
         get => _selectedEquipment;
         set
         {
             if (Equals(value, _selectedEquipment)) return;
-            _selectedEquipment = value ?? throw new ArgumentNullException(nameof(value));
+            _selectedEquipment = value;
             OnPropertyChanged(nameof(SelectedEquipment));
         }
     }
@@ -108,7 +211,7 @@ public class WarrantyClaimsViewModel : ViewModelBase<WarrantyClaim>
         }
     }
 
-    private Equipment _selectedEquipment;
+    private Equipment? _selectedEquipment;
     private List<Equipment> _equipment = new();
     
     

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+               x:Class="InventoryManagerMAUI.ViewModels.Popups.EditViews.EditUserRolePopup"
+               CanBeDismissedByTappingOutsideOfPopup="False">
+
+    <ScrollView MaximumWidthRequest="250" MaximumHeightRequest="150">
+        <Grid ColumnDefinitions="*,*" RowDefinitions="*,*">
+            <Picker Margin="10" Grid.Column="0" Grid.Row="0" Title="Пользователь"
+                    ItemsSource="{Binding CollectionUser}" 
+                    ItemDisplayBinding="{Binding UserName}"
+                    SelectedItem="{Binding SelectedUserItem}"/>
+
+            <Picker Margin="10" Grid.Column="1" Grid.Row="0" Title="Роль"
+                    ItemsSource="{Binding CollectionRole}" 
+                    ItemDisplayBinding="{Binding Name}"
+                    SelectedItem="{Binding SelectedRoleItem}"/>
+            <Button Margin="10" Grid.Column="0" Grid.Row="1"  Text="Сохранить"
+                    Command="{Binding UpdateUserRoleCommand}"
+                    CommandParameter="{Binding SelectedUserRoleItem}"/>
+            <Button Margin="10" Grid.Column="1" Grid.Row="1"  Clicked="CloseButton_Click" Style="{StaticResource WarningButtonStyle}" Text="Отмена"/>
+        </Grid>
+    </ScrollView>
+
+</toolkit:Popup>

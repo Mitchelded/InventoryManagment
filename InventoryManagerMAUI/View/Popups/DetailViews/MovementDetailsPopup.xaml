@@ -6,42 +6,39 @@
                CanBeDismissedByTappingOutsideOfPopup="False">
     <ScrollView MaximumWidthRequest="500" MaximumHeightRequest="550">
         <VerticalStackLayout>
-            <HorizontalStackLayout>
-                <Label TextColor="{StaticResource White}" Text="Movement Details"/>
+            <HorizontalStackLayout Margin="10">
+                <Label Text="Детали движения"/>
             </HorizontalStackLayout>
-            <HorizontalStackLayout>
+            <HorizontalStackLayout  Margin="10">
                 <VerticalStackLayout>
                     <HorizontalStackLayout>
-                        <Label TextColor="{StaticResource White}" Text="Movement ID:"/>
-                        <Label TextColor="{StaticResource White}" Text="{Binding SelectedItem.EquipmentMovementID}"/>
+                        <Label Text="Идентификатор движения: " FontAttributes="Bold"/>
+                        <Label Text="{Binding SelectedItem.EquipmentMovementID}"/>
                     </HorizontalStackLayout>
                     <HorizontalStackLayout>
-                        <Label TextColor="{StaticResource White}" Text="Equipment:"/>
-                        <Label TextColor="{StaticResource White}" Text="{Binding SelectedItem.Equipment.Name}"/>
+                        <Label  Text="Оборудование: " FontAttributes="Bold"/>
+                        <Label  Text="{Binding SelectedItem.Equipment.Name}"/>
                     </HorizontalStackLayout>
                     <HorizontalStackLayout>
-                        <Label TextColor="{StaticResource White}" Text="From Location:"/>
-                        <Label TextColor="{StaticResource White}" Text="{Binding SelectedItem.SourceWarehouse.Name}"/>
+                        <Label  Text="Откуда: " FontAttributes="Bold"/>
+                        <Label  Text="{Binding SelectedItem.SourceWarehouse.Name}"/>
                     </HorizontalStackLayout>
                     <HorizontalStackLayout>
-                        <Label TextColor="{StaticResource White}" Text="To Location:"/>
-                        <Label TextColor="{StaticResource White}" Text="{Binding SelectedItem.DestinationWarehouse.Name}"/>
+                        <Label  Text="Куда: " FontAttributes="Bold"/>
+                        <Label  Text="{Binding SelectedItem.DestinationWarehouse.Name}"/>
                     </HorizontalStackLayout>
-                </VerticalStackLayout>
-                <VerticalStackLayout>
                     <HorizontalStackLayout>
-                        <Label TextColor="{StaticResource White}" Text="Requested Date:"/>
-                        <Label TextColor="{StaticResource White}" Text="{Binding MovementDate}"/>
+                        <Label  Text="Запрошенная дата: " FontAttributes="Bold"/>
+                        <Label  Text="{Binding MovementDate}"/>
                     </HorizontalStackLayout>
-                    <!-- Requested Date: 2023-06-20 -->
-                    <!-- Status: In Transit -->
+                    
                 </VerticalStackLayout>
             </HorizontalStackLayout>
-            <Label TextColor="{StaticResource White}" Text="Reason for Movement"/>
-            <Label TextColor="{StaticResource White}" Text="{Binding ReasonForMovement}"/>
-            <HorizontalStackLayout>
-                <Button Text="Cancel" Style="{StaticResource SecondaryButtonStyle}" Clicked="CloseButton_OnClicked"/>
-                <Button Text="Print Order" Style="{StaticResource PrimaryButtonStyle}"/>
+            <Label  Text="Причина перемещения" FontAttributes="Bold" Margin="10"/>
+            <Label  Text="{Binding ReasonForMovement}" Margin="10"/>
+            <HorizontalStackLayout Margin="10">
+                <Button Text="Отмена" Style="{StaticResource WarningButtonStyle}" Clicked="CloseButton_OnClicked"/>
+                <Button Text="Печать" Style="{StaticResource PrimaryButtonStyle}"/>
             </HorizontalStackLayout>
         </VerticalStackLayout>
     </ScrollView>

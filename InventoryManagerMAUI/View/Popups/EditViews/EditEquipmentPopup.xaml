@@ -20,69 +20,67 @@
     <!-- Add Product Modal -->
     <ScrollView MaximumWidthRequest="500" MaximumHeightRequest="550">
         <VerticalStackLayout>
-            <HorizontalStackLayout>
-                <VerticalStackLayout Margin="0,0,25,0">
-                    <Label Text="Product Name" TextColor="{StaticResource Text}" />
+            <Grid Margin="10" ColumnDefinitions="*,*">
+                <VerticalStackLayout Margin="0,0,25,0" Grid.Column="0">
+                    <Label Text="Название продукта" TextColor="{StaticResource Text}" />
                     <Entry x:Name="ProductNameEntry"
-                           Placeholder="Enter product name"
+                           Placeholder="Введите название продукта"
                            Text="{Binding Name, Mode=TwoWay}"
                            TextColor="{StaticResource Text}" />
 
-                    <Label Text="Cost" Margin="0,0,10,0" TextColor="{StaticResource Text}" />
-                    <Entry x:Name="CostEntry" Placeholder="Enter Cost"
+                    <Label Text="Цена" Margin="0,0,10,0" TextColor="{StaticResource Text}" />
+                    <Entry x:Name="CostEntry" Placeholder="Введите стоимость"
                            Text="{Binding Cost, Mode=TwoWay}" Keyboard="Numeric"
                            TextColor="{StaticResource Text}" />
 
-                    <Label Text="Initial Serial Number" Margin="0,0,10,0" TextColor="{StaticResource Text}" />
+                    <Label Text="Начальный серийный номер" Margin="0,0,10,0" TextColor="{StaticResource Text}" />
                     <Frame BorderColor="{StaticResource Border}"
                            CornerRadius="5"
                            Padding="0"
                            HasShadow="False"
                            Background="Transparent">
                         <HorizontalStackLayout>
-                            <Entry x:Name="SerialNumberEntry" Placeholder="Enter Serial Number"
+                            <Entry x:Name="SerialNumberEntry" Placeholder="Введите серийный номер"
                                    Keyboard="Numeric" Text="{Binding SerialNumber, Mode=TwoWay}"
                                    TextColor="{StaticResource Text}" />
-                            <Button Text="Generate" />
+                            <!--<Button Text="Генерировать" />-->
                         </HorizontalStackLayout>
                     </Frame>
 
-                    <Label Text="Status" Margin="0,0,10,0" TextColor="{StaticResource Text}" />
                     <Frame BorderColor="{StaticResource Border}"
                            CornerRadius="5"
                            Padding="0"
                            HasShadow="False"
                            Background="Transparent">
-                        <Picker x:Name="StatusPicker"
+                        <Picker Title="Статус" x:Name="StatusPicker"
                                 ItemsSource="{Binding Status}"
                                 ItemDisplayBinding="{Binding Name, Mode=TwoWay}"
                                 TextColor="{StaticResource Text}"
-                                WidthRequest="100" MaximumWidthRequest="150" SelectedItem="{Binding SelectedStatus, Mode=TwoWay}" />
+                                SelectedItem="{Binding SelectedStatus, Mode=TwoWay}" />
                     </Frame>
                 </VerticalStackLayout>
 
-                <VerticalStackLayout Margin="0,0,25,0">
+                <VerticalStackLayout Margin="0,0,25,0" Grid.Column="1" >
 
-                    <Label Text="Category" Margin="0,0,10,0" TextColor="{StaticResource Text}" />
                     <Frame BorderColor="{StaticResource Border}"
                            CornerRadius="5"
                            Padding="0"
                            HasShadow="False"
                            Background="Transparent">
-                        <Picker x:Name="CategoryPicker"
+                        <Picker Title="Категория" x:Name="CategoryPicker"
                                 ItemsSource="{Binding Category, Mode=TwoWay}"
                                 ItemDisplayBinding="{Binding Name, Mode=TwoWay}"
                                 TextColor="{StaticResource Text}"
-                                WidthRequest="100" MaximumWidthRequest="150" SelectedItem="{Binding SelectedCategory, Mode=TwoWay}" />
+                                SelectedItem="{Binding SelectedCategory, Mode=TwoWay}" />
                     </Frame>
 
-                    <Label Text="Purchase Date"
+                    <Label Text="Дата покупки"
                            Margin="0,0,10,0"
                            TextColor="{StaticResource Text}" />
                     <DatePicker x:Name="PurchaseDatePicker" Date="{Binding PurchaseDate, Mode=TwoWay}"
                                 TextColor="{StaticResource Text}" />
 
-                    <Label Text="Warranty Expiration"
+                    <Label Text="Срок гарантии"
                            Margin="0,0,10,0"
                            TextColor="{StaticResource Text}" />
                     <DatePicker x:Name="WarrantyExpirationPicker" Date="{Binding WarrantyExpiration, Mode=TwoWay}"
@@ -93,26 +91,26 @@
                            Padding="0"
                            HasShadow="False"
                            Background="Transparent">
-                        <Picker x:Name="SupplierPicker"
+                        <Picker Title="Поставщик" x:Name="SupplierPicker"
                                 ItemsSource="{Binding Suppliers, Mode=TwoWay}"
                                 ItemDisplayBinding="{Binding Name, Mode=TwoWay}"
                                 TextColor="{StaticResource Text}"
-                                WidthRequest="100" MaximumWidthRequest="150" SelectedItem="{Binding SelectedSupplier, Mode=TwoWay}" />
+                                SelectedItem="{Binding SelectedSupplier, Mode=TwoWay}" />
                     </Frame>
 
                 </VerticalStackLayout>
-            </HorizontalStackLayout>
-            <VerticalStackLayout>
-                <Label Text="Product Image" Margin="0,0,10,0" TextColor="{StaticResource Text}" />
+            </Grid>
+            <VerticalStackLayout Margin="10" >
+                <Label Text="Изображение продукта" Margin="0,0,10,0" TextColor="{StaticResource Text}" />
                 <Frame BorderColor="{StaticResource Border}"
                        CornerRadius="5"
                        Padding="0"
                        HasShadow="False"
                        Background="Transparent">
                     <HorizontalStackLayout>
-                        <Button Text="Select Image"
+                        <Button Text="Выберите изображение"
                                 BorderColor="{StaticResource SecondaryColor}"
-                                WidthRequest="75"
+                                WidthRequest="200"
                                 Command="{Binding SelectImageCommand, Mode=TwoWay}">
                             <Button.Shadow>
                                 <Shadow Brush="#3498db"
@@ -126,13 +124,12 @@
                 </Frame>
 
             </VerticalStackLayout>
-            <HorizontalStackLayout HorizontalOptions="End" VerticalOptions="End">
-                <Button Text="Cancel" Background="{StaticResource WarningBrush}" x:Name="CancelBtn" Clicked="CancelBtn_OnClicked"/>
-                <Button Text="Add Product"
+            <HorizontalStackLayout Margin="10" HorizontalOptions="End" VerticalOptions="End">
+                <Button  Style="{StaticResource WarningButtonStyle}" Text="Отмена" x:Name="CancelBtn" Clicked="CancelBtn_OnClicked"/>
+                <Button  Text="Сохранить"
                         Style="{StaticResource PrimaryButtonStyle}"
-                        Command="{Binding BindingContext.UpdateCommand, Source={RelativeSource AncestorType={x:Type ContentPage}}}"
-                        CommandParameter="{Binding BindingContext.SelectedItem, 
-                        Source={RelativeSource AncestorType={x:Type ContentPage}}, Mode=TwoWay}" />
+                        Command="{Binding UpdateCommand}"
+                        CommandParameter="{Binding SelectedItem, Mode=TwoWay}" />
 
             </HorizontalStackLayout>
         </VerticalStackLayout>

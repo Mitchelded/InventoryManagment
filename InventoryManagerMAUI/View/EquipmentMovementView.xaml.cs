@@ -8,6 +8,7 @@ using InventoryManagerMAUI.ViewModels.Popups;
 using InventoryManagerMAUI.ViewModels.Popups.AddViews;
 using InventoryManagerMAUI.ViewModels.Popups.DetailViews;
 using InventoryManagerMAUI.ViewModels.Popups.EditViews;
+using InventoryManagerMAUI.ViewModels.ViewModel;
 
 namespace InventoryManagerMAUI.View;
 
@@ -20,19 +21,26 @@ public partial class EquipmentMovementView : ContentPage
 
     private void AddMovementButton_OnClicked(object? sender, EventArgs e)
     {
-        var popup = new AddEquipmentMovementPopup(BindingContext as EquipmentMovement);
+        var popup = new AddEquipmentMovementPopup(BindingContext as EquipmentMovementViewModel);
         this.ShowPopupAsync(popup);
     }
 
     private void ViewDetailBtn_OnClicked(object? sender, EventArgs e)
     {
-        var popup = new MovementDetailsPopup(BindingContext as EquipmentMovement);
-        this.ShowPopupAsync(popup);
+        var button = sender as Button; // Получаем кнопку
+        var item = button?.CommandParameter as EquipmentMovement; // Получаем элемент, переданный через CommandParameter
+
+        if (item != null)
+        {
+            var popup = new MovementDetailsPopup(item);
+            this.ShowPopupAsync(popup);
+        }
+
     }
 
     private void EditBtn_OnClicked(object? sender, EventArgs e)
     {
-        var popup = new EditEquipmentMovementPopup(BindingContext as EquipmentMovement);
+        var popup = new EditEquipmentMovementPopup(BindingContext as EquipmentMovementViewModel);
         this.ShowPopupAsync(popup);
     }
 }

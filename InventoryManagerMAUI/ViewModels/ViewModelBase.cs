@@ -59,7 +59,7 @@ public class ViewModelBase<T> : INotifyPropertyChanged where T : class
 		OnPropertyChanged(nameof(Collection));
 	}
 
-	public virtual void OnUpdate(T item)
+	public virtual async void OnUpdate(T item)
 	{
 		if (item != null)
 		{

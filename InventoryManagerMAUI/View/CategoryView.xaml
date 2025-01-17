@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModel="clr-namespace:InventoryManagerMAUI.ViewModels.ViewModel"
+             x:Class="InventoryManagerMAUI.View.CategoryView" Shell.NavBarIsVisible="False">
+    <ContentPage.BindingContext>
+        <viewModel:AdminViewModel />
+    </ContentPage.BindingContext>
+
+
+
+    <VerticalStackLayout>
+        <Label Text="Категории" VerticalOptions="Center" FontSize="Title" Margin="10" />
+        <Button Clicked="BtnAdd_Clicked" Text="Новая категория" x:Name="BtnAdd" Margin="10" HorizontalOptions="End"/>
+
+        <ListView Grid.Column="0" Grid.Row="0"
+                                  ItemsSource="{Binding CollectionCategory}" Margin="10"
+                                  SelectedItem="{Binding BindingContext.SelectedCategoryItem ,Source={RelativeSource AncestorType={x:Type ContentPage}}}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                       
+                            <Grid ColumnDefinitions="10,*,*,*,*">
+                                <Label Text="{Binding CategoryID}" Grid.Column="0" />
+                                <Label Text="{Binding Name}" Grid.Column="1" />
+                                <Label Text="{Binding Description}" Grid.Column="2" />
+                                <Button Grid.Column="3" Width="25" Text="Удалить" Style="{StaticResource DangerButtonStyle}"
+                                                    Command="{Binding BindingContext.DeleteCategoryCommand,
+                                                        Source={RelativeSource AncestorType={x:Type ContentPage}}}"
+                                                    CommandParameter="{Binding BindingContext.SelectedCategoryItem,
+                                                                Source={RelativeSource AncestorType={x:Type ContentPage}}}" />
+                                <Button Text="Редактированике" Grid.Column="4" Width="25"
+                                                    Clicked="CategoryEditButton_OnClicked" Style="{StaticResource WarningButtonStyle}" />
+                            </Grid>
+                        
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+    </VerticalStackLayout>
+</ContentPage>

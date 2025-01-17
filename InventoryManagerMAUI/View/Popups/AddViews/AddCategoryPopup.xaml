@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+               x:Class="InventoryManagerMAUI.ViewModels.Popups.AddViews.AddCategoryPopup"
+               CanBeDismissedByTappingOutsideOfPopup="False">
+
+    <ScrollView MaximumWidthRequest="450" MaximumHeightRequest="250" Margin="10">
+        <Grid ColumnDefinitions="*,*" RowDefinitions="*,*">
+            
+            <Border StrokeShape="RoundRectangle 10,10,10,10" Margin="10" Grid.Column="0" Grid.Row="0" >
+                <Entry Placeholder="Введите новое имя" Text="{Binding Name}" Margin="10" />
+            </Border>
+            <Border StrokeShape="RoundRectangle 10,10,10,10" Margin="10" Grid.Column="1" Grid.Row="0">
+                <Entry Placeholder="Введите новое описание" Text="{Binding Description}" Margin="10"/>
+            </Border>
+
+            <Button Grid.Column="0" Grid.Row="1" HeightRequest="25" Margin="25" Style="{StaticResource PrimaryButtonStyle}"
+                    Command="{Binding AddCategoryCommand}" Text="Добавить"/>
+            <Button Grid.Column="1" Grid.Row="1"  Clicked="CloseButton_Click" HeightRequest="25" Text="Close" Margin="25" Style="{StaticResource WarningButtonStyle}"/>
+        </Grid>
+    </ScrollView>
+
+</toolkit:Popup>

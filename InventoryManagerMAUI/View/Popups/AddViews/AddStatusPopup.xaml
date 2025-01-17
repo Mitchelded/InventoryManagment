@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="InventoryManagerMAUI.ViewModels.Popups.AddViews.AddStatusPopup"
+               CanBeDismissedByTappingOutsideOfPopup="False">
+
+
+    <ScrollView MaximumWidthRequest="400" MaximumHeightRequest="250">
+        <Grid ColumnDefinitions="*,*" RowDefinitions="*,*">
+            <Border StrokeShape="RoundRectangle 10,10,10,10" Margin="10" Grid.Column="0" Grid.Row="0" >
+            <Entry Placeholder="Введите новое имя" Text="{Binding Name}"/>
+            </Border>
+            <Border StrokeShape="RoundRectangle 10,10,10,10" Margin="10" Grid.Column="1" Grid.Row="0" >
+            <Entry Placeholder="Введите новое описание" Text="{Binding Description}"/>
+            </Border>
+            <Button Grid.Column="0" Grid.Row="1" Text="Добавить"
+                    Command="{Binding AddStatusCommand}" Style="{StaticResource PrimaryButtonStyle}"/>
+            <Button Grid.Column="1" Grid.Row="1"  Clicked="CloseButton_Click" Style="{StaticResource WarningButtonStyle}" Text="Отмена"/>
+        </Grid>
+    </ScrollView>
+
+</toolkit:Popup>

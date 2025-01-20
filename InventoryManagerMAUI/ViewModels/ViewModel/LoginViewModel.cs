@@ -66,18 +66,18 @@ public class LoginViewModel : INotifyPropertyChanged
         {
             await using InventoryManagmentEntities db = new();
             // Пример проверки учетных данных
-            string hashedPassword = HashHelper.ComputeMD5Hash(Password);
+            string hashedPassword = await HashHelper.ComputeMD5Hash(Password);
             User? user = db.Users.Include(user => user.UserRoles).ThenInclude(userRole => userRole.Role)
                 .First(x => x.Username == Username && x.Password.ToUpper() == hashedPassword.ToUpper());
             // Сохранение текущего пользователя
             if (user != null)
             {
-                await SecureStorage.SetAsync("CurrentUsername", user.UserID.ToString());
+                Preferences.Set("CurrentUsername", user.UserID.ToString());
                 Preferences.Set("CurrentRole", user.UserRoles.First().Role.Name);
                 // Обновляем боковое меню
                 UpdateMenuForRole(user.UserRoles.First().Role.Name);
                 // Переход к главной странице
-                if (Application.Current != null) Application.Current.MainPage = new AppShell();  
+                if (Application.Current != null) Application.Current.MainPage = new AppShell();
             }
         }
         finally
@@ -85,18 +85,28 @@ public class LoginViewModel : INotifyPropertyChanged
             IsBusy = false;
         }
     }
+
     private void UpdateMenuForRole(string role)
     {
-        if (Application.Current?.MainPage is AppShell shell)
+        try
         {
-            shell.Items.Clear(); // Очистка текущих элементов меню
-            var menuItems = RoleBasedMenuService.GetMenuForRole(role);
-            foreach (var menuItem in menuItems)
+            if (Application.Current?.MainPage is AppShell shell)
             {
-                shell.Items.Add(menuItem); // Добавляем элементы меню для текущей роли
+                shell.Items.Clear(); // Очистка текущих элементов меню
+                var menuItems = RoleBasedMenuService.GetMenuForRole(role);
+                foreach (var menuItem in menuItems)
+                {
+                    shell.Items.Add(menuItem); // Добавляем элементы меню для текущей роли
+                }
             }
         }
+        catch (Exception ex)
+        {
+            // Display an alert if an error occurs
+            Application.Current.MainPage.DisplayAlert("Ошибка", $"Произошла ошибка: {ex.Message}", "OK");
+        }
     }
+
     public event PropertyChangedEventHandler PropertyChanged;
 
     protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

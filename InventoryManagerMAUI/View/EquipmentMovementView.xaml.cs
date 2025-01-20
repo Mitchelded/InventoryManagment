@@ -27,15 +27,41 @@ public partial class EquipmentMovementView : ContentPage
 
     private void ViewDetailBtn_OnClicked(object? sender, EventArgs e)
     {
-        var button = sender as Button; // Получаем кнопку
-        var item = button?.CommandParameter as EquipmentMovement; // Получаем элемент, переданный через CommandParameter
-
-        if (item != null)
+        try
         {
-            var popup = new MovementDetailsPopup(item);
-            this.ShowPopupAsync(popup);
-        }
+            var button = sender as Button; // Получаем кнопку
+            var item = button?.CommandParameter as EquipmentMovement; // Получаем элемент, переданный через CommandParameter
 
+            if (item != null)
+            {
+                var popup = new MovementDetailsPopup(item);
+                this.ShowPopupAsync(popup); // Асинхронный вызов всплывающего окна
+            }
+            else
+            {
+                // Если элемент null, показываем сообщение
+                if (Application.Current?.MainPage != null)
+                {
+                    Application.Current.MainPage.DisplayAlert(
+                        "Ошибка",
+                        "Не удалось получить информацию о перемещении.",
+                        "OK"
+                    );
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            // Логирование ошибки или уведомление пользователя
+            if (Application.Current?.MainPage != null)
+            {
+                Application.Current.MainPage.DisplayAlert(
+                    "Ошибка",
+                    $"Произошла ошибка: {ex.Message}",
+                    "OK"
+                );
+            }
+        }
     }
 
     private void EditBtn_OnClicked(object? sender, EventArgs e)

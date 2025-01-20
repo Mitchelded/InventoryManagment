@@ -87,7 +87,9 @@ namespace InventoryManagerMAUI.ViewModels.ViewModel
         private void GetLowStock()
         {
             using var db = new InventoryManagmentEntities();
-            FormattableString query = $@"
+            try
+            {
+                FormattableString query = $@"
                         SELECT 
                 e.Name AS EquipmentName,
                 c.Quantity,
@@ -101,69 +103,98 @@ namespace InventoryManagerMAUI.ViewModels.ViewModel
             WHERE c.Quantity < 20
             GROUP BY e.Name, c.Quantity;
             ";
-            var groupedData = db.Database.SqlQuery<LowStockAlert>(query).ToList();
-            LowStockEquipment = groupedData;
+                var groupedData = db.Database.SqlQuery<LowStockAlert>(query).ToList();
+                LowStockEquipment = groupedData;
+            }
+            catch (Exception ex)
+            {
+                // Display an alert if an error occurs
+                Application.Current.MainPage.DisplayAlert("Ошибка", $"Произошла ошибка: {ex.Message}", "OK");
+            }
         }
 
 
         public void GetAllCost()
         {
             using var db = new InventoryManagmentEntities();
-            var totalCost = db.Equipments.AsEnumerable().Sum(e => e.Cost);
+            try
+            {
+                var totalCost = db.Equipments.AsEnumerable().Sum(e => e.Cost);
 
 
-            TotalCost = totalCost;
+                TotalCost = totalCost;
+            }
+            catch (Exception ex)
+            {
+                // Display an alert if an error occurs
+                Application.Current.MainPage.DisplayAlert("Ошибка", $"Произошла ошибка: {ex.Message}", "OK");
+            }
         }
 
 
         public void GetEquipmentCostByCategory()
         {
             using var db = new InventoryManagmentEntities();
-
-            FormattableString query = $@"
+            try
+            {
+                FormattableString query = $@"
         SELECT c.Name AS CategoryName, 
                SUM(e.Cost) AS TotalCost
         FROM Equipments e
         JOIN Category c ON e.CategoryID = c.CategoryID
         GROUP BY c.Name";
-            // Execute the query using raw SQL and map it to CategoryCostSummary
-            var groupedData = db.Database.SqlQuery<CategoryCostSummary>(query).ToList();
+                // Execute the query using raw SQL and map it to CategoryCostSummary
+                var groupedData = db.Database.SqlQuery<CategoryCostSummary>(query).ToList();
 
-            // Prepare the data for the chart
-            ChartData = groupedData.Select(g => new Equipment
+                // Prepare the data for the chart
+                ChartData = groupedData.Select(g => new Equipment
+                {
+                    Category = new Category { Name = g.CategoryName },
+
+                    Cost = g.TotalCost // TotalCost is already nullable decimal
+                }).ToList();
+
+                // Create the series for the chart
+                StockDistributionSeries = groupedData.Select(g => new PieSeries<double>
+                {
+                    DataLabelsPosition = LiveChartsCore.Measure.PolarLabelsPosition.Outer,
+
+                    ToolTipLabelFormatter =
+                        point =>
+                        {
+                            var pv = point.Coordinate.PrimaryValue;
+                            var sv = point.StackedValue!;
+
+                            var a = $"{pv}/{sv.Total}{Environment.NewLine}{sv.Share:P2}";
+                            return a;
+                        },
+                    MaxRadialColumnWidth = 60,
+                    Values = new double[] { (double)(g.TotalCost ?? 0m) }, // Cast TotalCost to double
+                    Name = g.CategoryName // Use dynamic category name
+                }).ToArray();
+
+                // Optionally, update the total equipment count if needed
+                TotalEquipment = db.Equipments.Count();
+            }
+            catch (Exception ex)
             {
-                Category = new Category { Name = g.CategoryName },
-
-                Cost = g.TotalCost // TotalCost is already nullable decimal
-            }).ToList();
-
-            // Create the series for the chart
-            StockDistributionSeries = groupedData.Select(g => new PieSeries<double>
-            {
-                DataLabelsPosition = LiveChartsCore.Measure.PolarLabelsPosition.Outer,
-
-                ToolTipLabelFormatter =
-                    point =>
-                    {
-                        var pv = point.Coordinate.PrimaryValue;
-                        var sv = point.StackedValue!;
-
-                        var a = $"{pv}/{sv.Total}{Environment.NewLine}{sv.Share:P2}";
-                        return a;
-                    },
-                MaxRadialColumnWidth = 60,
-                Values = new double[] { (double)(g.TotalCost ?? 0m) }, // Cast TotalCost to double
-                Name = g.CategoryName // Use dynamic category name
-            }).ToArray();
-
-            // Optionally, update the total equipment count if needed
-            TotalEquipment = db.Equipments.Count();
+                // Display an alert if an error occurs
+                Application.Current.MainPage.DisplayAlert("Ошибка", $"Произошла ошибка: {ex.Message}", "OK");
+            }
         }
 
         public void GetTotalEquipment()
         {
             using var db = new InventoryManagmentEntities();
-            TotalEquipment = db.Equipments.Count();
+            try
+            {
+                TotalEquipment = db.Equipments.Count();
+            }
+            catch (Exception ex)
+            {
+                // Display an alert if an error occurs
+                Application.Current.MainPage.DisplayAlert("Ошибка", $"Произошла ошибка: {ex.Message}", "OK");
+            }
         }
 
         public class LowStockAlert

@@ -6,7 +6,6 @@ namespace InventoryManagerMAUI.ViewModels.ViewModel;
 
 public sealed class EquipmentMovementViewModel : ViewModelBase<EquipmentMovement>
 {
-    
     public override async void OnUpdate(EquipmentMovement item)
     {
         if (item != null)
@@ -40,26 +39,34 @@ public sealed class EquipmentMovementViewModel : ViewModelBase<EquipmentMovement
             LoadData();
         }
     }
-    
+
     public override async Task LoadData()
     {
         using InventoryManagmentEntities _db = new();
-        Collection.Clear();
-        await _db.EquipmentMovements
-            .Include(e => e.Equipment)
-            .ThenInclude(e => e.Status)
-            .Include(e => e.Equipment)
-            .ThenInclude(e => e.Category)
-            .Include(e => e.SourceWarehouse)
-            .Include(e => e.DestinationWarehouse)
-            .Include(e => e.User)
-            .LoadAsync();
-        foreach (var item in _db.EquipmentMovements.Local)
+        try
         {
-            Collection.Add(item);
-        }
+            Collection.Clear();
+            await _db.EquipmentMovements
+                .Include(e => e.Equipment)
+                .ThenInclude(e => e.Status)
+                .Include(e => e.Equipment)
+                .ThenInclude(e => e.Category)
+                .Include(e => e.SourceWarehouse)
+                .Include(e => e.DestinationWarehouse)
+                .Include(e => e.User)
+                .LoadAsync();
+            foreach (var item in _db.EquipmentMovements.Local)
+            {
+                Collection.Add(item);
+            }
 
-        OnPropertyChanged(nameof(Collection));
+            OnPropertyChanged(nameof(Collection));
+        }
+        catch (Exception ex)
+        {
+            // Display an alert if an error occurs
+            Application.Current.MainPage.DisplayAlert("Ошибка", $"Произошла ошибка: {ex.Message}", "OK");
+        }
     }
 
 
@@ -73,22 +80,40 @@ public sealed class EquipmentMovementViewModel : ViewModelBase<EquipmentMovement
     public override void OnAdd(object obj)
     {
         using InventoryManagmentEntities _db = new();
-        EquipmentMovement movement = new()
+        try
         {
-            EquipmentID = SelectedEquipment.EquipmentID,
-            SourceWarehouseID = SelectedFromLocation.WarehouseID,
-            DestinationWarehouseID = SelectedToLocation.WarehouseID,
-            // TODO: Добавить добавление текущего пользователя кто создал заказ. После добавления логина
-            UserID = 1,
-            MovementDate = DateTime.Now,
-            MovementType = MovementType,
-            Notes = Notes
-        };
+            // Получаем UserID асинхронно
+            int? userID =  int.Parse( Preferences.Get("CurrentUsername", "0"));
 
-        // Add the order detail to the database
-        Collection.Add(movement);
-        _db.EquipmentMovements.Add(movement);
-        _db.SaveChanges();
+            EquipmentMovement movement = new()
+            {
+                EquipmentID = SelectedEquipment.EquipmentID,
+                SourceWarehouseID = SelectedFromLocation.WarehouseID,
+                DestinationWarehouseID = SelectedToLocation.WarehouseID,
+                // Добавляем текущего пользователя, кто создал заказ
+                UserID = userID,
+                MovementDate = DateTime.Now,
+                MovementType = MovementType,
+                Notes = Notes
+            };
+
+            // Добавляем движение оборудования в коллекцию
+            Collection.Add(movement);
+
+            // Добавляем запись в базу данных асинхронно
+            _db.EquipmentMovements.Add(movement);
+
+            // Используем асинхронный метод для сохранения изменений
+            _db.SaveChanges();
+        }
+        catch (Exception ex)
+        {
+            // Отображаем всплывающее окно с ошибкой
+            Application.Current.MainPage.DisplayAlert("Ошибка", $"Произошла ошибка: {ex.Message}", "OK");
+
+            // Логируем ошибку для дальнейшего анализа (опционально)
+            Console.WriteLine($"Ошибка в методе OnAdd: {ex.Message}");
+        }
     }
 
     private string _movementType;
@@ -123,42 +148,66 @@ public sealed class EquipmentMovementViewModel : ViewModelBase<EquipmentMovement
     private void LoadEquipment()
     {
         using InventoryManagmentEntities _db = new();
-        // Load data from the database and populate the ObservableCollection
-        var items = _db.Equipments.ToList();
-        foreach (var item in items)
+        try
         {
-            Equipment.Add(item);
+            // Load data from the database and populate the ObservableCollection
+            var items = _db.Equipments.ToList();
+            foreach (var item in items)
+            {
+                Equipment.Add(item);
+            }
+        }
+        catch (Exception ex)
+        {
+            // Display an alert if an error occurs
+            Application.Current.MainPage.DisplayAlert("Ошибка", $"Произошла ошибка: {ex.Message}", "OK");
         }
     }
 
     private void LoadLocation()
     {
         using InventoryManagmentEntities _db = new();
-        // Load data from the database and populate the ObservableCollection
-        var items = _db.Warehouses.ToList();
-        foreach (var item in items)
+        try
         {
-            Location.Add(item);
+            // Load data from the database and populate the ObservableCollection
+            var items = _db.Warehouses.ToList();
+            foreach (var item in items)
+            {
+                Location.Add(item);
+            }
+        }
+        catch (Exception ex)
+        {
+            // Display an alert if an error occurs
+            Application.Current.MainPage.DisplayAlert("Ошибка", $"Произошла ошибка: {ex.Message}", "OK");
         }
     }
 
     private void ApplyFilter()
     {
         using InventoryManagmentEntities db = new();
-        List<EquipmentMovement> filtered;
+        try
+        {
+            List<EquipmentMovement> filtered;
 
-        filtered = db.EquipmentMovements
-            .Include(e => e.Equipment)
-            .Include(e => e.SourceWarehouse)
-            .Include(e => e.DestinationWarehouse)
-            .Where(e =>
-                (string.IsNullOrEmpty(FilterName) || e.Equipment.Name.Contains(FilterName)))
-            .ToList();
+            filtered = db.EquipmentMovements
+                .Include(e => e.Equipment)
+                .Include(e => e.SourceWarehouse)
+                .Include(e => e.DestinationWarehouse)
+                .Where(e =>
+                    (string.IsNullOrEmpty(FilterName) || e.Equipment.Name.Contains(FilterName)))
+                .ToList();
 
 
-        Collection.Clear();
-        foreach (var item in filtered)
-            Collection.Add(item);
+            Collection.Clear();
+            foreach (var item in filtered)
+                Collection.Add(item);
+        }
+        catch (Exception ex)
+        {
+            // Display an alert if an error occurs
+            Application.Current.MainPage.DisplayAlert("Ошибка", $"Произошла ошибка: {ex.Message}", "OK");
+        }
     }
 
     private string _filterName;

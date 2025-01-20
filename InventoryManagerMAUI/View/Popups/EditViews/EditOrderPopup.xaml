@@ -51,7 +51,7 @@
             </VerticalStackLayout>
             <!-- Добавить новый продукт -->
             <Button Grid.Column="0" Grid.Row="4" Text="Добавить" Style="{StaticResource SecondaryButtonStyle}" 
-                    Clicked="Button_Clicked" Command="{Binding AddProductCommand}"/>
+                    Command="{Binding AddProductCommand}"/>
             <HorizontalStackLayout Grid.Column="1" Grid.Row="5" HorizontalOptions="End" VerticalOptions="Start">
                 <Button Text="Отмена" Style="{StaticResource WarningButtonStyle}" Clicked="CancelBtn_OnClicked"/>
                 <Button Text="Сохранить" Style="{StaticResource PrimaryButtonStyle}"

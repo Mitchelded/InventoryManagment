@@ -122,21 +122,29 @@ public class OrdersManagementViewModel : ViewModelBase<OrderDetail>
     public void LoadProduct()
     {
         using InventoryManagmentEntities _db = new();
-        // Load data from the database and populate the ObservableCollection
-        ExistingProducts.Clear();
-        var items = _db.OrderDetails
-            .Include(e => e.Equipment)
-            .Include(e => e.Order)
-            .Where(x => x.OrderID == SelectedItem.OrderID)
-            .ToList();
-        foreach (var item in items)
+        try
         {
-            ProductItem product = new()
+            // Load data from the database and populate the ObservableCollection
+            ExistingProducts.Clear();
+            var items = _db.OrderDetails
+                .Include(e => e.Equipment)
+                .Include(e => e.Order)
+                .Where(x => x.OrderID == SelectedItem.OrderID)
+                .ToList();
+            foreach (var item in items)
             {
-                Quantity = item.Quantity,
-                SelectedProduct = item.Equipment
-            };
-            ExistingProducts.Add(product);
+                ProductItem product = new()
+                {
+                    Quantity = item.Quantity,
+                    SelectedProduct = item.Equipment
+                };
+                ExistingProducts.Add(product);
+            }
+        }
+        catch (Exception ex)
+        {
+            // Display an alert if an error occurs
+            Application.Current.MainPage.DisplayAlert("Ошибка", $"Произошла ошибка: {ex.Message}", "OK");
         }
     }
 
@@ -152,36 +160,44 @@ public class OrdersManagementViewModel : ViewModelBase<OrderDetail>
     public override void OnAdd(object obj)
     {
         using InventoryManagmentEntities _db = new();
-        List<Order> orders = new List<Order>();
+        try
+        {
+            List<Order> orders = new List<Order>();
 
-        var orderToAdd = new Order()
-        {
-            OrderDate = DateTime.Now,
-            ShippingAddress = ShippingAddress,
-            CustomerName = CustomerName,
-            CustomerEmail = CustomerEmail,
-            // TODO: Добавить добавление текущего пользователя кто создал заказ. После добавления логина
-            UserID = 1,
-            Notes = Notes
-        };
-        _db.Orders.Add(orderToAdd);
-        _db.SaveChanges();
-        foreach (var product in Products)
-        {
-            if (product.Quantity > 0)
+            var orderToAdd = new Order()
             {
-                var orderDetail = new OrderDetail()
+                OrderDate = DateTime.Now,
+                ShippingAddress = ShippingAddress,
+                CustomerName = CustomerName,
+                CustomerEmail = CustomerEmail,
+                // TODO: Добавить добавление текущего пользователя кто создал заказ. После добавления логина
+                UserID = 1,
+                Notes = Notes
+            };
+            _db.Orders.Add(orderToAdd);
+            _db.SaveChanges();
+            foreach (var product in Products)
+            {
+                if (product.Quantity > 0)
                 {
-                    EquipmentID = product.SelectedProduct.EquipmentID,
-                    Quantity = product.Quantity,
-                    OrderID = orderToAdd.OrderID, // Use the generated ID of the added order
-                };
+                    var orderDetail = new OrderDetail()
+                    {
+                        EquipmentID = product.SelectedProduct.EquipmentID,
+                        Quantity = product.Quantity,
+                        OrderID = orderToAdd.OrderID, // Use the generated ID of the added order
+                    };
 
-                // Add the order detail to the database
-                Collection.Add(orderDetail);
-                _db.OrderDetails.Add(orderDetail);
-                _db.SaveChanges();
+                    // Add the order detail to the database
+                    Collection.Add(orderDetail);
+                    _db.OrderDetails.Add(orderDetail);
+                    _db.SaveChanges();
+                }
             }
+        }
+        catch (Exception ex)
+        {
+            // Display an alert if an error occurs
+            Application.Current.MainPage.DisplayAlert("Ошибка", $"Произошла ошибка: {ex.Message}", "OK");
         }
     }
 
@@ -236,32 +252,48 @@ public class OrdersManagementViewModel : ViewModelBase<OrderDetail>
     private void LoadEquipment()
     {
         using InventoryManagmentEntities _db = new();
-        // Load data from the database and populate the ObservableCollection
-        var items = _db.Equipments.ToList();
-        foreach (var item in items)
+        try
         {
-            Equipment.Add(item);
+            // Load data from the database and populate the ObservableCollection
+            var items = _db.Equipments.ToList();
+            foreach (var item in items)
+            {
+                Equipment.Add(item);
+            }
+        }
+        catch (Exception ex)
+        {
+            // Display an alert if an error occurs
+            Application.Current.MainPage.DisplayAlert("Ошибка", $"Произошла ошибка: {ex.Message}", "OK");
         }
     }
 
     private void ApplyFilter()
     {
         using InventoryManagmentEntities db = new();
-        List<OrderDetail> filtered;
+        try
+        {
+            List<OrderDetail> filtered;
 
-        filtered = db.OrderDetails
-            .Include(e => e.Equipment)
-            .Include(e => e.Order)
-            .ThenInclude(e => e.User)
-            .Where(e =>
-                (e.Order.OrderDate >= StartDate) &&
-                (e.Order.OrderDate <= EndDate)
-                && (string.IsNullOrEmpty(FilterName) || e.Order.User.FullName.Contains(FilterName)))
-            .ToList();
+            filtered = db.OrderDetails
+                .Include(e => e.Equipment)
+                .Include(e => e.Order)
+                .ThenInclude(e => e.User)
+                .Where(e =>
+                    (e.Order.OrderDate >= StartDate) &&
+                    (e.Order.OrderDate <= EndDate)
+                    && (string.IsNullOrEmpty(FilterName) || e.Order.User.FullName.Contains(FilterName)))
+                .ToList();
 
-        Collection.Clear();
-        foreach (var item in filtered)
-            Collection.Add(item);
+            Collection.Clear();
+            foreach (var item in filtered)
+                Collection.Add(item);
+        }
+        catch (Exception ex)
+        {
+            // Display an alert if an error occurs
+            Application.Current.MainPage.DisplayAlert("Ошибка", $"Произошла ошибка: {ex.Message}", "OK");
+        }
     }
 
     public List<OrderDetail> OrderDetails
@@ -283,44 +315,60 @@ public class OrdersManagementViewModel : ViewModelBase<OrderDetail>
             return;
         }
 
-        using InventoryManagmentEntities db = new();
-        OrderDetails.Clear();
-        db.OrderDetails
-            .Include(u => u.Equipment) // Include Supplier navigation property
-            .Include(u => u.Order) // Include Stocks navigation property
-            .ThenInclude(s => s.User) // Then include Warehouse from Stock navigation property
-            .ThenInclude(s => s.Department)
-            .Where(x => x.OrderID == SelectedItem.OrderID)
-            .Load(); // Asynchronous load of the query
-        foreach (var item in db.OrderDetails.Local)
+        try
         {
-            OrderDetails.Add(item);
-        }
+            using InventoryManagmentEntities db = new();
+            OrderDetails.Clear();
+            db.OrderDetails
+                .Include(u => u.Equipment) // Include Supplier navigation property
+                .Include(u => u.Order) // Include Stocks navigation property
+                .ThenInclude(s => s.User) // Then include Warehouse from Stock navigation property
+                .ThenInclude(s => s.Department)
+                .Where(x => x.OrderID == SelectedItem.OrderID)
+                .Load(); // Asynchronous load of the query
+            foreach (var item in db.OrderDetails.Local)
+            {
+                OrderDetails.Add(item);
+            }
 
-        OnPropertyChanged(nameof(OrderDetails));
+            OnPropertyChanged(nameof(OrderDetails));
+        }
+        catch (Exception ex)
+        {
+            // Display an alert if an error occurs
+            Application.Current.MainPage.DisplayAlert("Ошибка", $"Произошла ошибка: {ex.Message}", "OK");
+        }
     }
 
 
     public async override Task LoadData()
     {
         using InventoryManagmentEntities db = new();
-        Collection.Clear();
-        await db.OrderDetails
-            .Include(u => u.Equipment) // Include Supplier navigation property
-            .Include(u => u.Order) // Include Stocks navigation property
-            .ThenInclude(s => s.User) // Then include Warehouse from Stock navigation property
-            .ThenInclude(s => s.Department)
-            .GroupBy(od => od.OrderID)
-            .Select(g => g.First())
-            .LoadAsync(); // Asynchronous load of the query
-        foreach (var item in db.OrderDetails.Local)
+        try
         {
-            Collection.Add(item);
-        }
+            Collection.Clear();
+            await db.OrderDetails
+                .Include(u => u.Equipment) // Include Supplier navigation property
+                .Include(u => u.Order) // Include Stocks navigation property
+                .ThenInclude(s => s.User) // Then include Warehouse from Stock navigation property
+                .ThenInclude(s => s.Department)
+                .GroupBy(od => od.OrderID)
+                .Select(g => g.First())
+                .LoadAsync(); // Asynchronous load of the query
+            foreach (var item in db.OrderDetails.Local)
+            {
+                Collection.Add(item);
+            }
 
-        // TODO: роверить работоспособность, может крашить
-        db.UpdateOrderTotalCosts();
-        OnPropertyChanged(nameof(Collection));
+            // TODO: роверить работоспособность, может крашить
+            db.UpdateOrderTotalCosts();
+            OnPropertyChanged(nameof(Collection));
+        }
+        catch (Exception ex)
+        {
+            // Display an alert if an error occurs
+            Application.Current.MainPage.DisplayAlert("Ошибка", $"Произошла ошибка: {ex.Message}", "OK");
+        }
     }
 
     public string CustomerName

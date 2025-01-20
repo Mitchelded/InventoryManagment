@@ -5,6 +5,7 @@ using System.Windows.Input;
 using Castle.Components.DictionaryAdapter;
 using Microsoft.EntityFrameworkCore;
 using InventoryManagerMAUI.Commands;
+
 namespace InventoryManagerMAUI.ViewModels.ViewModel;
 
 // TODO:
@@ -51,44 +52,61 @@ public class AdminViewModel : INotifyPropertyChanged
     private void OnAdd(UserRole obj)
     {
         using InventoryManagmentEntities db = new();
-        if (SelectedUserItem != null)
+
+        try
         {
-            if (SelectedRoleItem != null)
+            if (SelectedUserItem != null)
             {
-                UserRole status = new UserRole()
+                if (SelectedRoleItem != null)
                 {
-                    UserID = SelectedUserItem.UserID,
-                    RoleID = SelectedRoleItem.RoleID,
-                };
+                    UserRole status = new UserRole()
+                    {
+                        UserID = SelectedUserItem.UserID,
+                        RoleID = SelectedRoleItem.RoleID,
+                    };
 
-                CollectionUserRole.Add(status);
-                db.Add(status);
+                    CollectionUserRole.Add(status);
+                    db.Add(status);
+                }
             }
-        }
 
-        db.SaveChanges();
+            db.SaveChanges();
+        }
+        catch (Exception ex)
+        {
+            // Display an alert if an error occurs
+            Application.Current.MainPage.DisplayAlert("Ошибка", $"Произошла ошибка: {ex.Message}", "OK");
+        }
     }
 
     private void OnAdd(User obj)
     {
         using InventoryManagmentEntities db = new();
-        if (SelectedDepartmentItem != null)
+        try
         {
-            User status = new User()
+            if (SelectedDepartmentItem != null)
             {
-                Username = UserName,
-                Password = HashedPassword,
-                Email = Email,
-                DepartmentID = SelectedDepartmentItem.DepartmentID,
-                FullName = FullName,
-                CreatedAt= DateTime.Now
-            };
+                User status = new User()
+                {
+                    Username = UserName,
+                    Password = HashedPassword,
+                    Email = Email,
+                    DepartmentID = SelectedDepartmentItem.DepartmentID,
+                    FullName = FullName,
+                    CreatedAt = DateTime.Now
+                };
 
-            CollectionUser.Add(status);
-            db.Add(status);
+                CollectionUser.Add(status);
+                db.Add(status);
+            }
+
+            db.SaveChanges();
         }
-
-        db.SaveChanges();
+        catch (Exception ex)
+        {
+            // Display an alert if an error occurs
+            Application.Current.MainPage.DisplayAlert("Ошибка", $"Произошла ошибка: {ex.Message}", "OK");
+        }
     }
 
     public Department? SelectedDepartmentItem
@@ -138,9 +156,22 @@ public class AdminViewModel : INotifyPropertyChanged
         {
             if (value == _password) return;
             _password = value;
-            _hashedPassword = HashHelper.ComputeMD5Hash(_password); // Hash the password
-            OnPropertyChanged(nameof(Password)); // Notify that Password has changed
-            OnPropertyChanged(nameof(HashedPassword)); // Notify that the hashed version has changed
+            UpdateHashedPasswordAsync(); // Обновить хэш пароля асинхронно
+            OnPropertyChanged(nameof(Password)); // Уведомить об изменении пароля
+        }
+    }
+
+    private async void UpdateHashedPasswordAsync()
+    {
+        try
+        {
+            _hashedPassword = await HashHelper.ComputeMD5Hash(_password);
+            OnPropertyChanged(nameof(HashedPassword)); // Уведомить об изменении хэша
+        }
+        catch (Exception ex)
+        {
+            // Display an alert if an error occurs
+            Application.Current.MainPage.DisplayAlert("Ошибка", $"Произошла ошибка: {ex.Message}", "OK");
         }
     }
 
@@ -159,25 +190,33 @@ public class AdminViewModel : INotifyPropertyChanged
     private void OnAdd(Supplier obj)
     {
         using InventoryManagmentEntities db = new();
-        if (SelectedCategoryItem != null)
+        try
         {
-            Supplier status = new Supplier()
+            if (SelectedCategoryItem != null)
             {
-                CompanyName = CompanyName,
-                ContactInfo = ContactInfo,
-                ContactPerson = ContactPerson,
-                Email = Email,
-                Phone = Phone,
-                Website = Website,
-                Address = Address,
-                CategoryID = SelectedCategoryItem.CategoryID,
-            };
+                Supplier status = new Supplier()
+                {
+                    CompanyName = CompanyName,
+                    ContactInfo = ContactInfo,
+                    ContactPerson = ContactPerson,
+                    Email = Email,
+                    Phone = Phone,
+                    Website = Website,
+                    Address = Address,
+                    CategoryID = SelectedCategoryItem.CategoryID,
+                };
 
-            CollectionSupplier.Add(status);
-            db.Add(status);
+                CollectionSupplier.Add(status);
+                db.Add(status);
+            }
+
+            db.SaveChanges();
         }
-
-        db.SaveChanges();
+        catch (Exception ex)
+        {
+            // Display an alert if an error occurs
+            Application.Current.MainPage.DisplayAlert("Ошибка", $"Произошла ошибка: {ex.Message}", "OK");
+        }
     }
 
     public string? Address
@@ -249,15 +288,23 @@ public class AdminViewModel : INotifyPropertyChanged
     private void OnAdd(Warehouse obj)
     {
         using InventoryManagmentEntities db = new();
-        Warehouse status = new Warehouse()
+        try
         {
-            Name = Name,
-            Location = Location,
-        };
+            Warehouse status = new Warehouse()
+            {
+                Name = Name,
+                Location = Location,
+            };
 
-        CollectionWarehouse.Add(status);
-        db.Add(status);
-        db.SaveChanges();
+            CollectionWarehouse.Add(status);
+            db.Add(status);
+            db.SaveChanges();
+        }
+        catch (Exception ex)
+        {
+            // Display an alert if an error occurs
+            Application.Current.MainPage.DisplayAlert("Ошибка", $"Произошла ошибка: {ex.Message}", "OK");
+        }
     }
 
     public string Location
@@ -289,7 +336,8 @@ public class AdminViewModel : INotifyPropertyChanged
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error updating item: {ex.Message}");
+                // Display an alert if an error occurs
+                Application.Current.MainPage.DisplayAlert("Ошибка", $"Произошла ошибка: {ex.Message}", "OK");
             }
         }
         else
@@ -319,7 +367,8 @@ public class AdminViewModel : INotifyPropertyChanged
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error updating item: {ex.Message}");
+                // Display an alert if an error occurs
+                Application.Current.MainPage.DisplayAlert("Ошибка", $"Произошла ошибка: {ex.Message}", "OK");
             }
         }
         else
@@ -352,7 +401,8 @@ public class AdminViewModel : INotifyPropertyChanged
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error updating item: {ex.Message}");
+                // Display an alert if an error occurs
+                Application.Current.MainPage.DisplayAlert("Ошибка", $"Произошла ошибка: {ex.Message}", "OK");
             }
         }
         else
@@ -379,7 +429,8 @@ public class AdminViewModel : INotifyPropertyChanged
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error updating item: {ex.Message}");
+                // Display an alert if an error occurs
+                Application.Current.MainPage.DisplayAlert("Ошибка", $"Произошла ошибка: {ex.Message}", "OK");
             }
         }
         else
@@ -402,7 +453,8 @@ public class AdminViewModel : INotifyPropertyChanged
             }
             catch (Exception ex)
             {
-                // Handle the error (e.g., log it, notify user)
+                // Display an alert if an error occurs
+                Application.Current.MainPage.DisplayAlert("Ошибка", $"Произошла ошибка: {ex.Message}", "OK");
             }
         }
     }
@@ -420,7 +472,8 @@ public class AdminViewModel : INotifyPropertyChanged
             }
             catch (Exception ex)
             {
-                // Handle the error (e.g., log it, notify user)
+                // Display an alert if an error occurs
+                Application.Current.MainPage.DisplayAlert("Ошибка", $"Произошла ошибка: {ex.Message}", "OK");
             }
         }
     }
@@ -438,7 +491,8 @@ public class AdminViewModel : INotifyPropertyChanged
             }
             catch (Exception ex)
             {
-                // Handle the error (e.g., log it, notify user)
+                // Display an alert if an error occurs
+                Application.Current.MainPage.DisplayAlert("Ошибка", $"Произошла ошибка: {ex.Message}", "OK");
             }
         }
     }
@@ -456,7 +510,8 @@ public class AdminViewModel : INotifyPropertyChanged
             }
             catch (Exception ex)
             {
-                // Handle the error (e.g., log it, notify user)
+                // Display an alert if an error occurs
+                Application.Current.MainPage.DisplayAlert("Ошибка", $"Произошла ошибка: {ex.Message}", "OK");
             }
         }
     }
@@ -464,43 +519,67 @@ public class AdminViewModel : INotifyPropertyChanged
     private void OnAdd(Status obj)
     {
         using InventoryManagmentEntities db = new();
-        Status status = new Status()
+        try
         {
-            Name = Name,
-            Description = Description,
-        };
+            Status status = new Status()
+            {
+                Name = Name,
+                Description = Description,
+            };
 
-        CollectionStatus.Add(status);
-        db.Add(status);
-        db.SaveChanges();
+            CollectionStatus.Add(status);
+            db.Add(status);
+            db.SaveChanges();
+        }
+        catch (Exception ex)
+        {
+            // Display an alert if an error occurs
+            Application.Current.MainPage.DisplayAlert("Ошибка", $"Произошла ошибка: {ex.Message}", "OK");
+        }
     }
 
     private void OnAdd(Role obj)
     {
         using InventoryManagmentEntities db = new();
-        Role role = new Role()
+        try
         {
-            Name = Name,
-            Description = Description,
-        };
+            Role role = new Role()
+            {
+                Name = Name,
+                Description = Description,
+            };
 
-        CollectionRole.Add(role);
-        db.Add(role);
-        db.SaveChanges();
+            CollectionRole.Add(role);
+            db.Add(role);
+            db.SaveChanges();
+        }
+        catch (Exception ex)
+        {
+            // Display an alert if an error occurs
+            Application.Current.MainPage.DisplayAlert("Ошибка", $"Произошла ошибка: {ex.Message}", "OK");
+        }
     }
 
     private void OnAdd(Category obj)
     {
         using InventoryManagmentEntities db = new();
-        Category category = new Category()
+        try
         {
-            Name = Name,
-            Description = Description,
-        };
+            Category category = new Category()
+            {
+                Name = Name,
+                Description = Description,
+            };
 
-        CollectionCategory.Add(category);
-        db.Add(category);
-        db.SaveChanges();
+            CollectionCategory.Add(category);
+            db.Add(category);
+            db.SaveChanges();
+        }
+        catch (Exception ex)
+        {
+            // Display an alert if an error occurs
+            Application.Current.MainPage.DisplayAlert("Ошибка", $"Произошла ошибка: {ex.Message}", "OK");
+        }
     }
 
     public string Description
@@ -546,7 +625,8 @@ public class AdminViewModel : INotifyPropertyChanged
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error updating item: {ex.Message}");
+                // Display an alert if an error occurs
+                Application.Current.MainPage.DisplayAlert("Ошибка", $"Произошла ошибка: {ex.Message}", "OK");
             }
         }
         else
@@ -573,7 +653,8 @@ public class AdminViewModel : INotifyPropertyChanged
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error updating item: {ex.Message}");
+                // Display an alert if an error occurs
+                Application.Current.MainPage.DisplayAlert("Ошибка", $"Произошла ошибка: {ex.Message}", "OK");
             }
         }
         else
@@ -600,7 +681,8 @@ public class AdminViewModel : INotifyPropertyChanged
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error updating item: {ex.Message}");
+                // Display an alert if an error occurs
+                Application.Current.MainPage.DisplayAlert("Ошибка", $"Произошла ошибка: {ex.Message}", "OK");
             }
         }
         else
@@ -618,69 +700,78 @@ public class AdminViewModel : INotifyPropertyChanged
     private void LoadData()
     {
         using InventoryManagmentEntities db = new();
-        CollectionCategory.Clear();
-        CollectionRole.Clear();
-        CollectionStatus.Clear();
-        CollectionWarehouse.Clear();
-        CollectionSupplier.Clear();
-        CollectionUser.Clear();
-        CollectionUserRole.Clear();
-        CollectionDepartment.Clear();
-
-        db.Set<Category>().Load();
-        db.Set<Role>().Load();
-        db.Set<Status>().Load();
-        db.Set<Warehouse>().Load();
-        db.Set<Supplier>().Load();
-        db.Set<User>().Load();
-        db.Set<UserRole>().Load();
-        db.Set<Department>().Load();
-        foreach (var item in db.Set<Department>().Local)
+        try
         {
-            CollectionDepartment.Add(item);
-        }
-        foreach (var item in db.Set<Category>().Local)
-        {
-            CollectionCategory.Add(item);
-        }
+            CollectionCategory.Clear();
+            CollectionRole.Clear();
+            CollectionStatus.Clear();
+            CollectionWarehouse.Clear();
+            CollectionSupplier.Clear();
+            CollectionUser.Clear();
+            CollectionUserRole.Clear();
+            CollectionDepartment.Clear();
 
-        foreach (var item in db.Set<Role>().Local)
-        {
-            CollectionRole.Add(item);
-        }
+            db.Set<Category>().Load();
+            db.Set<Role>().Load();
+            db.Set<Status>().Load();
+            db.Set<Warehouse>().Load();
+            db.Set<Supplier>().Load();
+            db.Set<User>().Load();
+            db.Set<UserRole>().Load();
+            db.Set<Department>().Load();
+            foreach (var item in db.Set<Department>().Local)
+            {
+                CollectionDepartment.Add(item);
+            }
 
-        foreach (var item in db.Set<Status>().Local)
-        {
-            CollectionStatus.Add(item);
-        }
+            foreach (var item in db.Set<Category>().Local)
+            {
+                CollectionCategory.Add(item);
+            }
 
-        foreach (var item in db.Set<Warehouse>().Local)
-        {
-            CollectionWarehouse.Add(item);
-        }
+            foreach (var item in db.Set<Role>().Local)
+            {
+                CollectionRole.Add(item);
+            }
 
-        foreach (var item in db.Set<Supplier>().Local)
-        {
-            CollectionSupplier.Add(item);
-        }
+            foreach (var item in db.Set<Status>().Local)
+            {
+                CollectionStatus.Add(item);
+            }
 
-        foreach (var item in db.Set<User>().Local)
-        {
-            CollectionUser.Add(item);
-        }
+            foreach (var item in db.Set<Warehouse>().Local)
+            {
+                CollectionWarehouse.Add(item);
+            }
 
-        foreach (var item in db.Set<UserRole>().Local)
-        {
-            CollectionUserRole.Add(item);
-        }
+            foreach (var item in db.Set<Supplier>().Local)
+            {
+                CollectionSupplier.Add(item);
+            }
 
-        OnPropertyChanged(nameof(CollectionCategory));
-        OnPropertyChanged(nameof(CollectionRole));
-        OnPropertyChanged(nameof(CollectionStatus));
-        OnPropertyChanged(nameof(CollectionWarehouse));
-        OnPropertyChanged(nameof(CollectionSupplier));
-        OnPropertyChanged(nameof(CollectionUser));
-        OnPropertyChanged(nameof(CollectionUserRole));
+            foreach (var item in db.Set<User>().Local)
+            {
+                CollectionUser.Add(item);
+            }
+
+            foreach (var item in db.Set<UserRole>().Local)
+            {
+                CollectionUserRole.Add(item);
+            }
+
+            OnPropertyChanged(nameof(CollectionCategory));
+            OnPropertyChanged(nameof(CollectionRole));
+            OnPropertyChanged(nameof(CollectionStatus));
+            OnPropertyChanged(nameof(CollectionWarehouse));
+            OnPropertyChanged(nameof(CollectionSupplier));
+            OnPropertyChanged(nameof(CollectionUser));
+            OnPropertyChanged(nameof(CollectionUserRole));
+        }
+        catch (Exception ex)
+        {
+            // Display an alert if an error occurs
+            Application.Current.MainPage.DisplayAlert("Ошибка", $"Произошла ошибка: {ex.Message}", "OK");
+        }
     }
 
     public ObservableCollection<Department> CollectionDepartment
@@ -707,7 +798,9 @@ public class AdminViewModel : INotifyPropertyChanged
             }
             catch (Exception ex)
             {
-                // Handle the error (e.g., log it, notify user)
+                // Display an alert if an error occurs
+                Application.Current.MainPage.DisplayAlert("Ошибка", $"Произошла ошибка: {ex.Message}", "OK");
+
             }
         }
     }
@@ -725,7 +818,9 @@ public class AdminViewModel : INotifyPropertyChanged
             }
             catch (Exception ex)
             {
-                // Handle the error (e.g., log it, notify user)
+                // Display an alert if an error occurs
+                Application.Current.MainPage.DisplayAlert("Ошибка", $"Произошла ошибка: {ex.Message}", "OK");
+
             }
         }
     }
@@ -743,7 +838,9 @@ public class AdminViewModel : INotifyPropertyChanged
             }
             catch (Exception ex)
             {
-                // Handle the error (e.g., log it, notify user)
+                // Display an alert if an error occurs
+                Application.Current.MainPage.DisplayAlert("Ошибка", $"Произошла ошибка: {ex.Message}", "OK");
+
             }
         }
     }

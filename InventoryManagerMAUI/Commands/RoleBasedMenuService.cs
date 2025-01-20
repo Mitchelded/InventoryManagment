@@ -7,14 +7,30 @@ public class RoleBasedMenuService
 {
     public static List<ShellItem> GetMenuForRole(string role)
     {
-        return role switch
+        try
         {
-            "Администратор" => GetAdminMenu(),
-            "Кладовщик" => GetWarehouseMenu(),
-            "Менеджер" => GetManagerMenu(),
-            "Техническая поддержка" => GetSupportMenu(),
-            _ => new List<ShellItem>() // Пустое меню для неизвестных ролей
-        };
+            return role switch
+            {
+                "Администратор" => GetAdminMenu(),
+                "Кладовщик" => GetWarehouseMenu(),
+                "Менеджер" => GetManagerMenu(),
+                "Техническая поддержка" => GetSupportMenu(),
+                _ => new List<ShellItem>() // Пустое меню для неизвестных ролей
+            };
+        }
+        catch (Exception ex)
+        {
+            // Показать всплывающее окно с ошибкой
+            if (Application.Current?.MainPage != null)
+            {
+                Application.Current.MainPage.DisplayAlert(
+                    "Ошибка",
+                    $"Не удалось загрузить меню для роли '{role}': {ex.Message}",
+                    "OK"
+                );
+            }
+            return new List<ShellItem>(); // Возвращаем пустое меню в случае ошибки
+        }
     }
 
     private static List<ShellItem> GetSupportMenu()

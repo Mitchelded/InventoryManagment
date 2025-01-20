@@ -21,8 +21,4 @@ public partial class AddOrderPopup : Popup
     {
         Close();
     }
-    private void Button_Clicked(object sender, EventArgs e)
-    {
-        
-    }
 }

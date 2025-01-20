@@ -22,8 +22,4 @@ public partial class EditOrderPopup : Popup
         Close();
     }
 
-    private void Button_Clicked(object sender, EventArgs e)
-    {
-        
-    }
 }

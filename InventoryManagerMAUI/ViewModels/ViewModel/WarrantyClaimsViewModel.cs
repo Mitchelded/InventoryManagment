@@ -9,6 +9,7 @@ public class WarrantyClaimsViewModel : ViewModelBase<WarrantyClaim>
         LoadEquipment();
         LoadStatus();
     }
+
 //TODO: Проверить работоспособность
     public override async void OnUpdate(WarrantyClaim item)
     {
@@ -23,8 +24,8 @@ public class WarrantyClaimsViewModel : ViewModelBase<WarrantyClaim>
                 item.ClaimDate = ClaimDate;
                 item.IssueDescription = _issueDescription;
                 item.Resolution = _resolution;
-                item.ResolutionDate = ResolutionDate;    
-                    
+                item.ResolutionDate = ResolutionDate;
+
                 _db.Entry(item).State = EntityState.Modified;
                 await _db.SaveChangesAsync();
 
@@ -45,89 +46,128 @@ public class WarrantyClaimsViewModel : ViewModelBase<WarrantyClaim>
     private void ApplyFilter()
     {
         using InventoryManagmentEntities db = new();
+        try
+        {
+            List<WarrantyClaim> filtered = db.WarrantyClaims
+                .Include(e => e.Equipment)
+                .Where(e =>
+                    (e.ClaimDate >= StartDate)
+                    && (e.ClaimDate <= EndDate)
+                    && (string.IsNullOrEmpty(FilterName) || e.Equipment.Name.Contains(FilterName))
+                    && (SelectedFilterStatus == null || e.StatusID == SelectedFilterStatus.StatusID))
+                .ToList();
 
-        List<WarrantyClaim> filtered = db.WarrantyClaims
-            .Include(e => e.Equipment)
-            .Where(e =>
-                (e.ClaimDate >= StartDate)
-                && (e.ClaimDate <= EndDate)
-                && (string.IsNullOrEmpty(FilterName) || e.Equipment.Name.Contains(FilterName))
-                && (SelectedFilterStatus ==null || e.StatusID==SelectedFilterStatus.StatusID))
-            .ToList();
-
-        Collection.Clear();
-        foreach (var item in filtered)
-            Collection.Add(item);
+            Collection.Clear();
+            foreach (var item in filtered)
+                Collection.Add(item);
+        }
+        catch (Exception ex)
+        {
+            // Display an alert if an error occurs
+            Application.Current.MainPage.DisplayAlert("Ошибка", $"Произошла ошибка: {ex.Message}", "OK");
+        }
     }
-    
+
     public override async Task LoadData()
     {
         using InventoryManagmentEntities _db = new();
-        Collection.Clear();
-        await _db.WarrantyClaims
-            .Include(e => e.Equipment)
-            .ThenInclude(e => e.Status)
-            .Include(e => e.Equipment)
-            .ThenInclude(e => e.Category)
-            .LoadAsync();
-        foreach (WarrantyClaim item in _db.WarrantyClaims.Local)
+        try
         {
-            Collection.Add(item);
-        }
+            Collection.Clear();
+            await _db.WarrantyClaims
+                .Include(e => e.Equipment)
+                .ThenInclude(e => e.Status)
+                .Include(e => e.Equipment)
+                .ThenInclude(e => e.Category)
+                .LoadAsync();
+            foreach (WarrantyClaim item in _db.WarrantyClaims.Local)
+            {
+                Collection.Add(item);
+            }
 
-        OnPropertyChanged(nameof(Collection));
+            OnPropertyChanged(nameof(Collection));
+        }
+        catch (Exception ex)
+        {
+            // Display an alert if an error occurs
+            Application.Current.MainPage.DisplayAlert("Ошибка", $"Произошла ошибка: {ex.Message}", "OK");
+        }
     }
 
     public override void OnAdd(object obj)
     {
         using InventoryManagmentEntities _db = new();
-        if (SelectedStatus != null)
+        try
         {
-            if (SelectedEquipment != null)
+            if (SelectedStatus != null)
             {
-                WarrantyClaim warrantyClaim = new()
+                if (SelectedEquipment != null)
                 {
-                    EquipmentID = SelectedEquipment.EquipmentID,
-                    ClaimDate = ClaimDate,
-                    IssueDescription = IssueDescription,
-                    Resolution = Resolution,
-                    StatusID = SelectedStatus.StatusID,
-                    ResolutionDate = ResolutionDate
-                };
+                    WarrantyClaim warrantyClaim = new()
+                    {
+                        EquipmentID = SelectedEquipment.EquipmentID,
+                        ClaimDate = ClaimDate,
+                        IssueDescription = IssueDescription,
+                        Resolution = Resolution,
+                        StatusID = SelectedStatus.StatusID,
+                        ResolutionDate = ResolutionDate
+                    };
 
-                // Add the order detail to the database
-                Collection.Add(warrantyClaim);
-                _db.WarrantyClaims.Add(warrantyClaim);
+                    // Add the order detail to the database
+                    Collection.Add(warrantyClaim);
+                    _db.WarrantyClaims.Add(warrantyClaim);
+                }
             }
-        }
 
-        _db.SaveChanges();
+            _db.SaveChanges();
+        }
+        catch (Exception ex)
+        {
+            // Display an alert if an error occurs
+            Application.Current.MainPage.DisplayAlert("Ошибка", $"Произошла ошибка: {ex.Message}", "OK");
+        }
     }
-    
+
     private void LoadStatus()
     {
         using InventoryManagmentEntities _db = new();
-        // Load data from the database and populate the ObservableCollection
-        var items = _db.Statuses.ToList();
-        foreach (var item in items)
+        try
         {
-            Status.Add(item);
+            // Load data from the database and populate the ObservableCollection
+            var items = _db.Statuses.ToList();
+            foreach (var item in items)
+            {
+                Status.Add(item);
+            }
+        }
+        catch (Exception ex)
+        {
+            // Display an alert if an error occurs
+            Application.Current.MainPage.DisplayAlert("Ошибка", $"Произошла ошибка: {ex.Message}", "OK");
         }
     }
-    
+
     private void LoadEquipment()
     {
         using InventoryManagmentEntities _db = new();
-        // Load data from the database and populate the ObservableCollection
-        var items = _db.Equipments.ToList();
-        foreach (var item in items)
+        try
         {
-            Equipment.Add(item);
+            // Load data from the database and populate the ObservableCollection
+            var items = _db.Equipments.ToList();
+            foreach (var item in items)
+            {
+                Equipment.Add(item);
+            }
+        }
+        catch (Exception ex)
+        {
+            // Display an alert if an error occurs
+            Application.Current.MainPage.DisplayAlert("Ошибка", $"Произошла ошибка: {ex.Message}", "OK");
         }
     }
 
     private Status? _selectedStatus;
-    
+
     public DateTime _claimDate;
     public string _issueDescription;
 
@@ -213,8 +253,8 @@ public class WarrantyClaimsViewModel : ViewModelBase<WarrantyClaim>
 
     private Equipment? _selectedEquipment;
     private List<Equipment> _equipment = new();
-    
-    
+
+
     private List<Status> _status = new();
 
     public List<Status> Status
@@ -244,6 +284,7 @@ public class WarrantyClaimsViewModel : ViewModelBase<WarrantyClaim>
     private DateTime _startDate;
     private DateTime _endDate;
     private string _filterName;
+
     public string FilterName
     {
         get => _filterName;
@@ -255,6 +296,7 @@ public class WarrantyClaimsViewModel : ViewModelBase<WarrantyClaim>
             ApplyFilter();
         }
     }
+
     public DateTime StartDate
     {
         get => _startDate;
@@ -278,5 +320,4 @@ public class WarrantyClaimsViewModel : ViewModelBase<WarrantyClaim>
             ApplyFilter();
         }
     }
-
 }

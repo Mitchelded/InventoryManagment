@@ -21,31 +21,6 @@ public partial class InventoryView : ContentPage
     
 
     }
-
-    
-    async Task<byte[]> LoadImageAsync()
-    {
-        var result = await FilePicker.PickAsync(new PickOptions
-        {
-            PickerTitle = "Select a file",
-            FileTypes = FilePickerFileType.Images // Restricts to image files
-        });
-
-        if (result != null)
-        {
-            using (var stream = await result.OpenReadAsync())
-            {
-                using (var memoryStream = new MemoryStream())
-                {
-                    await stream.CopyToAsync(memoryStream);
-                    return memoryStream.ToArray();
-                }
-            }
-        }
-
-        return null; // No file selected
-    }
-
     
     private void OnBindingContextChanged(object sender, EventArgs e)
     {

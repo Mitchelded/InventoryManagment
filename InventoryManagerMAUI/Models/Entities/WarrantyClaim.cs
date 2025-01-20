@@ -1,5 +1,6 @@
 ﻿namespace InventoryManagment.Models.Entities;
-// TODO: Реализовать 
+
+
 public class WarrantyClaim
 {
     public int WarrantyClaimID { get; set; }  // Уникальный идентификатор заявки

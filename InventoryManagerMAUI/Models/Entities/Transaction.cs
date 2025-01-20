@@ -1,5 +1,5 @@
 ﻿namespace InventoryManagment.Models.Entities;
-// TODO: Реализовать и понять зачем это
+
 public class Transaction
 {
     public int TransactionID { get; set; }

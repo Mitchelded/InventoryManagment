@@ -57,9 +57,8 @@ public class OrdersManagementViewModel : ViewModelBase<OrderDetail>
             existingOrder.CustomerEmail = CustomerEmail;
             // Update the order date to the current time (if needed)
             existingOrder.OrderDate = DateTime.Now;
-
-            // TODO: Update the UserID if required (e.g., based on the logged-in user)
-            existingOrder.UserID = 1;
+            int userID =  int.Parse( Preferences.Get("CurrentUsername", "0"));
+            existingOrder.UserID = userID;
 
             // Update or remove existing order details
             foreach (var existingDetail in existingOrder.OrderDetails.ToList())
@@ -161,7 +160,8 @@ public class OrdersManagementViewModel : ViewModelBase<OrderDetail>
     {
         using InventoryManagmentEntities _db = new();
         try
-        {
+        { 
+            int userID =  int.Parse( Preferences.Get("CurrentUsername", "0"));
             List<Order> orders = new List<Order>();
 
             var orderToAdd = new Order()
@@ -170,8 +170,8 @@ public class OrdersManagementViewModel : ViewModelBase<OrderDetail>
                 ShippingAddress = ShippingAddress,
                 CustomerName = CustomerName,
                 CustomerEmail = CustomerEmail,
-                // TODO: Добавить добавление текущего пользователя кто создал заказ. После добавления логина
-                UserID = 1,
+                
+                UserID = userID,
                 Notes = Notes
             };
             _db.Orders.Add(orderToAdd);

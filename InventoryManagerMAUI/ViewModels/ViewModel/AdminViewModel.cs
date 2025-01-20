@@ -8,10 +8,6 @@ using InventoryManagerMAUI.Commands;
 
 namespace InventoryManagerMAUI.ViewModels.ViewModel;
 
-// TODO:
-// Category.cs
-// Role.cs
-// Status.cs 
 public class AdminViewModel : INotifyPropertyChanged
 {
     public AdminViewModel() //InventoryManagmentEntities db

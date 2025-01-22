@@ -56,39 +56,49 @@
                         </HorizontalStackLayout>
                     </Grid>
 
-                    <ListView ItemsSource="{Binding Collection}" Margin="10"
-      SelectedItem="{Binding BindingContext.SelectedItem, Source={RelativeSource AncestorType={x:Type ContentPage}}, Mode=TwoWay}">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <ViewCell>
-                                    
-                                        <Grid RowDefinitions="*" ColumnDefinitions="15,*,*,*,*,*,*,*">
-                                            <Label Text="{Binding EquipmentMovementID}" Grid.Column="0"/>
-                                            <Label Text="{Binding Equipment.Name}" Grid.Column="1"
-                />
-                                            <Label Text="{Binding SourceWarehouse.Name}" Grid.Column="2"
-                />
-                                            <Label Text="{Binding DestinationWarehouse.Name}" Grid.Column="3"
-                />
-                                            <Label Text="{Binding MovementDate}" Grid.Column="4"  />
+                    <Grid Margin="10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <!-- Заголовки -->
+                            <RowDefinition Height="*" />
+                            <!-- Список -->
+                        </Grid.RowDefinitions>
 
+                        <!-- Заголовки -->
+                        <Grid Grid.Row="0" RowDefinitions="*" ColumnDefinitions="25,*,*,*,*,*,*,*">
+                            <Label Text="ID" Grid.Column="0" FontAttributes="Bold" HorizontalTextAlignment="Center" />
+                            <Label Text="Оборудование" Grid.Column="1" FontAttributes="Bold" HorizontalTextAlignment="Center" />
+                            <Label Text="Источник склада" Grid.Column="2" FontAttributes="Bold" HorizontalTextAlignment="Center" />
+                            <Label Text="Назначение склада" Grid.Column="3" FontAttributes="Bold" HorizontalTextAlignment="Center" />
+                            <Label Text="Дата перемещения" Grid.Column="4" FontAttributes="Bold" HorizontalTextAlignment="Center" />
+                            <Label Text="Детали" Grid.Column="5" FontAttributes="Bold" HorizontalTextAlignment="Center" />
+                            <Label Text="Редактировать" Grid.Column="6" FontAttributes="Bold" HorizontalTextAlignment="Center" />
+                            <Label Text="Удалить" Grid.Column="7" FontAttributes="Bold" HorizontalTextAlignment="Center" />
+                        </Grid>
 
-                                            <Button Style="{StaticResource PrimaryButtonStyle}" Text="Детали"
-                Clicked="ViewDetailBtn_OnClicked" x:Name="ViewDetailBtn" Grid.Column="5" CommandParameter="{Binding}" />
-                                            <Button Style="{StaticResource SuccessButtonStyle}" Text="Edit" Grid.Column="6"
-                Clicked="EditBtn_OnClicked" CommandParameter="{Binding}" />
-                                            <Button Style="{StaticResource DangerButtonStyle}" Text="Delete" Grid.Column="7"
-                Command="{Binding BindingContext.DeleteCommand, 
-                        Source={RelativeSource AncestorType={x:Type ContentPage}}}"
-                CommandParameter="{Binding}" />
+                        <!-- Список -->
+                        <ListView Grid.Row="1" ItemsSource="{Binding Collection}"
+              SelectedItem="{Binding BindingContext.SelectedItem, Source={RelativeSource AncestorType={x:Type ContentPage}}, Mode=TwoWay}">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <ViewCell>
+                                        <Grid RowDefinitions="*" ColumnDefinitions="25,*,*,*,*,*,*,*">
+                                            <Label Text="{Binding EquipmentMovementID}" Grid.Column="0" />
+                                            <Label Text="{Binding Equipment.Name}" Grid.Column="1" />
+                                            <Label Text="{Binding SourceWarehouse.Name}" Grid.Column="2" />
+                                            <Label Text="{Binding DestinationWarehouse.Name}" Grid.Column="3" />
+                                            <Label Text="{Binding MovementDate}" Grid.Column="4" />
 
+                                            <Button Style="{StaticResource PrimaryButtonStyle}" Text="Детали" Clicked="ViewDetailBtn_OnClicked" x:Name="ViewDetailBtn" Grid.Column="5" CommandParameter="{Binding}" />
+                                            <Button Style="{StaticResource SuccessButtonStyle}" Text="Edit" Grid.Column="6" Clicked="EditBtn_OnClicked" CommandParameter="{Binding}" />
+                                            <Button Style="{StaticResource DangerButtonStyle}" Text="Delete" Grid.Column="7" Command="{Binding BindingContext.DeleteCommand, Source={RelativeSource AncestorType={x:Type ContentPage}}}" CommandParameter="{Binding}" />
                                         </Grid>
-                                    
+                                    </ViewCell>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </Grid>
 
-                                </ViewCell>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
 
                 </StackLayout>
             </Grid>

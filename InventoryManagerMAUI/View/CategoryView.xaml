@@ -11,32 +11,51 @@
 
     <VerticalStackLayout>
         <Label Text="Категории" VerticalOptions="Center" FontSize="Title" Margin="10" />
-        <Button Clicked="BtnAdd_Clicked" Text="Новая категория" x:Name="BtnAdd" Margin="10" HorizontalOptions="End"/>
+        <Button Clicked="BtnAdd_Clicked" Text="Новая категория" x:Name="BtnAdd" Margin="10" HorizontalOptions="End" Style="{StaticResource PrimaryButtonStyle}"/>
 
-        <ListView Grid.Column="0" Grid.Row="0"
-                                  ItemsSource="{Binding CollectionCategory}" Margin="10"
-                                  SelectedItem="{Binding BindingContext.SelectedCategoryItem ,Source={RelativeSource AncestorType={x:Type ContentPage}}}">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                       
-                            <Grid ColumnDefinitions="10,*,*,*,*">
+        <Grid Grid.Column="0" Grid.Row="0" Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <!-- Заголовки -->
+                <RowDefinition Height="*" />
+                <!-- Список -->
+            </Grid.RowDefinitions>
+
+            <!-- Заголовки -->
+            <Grid Grid.Row="0" ColumnDefinitions="25,*,*,*,*">
+                <Label Text="ID" Grid.Column="0" FontAttributes="Bold" HorizontalTextAlignment="Center" />
+                <Label Text="Название" Grid.Column="1" FontAttributes="Bold" HorizontalTextAlignment="Center" />
+                <Label Text="Описание" Grid.Column="2" FontAttributes="Bold" HorizontalTextAlignment="Center" />
+                <Label Text="Удалить" Grid.Column="3" FontAttributes="Bold" HorizontalTextAlignment="Center" />
+                <Label Text="Редактировать" Grid.Column="4" FontAttributes="Bold" HorizontalTextAlignment="Center" />
+            </Grid>
+
+            <!-- Список -->
+            <ListView Grid.Row="1"
+              ItemsSource="{Binding CollectionCategory}"
+              SelectedItem="{Binding BindingContext.SelectedCategoryItem, 
+                                    Source={RelativeSource AncestorType={x:Type ContentPage}}}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid ColumnDefinitions="25,*,*,*,*">
                                 <Label Text="{Binding CategoryID}" Grid.Column="0" />
                                 <Label Text="{Binding Name}" Grid.Column="1" />
                                 <Label Text="{Binding Description}" Grid.Column="2" />
                                 <Button Grid.Column="3" Width="25" Text="Удалить" Style="{StaticResource DangerButtonStyle}"
-                                                    Command="{Binding BindingContext.DeleteCategoryCommand,
-                                                        Source={RelativeSource AncestorType={x:Type ContentPage}}}"
-                                                    CommandParameter="{Binding BindingContext.SelectedCategoryItem,
-                                                                Source={RelativeSource AncestorType={x:Type ContentPage}}}" />
-                                <Button Text="Редактированике" Grid.Column="4" Width="25"
-                                                    Clicked="CategoryEditButton_OnClicked" Style="{StaticResource WarningButtonStyle}" />
+                                Command="{Binding BindingContext.DeleteCategoryCommand,
+                                        Source={RelativeSource AncestorType={x:Type ContentPage}}}"
+                                CommandParameter="{Binding BindingContext.SelectedCategoryItem,
+                                        Source={RelativeSource AncestorType={x:Type ContentPage}}}" />
+                                <Button Text="Редактировать" Grid.Column="4" Width="25"
+                                Clicked="CategoryEditButton_OnClicked" Style="{StaticResource SuccessButtonStyle}" />
                             </Grid>
-                        
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+
 
     </VerticalStackLayout>
 </ContentPage>

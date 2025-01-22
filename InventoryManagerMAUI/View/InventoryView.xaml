@@ -67,48 +67,54 @@
             </Grid>
 
             <!-- Inventory Table -->
-            <ListView ItemsSource="{Binding Collection}"
-                      SelectedItem="{Binding BindingContext.SelectedItem, 
-            Source={RelativeSource AncestorType={x:Type ContentPage}}, Mode=TwoWay}">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
+            <Grid Margin="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <!-- Заголовки -->
+                    <RowDefinition Height="*" />
+                    <!-- Список -->
+                </Grid.RowDefinitions>
 
-                            <Grid ColumnDefinitions="130,*,100,100,*,100,*,*">
-                                <Image Grid.Column="0" Aspect="AspectFill" WidthRequest="125" HeightRequest="125" Source="{Binding Photo, Converter={StaticResource ByteArrayToImageSourceConverter}}"/>
+                <!-- Заголовки -->
+                <Grid Grid.Row="0" ColumnDefinitions="130,*,100,100,*,100,*,*">
+                    <Label Text="Фото" Grid.Column="0" FontAttributes="Bold" HorizontalTextAlignment="Center" />
+                    <Label Text="Название" Grid.Column="1" FontAttributes="Bold" HorizontalTextAlignment="Center" />
+                    <Label Text="Категория" Grid.Column="2" FontAttributes="Bold" HorizontalTextAlignment="Center" />
+                    <Label Text="Серийный номер" Grid.Column="3" FontAttributes="Bold" HorizontalTextAlignment="Center" />
+                    <Label Text="Последнее местоположение" Grid.Column="4" FontAttributes="Bold" HorizontalTextAlignment="Center" />
+                    <Label Text="Стоимость" Grid.Column="5" FontAttributes="Bold" HorizontalTextAlignment="Center" />
+                    <Label Text="Статус" Grid.Column="6" FontAttributes="Bold" HorizontalTextAlignment="Center" />
+                    <Label Text="Действия" Grid.Column="7" FontAttributes="Bold" HorizontalTextAlignment="Center" />
+                </Grid>
 
+                <!-- Список -->
+                <ListView Grid.Row="1" ItemsSource="{Binding Collection}"
+              SelectedItem="{Binding BindingContext.SelectedItem, Source={RelativeSource AncestorType={x:Type ContentPage}}, Mode=TwoWay}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid ColumnDefinitions="130,*,100,100,*,100,*,*">
+                                    <Image Grid.Column="0" Aspect="AspectFill" WidthRequest="125" HeightRequest="125" Source="{Binding Photo, Converter={StaticResource ByteArrayToImageSourceConverter}}"/>
+                                    <Label Grid.Column="1" Text="{Binding Name}" FontSize="20" />
+                                    <Label Grid.Column="2" Text="{Binding Category.Name}" FontSize="16" TextColor="Gray" />
+                                    <Label Grid.Column="3" Text="{Binding SerialNumber}" FontSize="16" />
+                                    <Label Grid.Column="4" Text="{Binding LastLocation}" FontSize="16" />
+                                    <Label Grid.Column="5" Text="{Binding Cost, StringFormat='{}{0:C}'}" FontSize="16" />
 
-                                <Label Grid.Column="1"  Text="{Binding Name}" BindingContextChanged="OnBindingContextChanged"  FontSize="20" />
-                                <Label Grid.Column="2"  Text="{Binding Category.Name}" FontSize="16" TextColor="Gray" />
+                                    <!-- Conditionally Styled Status Label -->
+                                    <Label Grid.Column="6" Text="{Binding Status.Name}" FontSize="16" FontAttributes="Bold" />
 
-                                <Label Grid.Column="3"  Text="{Binding SerialNumber}" FontSize="16" />
-                                <Label Grid.Column="4"  Text="{Binding LastLocation}" FontSize="16" />
-                                <Label Grid.Column="5"  Text="{Binding Cost, StringFormat='{}{0:C}'}" FontSize="16" />
+                                    <StackLayout Grid.Column="7" Orientation="Horizontal" Spacing="5">
+                                        <Button Text="Редактировать" HeightRequest="25" Style="{StaticResource SuccessButtonStyle}" x:Name="EditBtn" Clicked="EditBtn_OnClicked"/>
+                                        <Button Text="Удалить" WidthRequest="70" HeightRequest="25" Style="{StaticResource DangerButtonStyle}" Command="{Binding BindingContext.DeleteCommand, Source={RelativeSource AncestorType={x:Type ContentPage}}}" CommandParameter="{Binding BindingContext.SelectedItem, Source={RelativeSource AncestorType={x:Type ContentPage}}, Mode=TwoWay}"/>
+                                    </StackLayout>
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
 
-                                <!-- Conditionally Styled Status Label -->
-                                <Label  Grid.Column="6" Text="{Binding Status.Name}" FontSize="16" FontAttributes="Bold">
-                                </Label>
-
-                                <StackLayout Grid.Column="7"  Orientation="Horizontal" Spacing="5">
-                                    <Button Text="Редактировать" HeightRequest="25" Style="{StaticResource PrimaryButtonStyle}" x:Name="EditBtn" Clicked="EditBtn_OnClicked"/>
-                                    <!--<Button Text="Restock"
-                Style="{StaticResource SuccessButtonStyle}" 
-                WidthRequest="85" HeightRequest="25" Command="{Binding BindingContext.LoadImageCommand,
-                Source={RelativeSource AncestorType={x:Type ContentPage}}}"
-                CommandParameter="{Binding BindingContext.SelectedItem, 
-                Source={RelativeSource AncestorType={x:Type ContentPage}}, Mode=TwoWay}"/>-->
-                                    <Button Text="Удалить" WidthRequest="70" HeightRequest="25" 
-                Style="{StaticResource DangerButtonStyle}" 
-                Command="{Binding BindingContext.DeleteCommand, Source={RelativeSource AncestorType={x:Type ContentPage}}}"
-                CommandParameter="{Binding BindingContext.SelectedItem, 
-                Source={RelativeSource AncestorType={x:Type ContentPage}}, Mode=TwoWay}"/>
-                                </StackLayout>
-                            </Grid>
-
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
 
 
         </StackLayout>

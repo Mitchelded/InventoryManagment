@@ -13,14 +13,15 @@
         <ContentView Background="Transparent">
             <Grid RowDefinitions="Auto, *, Auto" Background="Transparent">
                 <!-- Header -->
-                <Label Text="Информационная панель" Background="Transparent"
+                <VerticalStackLayout>
+                    <Label Margin="10,10,10,0" Text="Информационная панель" Background="Transparent"
                        FontSize="24"
-                       FontAttributes="Bold"
-                       Margin="20,10,20,0" />
-                <Label Background="Transparent" Text="Добро пожаловать! Вот что сегодня происходит с вашим инвентарем."
+                       FontAttributes="Bold"/>
+                    <Label Margin="10,0,10,10" Background="Transparent" Text="Добро пожаловать! Вот что сегодня происходит с вашим инвентарем."
                        FontSize="14"
-                       TextColor="Gray"
-                       Margin="20,0,20,10" />
+                       TextColor="Gray"/>
+                </VerticalStackLayout>
+
 
                 <!-- Charts and Stats -->
                 <ScrollView Grid.Row="1" Padding="20" Background="#f8f9fb">
@@ -50,7 +51,7 @@
                                         <Image Source="icons_ruble.png" Aspect="AspectFill" WidthRequest="25" HeightRequest="25"/>
                                         <Label Text="Общая стоимость" FontSize="14" TextColor="Black" />
                                     </HorizontalStackLayout>
-                                    
+
                                     <Label Text="{Binding TotalCost, StringFormat='{}{0:C}'}" FontSize="20"
                                            FontAttributes="Bold"/>
                                 </VerticalStackLayout>
@@ -72,34 +73,55 @@
                         </HorizontalStackLayout>
                         <Grid RowDefinitions="Auto, *, Auto" ColumnDefinitions="Auto, *, Auto">
                             <!-- Stock Distribution Chart -->
-                            <Frame Grid.Column="1" BackgroundColor="White" CornerRadius="10" Padding="10">
+                            <Frame HeightRequest="500" Grid.Column="1" BackgroundColor="White" CornerRadius="10" Padding="10">
                                 <VerticalStackLayout>
                                     <Label Text="Распределение запасов" FontSize="16" FontAttributes="Bold"/>
-                                    <charts:PieChart x:Name="StockDistributionChart"  HeightRequest="300" WidthRequest="300"
-                                                     HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
-                                                     Series="{Binding StockDistributionSeries}"
-                                                     LegendPosition="Right" />
+                                    <charts:PieChart x:Name="StockDistributionChart"  
+                 HeightRequest="500" 
+                 WidthRequest="500"
+                 HorizontalOptions="FillAndExpand" 
+                 VerticalOptions="FillAndExpand"
+                 Series="{Binding StockDistributionSeries}" 
+                 LegendPosition="Right" />
+
+
+
                                 </VerticalStackLayout>
                             </Frame>
 
                             <Frame Grid.Column="2" BackgroundColor="White" CornerRadius="10" Padding="10"
-                                   HeightRequest="400">
+                                   HeightRequest="500">
                                 <VerticalStackLayout>
                                     <Label Text="Недавние оповещения" FontSize="16" FontAttributes="Bold"/>
-                                    <ListView ItemsSource="{Binding LowStockEquipment}">
-                                        <ListView.ItemTemplate>
-                                            <DataTemplate>
-                                                <ViewCell>
-                                                    <VerticalStackLayout>
-                                                        <Label x:Name="HeaderLabel"
-                                                               Text="{Binding StockStatus}"/>
-                                                        <Label x:Name="MessageHeader"
-                                                               Text="{Binding CombinedMessage}"/>
-                                                    </VerticalStackLayout>
-                                                </ViewCell>
-                                            </DataTemplate>
-                                        </ListView.ItemTemplate>
-                                    </ListView>
+                                    <Grid Margin="10">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <!-- Заголовки -->
+                                            <RowDefinition Height="*" />
+                                            <!-- Список -->
+                                        </Grid.RowDefinitions>
+
+                                        <!-- Заголовки -->
+                                        <Grid Grid.Row="0" ColumnDefinitions="*,*">
+                                            <Label Text="Статус наличия" Grid.Column="0" FontAttributes="Bold" HorizontalTextAlignment="Center"/>
+                                            <Label Text="Сообщение" Grid.Column="1" FontAttributes="Bold" HorizontalTextAlignment="Center"/>
+                                        </Grid>
+
+                                        <!-- Список -->
+                                        <ListView Grid.Row="1" ItemsSource="{Binding LowStockEquipment}">
+                                            <ListView.ItemTemplate>
+                                                <DataTemplate>
+                                                    <ViewCell>
+                                                        <Grid ColumnDefinitions="*,*">
+                                                            <Label Text="{Binding StockStatus}" Grid.Column="0" />
+                                                            <Label Text="{Binding CombinedMessage}" Grid.Column="1" />
+                                                        </Grid>
+                                                    </ViewCell>
+                                                </DataTemplate>
+                                            </ListView.ItemTemplate>
+                                        </ListView>
+                                    </Grid>
+
                                 </VerticalStackLayout>
                             </Frame>
                         </Grid>

@@ -168,7 +168,7 @@ namespace InventoryManagerMAUI.ViewModels.ViewModel
                             var a = $"{pv}/{sv.Total}{Environment.NewLine}{sv.Share:P2}";
                             return a;
                         },
-                    MaxRadialColumnWidth = 60,
+                    
                     Values = new double[] { (double)(g.TotalCost ?? 0m) }, // Cast TotalCost to double
                     Name = g.CategoryName // Use dynamic category name
                 }).ToArray();

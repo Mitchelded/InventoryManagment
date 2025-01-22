@@ -57,39 +57,52 @@
 
             <!-- Orders Table -->
             <ListView ItemsSource="{Binding Collection}"
-                          SelectedItem="{Binding BindingContext.SelectedItem, 
-                        Source={RelativeSource AncestorType={x:Type ContentPage}}, Mode=TwoWay}">
+          SelectedItem="{Binding BindingContext.SelectedItem, 
+                                Source={RelativeSource AncestorType={x:Type ContentPage}}, Mode=TwoWay}">
+                <ListView.Header>
+                    <Grid RowDefinitions="Auto" ColumnDefinitions="15,*,*,*,*,*,*,*,*,*,*">
+                        <Label Text="ID" Grid.Column="0" FontAttributes="Bold" />
+                        <Label Text="Дата" Grid.Column="1" FontAttributes="Bold" />
+                        <Label Text="Наименование Оборудования" Grid.Column="2" FontAttributes="Bold" />
+                        <Label Text="Серийный Номер" Grid.Column="3" FontAttributes="Bold" />
+                        <Label Text="Описание Проблемы" Grid.Column="4" FontAttributes="Bold" />
+                        <Label Text="Решение" Grid.Column="5" FontAttributes="Bold" />
+                        <Label Text="Дата Решения" Grid.Column="6" FontAttributes="Bold" />
+                        <Label Text="Статус" Grid.Column="7" FontAttributes="Bold" />
+                        <Label Text="Детали" Grid.Column="8" FontAttributes="Bold" />
+                        <Label Text="Редактировать" Grid.Column="9" FontAttributes="Bold" />
+                        <Label Text="Удалить" Grid.Column="10" FontAttributes="Bold" />
+                    </Grid>
+                </ListView.Header>
+
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            
-                                <Grid RowDefinitions="*" ColumnDefinitions="15,*,*,*,*,*,*,*,*,*,*">
-                                    <Label Text="{Binding WarrantyClaimID}" Grid.Column="0"/>
-                                    <Label Text="{Binding ClaimDate}" Grid.Column="1" />
-                                    <Label Text="{Binding Equipment.Name}" Grid.Column="2" />
-                                    <Label Text="{Binding Equipment.SerialNumber}" Grid.Column="3" />
-                                    <Label Text="{Binding IssueDescription}" Grid.Column="4" />
-                                    <Label Text="{Binding Resolution}" Grid.Column="5" />
-                                    <Label Text="{Binding ResolutionDate}" Grid.Column="6" />
-                                    <Label Text="{Binding Status.Name}" Grid.Column="7" />
-                                    <Button Style="{StaticResource PrimaryButtonStyle}" Text="Детали" Grid.Column="8"
-                                                Clicked="ViewDetailBtn_OnClicked" x:Name="ViewDetailBtn"
-                                                Command="{Binding BindingContext.DetailCommand, 
-                                                Source={RelativeSource AncestorType={x:Type ContentPage}}}"/>
-                                    <Button Style="{StaticResource SuccessButtonStyle}" Grid.Column="9" Text="Редактировать" Clicked="Button_OnClicked"/>
-                                    <Button Style="{StaticResource DangerButtonStyle}" Text="Удалить" Grid.Column="10" 
-                                                Command="{Binding BindingContext.DeleteCommand, 
-                                                Source={RelativeSource AncestorType={x:Type ContentPage}}}"
-                                                CommandParameter="{Binding BindingContext.SelectedItem, 
-                                                Source={RelativeSource AncestorType={x:Type ContentPage}}, Mode=TwoWay}" />
-
-                                </Grid>
-
-                            
+                            <Grid RowDefinitions="*" ColumnDefinitions="15,*,*,*,*,*,*,*,*,*,*">
+                                <Label Text="{Binding WarrantyClaimID}" Grid.Column="0" />
+                                <Label Text="{Binding ClaimDate}" Grid.Column="1" />
+                                <Label Text="{Binding Equipment.Name}" Grid.Column="2" />
+                                <Label Text="{Binding Equipment.SerialNumber}" Grid.Column="3" />
+                                <Label Text="{Binding IssueDescription}" Grid.Column="4" />
+                                <Label Text="{Binding Resolution}" Grid.Column="5" />
+                                <Label Text="{Binding ResolutionDate}" Grid.Column="6" />
+                                <Label Text="{Binding Status.Name}" Grid.Column="7" />
+                                <Button Style="{StaticResource PrimaryButtonStyle}" Text="Детали" Grid.Column="8"
+                            Clicked="ViewDetailBtn_OnClicked" x:Name="ViewDetailBtn"
+                            Command="{Binding BindingContext.DetailCommand, 
+                            Source={RelativeSource AncestorType={x:Type ContentPage}}}" />
+                                <Button Style="{StaticResource SuccessButtonStyle}" Grid.Column="9" Text="Редактировать" Clicked="Button_OnClicked" />
+                                <Button Style="{StaticResource DangerButtonStyle}" Text="Удалить" Grid.Column="10" 
+                            Command="{Binding BindingContext.DeleteCommand, 
+                            Source={RelativeSource AncestorType={x:Type ContentPage}}}"
+                            CommandParameter="{Binding BindingContext.SelectedItem, 
+                            Source={RelativeSource AncestorType={x:Type ContentPage}}, Mode=TwoWay}" />
+                            </Grid>
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+
         </StackLayout>
     </Grid>
 </ContentPage>

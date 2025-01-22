@@ -12,30 +12,51 @@
 
     <VerticalStackLayout>
         <Label Text="Статусы" VerticalOptions="Center" FontSize="Title" Margin="10" />
-        <Button Clicked="BtnAdd_Clicked" Text="Новый статус" x:Name="BtnAdd" Margin="10" HorizontalOptions="End"/>
-       
-            <ListView
-                    SelectedItem="{Binding BindingContext.SelectedStatusItem,
-                                Source={RelativeSource AncestorType={x:Type ContentPage}}}"
-                    Margin="10" Grid.Column="0" Grid.Row="1" ItemsSource="{Binding CollectionStatus}">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                            <Grid ColumnDefinitions="10,*,*,*,*">
-                            <Label Text="{Binding StatusID}" Grid.Column="0" />
-                            <Label Text="{Binding Name}" Grid.Column="1" />
-                            <Label Text="{Binding Description}" Grid.Column="2" />
+        <Button Clicked="BtnAdd_Clicked" Text="Новый статус" x:Name="BtnAdd" Margin="10" HorizontalOptions="End" Style="{StaticResource PrimaryButtonStyle}"/>
+
+        <Grid Grid.Column="0" Grid.Row="1" Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <!-- Заголовки -->
+                <RowDefinition Height="*" />
+                <!-- Список -->
+            </Grid.RowDefinitions>
+
+            <!-- Заголовки -->
+            <Grid Grid.Row="0" ColumnDefinitions="25,*,*,*,*">
+                <Label Text="ID" Grid.Column="0" FontAttributes="Bold" HorizontalTextAlignment="Center" />
+                <Label Text="Название" Grid.Column="1" FontAttributes="Bold" HorizontalTextAlignment="Center" />
+                <Label Text="Описание" Grid.Column="2" FontAttributes="Bold" HorizontalTextAlignment="Center" />
+                <Label Text="Действие" Grid.Column="3" FontAttributes="Bold" HorizontalTextAlignment="Center" />
+                <Label Text="Редактирование" Grid.Column="4" FontAttributes="Bold" HorizontalTextAlignment="Center" />
+            </Grid>
+
+            <!-- Список -->
+            <ListView Grid.Row="1"
+              SelectedItem="{Binding BindingContext.SelectedStatusItem,
+                                    Source={RelativeSource AncestorType={x:Type ContentPage}}}"
+              ItemsSource="{Binding CollectionStatus}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid ColumnDefinitions="25,*,*,*,*">
+                                <Label Text="{Binding StatusID}" Grid.Column="0" />
+                                <Label Text="{Binding Name}" Grid.Column="1" />
+                                <Label Text="{Binding Description}" Grid.Column="2" />
                                 <Button Grid.Column="3" Width="25" Text="Удалить" Style="{StaticResource DangerButtonStyle}"
-                                            Command="{Binding BindingContext.DeleteStatusCommand,
-                                                            Source={RelativeSource AncestorType={x:Type ContentPage}}}"
-                                            CommandParameter="{Binding BindingContext.SelectedStatusItem ,Source={RelativeSource AncestorType={x:Type ContentPage}}}" />
-                            <Button Text="Редактировать" Grid.Column="4" Width="25"
-                                            Clicked="StatusEditButton_OnClicked" Style="{StaticResource WarningButtonStyle}" />
-                        </Grid>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
+                                Command="{Binding BindingContext.DeleteStatusCommand,
+                                                Source={RelativeSource AncestorType={x:Type ContentPage}}}"
+                                CommandParameter="{Binding BindingContext.SelectedStatusItem, 
+                                                        Source={RelativeSource AncestorType={x:Type ContentPage}}}" />
+                                <Button Text="Редактировать" Grid.Column="4" Width="25"
+                                Clicked="StatusEditButton_OnClicked" Style="{StaticResource SuccessButtonStyle}" />
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
             </ListView>
-        
+        </Grid>
+
+
     </VerticalStackLayout>
 </ContentPage>

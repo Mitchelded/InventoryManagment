@@ -36,8 +36,17 @@
             </HorizontalStackLayout>
             <Label  Text="Заказ товаров " FontAttributes="Bold" Margin="10"/>
             <ListView ItemsSource="{Binding OrderDetails}" Margin="10"
-                      SelectedItem="{Binding BindingContext.SelectedItem2, 
-                        Source={RelativeSource AncestorType={x:Type ContentPage}}, Mode=TwoWay}">
+           SelectedItem="{Binding BindingContext.SelectedItem2, 
+             Source={RelativeSource AncestorType={x:Type ContentPage}}, Mode=TwoWay}">
+                <ListView.Header>
+                    <Grid ColumnDefinitions="*,*,*,*">
+                        <Label Text="Оборудование" Grid.Column="0" FontAttributes="Bold" />
+                        <Label Text="Количество" Grid.Column="1" FontAttributes="Bold" />
+                        <Label Text="Цена оборудования" Grid.Column="2" FontAttributes="Bold" />
+                        <Label Text="Общая стоимость" Grid.Column="3" FontAttributes="Bold" />
+                    </Grid>
+                </ListView.Header>
+
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
@@ -51,6 +60,7 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+
             <HorizontalStackLayout Margin="10">
                 <Button Text="Отмена" Style="{StaticResource WarningButtonStyle}" Clicked="CloseButton_OnClicked"/>
                 <Button Text="Печать" Style="{StaticResource PrimaryButtonStyle}"/>

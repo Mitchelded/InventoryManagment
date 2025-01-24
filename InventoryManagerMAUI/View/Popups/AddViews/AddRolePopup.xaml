@@ -6,18 +6,18 @@
                CanBeDismissedByTappingOutsideOfPopup="False">
 
 
-    <ScrollView MaximumWidthRequest="550" MaximumHeightRequest="450" Margin="20">
+    <ScrollView MaximumWidthRequest="450" MaximumHeightRequest="150" Margin="10">
 
-            <Grid ColumnDefinitions="*,*" RowDefinitions="*,*">
-                <Border StrokeShape="RoundRectangle 10,10,10,10" Margin="10" Grid.Column="0" Grid.Row="0" >
-                    <Entry Placeholder="Введите новое имя" Text="{Binding Name}"/>
+        <Grid ColumnDefinitions="*,*" RowDefinitions="75,75">
+                <Border StrokeShape="RoundRectangle 10,10,10,10" Margin="10" >
+                <Entry Placeholder="Введите новое имя" Text="{Binding Name}" Grid.Column="0" Grid.Row="0"/>
                 </Border>
                 <Border StrokeShape="RoundRectangle 10,10,10,10" Margin="10" Grid.Column="1" Grid.Row="0" >
                     <Entry Placeholder="Введите новое описание" Text="{Binding Description}"/>
                 </Border>
-            <Button Margin="20" Grid.Column="0" Grid.Row="1" Style="{StaticResource PrimaryButtonStyle}" Text="Добавить"
+            <Button Margin="10" Grid.Column="0" Grid.Row="1" Style="{StaticResource PrimaryButtonStyle}" Text="Добавить"
             Command="{Binding AddRoleCommand}"/>
-            <Button Margin="20" Grid.Column="1" Grid.Row="1"  Clicked="CloseButton_Click" Style="{StaticResource WarningButtonStyle}" Text="Отмена"/>
+            <Button Margin="10" Grid.Column="1" Grid.Row="1"  Clicked="CloseButton_Click" Style="{StaticResource WarningButtonStyle}" Text="Отмена"/>
             </Grid>
 
     </ScrollView>

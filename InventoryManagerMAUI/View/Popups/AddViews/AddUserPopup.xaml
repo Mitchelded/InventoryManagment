@@ -6,20 +6,39 @@
                CanBeDismissedByTappingOutsideOfPopup="False">
 
 
-    <ScrollView MaximumWidthRequest="450" MaximumHeightRequest="350">
-        <Grid ColumnDefinitions="*,*" RowDefinitions="75,75,75,75">
-            <Entry Margin="10" Grid.Column="0" Grid.Row="0" Placeholder="Введите имя пользователя" Text="{Binding UserName}"/>
-            <Entry Margin="10" Grid.Column="1" Grid.Row="0" Placeholder="Введите адрес электронной почты" Text="{Binding Email}"/>
-            <Entry Margin="10" Grid.Column="0" Grid.Row="1" Placeholder="Введите полное имя" Text="{Binding FullName}"/>
-            <Picker Margin="10" Grid.Column="1" Grid.Row="1" Title="Отделение"
+    <ScrollView MaximumHeightRequest="550" MaximumWidthRequest="650">
+        <Grid ColumnDefinitions="Auto,Auto" RowDefinitions="75,Auto,75,75">
+            <Border StrokeShape="RoundRectangle 10,10,10,10" Margin="10" Grid.Column="0" Grid.Row="0" >
+                <Entry Margin="10" Placeholder="Введите имя пользователя" Text="{Binding UserName}"/>
+            </Border>
+            <Border StrokeShape="RoundRectangle 10,10,10,10" Margin="10" Grid.Column="1" Grid.Row="0" >
+                <Entry Margin="10" Placeholder="Введите адрес электронной почты" Text="{Binding Email}"/>
+            </Border>
+            <Border StrokeShape="RoundRectangle 10,10,10,10" Margin="10" Grid.Column="0" Grid.Row="1" >
+                <Entry Margin="10" Placeholder="Введите полное имя" Text="{Binding FullName}"/>
+            </Border>
+            <VerticalStackLayout Grid.Column="1" Grid.Row="1" Margin="10">
+                <Label Text="Отделение" TextColor="{StaticResource Text}" />
+                <Frame BorderColor="{StaticResource Border}"
+                           CornerRadius="5"
+                           Padding="0"
+                           HasShadow="False"
+                           Background="Transparent">
+                    <Picker Margin="10"
                     ItemsSource="{Binding CollectionDepartment}" 
                     ItemDisplayBinding="{Binding Name}"
                     SelectedItem="{Binding SelectedDepartmentItem}"/>
+                </Frame>
+            </VerticalStackLayout>
 
-            <Entry Margin="10" Placeholder="Введите пароль" Grid.Row="2" Grid.ColumnSpan="2" Text="{Binding Password}"/>
+
+            <Border StrokeShape="RoundRectangle 10,10,10,10" Margin="10" Grid.Row="2" Grid.ColumnSpan="2">
+                <Entry Margin="10" Placeholder="Введите пароль"  Text="{Binding Password}"/>
+            </Border>
+
 
             <Button Margin="10" Grid.Column="0" Grid.Row="3"  Text="Добавить"
-                    Command="{Binding AddUserCommand}"/>
+                    Command="{Binding AddUserCommand}" Style="{StaticResource PrimaryButtonStyle}"/>
             <Button Margin="10" Grid.Column="1" Grid.Row="3"  Clicked="CloseButton_Click" Style="{StaticResource WarningButtonStyle}" Text="Отмена"/>
         </Grid>
     </ScrollView>

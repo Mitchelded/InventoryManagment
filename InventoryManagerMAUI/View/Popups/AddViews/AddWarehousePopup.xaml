@@ -6,13 +6,18 @@
                x:Class="InventoryManagerMAUI.ViewModels.Popups.AddViews.AddWarehousePopup"
                CanBeDismissedByTappingOutsideOfPopup="False">
 
-    <ScrollView MaximumWidthRequest="450" MaximumHeightRequest="150">
-        <Grid ColumnDefinitions="195,255" RowDefinitions="65,85">   
-            <Entry Margin="10" Grid.Column="0" Grid.Row="0" Placeholder="Введите новое имя" Text="{Binding Name}"/>
-            <Entry Margin="10" Grid.Column="1" Grid.Row="0" Placeholder="Введите новое местоположение" Text="{Binding Location}"/>
-            <Button Margin="10" Grid.Column="0" Grid.Row="1"  Text="Добавить"
-                    Command="{Binding AddWarehouseCommand}"/>
-            <Button Margin="10" Grid.Column="1" Grid.Row="1"  Clicked="CloseButton_Click" Style="{StaticResource WarningButtonStyle}" Text="Отмена"/>
+    <ScrollView MaximumWidthRequest="450" MaximumHeightRequest="170">
+        <Grid ColumnDefinitions="Auto,Auto" RowDefinitions="75,100">
+            <Border StrokeShape="RoundRectangle 10,10,10,10" Margin="10" Grid.Column="0" Grid.Row="0">
+                <Entry Margin="10"  Placeholder="Введите новое имя" Text="{Binding Name}"/>
+            </Border>
+            <Border StrokeShape="RoundRectangle 10,10,10,10" Margin="10" Grid.Column="1" Grid.Row="0" >
+                <Entry Margin="10" Placeholder="Введите новое местоположение" Text="{Binding Location}"/>
+            </Border>
+
+            <Button WidthRequest="100" HeightRequest="50" Margin="10" Grid.Column="0" Grid.Row="1"  Text="Добавить"
+                    Command="{Binding AddWarehouseCommand}" Style="{StaticResource PrimaryButtonStyle}"/>
+            <Button Margin="10" WidthRequest="100" HeightRequest="50" Grid.Column="1" Grid.Row="1"  Clicked="CloseButton_Click" Style="{StaticResource WarningButtonStyle}" Text="Отмена"/>
         </Grid>
     </ScrollView>
 

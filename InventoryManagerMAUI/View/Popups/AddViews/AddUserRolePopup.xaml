@@ -5,20 +5,40 @@
              x:Class="InventoryManagerMAUI.ViewModels.Popups.AddViews.AddUserRolePopup"
                CanBeDismissedByTappingOutsideOfPopup="False">
 
-    <ScrollView MaximumWidthRequest="250" MaximumHeightRequest="350">
-        <Grid ColumnDefinitions="*,*" RowDefinitions="125,125">
-            <Picker Grid.Column="0" Grid.Row="0" Title="Пользователь" Margin="10"
+    <ScrollView MaximumWidthRequest="500" MaximumHeightRequest="200">
+        <Grid ColumnDefinitions="Auto,Auto" RowDefinitions="100,75">
+            <VerticalStackLayout Grid.Column="0" Grid.Row="0" Margin="10">
+                            <Label Text="Пользователь" TextColor="{StaticResource Text}" />
+            <Frame BorderColor="{StaticResource Border}"
+                           CornerRadius="5"
+                           Padding="0"
+                           HasShadow="False"
+                           Background="Transparent">
+                <Picker Margin="10"
                     ItemsSource="{Binding CollectionUser}" 
                     ItemDisplayBinding="{Binding Username}"
                     SelectedItem="{Binding SelectedUserItem}"/>
+            </Frame>
+            </VerticalStackLayout>
 
-            <Picker Grid.Column="1" Grid.Row="0" Title="Роль" Margin="10"
+            <VerticalStackLayout Grid.Column="1" Grid.Row="0" Margin="10">
+                            <Label Text="Роль" TextColor="{StaticResource Text}" />
+            <Frame BorderColor="{StaticResource Border}"
+                           CornerRadius="5"
+                           Padding="0"
+                           HasShadow="False"
+                           Background="Transparent">
+                <Picker Margin="10"
                     ItemsSource="{Binding CollectionRole}" 
                     ItemDisplayBinding="{Binding Name}"
                     SelectedItem="{Binding SelectedRoleItem}"/>
+            </Frame>
+            </VerticalStackLayout>
+
+
             <Button Grid.Column="0" Grid.Row="1"  Text="Добавить" Margin="10"
-                    Command="{Binding AddUserRoleCommand}"/>
-            <Button Grid.Column="1" Grid.Row="1" Margin="10"  Clicked="CloseButton_Click" Style="{StaticResource WarningButtonStyle}" Text="Отмена"/>
+                    Command="{Binding AddUserRoleCommand}" Style="{StaticResource PrimaryButtonStyle}"/>
+            <Button Margin="10" Grid.Column="1" Grid.Row="1" Clicked="CloseButton_Click" Style="{StaticResource WarningButtonStyle}" Text="Отмена"/>
         </Grid>
     </ScrollView>
 </toolkit:Popup>

@@ -9,52 +9,44 @@
     </ContentPage.BindingContext>
 
 
-    <VerticalStackLayout>
-        <Label Text="Роли" VerticalOptions="Center" FontSize="Title" Margin="10" />
+    <VerticalStackLayout Margin="10" >
+        <Label Text="Роли" VerticalOptions="Center" FontSize="Title" />
         <Button Clicked="BtnAdd_Clicked" Text="Новая роль" x:Name="BtnAdd" Margin="10" HorizontalOptions="End" Style="{StaticResource PrimaryButtonStyle}"/>
 
-        <Grid Grid.Column="1" Grid.Row="0" Margin="10">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <!-- Заголовки -->
-                <RowDefinition Height="*" />
-                <!-- Список -->
-            </Grid.RowDefinitions>
-
-            <!-- Заголовки -->
-            <Grid Grid.Row="0" ColumnDefinitions="25,*,*,*,*">
-                <Label Text="ID" Grid.Column="0" FontAttributes="Bold" HorizontalTextAlignment="Center" />
-                <Label Text="Название роли" Grid.Column="1" FontAttributes="Bold" HorizontalTextAlignment="Center" />
-                <Label Text="Описание" Grid.Column="2" FontAttributes="Bold" HorizontalTextAlignment="Center" />
-                <Label Text="Действие" Grid.Column="3" FontAttributes="Bold" HorizontalTextAlignment="Center" />
-                <Label Text="Редактирование" Grid.Column="4" FontAttributes="Bold" HorizontalTextAlignment="Center" />
-            </Grid>
-
-            <!-- Список -->
-            <ListView Grid.Row="1"
-              SelectedItem="{Binding BindingContext.SelectedRoleItem,
+        <ListView Grid.Row="1" Margin="10" 
+          SelectedItem="{Binding BindingContext.SelectedRoleItem,
                                 Source={RelativeSource AncestorType={x:Type ContentPage}}}"
-              ItemsSource="{Binding CollectionRole}">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <Grid ColumnDefinitions="25,*,*,*,*">
-                                <Label Text="{Binding RoleID}" Grid.Column="0" />
-                                <Label Text="{Binding Name}" Grid.Column="1" />
-                                <Label Text="{Binding Description}" Grid.Column="2" />
-                                <Button Grid.Column="3" Width="25" Text="Удалить" Style="{StaticResource DangerButtonStyle}"
-                                Command="{Binding BindingContext.DeleteRoleCommand,
-                                    Source={RelativeSource AncestorType={x:Type ContentPage}}}"
-                                CommandParameter="{Binding BindingContext.SelectedRoleItem,
-                                    Source={RelativeSource AncestorType={x:Type ContentPage}}}" />
-                                <Button Text="Редактировать" Grid.Column="4" Width="25"
-                                Clicked="RoleEditButton_OnClicked" Style="{StaticResource SuccessButtonStyle}" />
-                            </Grid>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-        </Grid>
+          ItemsSource="{Binding CollectionRole}">
+            <ListView.Header>
+                <Grid RowDefinitions="Auto" ColumnDefinitions="25,*,*,140,140">
+                    <Label Text="ID" Grid.Column="0" FontAttributes="Bold" />
+                    <Label Text="Роль" Grid.Column="1" FontAttributes="Bold" />
+                    <Label Text="Описание" Grid.Column="2" FontAttributes="Bold" />
+                    <Label Text="Удалить" Grid.Column="3" FontAttributes="Bold" HorizontalOptions="Center" />
+                    <Label Text="Редактировать" Grid.Column="4" FontAttributes="Bold" HorizontalOptions="Center" />
+                </Grid>
+            </ListView.Header>
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid ColumnDefinitions="25,*,*,140,140">
+                            <Label Text="{Binding RoleID}" Grid.Column="0" />
+                            <Label Text="{Binding Name}" Grid.Column="1" />
+                            <Label Text="{Binding Description}" Grid.Column="2" />
+                            <Button Grid.Column="3" Width="25" Text="Удалить" Style="{StaticResource DangerButtonStyle}"
+                            Command="{Binding BindingContext.DeleteRoleCommand,
+                                              Source={RelativeSource AncestorType={x:Type ContentPage}}}"
+                            CommandParameter="{Binding BindingContext.SelectedRoleItem, 
+                                                    Source={RelativeSource AncestorType={x:Type ContentPage}}}" />
+                            <Button Text="Редактировать" Grid.Column="4" Width="25"
+                            Clicked="RoleEditButton_OnClicked" Style="{StaticResource SuccessButtonStyle}" />
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
 
 
     </VerticalStackLayout>

@@ -42,7 +42,7 @@ public class RoleBasedMenuService
             {
                 Title = "Претензии по гарантии",
                 Route = "Warranty_Claims",
-                Icon = "warranty_claims.png",
+                Icon = "icon_warranty_claims.png",
                 Items =
                 {
                     new ShellContent

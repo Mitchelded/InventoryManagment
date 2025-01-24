@@ -5,7 +5,7 @@
                xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
                x:Class="InventoryManagerMAUI.ViewModels.Popups.AddViews.AddOrderPopup"
                CanBeDismissedByTappingOutsideOfPopup="False">
-    <ScrollView MaximumWidthRequest="500" MaximumHeightRequest="550" Background="Black">
+    <ScrollView MaximumWidthRequest="700" MaximumHeightRequest="550" Background="Black">
         <Grid ColumnDefinitions="*,*" RowDefinitions="2*,2*,*,5*,*,*">
             <VerticalStackLayout Grid.Column="0" Grid.Row="0" Margin="10">
                 <Label Text="Имя клиента"/>

@@ -7,18 +7,18 @@
                xmlns:local="clr-namespace:InventoryManagerMAUI.Commands"
                CanBeDismissedByTappingOutsideOfPopup="False"
                Color="{StaticResource White}">
-    
+
     <toolkit:Popup.Resources>
-        
+
         <ResourceDictionary xmlns:local="clr-namespace:InventoryManagerMAUI.Commands">
             <local:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter" />
         </ResourceDictionary>
 
-    
+
     </toolkit:Popup.Resources>
-    
+
     <!-- Add Product Modal -->
-    <ScrollView MaximumWidthRequest="500" MaximumHeightRequest="550" Margin="20">
+    <ScrollView MaximumWidthRequest="500" MaximumHeightRequest="350" Margin="20">
         <VerticalStackLayout Margin="20">
             <HorizontalStackLayout>
                 <VerticalStackLayout Margin="0,0,25,0">
@@ -40,7 +40,7 @@
                     <DatePicker x:Name="FromLocationPicker"
                                 TextColor="{StaticResource Text}"
                                 Date="{Binding ClaimDate}" />
-                    
+
                     <Label Text="Статус" TextColor="{StaticResource Text}" />
                     <Frame BorderColor="{StaticResource Border}"
                            CornerRadius="5"
@@ -59,20 +59,29 @@
                     <Label Text="Описание проблемы"
                            Margin="0,0,10,0"
                            TextColor="{StaticResource Text}" />
-                    <Entry Text="{Binding IssueDescription}"
+                    <Border StrokeShape="RoundRectangle 10,10,10,10" Margin="10" Grid.Column="0" Grid.Row="0" >
+                        <Entry Text="{Binding IssueDescription}"
                                 TextColor="{StaticResource Text}" />
+                    </Border>
+
 
                     <Label Text="Решение"
                            Margin="0,0,10,0"
                            TextColor="{StaticResource Text}" />
-                    <Entry x:Name="PurchaseDatePicker" Text="{Binding Resolution}"
+                    <Border StrokeShape="RoundRectangle 10,10,10,10" Margin="10" Grid.Column="0" Grid.Row="0" >
+                        <Entry x:Name="PurchaseDatePicker" Text="{Binding Resolution}"
                            TextColor="{StaticResource Text}" />
-                    
+                    </Border>
+
+
                     <Label Text="Дата решения"
                            Margin="0,0,10,0"
                            TextColor="{StaticResource Text}" />
-                    <DatePicker TextColor="{StaticResource Text}"
+                    <Border StrokeShape="RoundRectangle 10,10,10,10" Margin="10" Grid.Column="0" Grid.Row="0" >
+                        <DatePicker TextColor="{StaticResource Text}"
                                 Date="{Binding ResolutionDate}" />
+                    </Border>
+
                 </VerticalStackLayout>
             </HorizontalStackLayout>
             <HorizontalStackLayout HorizontalOptions="End" VerticalOptions="End">

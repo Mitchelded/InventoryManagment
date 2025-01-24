@@ -6,18 +6,38 @@
                x:Class="InventoryManagerMAUI.ViewModels.Popups.EditViews.EditUserRolePopup"
                CanBeDismissedByTappingOutsideOfPopup="False">
 
-    <ScrollView MaximumWidthRequest="250" MaximumHeightRequest="150">
-        <Grid ColumnDefinitions="*,*" RowDefinitions="*,*">
-            <Picker Margin="10" Grid.Column="0" Grid.Row="0" Title="Пользователь"
-                    ItemsSource="{Binding CollectionUser}" 
-                    ItemDisplayBinding="{Binding UserName}"
-                    SelectedItem="{Binding SelectedUserItem}"/>
+    <ScrollView MaximumWidthRequest="650" MaximumHeightRequest="250">
+        <Grid ColumnDefinitions="Auto,Auto" RowDefinitions="*,*">
+            <VerticalStackLayout Grid.Column="0" Grid.Row="0" Margin="10">
+                <Label Text="Пользователь" TextColor="{StaticResource Text}" />
+                <Frame BorderColor="{StaticResource Border}"
+               CornerRadius="5"
+               Padding="0"
+               HasShadow="False"
+               Background="Transparent">
+                    <Picker Margin="10"
+    ItemsSource="{Binding CollectionUser}" 
+    ItemDisplayBinding="{Binding Username}"
+    SelectedItem="{Binding SelectedUserItem}"/>
 
-            <Picker Margin="10" Grid.Column="1" Grid.Row="0" Title="Роль"
+                </Frame>
+            </VerticalStackLayout>
+            <VerticalStackLayout Grid.Column="1" Grid.Row="0" Margin="10">
+                <Label Text="Роль" TextColor="{StaticResource Text}" />
+                <Frame BorderColor="{StaticResource Border}"
+               CornerRadius="5"
+               Padding="0"
+               HasShadow="False"
+               Background="Transparent">
+                    <Picker Margin="10"
                     ItemsSource="{Binding CollectionRole}" 
                     ItemDisplayBinding="{Binding Name}"
                     SelectedItem="{Binding SelectedRoleItem}"/>
-            <Button Margin="10" Grid.Column="0" Grid.Row="1"  Text="Сохранить"
+                </Frame>
+            </VerticalStackLayout>
+
+
+            <Button Style="{StaticResource PrimaryButtonStyle}" Margin="10" Grid.Column="0" Grid.Row="1"  Text="Сохранить"
                     Command="{Binding UpdateUserRoleCommand}"
                     CommandParameter="{Binding SelectedUserRoleItem}"/>
             <Button Margin="10" Grid.Column="1" Grid.Row="1"  Clicked="CloseButton_Click" Style="{StaticResource WarningButtonStyle}" Text="Отмена"/>

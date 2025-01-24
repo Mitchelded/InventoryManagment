@@ -45,14 +45,44 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <Picker Title="Статус запасов" Grid.Column="0" 
+                <VerticalStackLayout Grid.Column="0" >
+                    <Label Text="Статус запасов" TextColor="{StaticResource Text}" />
+                    <Frame BorderColor="{StaticResource Border}"
+   CornerRadius="5"
+   Padding="0"
+   HasShadow="False"
+   Background="Transparent">
+                        <Picker
                             ItemsSource="{Binding Status}"
                             ItemDisplayBinding="{Binding Name}"
-                            SelectedItem="{Binding SelectedFilterStatus}">
-                </Picker>
-                <DatePicker Grid.Column="1" Date="{Binding StartDate, Mode=TwoWay}"/>
-                <DatePicker Grid.Column="2" Date="{Binding EndDate, Mode=TwoWay}"/>
-                <Entry Placeholder="Поиск клиента..." Grid.Column="3" Text="{Binding FilterName}" />
+                            SelectedItem="{Binding SelectedFilterStatus}"></Picker>
+                    </Frame>
+                </VerticalStackLayout>
+
+                <VerticalStackLayout Grid.Column="1">
+                    <Label Text="От" TextColor="{StaticResource Text}" />
+                    <Frame BorderColor="{StaticResource Border}"
+   CornerRadius="5"
+   Padding="0"
+   HasShadow="False"
+   Background="Transparent">
+                        <DatePicker Date="{Binding StartDate, Mode=TwoWay}"/>
+                    </Frame>
+                </VerticalStackLayout>
+                <VerticalStackLayout Grid.Column="2">
+                    <Label Text="До" TextColor="{StaticResource Text}" />
+                    <Frame BorderColor="{StaticResource Border}"
+   CornerRadius="5"
+   Padding="0"
+   HasShadow="False"
+   Background="Transparent">
+                        <DatePicker Date="{Binding EndDate, Mode=TwoWay}"/>
+                    </Frame>
+                </VerticalStackLayout>
+
+                <Border StrokeShape="RoundRectangle 10,10,10,10" Margin="10" Grid.Column="3">
+                    <Entry Placeholder="Поиск оборудования..."  Text="{Binding FilterName}" />
+                </Border>
             </Grid>
 
             <!-- Orders Table -->
@@ -60,7 +90,7 @@
           SelectedItem="{Binding BindingContext.SelectedItem, 
                                 Source={RelativeSource AncestorType={x:Type ContentPage}}, Mode=TwoWay}">
                 <ListView.Header>
-                    <Grid RowDefinitions="Auto" ColumnDefinitions="15,*,*,*,*,*,*,*,*,*,*">
+                    <Grid RowDefinitions="Auto" ColumnDefinitions="15,*,*,*,*,*,*,*,140,140,140">
                         <Label Text="ID" Grid.Column="0" FontAttributes="Bold" />
                         <Label Text="Дата" Grid.Column="1" FontAttributes="Bold" />
                         <Label Text="Наименование Оборудования" Grid.Column="2" FontAttributes="Bold" />
@@ -78,7 +108,7 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <Grid RowDefinitions="*" ColumnDefinitions="15,*,*,*,*,*,*,*,*,*,*">
+                            <Grid RowDefinitions="*" ColumnDefinitions="15,*,*,*,*,*,*,*,140,140,140">
                                 <Label Text="{Binding WarrantyClaimID}" Grid.Column="0" />
                                 <Label Text="{Binding ClaimDate}" Grid.Column="1" />
                                 <Label Text="{Binding Equipment.Name}" Grid.Column="2" />
@@ -91,12 +121,12 @@
                             Clicked="ViewDetailBtn_OnClicked" x:Name="ViewDetailBtn"
                             Command="{Binding BindingContext.DetailCommand, 
                             Source={RelativeSource AncestorType={x:Type ContentPage}}}" />
-                                <Button Style="{StaticResource SuccessButtonStyle}" Grid.Column="9" Text="Редактировать" Clicked="Button_OnClicked" />
-                                <Button Style="{StaticResource DangerButtonStyle}" Text="Удалить" Grid.Column="10" 
+                                <Button Style="{StaticResource DangerButtonStyle}" Text="Удалить" Grid.Column="9" 
                             Command="{Binding BindingContext.DeleteCommand, 
                             Source={RelativeSource AncestorType={x:Type ContentPage}}}"
                             CommandParameter="{Binding BindingContext.SelectedItem, 
                             Source={RelativeSource AncestorType={x:Type ContentPage}}, Mode=TwoWay}" />
+                                <Button Style="{StaticResource SuccessButtonStyle}" Grid.Column="10" Text="Редактировать" Clicked="Button_OnClicked" />
                             </Grid>
                         </ViewCell>
                     </DataTemplate>

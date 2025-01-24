@@ -18,7 +18,7 @@
     </toolkit:Popup.Resources>
     
     <!-- Add Product Modal -->
-    <ScrollView MaximumWidthRequest="500" MaximumHeightRequest="550" Margin="20">
+    <ScrollView MaximumWidthRequest="500" MaximumHeightRequest="350" Margin="20">
         <VerticalStackLayout Margin="20">
             <HorizontalStackLayout>
                 <VerticalStackLayout Margin="0,0,25,0">
@@ -97,8 +97,8 @@
                 </Frame>
             </VerticalStackLayout>
             <HorizontalStackLayout HorizontalOptions="End" VerticalOptions="End">
-                <Button Text="Отмена" x:Name="CancelBtn" Clicked="CancelBtn_OnClicked" Style="{StaticResource WarningButtonStyle}"/>
-                <Button Text="Добавить"
+                <Button Margin="10" Text="Отмена" x:Name="CancelBtn" Clicked="CancelBtn_OnClicked" Style="{StaticResource WarningButtonStyle}"/>
+                <Button Margin="10" Text="Добавить"
                         Style="{StaticResource PrimaryButtonStyle}" 
                         Command="{Binding AddCommand}"/>
                 

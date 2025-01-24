@@ -6,17 +6,17 @@
                CanBeDismissedByTappingOutsideOfPopup="False">
 
 
-    <ScrollView MaximumWidthRequest="400" MaximumHeightRequest="250">
-        <Grid ColumnDefinitions="*,*" RowDefinitions="*,*">
+    <ScrollView MaximumWidthRequest="400" MaximumHeightRequest="200">
+        <Grid ColumnDefinitions="*,*" RowDefinitions="75,75">
             <Border StrokeShape="RoundRectangle 10,10,10,10" Margin="10" Grid.Column="0" Grid.Row="0" >
             <Entry Placeholder="Введите новое имя" Text="{Binding Name}"/>
             </Border>
             <Border StrokeShape="RoundRectangle 10,10,10,10" Margin="10" Grid.Column="1" Grid.Row="0" >
             <Entry Placeholder="Введите новое описание" Text="{Binding Description}"/>
             </Border>
-            <Button Grid.Column="0" Grid.Row="1" Text="Добавить"
+            <Button Margin="10" Text="Добавить" Grid.Column="0" Grid.Row="1"
                     Command="{Binding AddStatusCommand}" Style="{StaticResource PrimaryButtonStyle}"/>
-            <Button Grid.Column="1" Grid.Row="1"  Clicked="CloseButton_Click" Style="{StaticResource WarningButtonStyle}" Text="Отмена"/>
+            <Button Margin="10" Grid.Column="1" Grid.Row="1"  Clicked="CloseButton_Click" Style="{StaticResource WarningButtonStyle}" Text="Отмена"/>
         </Grid>
     </ScrollView>
 

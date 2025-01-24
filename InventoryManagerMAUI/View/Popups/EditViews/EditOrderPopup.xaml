@@ -9,25 +9,37 @@
         <Grid ColumnDefinitions="*,*" RowDefinitions="2*,2*,*,5*,*,*">
             <VerticalStackLayout Grid.Column="0" Grid.Row="0" Margin="10">
                 <Label Text="Имя клиента"/>
-                <Entry Text="{Binding CustomerName}"/>
+                <Border StrokeShape="RoundRectangle 10,10,10,10" Margin="10" Grid.Column="0" Grid.Row="0" >
+ <Entry Text="{Binding CustomerName}"/>
+                </Border>
+               
             </VerticalStackLayout>
             <VerticalStackLayout Grid.Column="1"  Grid.Row="0"  Margin="10">
                 <Label Text="Электронная почта"/>
-                <Entry Text="{Binding CustomerEmail}"/>
+                <Border StrokeShape="RoundRectangle 10,10,10,10" Margin="10" Grid.Column="0" Grid.Row="0" >
+ <Entry Text="{Binding CustomerEmail}"/>
+                </Border>
+               
             </VerticalStackLayout>
             <VerticalStackLayout Grid.Row="2" Grid.Column="0" Margin="10">
                 <Label Text="Адрес доставки"/>
-                <Entry Text="{Binding ShippingAddress}"/>
+                <Border StrokeShape="RoundRectangle 10,10,10,10" Margin="10" Grid.Column="0" Grid.Row="0" >
+ <Entry Text="{Binding ShippingAddress}"/>
+                </Border>
+               
             </VerticalStackLayout>
             <VerticalStackLayout Grid.Row="2" Grid.Column="1" Margin="10">
                 <Label Text="Примечания"/>
-                <Entry Text="{Binding Notes}"/>
+                <Border StrokeShape="RoundRectangle 10,10,10,10" Margin="10" Grid.Column="0" Grid.Row="0" >
+ <Entry Text="{Binding Notes}"/>
+                </Border>
+               
             </VerticalStackLayout>
             <VerticalStackLayout Grid.Row="3" Grid.ColumnSpan="2" Margin="10">
                 <Label Text="Продукты"/>
                 <ListView x:Name="listView" ItemsSource="{Binding ExistingProducts}" HorizontalOptions="Fill">
                     <ListView.Header>
-                        <Grid ColumnDefinitions="Auto,Auto,Auto,Auto">
+                        <Grid ColumnDefinitions="*,*,*,*">
                             <Label Text="Оборудование" Grid.Column="0" FontAttributes="Bold" />
                             <Label Text="Количество" Grid.Column="1" FontAttributes="Bold" />
                             <Label Text="Общая стоимость" Grid.Column="2" FontAttributes="Bold" />
@@ -38,7 +50,7 @@
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
-                                <Grid ColumnDefinitions="Auto,Auto,Auto,Auto">
+                                <Grid ColumnDefinitions="*,*,*,*">
                                     <Picker Grid.Column="0"
                             ItemsSource="{Binding BindingContext.Equipment, Source={RelativeSource AncestorType={x:Type ContentPage}}}"
                             ItemDisplayBinding="{Binding Name}" 
@@ -60,7 +72,7 @@
 
             </VerticalStackLayout>
             <!-- Добавить новый продукт -->
-            <Button Grid.Column="0" Grid.Row="4" Text="Добавить" Style="{StaticResource SecondaryButtonStyle}" 
+            <Button Grid.Column="0" Grid.Row="4" Text="Добавить" Style="{StaticResource PrimaryButtonStyle}" 
                     Command="{Binding AddProductCommand}"/>
             <HorizontalStackLayout Grid.Column="1" Grid.Row="5" HorizontalOptions="End" VerticalOptions="Start">
                 <Button Text="Отмена" Style="{StaticResource WarningButtonStyle}" Clicked="CancelBtn_OnClicked"/>

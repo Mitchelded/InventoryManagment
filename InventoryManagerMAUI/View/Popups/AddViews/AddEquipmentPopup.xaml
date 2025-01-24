@@ -31,7 +31,7 @@
                     </Border>
                     <Label Text="Стоимость" Margin="0,0,10,0" TextColor="{StaticResource Text}" />
                     <Border StrokeShape="RoundRectangle 10,10,10,10" Margin="10" Grid.Column="1" Grid.Row="1">
-                        <Entry x:Name="CostEntry" Placeholder="Enter Cost" 
+                        <Entry x:Name="CostEntry" Placeholder="Введите стоимость" 
                            Text="{Binding Cost}" Keyboard="Numeric"
                            TextColor="{StaticResource Text}"/>
                     </Border>
@@ -56,25 +56,25 @@
                 </VerticalStackLayout>
 
                 <VerticalStackLayout Margin="0,0,25,0" Grid.Column="1">
-
+                    <Label Text="Категория" TextColor="{StaticResource Text}" />
                     <Frame Margin="10" BorderColor="{StaticResource Border}"
                            CornerRadius="5"
                            Padding="0"
                            HasShadow="False"
                            Background="Transparent">
-                        <Picker Title="Категория" x:Name="CategoryPicker" HorizontalOptions="Fill"
+                        <Picker x:Name="CategoryPicker" HorizontalOptions="Fill"
                                 ItemsSource="{Binding Category}"
                                 ItemDisplayBinding="{Binding Name}"
                                 TextColor="{StaticResource Text}" 
                                 SelectedItem="{Binding SelectedCategory}"/>
                     </Frame>
-
+                    <Label Text="Статус" TextColor="{StaticResource Text}" />
                     <Frame Margin="10" BorderColor="{StaticResource Border}"
                            CornerRadius="5"
                            Padding="0"
                            HasShadow="False"
                            Background="Transparent">
-                        <Picker x:Name="StatusPicker" Title="Статус"
+                        <Picker x:Name="StatusPicker"
                                 ItemsSource="{Binding Status}"
                                 ItemDisplayBinding="{Binding Name}"
                                 TextColor="{StaticResource Text}"
@@ -86,13 +86,13 @@
                            TextColor="{StaticResource Text}" />
                     <DatePicker Margin="10" x:Name="WarrantyExpirationPicker" Date="{Binding WarrantyExpiration}" 
                                 TextColor="{StaticResource Text}"/>
-
+                    <Label Text="Поставщик" TextColor="{StaticResource Text}" />
                     <Frame Margin="10" BorderColor="{StaticResource Border}"
                            CornerRadius="5"
                            Padding="0"
                            HasShadow="False"
                            Background="Transparent">
-                        <Picker Title="Поставщик" x:Name="SupplierPicker"
+                        <Picker x:Name="SupplierPicker"
                                 ItemsSource="{Binding Suppliers}"
                                 ItemDisplayBinding="{Binding CompanyName}"
                                 TextColor="{StaticResource Text}" 
@@ -110,7 +110,7 @@
                     Background="Transparent">
                     <HorizontalStackLayout>
                         <Button Text="Выберите изображение"
-                                BorderColor="{StaticResource SecondaryColor}"
+                                Style="{StaticResource PrimaryButtonStyle}"
                                 WidthRequest="200"
                                 Command="{Binding SelectImageCommand}">
                             <Button.Shadow>

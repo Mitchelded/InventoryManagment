@@ -13,25 +13,19 @@
                 <VerticalStackLayout>
                     <Label  Text="Информация о клиенте " FontAttributes="Bold"/>
                     <HorizontalStackLayout>
-                        <Label  Text="Имя: " FontAttributes="Bold"/> 
+                        <Label  Text="Имя: " FontAttributes="Bold"/>
                         <Label  
-                               Text="{Binding SelectedItem.Order.User.FullName}"/> 
+                               Text="{Binding SelectedItem.Order.User.FullName}"/>
                     </HorizontalStackLayout>
                     <HorizontalStackLayout>
                         <Label  Text="Электронная почта: " FontAttributes="Bold"/>
                         <Label  Text="{Binding SelectedItem.Order.User.Email}"/>
                     </HorizontalStackLayout>
-                    
+
                     <!-- Customer Information -->
                     <!-- Name: John Doe -->
                     <!-- Email: john.doe@example.com -->
                     <!-- Phone: (555) 123-4567 -->
-                </VerticalStackLayout>
-                <VerticalStackLayout>
-                    <!-- Shipping Address -->
-                    <!-- 123 Main Street -->
-                    <!-- Apt 4B -->
-                    <!-- New York, NY 10001 -->
                 </VerticalStackLayout>
             </HorizontalStackLayout>
             <Label  Text="Заказ товаров " FontAttributes="Bold" Margin="10"/>
@@ -50,12 +44,12 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <HorizontalStackLayout>
-                                <Label Text="{Binding Equipment.Name}" Margin="10"/>
-                                <Label Text="{Binding Quantity}" Margin="10"/>
-                                <Label Text="{Binding Equipment.Cost}" Margin="10"/>
-                                <Label Text="{Binding Cost}" Margin="10"/>
-                            </HorizontalStackLayout>
+                            <Grid ColumnDefinitions="*,*,*,*">
+                                <Label Grid.Column="0" Text="{Binding Equipment.Name}" Margin="10"/>
+                                <Label Grid.Column="1" Text="{Binding Quantity}" Margin="10"/>
+                                <Label Grid.Column="2" Text="{Binding Equipment.Cost}" Margin="10"/>
+                                <Label Grid.Column="3" Text="{Binding Cost}" Margin="10"/>
+                            </Grid>
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>

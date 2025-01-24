@@ -8,20 +8,46 @@
 
     <ScrollView MaximumWidthRequest="450" MaximumHeightRequest="450">
         <Grid ColumnDefinitions="270,180" RowDefinitions="*,*,*,*,*">
-            <Entry Margin="10" Grid.Column="0" Grid.Row="0" Placeholder="Введите название компании" Text="{Binding CompanyName}"/>
-            <Entry  Margin="10" Grid.Column="0" Grid.Row="1" Placeholder="Введите контактную информацию" Text="{Binding ContactInfo}"/>
-            <Entry Margin="10" Grid.Column="0" Grid.Row="2" Placeholder="Введите контактное лицо" Text="{Binding ContactPerson}"/>
-            <Entry Margin="10" Grid.Column="0" Grid.Row="3" Placeholder="Введите адрес электронной почты" Text="{Binding Email}"/>
+            <Border StrokeShape="RoundRectangle 10,10,10,10" Margin="10" Grid.Column="0" Grid.Row="0" >
+<Entry Margin="10" Grid.Column="0" Grid.Row="0" Placeholder="Введите название компании" Text="{Binding CompanyName}"/>
+            </Border>
+            
+            <Border StrokeShape="RoundRectangle 10,10,10,10" Margin="10" Grid.Column="0" Grid.Row="0" >
+<Entry  Margin="10" Grid.Column="0" Grid.Row="1" Placeholder="Введите контактную информацию" Text="{Binding ContactInfo}"/>
+            </Border>
+            
+            <Border StrokeShape="RoundRectangle 10,10,10,10" Margin="10" Grid.Column="0" Grid.Row="0" >
+<Entry Margin="10" Grid.Column="0" Grid.Row="2" Placeholder="Введите контактное лицо" Text="{Binding ContactPerson}"/>
+            </Border>
+            
+            <Border StrokeShape="RoundRectangle 10,10,10,10" Margin="10" Grid.Column="0" Grid.Row="0" >
+ <Entry Margin="10" Grid.Column="0" Grid.Row="3" Placeholder="Введите адрес электронной почты" Text="{Binding Email}"/>
+            </Border>
+           
+            <Border StrokeShape="RoundRectangle 10,10,10,10" Margin="10" Grid.Column="0" Grid.Row="0" >
+ <Entry Margin="10" Grid.Column="1" Grid.Row="0" Placeholder="Введите телефон" Text="{Binding Phone}"/>
+            </Border>
 
-            <Entry Margin="10" Grid.Column="1" Grid.Row="0" Placeholder="Введите телефон" Text="{Binding Phone}"/>
-            <Entry Margin="10" Grid.Column="1" Grid.Row="1" Placeholder="Введите веб-сайт" Text="{Binding Website}"/>
-            <Entry Margin="10" Grid.Column="1" Grid.Row="2" Placeholder="Введите адрес" Text="{Binding Address}"/>
-            <Picker Margin="10" Grid.Column="1" Grid.Row="3" Title="Категория"
+            <Border StrokeShape="RoundRectangle 10,10,10,10" Margin="10" Grid.Column="0" Grid.Row="0" >
+<Entry Margin="10" Grid.Column="1" Grid.Row="1" Placeholder="Введите веб-сайт" Text="{Binding Website}"/>
+            </Border>
+            <Border StrokeShape="RoundRectangle 10,10,10,10" Margin="10" Grid.Column="0" Grid.Row="0" >
+ <Entry Margin="10" Grid.Column="1" Grid.Row="2" Placeholder="Введите адрес" Text="{Binding Address}"/>
+            </Border>
+            <Label Text="Категория" TextColor="{StaticResource Text}" />
+            <Frame BorderColor="{StaticResource Border}"
+               CornerRadius="5"
+               Padding="0"
+               HasShadow="False"
+               Background="Transparent">
+ <Picker Margin="10" Grid.Column="1" Grid.Row="3"
                     ItemsSource="{Binding CollectionCategory}" 
                     ItemDisplayBinding="{Binding Name}"
                     SelectedItem="{Binding SelectedCategoryItem}"/>
+            </Frame>
+           
 
-            <Button Margin="10" Grid.Column="0" Grid.Row="4"  Text="Сохранить"
+            <Button Style="{StaticResource PrimaryButtonStyle}" Margin="10" Grid.Column="0" Grid.Row="4"  Text="Сохранить"
                     Command="{Binding UpdateSupplierCommand}"
                     CommandParameter="{Binding SelectedSupplierItem}"/>
             <Button Margin="10" Grid.Column="1" Grid.Row="4"  Clicked="CloseButton_Click" Style="{StaticResource WarningButtonStyle}" Text="Отмена"/>

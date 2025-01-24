@@ -12,48 +12,40 @@
         <Label Text="Склады" VerticalOptions="Center" FontSize="Title" Margin="10" />
         <Button Clicked="BtnAdd_Clicked" Text="Новый склад" x:Name="BtnAdd" Margin="10" HorizontalOptions="End" Style="{StaticResource PrimaryButtonStyle}"/>
 
-        <Grid Grid.Column="0" Grid.Row="0" Margin="10">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <!-- Заголовки -->
-                <RowDefinition Height="*" />
-                <!-- Список -->
-            </Grid.RowDefinitions>
+        <ListView Grid.Row="1" Margin="10"
+          ItemsSource="{Binding CollectionWarehouse}" 
+          SelectedItem="{Binding BindingContext.SelectedWarehouseItem,
+                                Source={RelativeSource AncestorType={x:Type ContentPage}}}">
+            <ListView.Header>
+                <Grid RowDefinitions="Auto" ColumnDefinitions="25,*,*,140,140">
+                    <Label Text="ID" Grid.Column="0" FontAttributes="Bold" />
+                    <Label Text="Название" Grid.Column="1" FontAttributes="Bold" />
+                    <Label Text="Расположение" Grid.Column="2" FontAttributes="Bold" />
+                    <Label Text="Удалить" Grid.Column="3" FontAttributes="Bold" HorizontalOptions="Center" />
+                    <Label Text="Редактировать" Grid.Column="4" FontAttributes="Bold" HorizontalOptions="Center" />
+                </Grid>
+            </ListView.Header>
 
-            <!-- Заголовки -->
-            <Grid Grid.Row="0" ColumnDefinitions="25,*,*,*,*">
-                <Label Text="ID" Grid.Column="0" FontAttributes="Bold" HorizontalTextAlignment="Center" />
-                <Label Text="Название" Grid.Column="1" FontAttributes="Bold" HorizontalTextAlignment="Center" />
-                <Label Text="Расположение" Grid.Column="2" FontAttributes="Bold" HorizontalTextAlignment="Center" />
-                <Label Text="Действие" Grid.Column="3" FontAttributes="Bold" HorizontalTextAlignment="Center" />
-                <Label Text="Редактирование" Grid.Column="4" FontAttributes="Bold" HorizontalTextAlignment="Center" />
-            </Grid>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid ColumnDefinitions="25,*,*,140,140">
+                            <Label Text="{Binding WarehouseID}" Grid.Column="0" />
+                            <Label Text="{Binding Name}" Grid.Column="1" />
+                            <Label Text="{Binding Location}" Grid.Column="2" />
+                            <Button Grid.Column="3" Width="25" Text="Удалить" Style="{StaticResource DangerButtonStyle}"
+                            Command="{Binding BindingContext.DeleteWarehouseCommand,
+                                              Source={RelativeSource AncestorType={x:Type ContentPage}}}"
+                            CommandParameter="{Binding BindingContext.SelectedWarehouseItem,
+                                                    Source={RelativeSource AncestorType={x:Type ContentPage}}}" />
+                            <Button Text="Редактировать" Grid.Column="4" Width="25"
+                            Clicked="WarehouseEditButton_OnClicked" Style="{StaticResource SuccessButtonStyle}" />
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
 
-            <!-- Список -->
-            <ListView Grid.Row="1"
-              ItemsSource="{Binding CollectionWarehouse}" 
-              SelectedItem="{Binding BindingContext.SelectedWarehouseItem,
-                                      Source={RelativeSource AncestorType={x:Type ContentPage}}}">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <Grid ColumnDefinitions="25,*,*,*,*">
-                                <Label Text="{Binding WarehouseID}" Grid.Column="0" />
-                                <Label Text="{Binding Name}" Grid.Column="1" />
-                                <Label Text="{Binding Location}" Grid.Column="2" />
-                                <Button Grid.Column="3" Width="25" Text="Удалить" Style="{StaticResource DangerButtonStyle}"
-                                Command="{Binding BindingContext.DeleteWarehouseCommand,
-                                                Source={RelativeSource AncestorType={x:Type ContentPage}}}"
-                                CommandParameter="{Binding BindingContext.SelectedWarehouseItem,
-                                                        Source={RelativeSource AncestorType={x:Type ContentPage}}}" />
-                                <Button Text="Редактировать" Grid.Column="4" Width="25"
-                                Clicked="WarehouseEditButton_OnClicked" Style="{StaticResource SuccessButtonStyle}" />
-                            </Grid>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-        </Grid>
 
 
 

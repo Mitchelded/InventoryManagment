@@ -62,7 +62,7 @@ public class AdminViewModel : INotifyPropertyChanged
                     };
 
                     CollectionUserRole.Add(status);
-                    db.Add(status);
+                    db.UserRoles.Add(status);
                 }
             }
 
@@ -462,9 +462,10 @@ public class AdminViewModel : INotifyPropertyChanged
             try
             {
                 using InventoryManagmentEntities db = new();
+                
+                db.Users.Remove(obj);
+                db.SaveChanges(); 
                 CollectionUser.Remove(obj);
-                db.Set<User>().Remove(obj);
-                db.SaveChanges();
             }
             catch (Exception ex)
             {

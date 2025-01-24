@@ -8,18 +8,37 @@
 
     <ScrollView MaximumWidthRequest="450" MaximumHeightRequest="450">
         <Grid ColumnDefinitions="*,*"  RowDefinitions="75,75,75,75">
-            <Entry Margin="10" Grid.Column="0" Grid.Row="0" Placeholder="Введите имя пользователя" Text="{Binding UserName}"/>
-            <Entry Margin="10" Grid.Column="1" Grid.Row="0" Placeholder="Введите адрес электронной почты" Text="{Binding Email}"/>
-            <Entry Margin="10" Grid.Column="0" Grid.Row="1" Placeholder="Введите полное имя" Text="{Binding FullName}"/>
-            <Picker Margin="10" Grid.Column="1" Grid.Row="1" Title="Отделение"
+            <Border StrokeShape="RoundRectangle 10,10,10,10" Margin="10" Grid.Column="0" Grid.Row="0">
+                <Entry Margin="10" Placeholder="Введите имя пользователя" Text="{Binding UserName}"/>
+            </Border>
+            <Border StrokeShape="RoundRectangle 10,10,10,10" Margin="10" Grid.Column="1" Grid.Row="0">
+                <Entry Margin="10" Placeholder="Введите адрес электронной почты" Text="{Binding Email}"/>
+            </Border>
+            <Border StrokeShape="RoundRectangle 10,10,10,10" Margin="10">
+                <Entry Margin="10" Grid.Column="0" Grid.Row="1" Placeholder="Введите полное имя" Text="{Binding FullName}"/>
+            </Border>
+            <VerticalStackLayout Grid.Column="1" Grid.Row="1">
+                            <Label Text="Отделение" TextColor="{StaticResource Text}" />
+            <Frame BorderColor="{StaticResource Border}"
+               CornerRadius="5"
+               Padding="0"
+               HasShadow="False"
+               Background="Transparent">
+                <Picker Margin="10"
                     ItemsSource="{Binding CollectionDepartment}" 
                     ItemDisplayBinding="{Binding Name}"
                     SelectedItem="{Binding SelectedDepartmentItem}"/>
-            
-            <Entry Margin="10" Placeholder="Введите пароль" Grid.Row="2" Grid.ColumnSpan="2" Text="{Binding Password}"/>
-            
-            
-            <Button Margin="10" Grid.Column="0" Grid.Row="3"  Text="Сохранить"
+            </Frame>
+            </VerticalStackLayout>
+
+
+            <Border StrokeShape="RoundRectangle 10,10,10,10" Margin="10" Grid.Row="2" Grid.ColumnSpan="2">
+                <Entry Margin="10" Placeholder="Введите пароль"  Text="{Binding Password}"/>
+            </Border>
+
+
+
+            <Button Style="{StaticResource PrimaryButtonStyle}" Margin="10" Grid.Column="0" Grid.Row="3"  Text="Сохранить"
                     Command="{Binding UpdateUserCommand}"
                     CommandParameter="{Binding SelectedUserItem}"/>
             <Button Margin="10" Grid.Column="1" Grid.Row="3"  Clicked="CloseButton_Click" Style="{StaticResource WarningButtonStyle}" Text="Отмена"/>

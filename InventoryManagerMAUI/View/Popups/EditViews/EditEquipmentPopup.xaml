@@ -23,15 +23,22 @@
             <Grid Margin="10" ColumnDefinitions="*,*">
                 <VerticalStackLayout Margin="0,0,25,0" Grid.Column="0">
                     <Label Text="Название продукта" TextColor="{StaticResource Text}" />
-                    <Entry x:Name="ProductNameEntry"
+
+                    <Border StrokeShape="RoundRectangle 10,10,10,10" Margin="10" Grid.Column="1" Grid.Row="1">
+                        <Entry x:Name="ProductNameEntry"
                            Placeholder="Введите название продукта"
                            Text="{Binding Name, Mode=TwoWay}"
                            TextColor="{StaticResource Text}" />
+                    </Border>
+
 
                     <Label Text="Цена" Margin="0,0,10,0" TextColor="{StaticResource Text}" />
-                    <Entry x:Name="CostEntry" Placeholder="Введите стоимость"
+                    <Border StrokeShape="RoundRectangle 10,10,10,10" Margin="10" Grid.Column="1" Grid.Row="1">
+                        <Entry x:Name="CostEntry" Placeholder="Введите стоимость"
                            Text="{Binding Cost, Mode=TwoWay}" Keyboard="Numeric"
                            TextColor="{StaticResource Text}" />
+
+                    </Border>
 
                     <Label Text="Начальный серийный номер" Margin="0,0,10,0" TextColor="{StaticResource Text}" />
                     <Frame BorderColor="{StaticResource Border}"
@@ -46,13 +53,13 @@
                             <!--<Button Text="Генерировать" />-->
                         </HorizontalStackLayout>
                     </Frame>
-
+                    <Label Text="Статус" TextColor="{StaticResource Text}" />
                     <Frame BorderColor="{StaticResource Border}"
                            CornerRadius="5"
                            Padding="0"
                            HasShadow="False"
                            Background="Transparent">
-                        <Picker Title="Статус" x:Name="StatusPicker"
+                        <Picker x:Name="StatusPicker"
                                 ItemsSource="{Binding Status}"
                                 ItemDisplayBinding="{Binding Name, Mode=TwoWay}"
                                 TextColor="{StaticResource Text}"
@@ -61,13 +68,13 @@
                 </VerticalStackLayout>
 
                 <VerticalStackLayout Margin="0,0,25,0" Grid.Column="1" >
-
+                    <Label Text="Категория" TextColor="{StaticResource Text}" />
                     <Frame BorderColor="{StaticResource Border}"
                            CornerRadius="5"
                            Padding="0"
                            HasShadow="False"
                            Background="Transparent">
-                        <Picker Title="Категория" x:Name="CategoryPicker"
+                        <Picker x:Name="CategoryPicker"
                                 ItemsSource="{Binding Category, Mode=TwoWay}"
                                 ItemDisplayBinding="{Binding Name, Mode=TwoWay}"
                                 TextColor="{StaticResource Text}"
@@ -85,15 +92,15 @@
                            TextColor="{StaticResource Text}" />
                     <DatePicker x:Name="WarrantyExpirationPicker" Date="{Binding WarrantyExpiration, Mode=TwoWay}"
                                 TextColor="{StaticResource Text}" />
-
+                    <Label Text="Поставщик" TextColor="{StaticResource Text}" />
                     <Frame BorderColor="{StaticResource Border}"
                            CornerRadius="5"
                            Padding="0"
                            HasShadow="False"
                            Background="Transparent">
-                        <Picker Title="Поставщик" x:Name="SupplierPicker"
+                        <Picker x:Name="SupplierPicker"
                                 ItemsSource="{Binding Suppliers, Mode=TwoWay}"
-                                ItemDisplayBinding="{Binding Name, Mode=TwoWay}"
+                                ItemDisplayBinding="{Binding CompanyName}"
                                 TextColor="{StaticResource Text}"
                                 SelectedItem="{Binding SelectedSupplier, Mode=TwoWay}" />
                     </Frame>
@@ -109,7 +116,7 @@
                        Background="Transparent">
                     <HorizontalStackLayout>
                         <Button Text="Выберите изображение"
-                                BorderColor="{StaticResource SecondaryColor}"
+                                Style="{StaticResource PrimaryButtonStyle}"
                                 WidthRequest="200"
                                 Command="{Binding SelectImageCommand, Mode=TwoWay}">
                             <Button.Shadow>

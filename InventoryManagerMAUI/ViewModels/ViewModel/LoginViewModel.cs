@@ -65,20 +65,28 @@ public class LoginViewModel : INotifyPropertyChanged
         try
         {
             await using InventoryManagmentEntities db = new();
-            // Пример проверки учетных данных
-            string hashedPassword = await HashHelper.ComputeMD5Hash(Password);
-            User? user = db.Users.Include(user => user.UserRoles).ThenInclude(userRole => userRole.Role)
-                .First(x => x.Username == Username && x.Password.ToUpper() == hashedPassword.ToUpper());
-            // Сохранение текущего пользователя
-            if (user != null)
+            try
             {
-                Preferences.Set("CurrentUsername", user.UserID.ToString());
-                Preferences.Set("CurrentRole", user.UserRoles.First().Role.Name);
-                // Обновляем боковое меню
-                UpdateMenuForRole(user.UserRoles.First().Role.Name);
-                // Переход к главной странице
-                if (Application.Current != null) Application.Current.MainPage = new AppShell();
+                // Пример проверки учетных данных
+                string hashedPassword = await HashHelper.ComputeMD5Hash(Password);
+                User? user = db.Users.Include(user => user.UserRoles).ThenInclude(userRole => userRole.Role)
+                    .First(x => x.Username == Username && x.Password.ToUpper() == hashedPassword.ToUpper());
+                // Сохранение текущего пользователя
+                if (user != null)
+                {
+                    Preferences.Set("CurrentUsername", user.UserID.ToString());
+                    Preferences.Set("CurrentRole", user.UserRoles.First().Role.Name);
+                    // Обновляем боковое меню
+                    UpdateMenuForRole(user.UserRoles.First().Role.Name);
+                    // Переход к главной странице
+                    if (Application.Current != null) Application.Current.MainPage = new AppShell();
+                }
             }
+            catch(Exception ex)
+            {
+                await Application.Current.MainPage.DisplayAlert("Ошибка", $"Произошла ошибка: {ex.Message}", "OK");
+            }
+
         }
         finally
         {

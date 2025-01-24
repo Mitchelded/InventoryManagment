@@ -7,18 +7,18 @@
                CanBeDismissedByTappingOutsideOfPopup="False">
 
     <ScrollView MaximumWidthRequest="450" MaximumHeightRequest="250" Margin="10">
-        <Grid ColumnDefinitions="*,*" RowDefinitions="*,*">
-            
-            <Border StrokeShape="RoundRectangle 10,10,10,10" Margin="10" Grid.Column="0" Grid.Row="0" >
+        <Grid ColumnDefinitions="*,*" RowDefinitions="75,75">
+
+            <Border StrokeShape="RoundRectangle 10,10,10,10" Margin="10"  Grid.Column="0" Grid.Row="0">
                 <Entry Placeholder="Введите новое имя" Text="{Binding Name}" Margin="10" />
             </Border>
             <Border StrokeShape="RoundRectangle 10,10,10,10" Margin="10" Grid.Column="1" Grid.Row="0">
                 <Entry Placeholder="Введите новое описание" Text="{Binding Description}" Margin="10"/>
             </Border>
 
-            <Button Grid.Column="0" Grid.Row="1" HeightRequest="25" Margin="25" Style="{StaticResource PrimaryButtonStyle}"
+            <Button Grid.Column="0" Grid.Row="1" Margin="10" Style="{StaticResource PrimaryButtonStyle}"
                     Command="{Binding AddCategoryCommand}" Text="Добавить"/>
-            <Button Grid.Column="1" Grid.Row="1"  Clicked="CloseButton_Click" HeightRequest="25" Text="Close" Margin="25" Style="{StaticResource WarningButtonStyle}"/>
+            <Button Grid.Column="1" Grid.Row="1"  Clicked="CloseButton_Click" Text="Отмена" Margin="10" Style="{StaticResource WarningButtonStyle}"/>
         </Grid>
     </ScrollView>
 

@@ -8,9 +8,15 @@
 
     <ScrollView  MaximumWidthRequest="450" MaximumHeightRequest="250">
         <Grid ColumnDefinitions="*,*" RowDefinitions="75,75">
-            <Entry Margin="10" Grid.Column="0" Grid.Row="0" Placeholder="Введите новое имя" Text="{Binding Name}"/>
-            <Entry Margin="10" Grid.Column="1" Grid.Row="0" Placeholder="Введите новое описание" Text="{Binding Description}"/>
-            <Button Margin="10" Grid.Column="0" Grid.Row="1" Text="Сохранить"
+            <Border StrokeShape="RoundRectangle 10,10,10,10" Margin="10" Grid.Column="0" Grid.Row="0">
+ <Entry Margin="10" Placeholder="Введите новое имя" Text="{Binding Name}"/>
+            </Border>
+           
+            <Border StrokeShape="RoundRectangle 10,10,10,10" Margin="10" Grid.Column="1" Grid.Row="0">
+<Entry Margin="10" Placeholder="Введите новое описание" Text="{Binding Description}"/>
+            </Border>
+            
+            <Button Style="{StaticResource PrimaryButtonStyle}" Margin="10" Grid.Column="0" Grid.Row="1" Text="Сохранить"
                     Command="{Binding UpdateStatusCommand}"
                     CommandParameter="{Binding SelectedStatusItem}"/>
             <Button Margin="10" Grid.Column="1" Grid.Row="1"  Clicked="CloseButton_Click" Style="{StaticResource WarningButtonStyle}" Text="Отмена"/>

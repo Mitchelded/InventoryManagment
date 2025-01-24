@@ -15,7 +15,7 @@ namespace InventoryManagment.Models
 {
     using System;
     using System.Linq;
-    
+
     public partial class InventoryManagmentEntities : DbContext
     {
         public InventoryManagmentEntities()
@@ -23,7 +23,7 @@ namespace InventoryManagment.Models
             // Database.EnsureDeleted();
             if (Database.EnsureCreated())
             {
-                string filePath = Path.Combine(FileSystem.AppDataDirectory,"InventoryManagmentDBDate.sql");
+                string filePath = Path.Combine(FileSystem.AppDataDirectory, "InventoryManagmentDBDate.sql");
                 if (!File.Exists(filePath))
                 {
                     System.Console.WriteLine($"SQL файл не найден: {filePath}");
@@ -35,7 +35,7 @@ namespace InventoryManagment.Models
                     Database.ExecuteSqlRawAsync(sqlScript);
                 }
 
-                
+
                 SaveChanges();
             }
 
@@ -103,25 +103,25 @@ namespace InventoryManagment.Models
             optionsBuilder
                 .UseSqlite("Data Source=InventoryManagmentDB.db");
         }
-        
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            
+
             // Equipment -> Stock (One-to-Many)
             modelBuilder.Entity<Stock>()
                 .HasOne(s => s.Equipment)
                 .WithMany(e => e.Stocks)
                 .HasForeignKey(s => s.EquipmentID)
                 .OnDelete(DeleteBehavior.Cascade);
-            
+
             // Связь между Equipment и Supplier
             modelBuilder.Entity<Equipment>()
                 .HasOne(e => e.Supplier)
                 .WithMany(s => s.Equipments)
                 .HasForeignKey(e => e.SupplierID)
                 .OnDelete(DeleteBehavior.Restrict); // Настройка поведения удаления
-            
+
             // Связь многие ко многим между User и Role
             modelBuilder.Entity<UserRole>()
                 .HasKey(ur => new { ur.UserID, ur.RoleID });
@@ -130,6 +130,14 @@ namespace InventoryManagment.Models
                 .HasOne(ur => ur.User)
                 .WithMany(u => u.UserRoles)
                 .HasForeignKey(ur => ur.UserID);
+
+            modelBuilder.Entity<UserRole>()
+      .HasKey(ur => ur.UserRoleID);
+
+            modelBuilder.Entity<UserRole>()
+                .Property(ur => ur.UserRoleID)
+                .ValueGeneratedOnAdd(); // Указывает, что поле автоинкрементируемое
+
 
             modelBuilder.Entity<UserRole>()
                 .HasOne(ur => ur.Role)
@@ -174,24 +182,24 @@ namespace InventoryManagment.Models
                 .WithMany(u => u.UtilizationRecords)
                 .HasForeignKey(ur => ur.UserID);
         }
-        
+
         public DbSet<Category> Category { get; set; }
-         public DbSet<Department> Departments { get; set; }
-          public DbSet<Equipment> Equipments { get; set; }
-         public DbSet<EquipmentMovement> EquipmentMovements { get; set; }  // Добавлена таблица для движения оборудования
-         public DbSet<Maintenance> Maintenances { get; set; }
-         public DbSet<Order> Orders { get; set; }
-         public DbSet<OrderDetail> OrderDetails { get; set; }
-          public DbSet<Role> Roles { get; set; }
-         public DbSet<Status> Statuses { get; set; }
-         public DbSet<Stock> Stocks { get; set; }
-         public DbSet<Supplier> Suppliers { get; set; }
-          public DbSet<Transaction> Transactions { get; set; }
-         public DbSet<User> Users { get; set; }
-         public DbSet<UserRole> UserRoles { get; set; }
-          public DbSet<UtilizationRecord> UtilizationRecords { get; set; }
-         public DbSet<Warehouse> Warehouses { get; set; }
-         public DbSet<WarrantyClaim> WarrantyClaims { get; set; }
-         
+        public DbSet<Department> Departments { get; set; }
+        public DbSet<Equipment> Equipments { get; set; }
+        public DbSet<EquipmentMovement> EquipmentMovements { get; set; }  // Добавлена таблица для движения оборудования
+        public DbSet<Maintenance> Maintenances { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderDetail> OrderDetails { get; set; }
+        public DbSet<Role> Roles { get; set; }
+        public DbSet<Status> Statuses { get; set; }
+        public DbSet<Stock> Stocks { get; set; }
+        public DbSet<Supplier> Suppliers { get; set; }
+        public DbSet<Transaction> Transactions { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<UserRole> UserRoles { get; set; }
+        public DbSet<UtilizationRecord> UtilizationRecords { get; set; }
+        public DbSet<Warehouse> Warehouses { get; set; }
+        public DbSet<WarrantyClaim> WarrantyClaims { get; set; }
+
     }
 }

@@ -36,8 +36,7 @@
                             <Button Grid.Column="3" Width="25" Text="Удалить" Style="{StaticResource DangerButtonStyle}"
                             Command="{Binding BindingContext.DeleteWarehouseCommand,
                                               Source={RelativeSource AncestorType={x:Type ContentPage}}}"
-                            CommandParameter="{Binding BindingContext.SelectedWarehouseItem,
-                                                    Source={RelativeSource AncestorType={x:Type ContentPage}}}" />
+                            CommandParameter="{Binding}" />
                             <Button Text="Редактировать" Grid.Column="4" Width="25"
                             Clicked="WarehouseEditButton_OnClicked" Style="{StaticResource SuccessButtonStyle}" />
                         </Grid>

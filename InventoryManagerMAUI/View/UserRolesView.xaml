@@ -38,10 +38,9 @@
                             <Label Text="{Binding User.FullName}" Grid.Column="2" />
                             <Label Text="{Binding Role.Name}" Grid.Column="3" />
                             <Button Grid.Column="4" Width="25" Text="Удалить" Style="{StaticResource DangerButtonStyle}"
-                            Command="{Binding BindingContext.DeleteUserCommand,
+                            Command="{Binding BindingContext.DeleteUserRoleCommand,
                                               Source={RelativeSource AncestorType={x:Type ContentPage}}}"
-                            CommandParameter="{Binding BindingContext.SelectedUserRoleItem,
-                                                    Source={RelativeSource AncestorType={x:Type ContentPage}}}" />
+                            CommandParameter="{Binding}" />
                             <Button Text="Редактировать" Grid.Column="5" Width="25"
                             Clicked="UserRoleEditButton_OnClicked" Style="{StaticResource SuccessButtonStyle}" />
                         </Grid>

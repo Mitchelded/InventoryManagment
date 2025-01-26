@@ -42,8 +42,7 @@
                             <Button Grid.Column="5" Width="25" Text="Удалить" Style="{StaticResource DangerButtonStyle}"
                             Command="{Binding BindingContext.DeleteUserCommand,
                                               Source={RelativeSource AncestorType={x:Type ContentPage}}}"
-                            CommandParameter="{Binding BindingContext.SelectedUserItem,
-                                                    Source={RelativeSource AncestorType={x:Type ContentPage}}}" />
+                            CommandParameter="{Binding}" />
                             <Button Text="Редактировать" Grid.Column="6" Width="25"
                             Clicked="UserEditButton_OnClicked" Style="{StaticResource SuccessButtonStyle}" />
                         </Grid>

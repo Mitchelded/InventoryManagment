@@ -124,8 +124,7 @@
                                 <Button Style="{StaticResource DangerButtonStyle}" Text="Удалить" Grid.Column="9" 
                             Command="{Binding BindingContext.DeleteCommand, 
                             Source={RelativeSource AncestorType={x:Type ContentPage}}}"
-                            CommandParameter="{Binding BindingContext.SelectedItem, 
-                            Source={RelativeSource AncestorType={x:Type ContentPage}}, Mode=TwoWay}" />
+                            CommandParameter="{Binding }" />
                                 <Button Style="{StaticResource SuccessButtonStyle}" Grid.Column="10" Text="Редактировать" Clicked="Button_OnClicked" />
                             </Grid>
                         </ViewCell>

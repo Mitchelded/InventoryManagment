@@ -109,7 +109,7 @@
                                 Command="{Binding BindingContext.DetailCommand, Source={RelativeSource AncestorType={x:Type ContentPage}}}" />
                                     <Button Style="{StaticResource DangerButtonStyle}" Text="Удалить" Grid.Column="5" 
                                 Command="{Binding BindingContext.DeleteCommand, Source={RelativeSource AncestorType={x:Type ContentPage}}}"
-                                CommandParameter="{Binding BindingContext.SelectedItem, Source={RelativeSource AncestorType={x:Type ContentPage}}, Mode=TwoWay}" />
+                                CommandParameter="{Binding}" />
                                     <Button Style="{StaticResource SuccessButtonStyle}" Grid.Column="6" Text="Редактировать" Clicked="Button_OnClicked" />
 
                                 </Grid>

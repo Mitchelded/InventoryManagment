@@ -38,8 +38,7 @@
                             <Button Grid.Column="3" Width="25" Text="Удалить" Style="{StaticResource DangerButtonStyle}"
                             Command="{Binding BindingContext.DeleteStatusCommand,
                                               Source={RelativeSource AncestorType={x:Type ContentPage}}}"
-                            CommandParameter="{Binding BindingContext.SelectedStatusItem, 
-                                                    Source={RelativeSource AncestorType={x:Type ContentPage}}}" />
+                            CommandParameter="{Binding}" />
                             <Button Text="Редактировать" Grid.Column="4" Width="25"
                             Clicked="StatusEditButton_OnClicked" Style="{StaticResource SuccessButtonStyle}" />
                         </Grid>
